@@ -6,8 +6,6 @@ import ScrollTrigger from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
 
-// cc
-
 export default function HeroSection() {
   // Refs for elements
   const heroRef = useRef(null);
@@ -183,7 +181,7 @@ export default function HeroSection() {
           <span
             ref={textRefs[1]}
             className='absolute top-0 left-0 font-extrabold bg-gradient-to-r from-[#BE2FF4] to-[#6210FF] text-transparent bg-clip-text text-[60px] sm:text-[120px] leading-[1.1] inline-block transform translate-y-full'>
-            Tech - Mar
+            AI-Powered
           </span>
 
           <span

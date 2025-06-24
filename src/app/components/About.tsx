@@ -44,30 +44,30 @@ export default function About() {
       tl.to(card2Ref.current, { top: "20%", duration: 1 }, "-=.9");
     }, sectionRef);
 
-    gsap.to(imageRef.current, {
-      yPercent: -50, // or adjust: try '-30%' for stronger parallax
-      ease: "none",
-      scrollTrigger: {
-        trigger: ".parallax",
-        start: "top center",
-        end: "bottom top",
-        scrub: true,
-      },
-    });
+    // gsap.to(imageRef.current, {
+    //   yPercent: -50, // or adjust: try '-30%' for stronger parallax
+    //   ease: "none",
+    //   scrollTrigger: {
+    //     trigger: ".parallax",
+    //     start: "top center",
+    //     end: "bottom top",
+    //     scrub: true,
+    //   },
+    // });
 
-    gsap.from(".point", {
-      opacity: 0,
-      y: 50,
-      duration: 1,
-      stagger: 1,
-      ease: "ease-in",
-      scrollTrigger: {
-        trigger: ".foundation",
-        start: "top top",
-        end: "bottom top",
-        pin: true,
-      },
-    });
+    // gsap.from(".point", {
+    //   opacity: 0,
+    //   y: 50,
+    //   duration: 1,
+    //   stagger: 1,
+    //   ease: "ease-in",
+    //   scrollTrigger: {
+    //     trigger: ".foundation",
+    //     start: "top top",
+    //     end: "bottom top",
+    //     pin: true,
+    //   },
+    // });
 
     gsap.fromTo(
       maskRef.current,
@@ -97,16 +97,17 @@ export default function About() {
         <div className="relative h-full flex flex-col justify-center items-center w-full ">
           <div
             ref={imageRef}
-            className="absolute top-0 left-0 bottom-0 overflow-hidden z-1  flex flex-col justify-center items-center w-[100%] h-[200%] left-0"
+            className="absolute top-0 left-0 bottom-0 overflow-hidden z-10  flex flex-col justify-center items-center w-[100%] h-[200%] left-0"
             style={{
               backgroundImage: "url('/voice.jpg')",
               backgroundSize: "cover",
-              backgroundPosition: "center",
+              backgroundPosition: "center top",
               backgroundRepeat: "no-repeat",
+              backgroundAttachment: "fixed"
             }}
           ></div>
-          <h1 className="z-10 relative animate__animated animate__fadeInUp leading-snug text-white text-4xl md:text-6xl font-medium text-center p-4 rounded-lg">
-            Your Voice in the Future of Marketing.
+          <h1 className="z-10 relative animate__animated animate__fadeInUp leading-snug text-white text-4xl md:text-7xl font-medium text-center p-4 rounded-lg">
+            Your Voice in the <br /> Future of Marketing.
           </h1>
         </div>
       </section>
@@ -116,7 +117,7 @@ export default function About() {
         className="relative flex min-h-screen flex-col items-center justify-start  bg-[#EEF0FF]"
       >
         <div ref={titleRef}>
-          <h1 className=" text-6xl  pt-[60px] text-center font-[500] text-[#6210FF] animate__animated animate__fadeInUp">
+          <h1 className="text-6xl md:text-8xl  pt-[60px] text-center font-[500] text-[#6210FF] animate__animated animate__fadeInUp">
             Our Services
           </h1>
         </div>
@@ -126,7 +127,7 @@ export default function About() {
           className="absolute top-[100%] z-10 bg-white rounded-[30px] shadow-2xl max-w-[1200px] w-full md:flex overflow-hidden"
         >
           <div className="md:w-1/2 p-10 flex justify-center items-center">
-            <Image
+            <img
               width={100}
               height={100}
               src={"/card-img.png"}
@@ -184,7 +185,7 @@ export default function About() {
           className="absolute top-[100%] z-0 bg-white rounded-[30px] shadow-2xl max-w-[1200px] w-full md:flex overflow-hidden"
         >
           <div className="md:w-1/2 p-10 flex justify-center items-center">
-            <Image
+            <img
               width={100}
               height={100}
               src={"/card-img.png"}

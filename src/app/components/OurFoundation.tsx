@@ -6,6 +6,8 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
 
+// cc
+
 const OurFoundation = () => {
   const sectionRef = useRef(null);
   const leftRef = useRef(null);

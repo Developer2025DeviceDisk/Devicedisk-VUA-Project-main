@@ -103,20 +103,23 @@ export default function About() {
       });
     
       gsap.fromTo(
-      maskRef.current,
-      { scale: 0.6, transformOrigin: '50% 50%' },
-      {
-        scale: 1,
-        duration:1,
-        ease: 'power2.out',
-        scrollTrigger: {
-          trigger: '.video-mask',
-          start: 'top center',
-          end: 'bottom bottom',
-          scrub: 1,
-        },
-      }
-    );
+  maskRef.current,
+  { 
+    scale: 0.8, // Increased from 0.6 to make it initially larger
+    transformOrigin: '50% 50%'
+  },
+  {
+    scale: 1,
+    duration: 1,
+    ease: 'power2.out',
+    scrollTrigger: {
+      trigger: '.video-mask',
+      start: 'top center',
+      end: 'bottom bottom',
+      scrub: 1,
+    },
+  }
+);
 
     return () => ctx.revert();
   }, []);
@@ -180,22 +183,24 @@ export default function About() {
   
     <div  ref={card1Ref} className="absolute top-[100%] z-0 bg-white rounded-[30px] shadow-2xl max-w-[1200px] w-full md:flex overflow-hidden">
       <div className="md:w-1/2 p-10 flex justify-center items-center">
-        <Image width={ 100 } height = { 100 } src={'/card-img.png'} alt="Main Card" className="w-[450px] h-auto object-cover rounded-xl" />
+        <Image width={ 100 } height = { 100 } src={'/card-img.png'} alt="Main Card" className="w-full h-full object-cover rounded-xl" />
       </div>
 
-      <div className="p-8 md:w-1/2 flex flex-col">
-        <h2 className="text-4xl font-normal text-gray-900 mb-4">Websites & Digital Platforms</h2>
-        <p className="text-gray-600 mb-6">We design digital platforms to empower users and your brand's</p>
+      <div className="p-8 md:w-1/2 flex flex-col h-full bg-red-50">
+        <div className='h-full'>
+          <h2 className="text-5xl font-outfit leading-tight text-gray-900 mb-4">Websites & Digital Platforms</h2>
+          <p className="text-3xl leading-tight text-gray-900 mb-6">We design digital platforms to empower users and your brand's</p>
 
-        <div className="flex flex-wrap gap-2 mb-6">
-          <span className="px-3 py-1 border border-gray-300 rounded-full text-sm">Digital Strategy</span>
-          <span className="px-3 py-1 border border-gray-300 rounded-full text-sm">Digital Activation</span>
-          <span className="px-3 py-1 border border-gray-300 rounded-full text-sm">UX & UI Design</span>
-          <span className="px-3 py-1 border border-gray-300 rounded-full text-sm">Web & App Development</span>
-          <span className="px-3 py-1 border border-gray-300 rounded-full text-sm">SEO Strategy & Systems</span>
+          <div className="flex flex-wrap gap-2 mb-6">
+            <span className="px-4 py-2 border border-gray-300 rounded-full text-xl">Digital Strategy</span>
+            <span className="px-4 py-2 border border-gray-300 rounded-full text-xl">Digital Activation</span>
+            <span className="px-4 py-2 border border-gray-300 rounded-full text-xl">UX & UI Design</span>
+            <span className="px-4 py-2 border border-gray-300 rounded-full text-xl">Web & App Development</span>
+            <span className="px-4 py-2 border border-gray-300 rounded-full text-xl">SEO Strategy & Systems</span>
+          </div>
         </div>
 
-        <div className="flex">
+        <div className="flex bg-red-50">
           <button className="flex items-center gap-2 px-5 py-2 border border-violet-500 text-violet-600 rounded-full hover:bg-violet-50 transition">
             EXPLORE MORE
             

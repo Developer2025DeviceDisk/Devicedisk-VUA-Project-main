@@ -13,11 +13,10 @@ export default function HeroSection() {
   const img2Ref = useRef(null);
   const img3Ref = useRef(null);
   const textContainerRef = useRef(null);
-  const textRefs = [useRef(null), useRef(null), useRef(null)]; // Array for text elements
+  const textRefs = [useRef(null), useRef(null), useRef(null)];
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Main timeline with ScrollTrigger
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: heroRef.current,
@@ -35,14 +34,12 @@ export default function HeroSection() {
       gsap.set(textRefs[2].current, { y: '100%', opacity: 0 });
 
       // Animation sequence
-      tl
-        // First transition: Mar-Tech → Tech-Mar
-        .to(textRefs[0].current, {
-          y: '-100%',
-          opacity: 0,
-          duration: 0.8,
-          ease: 'power2.inOut',
-        })
+      tl.to(textRefs[0].current, {
+        y: '-100%',
+        opacity: 0,
+        duration: 0.8,
+        ease: 'power2.inOut',
+      })
         .to(
           img1Ref.current,
           { opacity: 0, duration: 0.8, ease: 'power2.inOut' },
@@ -50,12 +47,7 @@ export default function HeroSection() {
         )
         .to(
           textRefs[1].current,
-          {
-            y: '0%',
-            opacity: 1,
-            duration: 0.8,
-            ease: 'power2.inOut',
-          },
+          { y: '0%', opacity: 1, duration: 0.8, ease: 'power2.inOut' },
           '<0.1'
         )
         .to(
@@ -63,16 +55,9 @@ export default function HeroSection() {
           { opacity: 1, duration: 0.8, ease: 'power2.inOut' },
           '<'
         )
-
-        // Second transition: Tech-Mar → Marketing
         .to(
           textRefs[1].current,
-          {
-            y: '-100%',
-            opacity: 0,
-            duration: 0.8,
-            ease: 'power2.inOut',
-          },
+          { y: '-100%', opacity: 0, duration: 0.8, ease: 'power2.inOut' },
           '+=0.3'
         )
         .to(
@@ -82,12 +67,7 @@ export default function HeroSection() {
         )
         .to(
           textRefs[2].current,
-          {
-            y: '0%',
-            opacity: 1,
-            duration: 0.8,
-            ease: 'power2.inOut',
-          },
+          { y: '0%', opacity: 1, duration: 0.8, ease: 'power2.inOut' },
           '<0.1'
         )
         .to(
@@ -117,46 +97,69 @@ export default function HeroSection() {
         />
       </video>
 
-      {/* Custom shape SVG */}
-      <div className='w-full absolute bottom-[-20%] right-[-70%] min-h-screen'>
-        <div className='svg-col w-full'>
+      {/* Custom shape SVG - Using your provided shape */}
+      <div className='w-full absolute bottom-5 right-[-5%] h-full flex justify-end items-end pr-10 pb-10'>
+        <div
+          className='relative'
+          style={{ width: '798px', height: '531px' }}>
           <svg
-            width='975'
-            height='530'
-            viewBox='0 0 1375 530'
+            width='798'
+            height='531'
+            viewBox='0 0 798 531'
             fill='none'
-            xmlns='http://www.w3.org/2000/svg'>
+            xmlns='http://www.w3.org/2000/svg'
+            className='overflow-visible'>
             <defs>
               <clipPath
-                id='bgblur_0_58129_2400_clip_path'
-                transform='translate(21.812 21.812)'>
-                <path d='M282.971 0.5C350.223 155.56 505.933 264.331 687.487 264.331C869.041 264.331 1024.75 155.561 1092 0.5H1374.33C1296.88 304.623 1018.63 529.487 687.487 529.487C356.342 529.487 77.836 304.622 0.643555 0.5H282.971Z' />
+                id='bgblur_clip_path'
+                transform='translate(0 0)'>
+                <path d='M1375.24 0.0751953C1297.95 304.734 1019.35 530.063 687.749 530.063C356.147 530.063 77.2875 304.734 0.261719 0.0751953H283.56C350.664 155.118 506.282 263.906 687.749 263.906C869.217 263.906 1024.83 155.118 1091.94 0.0751953H1375.24Z' />
               </clipPath>
             </defs>
 
-            {/* Images */}
+            {/* Background shape with blur effect */}
+            <foreignObject
+              x='0'
+              y='0'
+              width='798'
+              height='531'>
+              <div
+                xmlns='http://www.w3.org/1999/xhtml'
+                style={{
+                  backdropFilter: 'blur(10.91px)',
+                  clipPath: 'url(#bgblur_clip_path)',
+                  height: '100%',
+                  width: '100%',
+                  background: 'rgba(180, 60, 255, 0.2)', // Semi-transparent purple
+                }}></div>
+            </foreignObject>
+
+            {/* Images with clip path */}
             <image
               ref={img1Ref}
               href='/Mask.png'
-              width='875'
-              height='730'
-              clipPath='url(#bgblur_0_58129_2400_clip_path)'
+              width='798'
+              height='531'
+              clipPath='url(#bgblur_clip_path)'
+              preserveAspectRatio='xMidYMid slice'
             />
             <image
               ref={img2Ref}
-              className='opacity-0'
               href='/mask-img1.jpg'
-              width='875'
-              height='730'
-              clipPath='url(#bgblur_0_58129_2400_clip_path)'
+              width='798'
+              height='531'
+              clipPath='url(#bgblur_clip_path)'
+              preserveAspectRatio='xMidYMid slice'
+              style={{ opacity: 0 }}
             />
             <image
               ref={img3Ref}
-              className='opacity-0'
               href='/mask-img2.jpg'
-              width='875'
-              height='730'
-              clipPath='url(#bgblur_0_58129_2400_clip_path)'
+              width='798'
+              height='531'
+              clipPath='url(#bgblur_clip_path)'
+              preserveAspectRatio='xMidYMid slice'
+              style={{ opacity: 0 }}
             />
           </svg>
         </div>
@@ -171,22 +174,21 @@ export default function HeroSection() {
         <div
           ref={textContainerRef}
           className='martech-wrapper w-full relative overflow-hidden h-[60px] sm:h-[120px]'>
-          {/* Text elements */}
           <span
             ref={textRefs[0]}
             className='absolute top-0 left-0 font-extrabold bg-gradient-to-r from-[#6210FF] to-[#BE2FF4] text-transparent bg-clip-text text-[60px] sm:text-[120px] leading-[1.1] inline-block'>
             Mar - Tech
           </span>
-
           <span
             ref={textRefs[1]}
-            className='absolute top-0 left-0 font-extrabold bg-gradient-to-r from-[#BE2FF4] to-[#6210FF] text-transparent bg-clip-text text-[60px] sm:text-[120px] leading-[1.1] inline-block transform translate-y-full'>
+            className='absolute top-0 left-0 font-extrabold bg-gradient-to-r from-[#BE2FF4] to-[#6210FF] text-transparent bg-clip-text text-[60px] sm:text-[120px] leading-[1.1] inline-block'
+            style={{ opacity: 0, transform: 'translateY(100%)' }}>
             AI-Powered
           </span>
-
           <span
             ref={textRefs[2]}
-            className='absolute top-0 left-0 font-extrabold bg-gradient-to-r from-[#FF6B6B] to-[#4ECDC4] text-transparent bg-clip-text text-[60px] sm:text-[120px] leading-[1.1] inline-block transform translate-y-full'>
+            className='absolute top-0 left-0 font-extrabold bg-gradient-to-r from-[#FF6B6B] to-[#4ECDC4] text-transparent bg-clip-text text-[60px] sm:text-[120px] leading-[1.1] inline-block'
+            style={{ opacity: 0, transform: 'translateY(100%)' }}>
             Marketing
           </span>
         </div>

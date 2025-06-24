@@ -6,6 +6,8 @@ import ScrollTrigger from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
 
+// cc
+
 export default function HeroSection() {
   // Refs for elements
   const heroRef = useRef(null);

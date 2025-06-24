@@ -14,7 +14,7 @@ export default function Footer() {
     <footer className='bg-gradient-to-r from-[#5F00F6] to-[#B933FF] text-white px-6 py-10'>
       <div className='max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-10 items-start'>
         {/* First Column */}
-        <div className='space-y-6'>
+        <div className='space-y-10'>
           <div>
             <div className='text-3xl sm:text-4xl md:text-5xl font-semibold tracking-wide'>
               <svg
@@ -37,7 +37,7 @@ export default function Footer() {
                 />
               </svg>
             </div>
-            <p className='uppercase text-sm tracking-widest'>
+            <p className='uppercase text-sm tracking-widest mt-5'>
               Voix & Vision Worx
             </p>
           </div>

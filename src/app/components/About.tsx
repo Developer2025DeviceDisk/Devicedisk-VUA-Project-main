@@ -117,7 +117,7 @@ export default function About() {
         className="relative flex min-h-screen flex-col items-center justify-start  bg-[#EEF0FF]"
       >
         <div ref={titleRef}>
-          <h1 className="text-6xl md:text-8xl  pt-[60px] text-center font-[500] text-[#6210FF] animate__animated animate__fadeInUp">
+          <h1 className="text-6xl md:text-9xl  pt-[60px] text-center font-[500] text-[#6210FF] animate__animated animate__fadeInUp">
             Our Services
           </h1>
         </div>
@@ -136,7 +136,7 @@ export default function About() {
             />
           </div>
 
-          <div className="p-8 md:w-1/2 flex flex-col h-full">
+          <div className="p-8 md:w-1/2 flex flex-col h-full" style={{ fontFamily: "'Outfit', sans-serif" }}>
             <div className="flex-grow">
               {" "}
               {/* This div will take all available space except button */}
@@ -194,7 +194,7 @@ export default function About() {
             />
           </div>
 
-          <div className="p-8 md:w-1/2 flex flex-col h-full">
+          <div className="p-8 md:w-1/2 flex flex-col h-full" style={{ fontFamily: "'Outfit', sans-serif" }}>
             <div className="flex-grow">
               {" "}
               {/* This div will take all available space except button */}

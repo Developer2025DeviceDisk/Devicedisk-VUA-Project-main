@@ -167,7 +167,7 @@ export default function HeroSection() {
 
       {/* Text block */}
       <div className='relative z-10 h-full flex flex-col items-start justify-center px-6 md:px-16'>
-        <h2 className='text-[60px] sm:text-[120px] text-white leading-[1.1] max-w-[800px]'>
+        <h2 className='text-[85px] sm:text-[120px] text-white leading-[1.1] max-w-[800px]'>
           We are
         </h2>
 
@@ -176,18 +176,18 @@ export default function HeroSection() {
           className='martech-wrapper w-full relative overflow-hidden h-[60px] sm:h-[120px]'>
           <span
             ref={textRefs[0]}
-            className='absolute top-0 left-0 font-extrabold bg-gradient-to-r from-[#6210FF] to-[#BE2FF4] text-transparent bg-clip-text text-[60px] sm:text-[120px] leading-[1.1] inline-block'>
+            className='absolute top-0 left-0 font-extrabold bg-gradient-to-r from-[#6210FF] to-[#BE2FF4] text-transparent bg-clip-text text-[85px] sm:text-[120px] leading-[1.1] inline-block'>
             Mar - Tech
           </span>
           <span
             ref={textRefs[1]}
-            className='absolute top-0 left-0 font-extrabold bg-gradient-to-r from-[#BE2FF4] to-[#6210FF] text-transparent bg-clip-text text-[60px] sm:text-[120px] leading-[1.1] inline-block'
+            className='absolute top-0 left-0 font-extrabold bg-gradient-to-r from-[#BE2FF4] to-[#6210FF] text-transparent bg-clip-text text-[85px] sm:text-[120px] leading-[1.1] inline-block'
             style={{ opacity: 0, transform: 'translateY(100%)' }}>
             AI-Powered
           </span>
           <span
             ref={textRefs[2]}
-            className='absolute top-0 left-0 font-extrabold bg-gradient-to-r from-[#FF6B6B] to-[#4ECDC4] text-transparent bg-clip-text text-[60px] sm:text-[120px] leading-[1.1] inline-block'
+            className='absolute top-0 left-0 font-extrabold bg-gradient-to-r from-[#FF6B6B] to-[#4ECDC4] text-transparent bg-clip-text text-[85px] sm:text-[120px] leading-[1.1] inline-block'
             style={{ opacity: 0, transform: 'translateY(100%)' }}>
             Marketing
           </span>

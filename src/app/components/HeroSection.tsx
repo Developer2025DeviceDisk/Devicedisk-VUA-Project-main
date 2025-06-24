@@ -124,7 +124,6 @@ export default function HeroSection() {
               width='798'
               height='531'>
               <div
-                xmlns='http://www.w3.org/1999/xhtml'
                 style={{
                   backdropFilter: 'blur(10.91px)',
                   clipPath: 'url(#bgblur_clip_path)',

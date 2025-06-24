@@ -106,7 +106,7 @@ export default function About() {
               backgroundAttachment: "fixed"
             }}
           ></div>
-          <h1 className="z-10 relative animate__animated animate__fadeInUp leading-snug text-white text-4xl md:text-7xl font-medium text-center p-4 rounded-lg">
+          <h1 className="z-10 relative animate__animated animate__fadeInUp leading-snug text-white text-4xl md:text-8xl font-medium text-center p-4 rounded-lg">
             Your Voice in the <br /> Future of Marketing.
           </h1>
         </div>

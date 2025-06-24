@@ -11,15 +11,15 @@ import {
 
 export default function Footer() {
   return (
-    <footer className='bg-gradient-to-r from-[#5F00F6] to-[#B933FF] text-white px-6 py-10'>
+    <footer className='bg-gradient-to-r from-[#5F00F6] to-[#B933FF] text-white px-6 py-20' style={{fontFamily: 'Outfit'}}>
       <div className='max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-10 items-start'>
         {/* First Column */}
         <div className='space-y-10'>
           <div>
             <div className='text-3xl sm:text-4xl md:text-5xl font-semibold tracking-wide'>
               <svg
-                width='94'
-                height='52'
+                width='160'
+                height='120'
                 viewBox='0 0 94 52'
                 fill='none'
                 xmlns='http://www.w3.org/2000/svg'>
@@ -37,11 +37,11 @@ export default function Footer() {
                 />
               </svg>
             </div>
-            <p className='uppercase text-sm tracking-widest mt-5'>
+            <p className='uppercase text-sm tracking-widest'>
               Voix & Vision Worx
             </p>
           </div>
-          <div>
+          <div className='mt-20'>
             <p className='mb-2'>Follow Us:</p>
             <div className='flex space-x-4 items-center'>
               <a
@@ -70,12 +70,7 @@ export default function Footer() {
 
         {/* Rest of your footer remains the same */}
         {/* Second Column */}
-        <div className='flex flex-col space-y-3 text-white font-medium text-lg'>
-          <Link
-            href='/'
-            className='text-white'>
-            Home
-          </Link>
+        <div className='flex flex-col space-y-3 text-white font-medium text-xl'>
           <Link
             href='/Services'
             className='text-white'>
@@ -100,7 +95,7 @@ export default function Footer() {
         <div className='space-y-2 text-white font-medium text-lg'>
           {/* Dubai */}
           <div className='group relative pb-4'>
-            <div className='flex items-center justify-between border-b border-white/60 pb-2 cursor-pointer'>
+            <div className='flex items-center text-3xl justify-between border-b border-white/60 pb-2 cursor-pointer'>
               <span>Dubai</span>
             </div>
             <div className='max-h-0 overflow-hidden group-hover:max-h-40 transition-all duration-1000 text-white mt-1'>
@@ -111,7 +106,7 @@ export default function Footer() {
           </div>
 
           <div className='group relative pb-4'>
-            <div className='flex items-center justify-between border-b border-white/60 pb-2 cursor-pointer'>
+            <div className='flex items-center text-3xl justify-between border-b border-white/60 pb-2 cursor-pointer'>
               <span>Mumbai</span>
             </div>
             <div className='max-h-0 overflow-hidden group-hover:max-h-40 transition-all duration-1000 text-white mt-1'>
@@ -122,7 +117,7 @@ export default function Footer() {
           </div>
 
           <div className='group relative pb-4'>
-            <div className='flex items-center justify-between border-b border-white/60 pb-2 cursor-pointer'>
+            <div className='flex items-center text-3xl justify-between border-b border-white/60 pb-2 cursor-pointer'>
               <span>Pune</span>
             </div>
             <div className='max-h-0 overflow-hidden group-hover:max-h-40 transition-all duration-1000 text-white mt-1'>

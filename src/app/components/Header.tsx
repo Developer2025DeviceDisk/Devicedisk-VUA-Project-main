@@ -26,7 +26,7 @@ export default function Header() {
 
   return (
     <>
-      <header className=" mx-auto fixed top-0 w-full flex justify-between items-center px-4 sm:px-6 py-3 sm:py-4 bg-transparent text-white z-50">
+      <header className=" mx-auto fixed top-0 w-full flex justify-between items-center px-4 sm:px-6 py-3 sm:py-4 bg-transparent backdrop-blur-lg text-white z-50">
         <div className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-wide">
           <svg width="94" height="52" viewBox="0 0 94 52" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M75.5327 15.0625C65.5458 15.0625 57.4453 23.163 57.4453 33.15C57.4453 43.137 65.5458 51.2375 75.5327 51.2375C79.7748 51.2375 83.6758 49.7773 86.7561 47.3365V51.2375H93.6202V32.9741C93.5242 23.0724 85.4611 15.0678 75.5327 15.0678V15.0625ZM75.5327 44.3734C69.3348 44.3734 64.3094 39.3479 64.3094 33.15C64.3094 26.9521 69.3348 21.9266 75.5327 21.9266C81.7306 21.9266 86.7561 26.9521 86.7561 33.15C86.7561 39.3479 81.7306 44.3734 75.5327 44.3734Z" fill="white" />

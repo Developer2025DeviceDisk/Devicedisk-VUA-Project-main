@@ -83,7 +83,7 @@ export default function HeroSection() {
   return (
     <section
       ref={heroRef}
-      className='hero-section w-full h-[100vh] relative overflow-hidden bg-black'>
+      className='hero-section w-full h-screen relative overflow-hidden bg-black'>
       {/* Background video */}
       <video
         className='absolute top-0 left-0 w-full h-full object-cover'
@@ -98,16 +98,15 @@ export default function HeroSection() {
       </video>
 
       {/* Custom shape SVG - Using your provided shape */}
-      <div className='w-full absolute bottom-5 right-[-5%] h-full flex justify-end items-end pr-10 pb-10'>
-        <div
-          className='relative'
-          style={{ width: '798px', height: '531px' }}>
+      <div className='w-full absolute bottom-0 right-[-10%] h-full flex justify-end items-end pr-4 pb-4 md:pr-10 md:pb-10'>
+        <div className='relative w-full max-w-[700px] h-[500px] sm:max-w-[700px] sm:h-[500px] md:max-w-[500px] md:h-[333px] lg:max-w-[600px] lg:h-[400px] xl:max-w-[798px] xl:h-[531px]'>
           <svg
-            width='798'
-            height='531'
+            width='100%'
+            height='100%'
             viewBox='0 0 798 531'
             fill='none'
             xmlns='http://www.w3.org/2000/svg'
+            preserveAspectRatio='xMidYMid meet'
             className='overflow-visible'>
             <defs>
               <clipPath
@@ -121,8 +120,8 @@ export default function HeroSection() {
             <foreignObject
               x='0'
               y='0'
-              width='798'
-              height='531'>
+              width='100%'
+              height='100%'>
               <div
                 style={{
                   backdropFilter: 'blur(10.91px)',
@@ -137,16 +136,16 @@ export default function HeroSection() {
             <image
               ref={img1Ref}
               href='/Mask.png'
-              width='798'
-              height='531'
+              width='100%'
+              height='100%'
               clipPath='url(#bgblur_clip_path)'
               preserveAspectRatio='xMidYMid slice'
             />
             <image
               ref={img2Ref}
               href='/mask-img1.jpg'
-              width='798'
-              height='531'
+              width='100%'
+              height='100%'
               clipPath='url(#bgblur_clip_path)'
               preserveAspectRatio='xMidYMid slice'
               style={{ opacity: 0 }}
@@ -154,8 +153,8 @@ export default function HeroSection() {
             <image
               ref={img3Ref}
               href='/mask-img2.jpg'
-              width='798'
-              height='531'
+              width='100%'
+              height='100%'
               clipPath='url(#bgblur_clip_path)'
               preserveAspectRatio='xMidYMid slice'
               style={{ opacity: 0 }}
@@ -165,28 +164,28 @@ export default function HeroSection() {
       </div>
 
       {/* Text block */}
-      <div className='relative z-10 h-full flex flex-col items-start justify-center px-6 md:px-16'>
-        <h2 className='text-[85px] sm:text-[120px] text-white leading-[1.1] max-w-[800px]'>
+      <div className='relative z-10 h-full flex flex-col items-start justify-center px-4 sm:px-6 md:px-8 lg:px-16'>
+        <h2 className='text-5xl xs:text-6xl sm:text-7xl md:text-8xl lg:text-[85px] xl:text-[120px] text-white leading-[1.1] max-w-[90%] md:max-w-[800px]'>
           We are
         </h2>
 
         <div
           ref={textContainerRef}
-          className='martech-wrapper w-full relative overflow-hidden h-[60px] sm:h-[120px]'>
+          className='martech-wrapper w-full relative overflow-hidden h-[72px] xs:h-[84px] sm:h-[102px] md:h-[120px] lg:h-[136px] xl:h-[144px]'>
           <span
             ref={textRefs[0]}
-            className='absolute top-0 left-0 font-extrabold bg-gradient-to-r from-[#6210FF] to-[#BE2FF4] text-transparent bg-clip-text text-[85px] sm:text-[120px] leading-[1.1] inline-block'>
+            className='absolute top-0 left-0 font-extrabold bg-gradient-to-r from-[#6210FF] to-[#BE2FF4] text-transparent bg-clip-text text-5xl xs:text-6xl sm:text-7xl md:text-8xl lg:text-[85px] xl:text-[120px] leading-[1.2] inline-block'>
             Mar - Tech
           </span>
           <span
             ref={textRefs[1]}
-            className='absolute top-0 left-0 font-extrabold bg-gradient-to-r from-[#BE2FF4] to-[#6210FF] text-transparent bg-clip-text text-[85px] sm:text-[120px] leading-[1.1] inline-block'
+            className='absolute top-0 left-0 font-extrabold bg-gradient-to-r from-[#BE2FF4] to-[#6210FF] text-transparent bg-clip-text text-5xl xs:text-6xl sm:text-7xl md:text-8xl lg:text-[85px] xl:text-[120px] leading-[1.2] inline-block'
             style={{ opacity: 0, transform: 'translateY(100%)' }}>
             AI-Powered
           </span>
           <span
             ref={textRefs[2]}
-            className='absolute top-0 left-0 font-extrabold bg-gradient-to-r from-[#FF6B6B] to-[#4ECDC4] text-transparent bg-clip-text text-[85px] sm:text-[120px] leading-[1.1] inline-block'
+            className='absolute top-0 left-0 font-extrabold bg-gradient-to-r from-[#BE2FF4] to-[#6210FF] text-transparent bg-clip-text text-5xl xs:text-6xl sm:text-7xl md:text-8xl lg:text-[85px] xl:text-[120px] leading-[1.2] inline-block'
             style={{ opacity: 0, transform: 'translateY(100%)' }}>
             Marketing
           </span>

@@ -97,98 +97,101 @@ export default function HeroSection() {
         />
       </video>
 
-      {/* Custom shape SVG - Using your provided shape */}
-      <div className='w-full absolute bottom-0 right-[-10%] h-full flex justify-end items-end pr-4 pb-4 md:pr-10 md:pb-10'>
-        <div className='relative w-full max-w-[700px] h-[500px] sm:max-w-[700px] sm:h-[500px] md:max-w-[500px] md:h-[333px] lg:max-w-[600px] lg:h-[400px] xl:max-w-[798px] xl:h-[531px]'>
-          <svg
-            width='100%'
-            height='100%'
-            viewBox='0 0 798 531'
-            fill='none'
-            xmlns='http://www.w3.org/2000/svg'
-            preserveAspectRatio='xMidYMid meet'
-            className='overflow-visible'>
-            <defs>
-              <clipPath
-                id='bgblur_clip_path'
-                transform='translate(0 0)'>
-                <path d='M1375.24 0.0751953C1297.95 304.734 1019.35 530.063 687.749 530.063C356.147 530.063 77.2875 304.734 0.261719 0.0751953H283.56C350.664 155.118 506.282 263.906 687.749 263.906C869.217 263.906 1024.83 155.118 1091.94 0.0751953H1375.24Z' />
-              </clipPath>
-            </defs>
+      {/* Content container */}
+      <div className='mx-auto h-full flex flex-col lg:flex-row items-center justify-center px-0 md:px-0 lg:px-0 sm:px-6 relative z-10'>
+        {/* Text block - full width on mobile, half on desktop */}
+        <div className='w-full lg:w-1/2 h-auto lg:h-full flex flex-col items-center lg:items-start justify-center py-8 md:pl-10 lg:py-0 '>
+          <h2 className='text-5xl xs:text-6xl sm:text-7xl md:text-8xl lg:text-[85px] xl:text-[120px] text-white leading-[1.1] text-center lg:text-left'>
+            We are
+          </h2>
 
-            {/* Background shape with blur effect */}
-            <foreignObject
-              x='0'
-              y='0'
-              width='100%'
-              height='100%'>
-              <div
-                style={{
-                  backdropFilter: 'blur(10.91px)',
-                  clipPath: 'url(#bgblur_clip_path)',
-                  height: '100%',
-                  width: '100%',
-                  background: 'rgba(180, 60, 255, 0.2)', // Semi-transparent purple
-                }}></div>
-            </foreignObject>
-
-            {/* Images with clip path */}
-            <image
-              ref={img1Ref}
-              href='/Mask.png'
-              width='100%'
-              height='100%'
-              clipPath='url(#bgblur_clip_path)'
-              preserveAspectRatio='xMidYMid slice'
-            />
-            <image
-              ref={img2Ref}
-              href='/mask-img1.jpg'
-              width='100%'
-              height='100%'
-              clipPath='url(#bgblur_clip_path)'
-              preserveAspectRatio='xMidYMid slice'
-              style={{ opacity: 0 }}
-            />
-            <image
-              ref={img3Ref}
-              href='/mask-img2.jpg'
-              width='100%'
-              height='100%'
-              clipPath='url(#bgblur_clip_path)'
-              preserveAspectRatio='xMidYMid slice'
-              style={{ opacity: 0 }}
-            />
-          </svg>
+          <div
+            ref={textContainerRef}
+            className='martech-wrapper w-full relative overflow-hidden h-[72px] xs:h-[84px] sm:h-[102px] md:h-[120px] lg:h-[136px] xl:h-[144px]'>
+            <span
+              ref={textRefs[0]}
+              className='absolute top-0 left-0 w-full font-extrabold bg-gradient-to-r from-[#6210FF] to-[#BE2FF4] text-transparent bg-clip-text text-5xl xs:text-6xl sm:text-7xl md:text-8xl lg:text-[85px] xl:text-[120px] leading-[1.2] inline-block text-center lg:text-left'>
+              Mar - Tech
+            </span>
+            <span
+              ref={textRefs[1]}
+              className='absolute top-0 left-0 w-full font-extrabold bg-gradient-to-r from-[#BE2FF4] to-[#6210FF] text-transparent bg-clip-text text-5xl xs:text-6xl sm:text-7xl md:text-8xl lg:text-[85px] xl:text-[120px] leading-[1.2] inline-block text-center lg:text-left'
+              style={{ opacity: 0, transform: 'translateY(100%)' }}>
+              AI-Powered
+            </span>
+            <span
+              ref={textRefs[2]}
+              className='absolute top-0 left-0 w-full font-extrabold bg-gradient-to-r from-[#BE2FF4] to-[#6210FF] text-transparent bg-clip-text text-5xl xs:text-6xl sm:text-7xl md:text-8xl lg:text-[85px] xl:text-[120px] leading-[1.2] inline-block text-center lg:text-left'
+              style={{ opacity: 0, transform: 'translateY(100%)' }}>
+              Marketing
+            </span>
+          </div>
         </div>
-      </div>
 
-      {/* Text block */}
-      <div className='relative z-10 h-full flex flex-col items-start justify-center px-4 sm:px-6 md:px-8 lg:px-16'>
-        <h2 className='text-5xl xs:text-6xl sm:text-7xl md:text-8xl lg:text-[85px] xl:text-[120px] text-white leading-[1.1] max-w-[90%] md:max-w-[800px]'>
-          We are
-        </h2>
+        {/* Image block - full width on mobile, half on desktop */}
+        <div className='w-full lg:w-1/2 h-auto lg:h-full flex items-center justify-center relative order-first lg:order-none'>
+          <div className='w-full h-[300px] sm:h-[400px] md:h-[500px] lg:h-full flex justify-center items-center lg:items-end relative'>
+            <svg
+              width='100%'
+              height='100%'
+              viewBox='0 0 798 531'
+              fill='none'
+              xmlns='http://www.w3.org/2000/svg'
+              preserveAspectRatio='xMidYMid meet'
+              className='overflow-visible max-w-[600px] lg:max-w-none'>
+              <defs>
+                <clipPath
+                  id='bgblur_clip_path'
+                  transform='translate(0 0)'>
+                  <path d='M1375.24 0.0751953C1297.95 304.734 1019.35 530.063 687.749 530.063C356.147 530.063 77.2875 304.734 0.261719 0.0751953H283.56C350.664 155.118 506.282 263.906 687.749 263.906C869.217 263.906 1024.83 155.118 1091.94 0.0751953H1375.24Z' />
+                </clipPath>
+              </defs>
 
-        <div
-          ref={textContainerRef}
-          className='martech-wrapper w-full relative overflow-hidden h-[72px] xs:h-[84px] sm:h-[102px] md:h-[120px] lg:h-[136px] xl:h-[144px]'>
-          <span
-            ref={textRefs[0]}
-            className='absolute top-0 left-0 font-extrabold bg-gradient-to-r from-[#6210FF] to-[#BE2FF4] text-transparent bg-clip-text text-5xl xs:text-6xl sm:text-7xl md:text-8xl lg:text-[85px] xl:text-[120px] leading-[1.2] inline-block'>
-            Mar - Tech
-          </span>
-          <span
-            ref={textRefs[1]}
-            className='absolute top-0 left-0 font-extrabold bg-gradient-to-r from-[#BE2FF4] to-[#6210FF] text-transparent bg-clip-text text-5xl xs:text-6xl sm:text-7xl md:text-8xl lg:text-[85px] xl:text-[120px] leading-[1.2] inline-block'
-            style={{ opacity: 0, transform: 'translateY(100%)' }}>
-            AI-Powered
-          </span>
-          <span
-            ref={textRefs[2]}
-            className='absolute top-0 left-0 font-extrabold bg-gradient-to-r from-[#BE2FF4] to-[#6210FF] text-transparent bg-clip-text text-5xl xs:text-6xl sm:text-7xl md:text-8xl lg:text-[85px] xl:text-[120px] leading-[1.2] inline-block'
-            style={{ opacity: 0, transform: 'translateY(100%)' }}>
-            Marketing
-          </span>
+              {/* Background shape with blur effect */}
+              <foreignObject
+                x='0'
+                y='0'
+                width='100%'
+                height='100%'>
+                <div
+                  style={{
+                    backdropFilter: 'blur(10.91px)',
+                    clipPath: 'url(#bgblur_clip_path)',
+                    height: '100%',
+                    width: '100%',
+                    background: 'rgba(180, 60, 255, 0.2)',
+                  }}></div>
+              </foreignObject>
+
+              {/* Images with clip path */}
+              <image
+                ref={img1Ref}
+                href='/Mask.png'
+                width='100%'
+                height='100%'
+                clipPath='url(#bgblur_clip_path)'
+                preserveAspectRatio='xMidYMid slice'
+              />
+              <image
+                ref={img2Ref}
+                href='/mask-img1.jpg'
+                width='100%'
+                height='100%'
+                clipPath='url(#bgblur_clip_path)'
+                preserveAspectRatio='xMidYMid slice'
+                style={{ opacity: 0 }}
+              />
+              <image
+                ref={img3Ref}
+                href='/mask-img2.jpg'
+                width='100%'
+                height='100%'
+                clipPath='url(#bgblur_clip_path)'
+                preserveAspectRatio='xMidYMid slice'
+                style={{ opacity: 0 }}
+              />
+            </svg>
+          </div>
         </div>
       </div>
     </section>

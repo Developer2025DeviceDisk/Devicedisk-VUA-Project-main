@@ -9,6 +9,7 @@ gsap.registerPlugin(ScrollTrigger);
 export default function About() {
   const sectionRef = useRef(null);
   const imageRef = useRef(null);
+  const parallaxContainerRef = useRef(null);
 
   const maskRef = useRef<SVGRectElement>(null);
   const titleRef = useRef(null);
@@ -17,6 +18,19 @@ export default function About() {
   const card2Ref = useRef(null);
 
   useEffect(() => {
+
+    // Parallax effect for the background image
+    gsap.to(imageRef.current, {
+      yPercent: -60, // Adjust this value for stronger/weaker parallax
+      ease: "none",
+      scrollTrigger: {
+        trigger: parallaxContainerRef.current,
+        start: "top bottom",
+        end: "bottom top",
+        scrub: true,
+      }
+    });
+
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({
         scrollTrigger: {
@@ -93,19 +107,26 @@ export default function About() {
 
   return (
     <>
-      <section className="parallax relative w-full h-[100vh] flex flex-col justify-center items-center text-center  overflow-hidden">
-        <div className="relative h-full flex flex-col justify-center items-center w-full ">
+      {/* Parallax Section */}
+      <section 
+        ref={parallaxContainerRef}
+        className="parallax relative w-full h-screen flex flex-col justify-center items-center text-center overflow-hidden"
+      >
+        <div className="relative h-screen w-full flex flex-col justify-center items-center">
+          {/* Parallax Background Image */}
           <div
             ref={imageRef}
-            className="absolute top-0 left-0 bottom-0 overflow-hidden z-10  flex flex-col justify-center items-center w-[100%] h-[200%] left-0"
+            className="absolute top-0 left-0 w-full h-[140%] z-0"
             style={{
               backgroundImage: "url('/voice.jpg')",
               backgroundSize: "cover",
-              backgroundPosition: "center top",
+              backgroundPosition: "center",
               backgroundRepeat: "no-repeat",
-              backgroundAttachment: "fixed"
+              willChange: "transform" // Optimizes performance
             }}
           ></div>
+          
+          {/* Content */}
           <h1 className="z-10 relative animate__animated animate__fadeInUp leading-snug text-white text-4xl md:text-8xl font-medium text-center p-4 rounded-lg">
             Your Voice in the <br /> Future of Marketing.
           </h1>
@@ -116,6 +137,9 @@ export default function About() {
         ref={sectionRef}
         className="relative flex min-h-screen flex-col items-center justify-start  bg-[#EEF0FF]"
       >
+        {/* <div className="absolute top-0 w-full text-center">
+            <img src={"/serviceVector.png"} className="absolute" alt="" />
+        </div> */}
         <div ref={titleRef}>
           <h1 className="text-6xl md:text-9xl  pt-[60px] text-center font-[500] text-[#6210FF] animate__animated animate__fadeInUp">
             Our Services

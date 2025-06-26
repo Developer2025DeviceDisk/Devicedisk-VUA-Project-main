@@ -111,15 +111,15 @@ export default function About() {
 
       <div
         ref={sectionRef}
-        className='flex min-h-screen flex-col items-center justify-start bg-[#EEF0FF]'>
+        className='flex min-h-screen  overflow-hidden flex-col items-center justify-start bg-[#EEF0FF]'>
         <div
           className='relative'
           ref={titleRef}>
           {/* Background Image */}
-          <div className='absolute top-[30px] left-0 right-0 flex items-center justify-center'>
+          <div className='absolute -top-44 -left-56 -right-56 flex items-center justify-center'>
             <img
               src={'/serviceVector.png'}
-              className='max-w-full h-auto opacity-50'
+              className='max-w-full h-auto'
               alt='Decorative background'
             />
           </div>

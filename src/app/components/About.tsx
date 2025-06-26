@@ -5,6 +5,8 @@ import gsap from 'gsap';
 import ScrollTrigger from 'gsap/ScrollTrigger';
 import OurFoundation from './OurFoundation';
 
+// cc
+
 gsap.registerPlugin(ScrollTrigger);
 export default function About() {
   const sectionRef = useRef(null);
@@ -20,7 +22,7 @@ export default function About() {
   useEffect(() => {
     // Parallax effect for the background image
     gsap.to(imageRef.current, {
-      y: () => window.innerWidth < 768 ? -80 : -150, // move upward in pixels
+      y: () => (window.innerWidth < 768 ? -80 : -150), // move upward in pixels
       ease: 'none',
       scrollTrigger: {
         trigger: parallaxContainerRef.current,

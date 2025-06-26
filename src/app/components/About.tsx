@@ -134,7 +134,7 @@ export default function About() {
 
         {/* Card 2 - Performance Marketing */}
         <div
-          ref={card1Ref}
+          ref={card2Ref}
           className='absolute top-[100%] z-0 mb-5 bg-white rounded-[10px] md:rounded-[30px] shadow-lg max-w-[90%] lg:max-w-[800px] xl:max-w-[1200px] flex flex-col md:flex-row overflow-hidden mx-4 md:mx-0'
           style={{ boxShadow: '0 20px 50px -10px rgba(190, 47, 244, 0.3)' }}>
           <div className='w-full md:w-1/2 p-4 md:p-10 flex justify-center items-center'>
@@ -153,6 +153,7 @@ export default function About() {
             <div className='flex-grow'>
               <h2 className='text-xl sm:text-3xl lg:text-3xl xl:text-5xl font-outfit leading-tight text-gray-900 mb-4'>
                 Performance Marketing
+
               </h2>
               <p className='text-lg sm:text-xl md:text-xl xl:text-3xl leading-tight text-gray-900 mb-6 md:mb-8'>
                 We design digital platforms to empower users and your brand's

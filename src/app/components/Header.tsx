@@ -67,6 +67,7 @@ export default function Header() {
         } z-50 transition-all duration-300`}
       >
         <div className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-wide">
+          <Link href="/">
   <svg
     className="w-[64px] h-[35px] sm:w-[94px] sm:h-[52px]" // Small on mobile, original on sm+
     viewBox="0 0 94 52"
@@ -86,6 +87,7 @@ export default function Header() {
       fill={isOnLightBg ? '#6210FF' : 'white'}
     />
   </svg>
+  </Link>
 </div>
 
         <button

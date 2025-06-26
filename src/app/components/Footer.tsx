@@ -30,6 +30,7 @@ export default function Footer() {
         <div className='space-y-10'>
           <div>
             <div className='text-3xl sm:text-4xl md:text-5xl font-semibold tracking-wide'>
+              <Link href='/'>
               <svg
                 width='160'
                 height='120'
@@ -49,6 +50,7 @@ export default function Footer() {
                   fill='white'
                 />
               </svg>
+              </Link>
             </div>
             <p className='uppercase text-sm tracking-widest'>
               Voix & Vision Worx
@@ -58,17 +60,18 @@ export default function Footer() {
             <p className='mb-2'>Follow Us:</p>
             <div className='flex space-x-4 items-center'>
               <a
-                href='#'
+                href='https://www.linkedin.com/company/voix-vision-worx/' target='_blank'
                 className='bg-white text-[#6210FF] w-10 h-10 flex items-center justify-center rounded-full text-xl hover:scale-110 transition'>
                 <FontAwesomeIcon icon={faLinkedinIn} />
               </a>
               <a
-                href='#'
+                href='https://www.facebook.com/people/Voix-Vision-Worx/61575858395596/' target='_blank'
                 className='bg-white text-[#6210FF] w-10 h-10 flex items-center justify-center rounded-full text-xl hover:scale-110 transition'>
                 <FontAwesomeIcon icon={faFacebookF} />
               </a>
               <a
-                href='#'
+                href='http://instagram.com/vvworx/'
+                target='_blank'
                 className='bg-white text-[#6210FF] w-10 h-10 flex items-center justify-center rounded-full text-xl hover:scale-110 transition'>
                 <FontAwesomeIcon icon={faInstagram} />
               </a>

@@ -8,8 +8,19 @@ import {
   faInstagram,
   faBehance,
 } from '@fortawesome/free-brands-svg-icons';
+import { useState } from 'react';
 
 export default function Footer() {
+  const [activeLocation, setActiveLocation] = useState(null);
+
+  const toggleLocation = (location) => {
+    if (activeLocation === location) {
+      setActiveLocation(null);
+    } else {
+      setActiveLocation(location);
+    }
+  };
+
   return (
     <footer className='bg-gradient-to-r from-[#5F00F6] to-[#B933FF] text-white px-6 py-20' style={{fontFamily: 'Outfit'}}>
       <div className='max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-10 items-start'>
@@ -68,7 +79,6 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Rest of your footer remains the same */}
         {/* Second Column */}
         <div className='flex flex-col space-y-3 text-white font-medium text-xl'>
           <Link
@@ -95,32 +105,43 @@ export default function Footer() {
         <div className='space-y-2 text-white font-medium text-lg'>
           {/* Dubai */}
           <div className='group relative pb-4'>
-            <div className='flex items-center text-3xl justify-between border-b border-white/60 pb-2 cursor-pointer'>
+            <div 
+              className='flex items-center text-3xl justify-between border-b border-white/60 pb-2 cursor-pointer'
+              onClick={() => toggleLocation('dubai')}
+            >
               <span>Dubai</span>
             </div>
-            <div className='max-h-0 overflow-hidden group-hover:max-h-40 transition-all duration-1000 text-white mt-1'>
+            <div className={`${activeLocation === 'dubai' ? 'max-h-40' : 'max-h-0'} overflow-hidden transition-all duration-500 text-white mt-1 md:group-hover:max-h-40`}>
               <p>14th Floor, Office No 1402, Burjuman</p>
               <p>Business Tower, Burjuman, Dubai.</p>
               <p>+971 55 750 6100</p>
             </div>
           </div>
 
+          {/* Mumbai */}
           <div className='group relative pb-4'>
-            <div className='flex items-center text-3xl justify-between border-b border-white/60 pb-2 cursor-pointer'>
+            <div 
+              className='flex items-center text-3xl justify-between border-b border-white/60 pb-2 cursor-pointer'
+              onClick={() => toggleLocation('mumbai')}
+            >
               <span>Mumbai</span>
             </div>
-            <div className='max-h-0 overflow-hidden group-hover:max-h-40 transition-all duration-1000 text-white mt-1'>
+            <div className={`${activeLocation === 'mumbai' ? 'max-h-40' : 'max-h-0'} overflow-hidden transition-all duration-500 text-white mt-1 md:group-hover:max-h-40`}>
               <p>Unit No 711, A Wing, Centrum Business Square, Road No 16,</p>
               <p> Wagle Estate, Thane(W) - 400604</p>
               <p>+91 9820 154 205</p>
             </div>
           </div>
 
+          {/* Pune */}
           <div className='group relative pb-4'>
-            <div className='flex items-center text-3xl justify-between border-b border-white/60 pb-2 cursor-pointer'>
+            <div 
+              className='flex items-center text-3xl justify-between border-b border-white/60 pb-2 cursor-pointer'
+              onClick={() => toggleLocation('pune')}
+            >
               <span>Pune</span>
             </div>
-            <div className='max-h-0 overflow-hidden group-hover:max-h-40 transition-all duration-1000 text-white mt-1'>
+            <div className={`${activeLocation === 'pune' ? 'max-h-40' : 'max-h-0'} overflow-hidden transition-all duration-500 text-white mt-1 md:group-hover:max-h-40`}>
               <p>Office 3B, 2nd Floor, Building 3, Cerebrum IT Park,</p>
               <p>Kalyaninagar, 411032.</p>
               <p>+91 7709 233 344</p>

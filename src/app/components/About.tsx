@@ -20,7 +20,7 @@ export default function About() {
   useEffect(() => {
     // Parallax effect for the background image
     gsap.to(imageRef.current, {
-      yPercent: -60, // Adjust this value for stronger/weaker parallax
+      yPercent: -20, // Adjust this value for stronger/weaker parallax
       ease: 'none',
       scrollTrigger: {
         trigger: parallaxContainerRef.current,

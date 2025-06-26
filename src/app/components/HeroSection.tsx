@@ -83,7 +83,7 @@ export default function HeroSection() {
   return (
     <section
       ref={heroRef}
-      className='hero-section w-full h-screen relative overflow-hidden bg-black'>
+      className='hero-section w-full h-auto min-h-screen relative overflow-hidden bg-black'>
       {/* Background video */}
       <video
         className='absolute top-0 left-0 w-full h-full object-cover'
@@ -100,7 +100,7 @@ export default function HeroSection() {
       {/* Content container */}
       <div className='mx-auto h-full flex flex-col lg:flex-row items-center justify-center px-0 md:px-0 lg:px-0 sm:px-6 relative z-10'>
         {/* Text block - full width on mobile, half on desktop */}
-        <div className='w-full lg:w-1/2 h-auto lg:h-full flex flex-col items-center lg:items-start justify-center py-8 md:pl-10 lg:py-0 '>
+        <div className='w-full lg:w-7/12 h-auto lg:h-full flex flex-col sm:mt-20  items-center lg:items-start justify-center py-8 md:pl-10 lg:py-0 '>
           <h2 className='text-5xl xs:text-6xl sm:text-7xl md:text-8xl lg:text-[85px] xl:text-[120px] text-white leading-[1.1] text-center lg:text-left'>
             We are
           </h2>
@@ -129,7 +129,7 @@ export default function HeroSection() {
         </div>
 
         {/* Image block - full width on mobile, half on desktop */}
-        <div className='w-full lg:w-1/2 h-auto lg:h-full flex items-center justify-center relative order-first lg:order-none'>
+        <div className='w-full lg:w-5/12 pl-9 md:pl-0 h-auto lg:h-full flex items-center justify-center relative lg:order-none'>
           <div className='w-full h-[300px] sm:h-[400px] md:h-[500px] lg:h-full flex justify-center items-center lg:items-end relative'>
             <svg
               width='100%'
@@ -193,6 +193,7 @@ export default function HeroSection() {
             </svg>
           </div>
         </div>
+
       </div>
     </section>
   );

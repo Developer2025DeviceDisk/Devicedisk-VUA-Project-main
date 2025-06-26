@@ -98,7 +98,7 @@ export default function HeroSection() {
       </video>
 
       {/* Content container */}
-      <div className='mx-auto h-full flex flex-col lg:flex-row md:items-center justify-center px-0 md:px-0 lg:px-0 sm:px-6 mt-[4rem] items-end relative z-10'>
+      <div className='mx-auto h-full flex flex-col lg:flex-row md:items-center justify-center px-0 md:px-0 lg:px-0 sm:px-6 mt-[4rem] md:mt-0 items-end relative z-10'>
         {/* Text block - full width on mobile, half on desktop */}
         <div className='w-full lg:w-6/12 h-auto lg:h-full flex flex-col sm:mt-20  items-center lg:items-start justify-center py-8 md:pl-32 lg:py-0 pl-10'>
           <h2 className='w-full text-5xl xs:text-6xl sm:text-7xl lg:text-[50px] xl:text-[80px] 2xl:text-[127px] text-white leading-[1.1] font-medium'>

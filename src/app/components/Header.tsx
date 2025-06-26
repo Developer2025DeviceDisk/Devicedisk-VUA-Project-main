@@ -8,6 +8,8 @@ export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isOnLightBg, setIsOnLightBg] = useState(false);
 
+  // cc 
+
   // Toggle menu function
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);

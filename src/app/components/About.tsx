@@ -20,7 +20,7 @@ export default function About() {
   useEffect(() => {
     // Parallax effect for the background image
     gsap.to(imageRef.current, {
-      yPercent: -20, // Adjust this value for stronger/weaker parallax
+      yPercent: -60,
       ease: 'none',
       scrollTrigger: {
         trigger: parallaxContainerRef.current,
@@ -45,49 +45,28 @@ export default function About() {
       tl.to(titleRef.current, {
         opacity: 0,
         y: 100,
-
         duration: 1,
         ease: 'power3.out',
       });
 
-      // Cards animate in
-      tl.to(card1Ref.current, { top: '20%' }, '-=.9');
+      // Cards animate in - adjusted for mobile
+      tl.to(
+        card1Ref.current,
+        { top: window.innerWidth < 768 ? '10%' : '20%' },
+        '-=.9'
+      );
       tl.to(card1Ref.current, { scale: 0.5, opacity: 0, duration: 1 });
 
-      tl.to(card2Ref.current, { top: '20%', duration: 1 }, '-=.9');
+      tl.to(
+        card2Ref.current,
+        { top: window.innerWidth < 768 ? '10%' : '20%', duration: 1 },
+        '-=.9'
+      );
     }, sectionRef);
-
-    // gsap.to(imageRef.current, {
-    //   yPercent: -50, // or adjust: try '-30%' for stronger parallax
-    //   ease: "none",
-    //   scrollTrigger: {
-    //     trigger: ".parallax",
-    //     start: "top center",
-    //     end: "bottom top",
-    //     scrub: true,
-    //   },
-    // });
-
-    // gsap.from(".point", {
-    //   opacity: 0,
-    //   y: 50,
-    //   duration: 1,
-    //   stagger: 1,
-    //   ease: "ease-in",
-    //   scrollTrigger: {
-    //     trigger: ".foundation",
-    //     start: "top top",
-    //     end: "bottom top",
-    //     pin: true,
-    //   },
-    // });
 
     gsap.fromTo(
       maskRef.current,
-      {
-        scale: 0.8, // Increased from 0.6 to make it initially larger
-        transformOrigin: '50% 50%',
-      },
+      { scale: 0.8, transformOrigin: '50% 50%' },
       {
         scale: 1,
         duration: 1,
@@ -120,11 +99,11 @@ export default function About() {
               backgroundSize: 'cover',
               backgroundPosition: 'center',
               backgroundRepeat: 'no-repeat',
-              willChange: 'transform', // Optimizes performance
+              willChange: 'transform',
             }}></div>
 
           {/* Content */}
-          <h1 className='z-10 relative animate__animated animate__fadeInUp leading-snug text-white text-4xl md:text-8xl font-medium text-center p-4 rounded-lg'>
+          <h1 className='z-10 relative animate__animated animate__fadeInUp leading-snug text-white text-3xl md:text-8xl font-medium text-center px-4 rounded-lg'>
             Your Voice in the <br /> Future of Marketing.
           </h1>
         </div>
@@ -132,83 +111,76 @@ export default function About() {
 
       <div
         ref={sectionRef}
-        className=' flex min-h-screen flex-col items-center justify-start  bg-[#EEF0FF]'>
-        {/* <div className='absolute top-0 w-full text-center'>
-          <img
-            src={'/serviceVector.png'}
-            className='absolute'
-            alt=''
-          />
-        </div> */}
+        className='flex min-h-screen flex-col items-center justify-start bg-[#EEF0FF]'>
         <div
           className='relative'
           ref={titleRef}>
-          {/* Background Image - positioned absolutely behind the text */}
-          <div className='absolute absolute top-[30px] left-0 right-0 flex items-center justify-center'>
+          {/* Background Image */}
+          <div className='absolute top-[30px] left-0 right-0 flex items-center justify-center'>
             <img
               src={'/serviceVector.png'}
-              className='max-w-full h-auto opacity-50' // Adjust opacity as needed
+              className='max-w-full h-auto opacity-50'
               alt='Decorative background'
             />
           </div>
 
-          {/* Text Content - positioned relatively */}
-          <h1 className='text-6xl md:text-9xl pt-[60px] text-center font-[500] text-[#6210FF] animate__animated animate__fadeInUp relative z-10'>
+          {/* Text Content */}
+          <h1 className='text-4xl md:text-9xl pt-[40px] md:pt-[60px] text-center font-[500] text-[#6210FF] animate__animated animate__fadeInUp relative z-10 px-4'>
             Our Services
           </h1>
         </div>
 
+        {/* Card 2 - Performance Marketing */}
         <div
           ref={card2Ref}
-          className='absolute top-[100%] z-10 bg-white rounded-[30px] shadow-2xl max-w-[1200px] w-full md:flex overflow-hidden'>
-          <div className='md:w-1/2 p-10 flex justify-center items-center'>
+          style={{ boxShadow: '0 20px 50px -10px rgba(190, 47, 244, 0.3)' }}
+          className='absolute top-[100%] z-10 bg-white rounded-[20px] md:rounded-[30px] shadow-2xl max-w-[90%] md:max-w-[1200px] w-full flex flex-col md:flex-row overflow-hidden mx-4 md:mx-0'>
+          <div className='w-full md:w-1/2 p-6 md:p-10 flex justify-center items-center'>
             <img
               width={100}
               height={100}
               src={'/card-img.png'}
               alt='Main Card'
-              className='w-[450px] h-auto object-cover rounded-xl'
+              className='w-full h-auto object-cover rounded-xl'
             />
           </div>
 
           <div
-            className='p-8 md:w-1/2 flex flex-col h-full'
+            className='w-full md:w-1/2 p-6 md:p-8 flex flex-col h-full'
             style={{ fontFamily: "'Outfit', sans-serif" }}>
             <div className='flex-grow'>
-              {' '}
-              {/* This div will take all available space except button */}
-              <h2 className='text-5xl font-outfit leading-tight text-gray-900 mb-4'>
+              <h2 className='text-3xl md:text-5xl font-outfit leading-tight text-gray-900 mb-4'>
                 Performance Marketing
               </h2>
-              <p className='text-3xl leading-tight text-gray-900 mb-8'>
+              <p className='text-xl md:text-3xl leading-tight text-gray-900 mb-6 md:mb-8'>
                 We design digital platforms to empower users and your brand's
               </p>
-              <div className='flex flex-wrap gap-3 mb-6'>
-                <span className='px-4 py-2 border border-gray-300 rounded-full text-lg'>
-                  Digital Strategy
-                </span>
-                <span className='px-4 py-2 border border-gray-300 rounded-full text-lg'>
-                  Digital Activation
-                </span>
-                <span className='px-4 py-2 border border-gray-300 rounded-full text-lg'>
-                  UX & UI Design
-                </span>
-                <span className='px-4 py-2 border border-gray-300 rounded-full text-lg'>
-                  Web & App Development
-                </span>
-                <span className='px-4 py-2 border border-gray-300 rounded-full text-lg'>
-                  SEO Strategy & Systems
-                </span>
+              <div className='flex flex-wrap gap-2 md:gap-3 mb-4 md:mb-6'>
+                {[
+                  'Digital Strategy',
+                  'Digital Activation',
+                  'UX & UI Design',
+                  'Web & App Development',
+                  'SEO Strategy & Systems',
+                ].map((item) => (
+                  <span
+                    key={item}
+                    className='px-3 py-1 md:px-4 md:py-2 border border-[#6210FF] text-gray-900 rounded-full text-sm md:text-lg'>
+                    {item}
+                  </span>
+                ))}
               </div>
             </div>
 
-            <div className='mt-auto pt-6 w-full flex justify-end'>
-              <button className='flex items-center gap-2 px-6 py-3 bg-white border-2 border-black rounded-full hover:bg-gray-50 transition-all duration-200'>
-                <span className='text-xl font-medium'>EXPLORE MORE</span>
+            <div className='mt-auto pt-4 md:pt-6 w-full flex md:justify-end justify-start'>
+              <button className='flex items-center gap-2 px-4 py-2 md:px-6 md:py-3 bg-white text-gray-900 border-2 border-[#6210FF] rounded-full hover:bg-gray-50 transition-all duration-200'>
+                <span className='text-base md:text-lg font-medium'>
+                  EXPLORE MORE
+                </span>
                 <img
                   src='/curve.png'
                   alt='Arrow icon'
-                  className='w-10 h-10 object-contain'
+                  className='w-8 h-8 md:w-10 md:h-10 object-contain'
                   width={30}
                   height={30}
                 />
@@ -217,57 +189,57 @@ export default function About() {
           </div>
         </div>
 
+        {/* Card 1 - Websites & Digital Platforms */}
         <div
           ref={card1Ref}
-          className='absolute top-[100%] z-0 bg-white rounded-[30px] shadow-2xl max-w-[1200px] w-full md:flex overflow-hidden'>
-          <div className='md:w-1/2 p-10 flex justify-center items-center'>
+          className='absolute top-[100%] z-0 bg-white rounded-[20px] md:rounded-[30px] shadow-2xl max-w-[90%] md:max-w-[1200px] w-full flex flex-col md:flex-row overflow-hidden mx-4 md:mx-0'
+          style={{ boxShadow: '0 20px 50px -10px rgba(190, 47, 244, 0.3)' }}>
+          <div className='w-full md:w-1/2 p-6 md:p-10 flex justify-center items-center'>
             <img
               width={100}
               height={100}
               src={'/card-img.png'}
               alt='Main Card'
-              className='w-[450px] h-auto object-cover rounded-xl'
+              className='w-full h-auto object-cover rounded-xl'
             />
           </div>
 
           <div
-            className='p-8 md:w-1/2 flex flex-col h-full'
+            className='w-full md:w-1/2 p-6 md:p-8 flex flex-col h-full'
             style={{ fontFamily: "'Outfit', sans-serif" }}>
             <div className='flex-grow'>
-              {' '}
-              {/* This div will take all available space except button */}
-              <h2 className='text-5xl font-outfit leading-tight text-gray-900 mb-4'>
+              <h2 className='text-3xl md:text-5xl font-outfit leading-tight text-gray-900 mb-4'>
                 Websites & Digital Platforms
               </h2>
-              <p className='text-3xl leading-tight text-gray-900 mb-8'>
+              <p className='text-xl md:text-3xl leading-tight text-gray-900 mb-6 md:mb-8'>
                 We design digital platforms to empower users and your brand's
               </p>
-              <div className='flex flex-wrap gap-3 mb-6'>
-                <span className='px-4 py-2 border border-gray-300 rounded-full text-lg'>
-                  Digital Strategy
-                </span>
-                <span className='px-4 py-2 border border-gray-300 rounded-full text-lg'>
-                  Digital Activation
-                </span>
-                <span className='px-4 py-2 border border-gray-300 rounded-full text-lg'>
-                  UX & UI Design
-                </span>
-                <span className='px-4 py-2 border border-gray-300 rounded-full text-lg'>
-                  Web & App Development
-                </span>
-                <span className='px-4 py-2 border border-gray-300 rounded-full text-lg'>
-                  SEO Strategy & Systems
-                </span>
+              <div className='flex flex-wrap gap-2 md:gap-3 mb-4 md:mb-6'>
+                {[
+                  'Digital Strategy',
+                  'Digital Activation',
+                  'UX & UI Design',
+                  'Web & App Development',
+                  'SEO Strategy & Systems',
+                ].map((item) => (
+                  <span
+                    key={item}
+                    className='px-3 py-1 md:px-4 md:py-2 border border-[#6210FF] text-gray-900 rounded-full text-sm md:text-lg'>
+                    {item}
+                  </span>
+                ))}
               </div>
             </div>
 
-            <div className='mt-auto pt-6 w-full flex justify-end'>
-              <button className='flex items-center gap-2 px-6 py-3 bg-white border-2 border-black rounded-full hover:bg-gray-50 transition-all duration-200'>
-                <span className='text-xl font-medium'>EXPLORE MORE</span>
+            <div className='mt-auto pt-4 md:pt-6 w-full flex md:justify-end justify-start'>
+              <button className='flex items-center gap-2 px-4 py-2 md:px-6 md:py-3 bg-white text-gray-900 border-2 border-[#6210FF] rounded-full hover:bg-gray-50 transition-all duration-200'>
+                <span className='text-base md:text-lg font-medium'>
+                  EXPLORE MORE
+                </span>
                 <img
                   src='/curve.png'
                   alt='Arrow icon'
-                  className='w-10 h-10 object-contain'
+                  className='w-8 h-8 md:w-10 md:h-10 object-contain'
                   width={30}
                   height={30}
                 />
@@ -310,9 +282,9 @@ export default function About() {
         </svg>
 
         <div className='relative z-10 flex justify-center items-center h-full'>
-          <button className='w-20 h-20 rounded-full bg-white bg-opacity-90 flex items-center justify-center shadow-lg hover:scale-110 transition-transform'>
+          <button className='w-16 h-16 md:w-20 md:h-20 rounded-full bg-white bg-opacity-90 flex items-center justify-center shadow-lg hover:scale-110 transition-transform'>
             <svg
-              className='w-10 h-10 text-[#6210FF]'
+              className='w-8 h-8 md:w-10 md:h-10 text-[#6210FF]'
               fill='currentColor'
               viewBox='0 0 24 24'>
               <path d='M8 5v14l11-7z' />

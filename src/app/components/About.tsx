@@ -134,14 +134,14 @@ export default function About() {
         <div
           ref={card2Ref}
           style={{ boxShadow: '0 20px 50px -10px rgba(190, 47, 244, 0.3)' }}
-          className='absolute top-[100%] z-10 bg-white rounded-[20px] md:rounded-[30px] shadow-2xl max-w-[90%] md:max-w-[1200px] w-full flex flex-col md:flex-row overflow-hidden mx-4 md:mx-0'>
+          className='absolute top-[100%] z-10 bg-white rounded-[20px] md:rounded-[30px] shadow-xl max-w-[90%] md:max-w-[1200px] w-full flex flex-col md:flex-row overflow-hidden mx-4 md:mx-0'>
           <div className='w-full md:w-1/2 p-6 md:p-10 flex justify-center items-center'>
             <img
               width={100}
               height={100}
               src={'/card-img.png'}
               alt='Main Card'
-              className='w-full h-auto object-cover rounded-xl'
+              className='w-full h-auto object-cover rounded-[20px] md:rounded-[30px] shadow-xl'
             />
           </div>
 
@@ -192,7 +192,7 @@ export default function About() {
         {/* Card 1 - Websites & Digital Platforms */}
         <div
           ref={card1Ref}
-          className='absolute top-[100%] z-0 bg-white rounded-[20px] md:rounded-[30px] shadow-2xl max-w-[90%] md:max-w-[1200px] w-full flex flex-col md:flex-row overflow-hidden mx-4 md:mx-0'
+          className='absolute top-[100%] z-0 mb-5 bg-white rounded-[20px] md:rounded-[30px] shadow-xl max-w-[90%] md:max-w-[1200px] w-full flex flex-col md:flex-row overflow-hidden mx-4 md:mx-0'
           style={{ boxShadow: '0 20px 50px -10px rgba(190, 47, 244, 0.3)' }}>
           <div className='w-full md:w-1/2 p-6 md:p-10 flex justify-center items-center'>
             <img
@@ -200,7 +200,7 @@ export default function About() {
               height={100}
               src={'/card-img.png'}
               alt='Main Card'
-              className='w-full h-auto object-cover rounded-xl'
+              className='w-full h-auto object-cover rounded-[20px] md:rounded-[30px] shadow-xl'
             />
           </div>
 

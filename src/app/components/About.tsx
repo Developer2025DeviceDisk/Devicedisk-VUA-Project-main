@@ -20,7 +20,7 @@ export default function About() {
   useEffect(() => {
     // Parallax effect for the background image
     gsap.to(imageRef.current, {
-      yPercent: -60,
+      y: () => window.innerWidth < 768 ? -80 : -150, // move upward in pixels
       ease: 'none',
       scrollTrigger: {
         trigger: parallaxContainerRef.current,
@@ -93,7 +93,7 @@ export default function About() {
           {/* Parallax Background Image */}
           <div
             ref={imageRef}
-            className='absolute top-0 left-0 w-full h-[140%] z-0'
+            className='absolute top-0 left-0 w-full h-[120%] z-0'
             style={{
               backgroundImage: "url('/voice.jpg')",
               backgroundSize: 'cover',

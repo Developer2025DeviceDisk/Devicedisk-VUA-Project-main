@@ -148,7 +148,7 @@ export default function About() {
           </div>
 
           <div
-            className='w-full md:w-1/2 p-4 pt-0 md:pl-0 md:p-8 flex flex-col h-full'
+            className='w-full md:w-1/2 p-4 pt-0 md:pr-0 md:p-8 flex flex-col h-full md:order-first'
             style={{ fontFamily: "'Outfit', sans-serif" }}>
             <div className='flex-grow'>
               <h2 className='text-xl sm:text-3xl lg:text-3xl xl:text-5xl font-outfit leading-tight text-gray-900 mb-4'>

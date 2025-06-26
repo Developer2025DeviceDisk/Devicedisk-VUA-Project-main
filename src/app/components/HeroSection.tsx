@@ -98,30 +98,30 @@ export default function HeroSection() {
       </video>
 
       {/* Content container */}
-      <div className='mx-auto h-full flex flex-col lg:flex-row items-center justify-center px-0 md:px-0 lg:px-0 sm:px-6 relative z-10'>
+      <div className='mx-auto h-full flex flex-col lg:flex-row md:items-center justify-center px-0 md:px-0 lg:px-0 sm:px-6 mt-[4rem] items-end relative z-10'>
         {/* Text block - full width on mobile, half on desktop */}
-        <div className='w-full lg:w-7/12 h-auto lg:h-full flex flex-col sm:mt-20  items-center lg:items-start justify-center py-8 md:pl-10 lg:py-0 '>
-          <h2 className='text-5xl xs:text-6xl sm:text-7xl md:text-8xl lg:text-[85px] xl:text-[120px] text-white leading-[1.1] text-center lg:text-left'>
+        <div className='w-full lg:w-6/12 h-auto lg:h-full flex flex-col sm:mt-20  items-center lg:items-start justify-center py-8 md:pl-32 lg:py-0 pl-10'>
+          <h2 className='w-full text-5xl xs:text-6xl sm:text-7xl lg:text-[50px] xl:text-[80px] 2xl:text-[127px] text-white leading-[1.1] font-medium'>
             We are
           </h2>
 
           <div
             ref={textContainerRef}
-            className='martech-wrapper w-full relative overflow-hidden h-[72px] xs:h-[84px] sm:h-[102px] md:h-[120px] lg:h-[136px] xl:h-[144px]'>
+            className='martech-wrapper w-full relative overflow-hidden h-[72px] xs:h-[84px] sm:h-[102px] md:h-[180px]'>
             <span
               ref={textRefs[0]}
-              className='absolute top-0 left-0 w-full font-extrabold bg-gradient-to-r from-[#6210FF] to-[#BE2FF4] text-transparent bg-clip-text text-5xl xs:text-6xl sm:text-7xl md:text-8xl lg:text-[85px] xl:text-[120px] leading-[1.2] inline-block text-center lg:text-left'>
+              className='absolute top-0 left-0 w-full font-extrabold bg-gradient-to-r from-[#6210FF] to-[#BE2FF4] text-transparent bg-clip-text text-5xl xs:text-6xl sm:text-7xl md:text-8xl lg:text-[60px] xl:text-[90px] 2xl:text-[139px] leading-[1.2] inline-block'>
               Mar - Tech
             </span>
             <span
               ref={textRefs[1]}
-              className='absolute top-0 left-0 w-full font-extrabold bg-gradient-to-r from-[#BE2FF4] to-[#6210FF] text-transparent bg-clip-text text-5xl xs:text-6xl sm:text-7xl md:text-8xl lg:text-[85px] xl:text-[120px] leading-[1.2] inline-block text-center lg:text-left'
+              className='absolute top-0 left-0 w-full font-extrabold bg-gradient-to-r from-[#BE2FF4] to-[#6210FF] text-transparent bg-clip-text text-5xl sm:text-7xl md:text-8xl lg:text-[60px] xl:text-[90px] 2xl:text-[130px] leading-[1.2] inline-block'
               style={{ opacity: 0, transform: 'translateY(100%)' }}>
               AI-Powered
             </span>
             <span
               ref={textRefs[2]}
-              className='absolute top-0 left-0 w-full font-extrabold bg-gradient-to-r from-[#BE2FF4] to-[#6210FF] text-transparent bg-clip-text text-5xl xs:text-6xl sm:text-7xl md:text-8xl lg:text-[85px] xl:text-[120px] leading-[1.2] inline-block text-center lg:text-left'
+              className='absolute top-0 left-0 w-full font-extrabold bg-gradient-to-r from-[#BE2FF4] to-[#6210FF] text-transparent bg-clip-text text-5xl sm:text-7xl md:text-8xl lg:text-[60px] xl:text-[90px] 2xl:text-[139px] leading-[1.2] inline-block'
               style={{ opacity: 0, transform: 'translateY(100%)' }}>
               Marketing
             </span>
@@ -129,7 +129,7 @@ export default function HeroSection() {
         </div>
 
         {/* Image block - full width on mobile, half on desktop */}
-        <div className='w-full lg:w-5/12 pl-9 md:pl-0 h-auto lg:h-full flex items-center justify-center relative lg:order-none'>
+        <div className='w-full lg:w-6/12 pl-4 sm:pl-0.5 md:pl-0 h-auto lg:h-full flex items-center justify-center relative lg:order-none'>
           <div className='w-full h-[300px] sm:h-[400px] md:h-[500px] lg:h-full flex justify-center items-center lg:items-end relative'>
             <svg
               width='100%'

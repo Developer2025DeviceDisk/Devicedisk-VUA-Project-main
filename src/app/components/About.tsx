@@ -134,30 +134,30 @@ export default function About() {
 
         {/* Card 2 - Performance Marketing */}
         <div
-          ref={card2Ref}
-          style={{ boxShadow: '0 20px 50px -10px rgba(190, 47, 244, 0.3)' }}
-          className='absolute top-[100%] z-10 bg-white rounded-[20px] md:rounded-[30px] shadow-xl max-w-[90%] md:max-w-[1200px] w-full flex flex-col md:flex-row overflow-hidden mx-4 md:mx-0'>
-          <div className='w-full md:w-1/2 p-6 md:p-10 flex justify-center items-center'>
+          ref={card1Ref}
+          className='absolute top-[100%] z-0 mb-5 bg-white rounded-[10px] md:rounded-[30px] shadow-lg max-w-[90%] lg:max-w-[800px] xl:max-w-[1200px] flex flex-col md:flex-row overflow-hidden mx-4 md:mx-0'
+          style={{ boxShadow: '0 20px 50px -10px rgba(190, 47, 244, 0.3)' }}>
+          <div className='w-full md:w-1/2 p-4 md:p-10 flex justify-center items-center'>
             <img
               width={100}
               height={100}
               src={'/card-img.png'}
               alt='Main Card'
-              className='w-full h-auto object-cover rounded-[20px] md:rounded-[30px] shadow-xl'
+              className='w-full h-auto object-cover rounded-[10px]  md:rounded-[30px] shadow-xl'
             />
           </div>
 
           <div
-            className='w-full md:w-1/2 p-6 md:p-8 flex flex-col h-full'
+            className='w-full md:w-1/2 p-4 pt-0 md:pl-0 md:p-8 flex flex-col h-full'
             style={{ fontFamily: "'Outfit', sans-serif" }}>
             <div className='flex-grow'>
-              <h2 className='text-3xl md:text-5xl font-outfit leading-tight text-gray-900 mb-4'>
+              <h2 className='text-xl sm:text-3xl lg:text-3xl xl:text-5xl font-outfit leading-tight text-gray-900 mb-4'>
                 Performance Marketing
               </h2>
-              <p className='text-xl md:text-3xl leading-tight text-gray-900 mb-6 md:mb-8'>
+              <p className='text-lg sm:text-xl md:text-xl xl:text-3xl leading-tight text-gray-900 mb-6 md:mb-8'>
                 We design digital platforms to empower users and your brand's
               </p>
-              <div className='flex flex-wrap gap-2 md:gap-3 mb-4 md:mb-6'>
+              <div className='flex flex-wrap gap-2 xl:gap-3 mb-2 xl:mb-6'>
                 {[
                   'Digital Strategy',
                   'Digital Activation',
@@ -167,7 +167,7 @@ export default function About() {
                 ].map((item) => (
                   <span
                     key={item}
-                    className='px-3 py-1 md:px-4 md:py-2 border border-[#6210FF] text-gray-900 rounded-full text-sm md:text-lg'>
+                    className='px-2 py-0 leading-normal xl:leading-relaxed md:px-4 md:py-2 border border-[#6210FF] text-gray-900 rounded-full text-xs xl:text-lg'>
                     {item}
                   </span>
                 ))}
@@ -175,14 +175,14 @@ export default function About() {
             </div>
 
             <div className='mt-auto pt-4 md:pt-6 w-full flex md:justify-end justify-start'>
-              <button className='flex items-center gap-2 px-4 py-2 md:px-6 md:py-3 bg-white text-gray-900 border-2 border-[#6210FF] rounded-full hover:bg-gray-50 transition-all duration-200'>
-                <span className='text-base md:text-lg font-medium'>
+              <button className='flex items-center gap-2 px-4 py-2 xl:px-6 xl:py-3 bg-white text-gray-900 border-2 border-[#6210FF] rounded-full hover:bg-gray-50 transition-all duration-200'>
+                <span className='text-xs md:text-sm xl:text-lg font-medium'>
                   EXPLORE MORE
                 </span>
                 <img
                   src='/curve.png'
                   alt='Arrow icon'
-                  className='w-8 h-8 md:w-10 md:h-10 object-contain'
+                  className='w-4 h-4 xl:w-8 xl:h-8 object-contain'
                   width={30}
                   height={30}
                 />
@@ -194,29 +194,29 @@ export default function About() {
         {/* Card 1 - Websites & Digital Platforms */}
         <div
           ref={card1Ref}
-          className='absolute top-[100%] z-0 mb-5 bg-white rounded-[20px] md:rounded-[30px] shadow-xl max-w-[90%] md:max-w-[1200px] w-full flex flex-col md:flex-row overflow-hidden mx-4 md:mx-0'
+          className='absolute top-[100%] z-0 mb-5 bg-white rounded-[10px] md:rounded-[30px] shadow-lg max-w-[90%] lg:max-w-[800px] xl:max-w-[1200px] flex flex-col md:flex-row overflow-hidden mx-4 md:mx-0'
           style={{ boxShadow: '0 20px 50px -10px rgba(190, 47, 244, 0.3)' }}>
-          <div className='w-full md:w-1/2 p-6 md:p-10 flex justify-center items-center'>
+          <div className='w-full md:w-1/2 p-4 md:p-10 flex justify-center items-center'>
             <img
               width={100}
               height={100}
               src={'/card-img.png'}
               alt='Main Card'
-              className='w-full h-auto object-cover rounded-[20px] md:rounded-[30px] shadow-xl'
+              className='w-full h-auto object-cover rounded-[10px]  md:rounded-[30px] shadow-xl'
             />
           </div>
 
           <div
-            className='w-full md:w-1/2 p-6 md:p-8 flex flex-col h-full'
+            className='w-full md:w-1/2 p-4 pt-0 md:pl-0 md:p-8 flex flex-col h-full'
             style={{ fontFamily: "'Outfit', sans-serif" }}>
             <div className='flex-grow'>
-              <h2 className='text-3xl md:text-5xl font-outfit leading-tight text-gray-900 mb-4'>
+              <h2 className='text-xl sm:text-3xl lg:text-3xl xl:text-5xl font-outfit leading-tight text-gray-900 mb-4'>
                 Websites & Digital Platforms
               </h2>
-              <p className='text-xl md:text-3xl leading-tight text-gray-900 mb-6 md:mb-8'>
+              <p className='text-lg sm:text-xl md:text-xl xl:text-3xl leading-tight text-gray-900 mb-6 md:mb-8'>
                 We design digital platforms to empower users and your brand's
               </p>
-              <div className='flex flex-wrap gap-2 md:gap-3 mb-4 md:mb-6'>
+              <div className='flex flex-wrap gap-2 xl:gap-3 mb-2 xl:mb-6'>
                 {[
                   'Digital Strategy',
                   'Digital Activation',
@@ -226,7 +226,7 @@ export default function About() {
                 ].map((item) => (
                   <span
                     key={item}
-                    className='px-3 py-1 md:px-4 md:py-2 border border-[#6210FF] text-gray-900 rounded-full text-sm md:text-lg'>
+                    className='px-2 py-0 leading-normal xl:leading-relaxed md:px-4 md:py-2 border border-[#6210FF] text-gray-900 rounded-full text-xs xl:text-lg'>
                     {item}
                   </span>
                 ))}
@@ -234,14 +234,14 @@ export default function About() {
             </div>
 
             <div className='mt-auto pt-4 md:pt-6 w-full flex md:justify-end justify-start'>
-              <button className='flex items-center gap-2 px-4 py-2 md:px-6 md:py-3 bg-white text-gray-900 border-2 border-[#6210FF] rounded-full hover:bg-gray-50 transition-all duration-200'>
-                <span className='text-base md:text-lg font-medium'>
+              <button className='flex items-center gap-2 px-4 py-2 xl:px-6 xl:py-3 bg-white text-gray-900 border-2 border-[#6210FF] rounded-full hover:bg-gray-50 transition-all duration-200'>
+                <span className='text-xs md:text-sm xl:text-lg font-medium'>
                   EXPLORE MORE
                 </span>
                 <img
                   src='/curve.png'
                   alt='Arrow icon'
-                  className='w-8 h-8 md:w-10 md:h-10 object-contain'
+                  className='w-4 h-4 xl:w-8 xl:h-8 object-contain'
                   width={30}
                   height={30}
                 />

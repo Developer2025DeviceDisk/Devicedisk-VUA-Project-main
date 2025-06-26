@@ -100,7 +100,7 @@ export default function HeroSection() {
         
         {/* Text block */}
         <div className='w-full lg:w-6/12 h-auto lg:h-full flex flex-col sm:mt-20 items-center lg:items-start justify-center py-8 md:pl-32 lg:py-0 pl-8'>
-          <h2 className='w-full text-[44px] xs:text-6xl sm:text-7xl lg:text-[50px] xl:text-[80px] 2xl:text-[127px] text-white leading-[1.1] font-medium'>
+          <h2 className='w-full text-[44px] xs:text-6xl sm:text-7xl lg:text-[50px] xl:text-[80px] 2xl:text-[114px] text-white leading-[1.1] font-medium'>
             We are
           </h2>
 
@@ -109,18 +109,18 @@ export default function HeroSection() {
             className='martech-wrapper w-full relative overflow-hidden h-[72px] xs:h-[84px] sm:h-[102px] md:h-[180px]'>
             <span
               ref={textRefs[0]}
-              className='absolute top-0 left-0 w-full font-extrabold bg-gradient-to-r from-[#6210FF] to-[#BE2FF4] text-transparent bg-clip-text text-[50px] xs:text-6xl sm:text-7xl md:text-8xl lg:text-[60px] xl:text-[90px] 2xl:text-[114px] leading-[1.2] inline-block'>
+              className='absolute top-0 left-0 w-full font-extrabold bg-gradient-to-r from-[#6210FF] to-[#BE2FF4] text-transparent bg-clip-text text-[50px] xs:text-6xl sm:text-7xl md:text-8xl lg:text-[60px] xl:text-[90px] 2xl:text-[110px] leading-[1.2] inline-block'>
               Mar - Tech
             </span>
             <span
               ref={textRefs[1]}
-              className='absolute top-0 left-0 w-full font-extrabold bg-gradient-to-r from-[#BE2FF4] to-[#6210FF] text-transparent bg-clip-text text-[50px] sm:text-7xl md:text-8xl lg:text-[60px] xl:text-[90px] 2xl:text-[114px] leading-[1.2] inline-block'
+              className='absolute top-0 left-0 w-full font-extrabold bg-gradient-to-r from-[#BE2FF4] to-[#6210FF] text-transparent bg-clip-text text-[50px] sm:text-7xl md:text-8xl lg:text-[60px] xl:text-[90px] 2xl:text-[110px] leading-[1.2] inline-block'
               style={{ opacity: 0, transform: 'translateY(100%)' }}>
               AI-Powered
             </span>
             <span
               ref={textRefs[2]}
-              className='absolute top-0 left-0 w-full font-extrabold bg-gradient-to-r from-[#BE2FF4] to-[#6210FF] text-transparent bg-clip-text text-[50px] sm:text-7xl md:text-8xl lg:text-[60px] xl:text-[90px] 2xl:text-[114px] leading-[1.2] inline-block'
+              className='absolute top-0 left-0 w-full font-extrabold bg-gradient-to-r from-[#BE2FF4] to-[#6210FF] text-transparent bg-clip-text text-[50px] sm:text-7xl md:text-8xl lg:text-[60px] xl:text-[90px] 2xl:text-[110px] leading-[1.2] inline-block'
               style={{ opacity: 0, transform: 'translateY(100%)' }}>
               Marketing
             </span>

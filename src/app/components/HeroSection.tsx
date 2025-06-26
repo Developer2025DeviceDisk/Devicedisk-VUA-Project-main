@@ -110,7 +110,7 @@ export default function HeroSection() {
             <span
               ref={textRefs[0]}
               className='absolute top-0 left-0 w-full font-extrabold bg-gradient-to-r from-[#6210FF] to-[#BE2FF4] text-transparent bg-clip-text text-[50px] xs:text-6xl sm:text-7xl md:text-8xl lg:text-[60px] xl:text-[90px] 2xl:text-[139px] leading-[1.2] inline-block'>
-              Mar - Techs
+              Mar - Tech
             </span>
             <span
               ref={textRefs[1]}

@@ -84,6 +84,7 @@ export default function HeroSection() {
     <section
       ref={heroRef}
       className='hero-section w-full h-auto min-h-screen relative overflow-hidden bg-black'>
+      
       {/* Background video */}
       <video
         className='absolute top-0 left-0 w-full h-full object-cover'
@@ -91,16 +92,14 @@ export default function HeroSection() {
         muted
         loop
         playsInline>
-        <source
-          src='/hero.mp4'
-          type='video/mp4'
-        />
+        <source src='/hero.mp4' type='video/mp4' />
       </video>
 
       {/* Content container */}
       <div className='mx-auto h-full flex flex-col lg:flex-row md:items-center justify-center px-0 md:px-0 lg:px-0 sm:px-6 mt-[4rem] md:mt-0 items-end relative z-10'>
-        {/* Text block - full width on mobile, half on desktop */}
-        <div className='w-full lg:w-6/12 h-auto lg:h-full flex flex-col sm:mt-20  items-center lg:items-start justify-center py-8 md:pl-32 lg:py-0 pl-10'>
+        
+        {/* Text block */}
+        <div className='w-full lg:w-6/12 h-auto lg:h-full flex flex-col sm:mt-20 items-center lg:items-start justify-center py-8 md:pl-32 lg:py-0 pl-10'>
           <h2 className='w-full text-5xl xs:text-6xl sm:text-7xl lg:text-[50px] xl:text-[80px] 2xl:text-[127px] text-white leading-[1.1] font-medium'>
             We are
           </h2>
@@ -128,7 +127,7 @@ export default function HeroSection() {
           </div>
         </div>
 
-        {/* Image block - full width on mobile, half on desktop */}
+        {/* Image block */}
         <div className='w-full lg:w-6/12 pl-4 sm:pl-0.5 md:pl-0 h-auto lg:h-full flex items-center justify-center relative lg:order-none'>
           <div className='w-full h-[300px] sm:h-[400px] md:h-[500px] lg:h-full flex justify-center items-center lg:items-end relative'>
             <svg
@@ -139,29 +138,39 @@ export default function HeroSection() {
               xmlns='http://www.w3.org/2000/svg'
               preserveAspectRatio='xMidYMid meet'
               className='overflow-visible max-w-[600px] lg:max-w-none'>
+              
               <defs>
-                <clipPath
-                  id='bgblur_clip_path'
-                  transform='translate(0 0)'>
+                <clipPath id='image_clip_path' transform='translate(0 0)'>
                   <path d='M1375.24 0.0751953C1297.95 304.734 1019.35 530.063 687.749 530.063C356.147 530.063 77.2875 304.734 0.261719 0.0751953H283.56C350.664 155.118 506.282 263.906 687.749 263.906C869.217 263.906 1024.83 155.118 1091.94 0.0751953H1375.24Z' />
                 </clipPath>
+                
+                {/* Gradient overlay for depth */}
+                <linearGradient id="overlay_gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stopColor="#6210FF" stopOpacity="0.2" />
+                  <stop offset="100%" stopColor="#BE2FF4" stopOpacity="0.2" />
+                </linearGradient>
+                
+                {/* Subtle grain texture */}
+                <filter id="grain" x="0" y="0" width="100%" height="100%">
+                  <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="1" />
+                  <feColorMatrix type="matrix" values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 0.1 0" />
+                </filter>
               </defs>
 
-              {/* Background shape with blur effect */}
-              <foreignObject
-                x='0'
-                y='0'
-                width='100%'
-                height='100%'>
-                <div
-                  style={{
-                    backdropFilter: 'blur(10.91px)',
-                    clipPath: 'url(#bgblur_clip_path)',
-                    height: '100%',
-                    width: '100%',
-                    background: 'rgba(180, 60, 255, 0.2)',
-                  }}></div>
-              </foreignObject>
+              {/* Background shape with gradient overlay */}
+              <path 
+                d='M1375.24 0.0751953C1297.95 304.734 1019.35 530.063 687.749 530.063C356.147 530.063 77.2875 304.734 0.261719 0.0751953H283.56C350.664 155.118 506.282 263.906 687.749 263.906C869.217 263.906 1024.83 155.118 1091.94 0.0751953H1375.24Z' 
+                fill="url(#overlay_gradient)"
+              />
+              
+              {/* Subtle texture overlay */}
+              <rect 
+                width="100%" 
+                height="100%" 
+                fill="url(#overlay_gradient)" 
+                filter="url(#grain)" 
+                opacity="0.15"
+              />
 
               {/* Images with clip path */}
               <image
@@ -169,7 +178,7 @@ export default function HeroSection() {
                 href='/Mask.png'
                 width='100%'
                 height='100%'
-                clipPath='url(#bgblur_clip_path)'
+                clipPath='url(#image_clip_path)'
                 preserveAspectRatio='xMidYMid slice'
               />
               <image
@@ -177,7 +186,7 @@ export default function HeroSection() {
                 href='/mask-img1.jpg'
                 width='100%'
                 height='100%'
-                clipPath='url(#bgblur_clip_path)'
+                clipPath='url(#image_clip_path)'
                 preserveAspectRatio='xMidYMid slice'
                 style={{ opacity: 0 }}
               />
@@ -186,14 +195,13 @@ export default function HeroSection() {
                 href='/mask-img2.jpg'
                 width='100%'
                 height='100%'
-                clipPath='url(#bgblur_clip_path)'
+                clipPath='url(#image_clip_path)'
                 preserveAspectRatio='xMidYMid slice'
                 style={{ opacity: 0 }}
               />
             </svg>
           </div>
         </div>
-
       </div>
     </section>
   );

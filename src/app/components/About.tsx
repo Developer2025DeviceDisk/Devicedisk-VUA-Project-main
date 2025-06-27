@@ -133,7 +133,7 @@ export default function About() {
         {/* Card 2 - Performance Marketing */}
         <div
           ref={card2Ref}
-          className='absolute top-[100%] z-0 mb-5 bg-white rounded-[10px] md:rounded-[30px] shadow-lg max-w-[90%] lg:max-w-[800px] xl:max-w-[1200px] flex flex-col md:flex-row overflow-hidden mx-4 md:mx-0'
+          className='absolute top-[100%] z-10 mb-5 bg-white rounded-[10px] md:rounded-[30px] shadow-lg max-w-[90%] lg:max-w-[800px] xl:max-w-[1100px] 2xl:max-w-[1200px] flex flex-col md:flex-row overflow-hidden mx-4 md:mx-0'
           style={{ boxShadow: '0 20px 50px -10px rgba(190, 47, 244, 0.3)' }}>
           <div className='w-full md:w-1/2 p-4 md:p-10 flex justify-center items-center'>
             <img
@@ -192,7 +192,7 @@ export default function About() {
         {/* Card 1 - Websites & Digital Platforms */}
         <div
           ref={card1Ref}
-          className='absolute top-[100%] z-0 mb-5 bg-white rounded-[10px] md:rounded-[30px] shadow-lg max-w-[90%] lg:max-w-[800px] xl:max-w-[1200px] flex flex-col md:flex-row overflow-hidden mx-4 md:mx-0'
+          className='absolute top-[100%] z-0 mb-5 bg-white rounded-[10px] md:rounded-[30px] shadow-lg max-w-[90%] lg:max-w-[800px] xl:max-w-[1000px] 2xl:max-w-[1200px] flex flex-col md:flex-row overflow-hidden mx-4 md:mx-0'
           style={{ boxShadow: '0 20px 50px -10px rgba(190, 47, 244, 0.3)' }}>
           <div className='w-full md:w-1/2 p-4 md:p-10 flex justify-center items-center'>
             <img

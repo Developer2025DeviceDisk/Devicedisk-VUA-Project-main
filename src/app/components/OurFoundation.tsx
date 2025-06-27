@@ -57,7 +57,7 @@ const OurFoundation = () => {
           ref={leftRef}
           className='relative w-full md:w-1/2 flex-shrink-0'>
           <div className='relative w-full flex items-center justify-center min-h-[300px] sm:min-h-[450px]'>
-            <h2 className='font-light text-[48px] sm:text-[90px] leading-[48px] sm:leading-[90px] text-[#6210FF] z-10 text-left whitespace-pre-line'>
+            <h2 className='font-semibold text-[48px] sm:text-[90px] leading-[48px] sm:leading-[90px] text-[#6210FF] z-10 text-left whitespace-pre-line'>
               Our
               <br />
               Foundation

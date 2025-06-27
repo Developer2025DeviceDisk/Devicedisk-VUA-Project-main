@@ -5,8 +5,6 @@ import gsap from 'gsap';
 import ScrollTrigger from 'gsap/ScrollTrigger';
 import OurFoundation from './OurFoundation';
 
-// cc
-
 gsap.registerPlugin(ScrollTrigger);
 export default function About() {
   const sectionRef = useRef(null);
@@ -153,7 +151,6 @@ export default function About() {
             <div className='flex-grow'>
               <h2 className='text-xl sm:text-3xl lg:text-3xl xl:text-5xl font-outfit leading-tight text-gray-900 mb-4'>
                 Performance Marketing
-
               </h2>
               <p className='text-lg sm:text-xl md:text-xl xl:text-3xl leading-tight text-gray-900 mb-6 md:mb-8'>
                 We design digital platforms to empower users and your brand's

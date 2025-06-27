@@ -2,17 +2,17 @@
 import React from 'react';
 import Link from 'next/link';
 
-import Map from './map'; // Adjust the import path as necessary
+import Map from './map'; 
 export default function ContactUs() {
-    const openings = ['Brand Manager', 'UI Designer', 'Marketing Intern', 'senior Designer', 'animator', 'Business development'];
+    const openings = ['Brand Manager', 'UI Designer', 'Marketing Intern', 'Senior Designer', 'Animator', 'Business Development'];
 
     const topThree = openings.slice(0, 3);
     const bottomFour = openings.slice(3);
     return (
         <>
-            <div id="contact" className=" flex flex-col bg-white items-center justify-center">
+            {/* <div id="contact" className=" flex flex-col bg-[#EEF0FF] items-center justify-center"> */}
 
-                <div className="relative  min-h-screen bg-white pb-6 pt-[120px] py-12 px-8 md:px-20">
+                <div className="relative  min-h-screen bg-[#EEF0FF] pb-6 pt-[120px] py-12 px-8 md:px-20">
                     <h1 className="text-[55px] md:text-[94.5px] md:text-6xl petrovsans-book text-center bg-gradient-to-r from-[#6210FF] to-[#BE2FF4] text-transparent bg-clip-text">Reach Us</h1>
                     <p className="text-center text-[15px] md:text-[20px] md:max-w-[1176px] outfit-light mx-auto mt-6 text-[#6210FF]">
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet
@@ -96,38 +96,44 @@ export default function ContactUs() {
                             <div>
                                 <button
                                     type="submit"
-                                    className="mt-4 inline-flex items-center text-[24px] md:text-[35px] petrovsans-semibold gap-2 bg-gradient-to-r from-[#6210FF] to-[#BE2FF4] text-transparent bg-clip-text border-[2px] border-[#6210FF] rounded-full px-6  text-lg font-semibold hover:bg-purple-50 transition"
+                                    className="mt-4 relative inline-flex items-center text-[24px] md:text-[35.81px] petrovsans-semibold gap-7 text-[#6210FF] px-6 tracking-[0.05em] font-semibold hover:bg-purple-50 transition rounded-full"
+                                    style={{
+                                        background: 'linear-gradient(to right, #6210FF, #BE2FF4) border-box',
+                                        padding: '2px',
+                                    }}
                                 >
-                                    Submit
-                                    <span className="text-xl">→</span>
+                                    <span className="bg-[#EEF0FF] rounded-full px-7 flex items-center gap-7">
+                                        Submit
+                                        <span className="text-[35.81px]">→</span>
+                                    </span>
                                 </button>
                             </div>
                         </form>
                     </div>
                 </div>
 
-                <div className="relative min-h-screen  bg-white  py-12 md:px-20">
+                <div className="relative min-h-screen bg-[#EEF0FF] py-12">
                     <div className='mt-[79px]'>
                         <h1 className="text-[55px] md:text-[94.5px] petrovsans-book text-center text-[#6210FF]">Our Presence</h1>
                     </div>
                     <p className="text-center max-w-2xl mx-auto mt-6 text-[#6210FF]">
                     </p>
-                    <div className="mt-16 mr-4 grid md:grid-cols-2 gap-10 items-start overflow-x-auto">
-
-                        <Map />
-
-
+                    <div className="mt-16 flex justify-center w-full">
+                        <div className="w-full md:w-[100%]">
+                            <Map />
+                        </div>
                     </div>
 
 
                 </div>
 
-                <div className="min-h-screen px-6 py-16 md:py-24 text-center bg-white">
-                    <h1 className="text-[55px] md:text-[94.5px] petrovsans-book text-[#6210FF] leading-tight">
-                        Looking For VUA Filling
-                    </h1>
-
-                    <h2 className="mt-[18px]  md:mt-[41px] text-[24px] md:text-[31px] petrovsans-semibold text-black ]">Current Opening</h2>
+                <div className="px-6 py-16 md:py-24 text-center bg-[#EEF0FF]">
+               <h1 className="text-[40px] max-sm:px-5 md:text-[94.5px] petrovsans-book text-[#6210FF] leading-tight">
+  Looking For 
+  <br className="max-sm:block hidden" />
+   &nbsp;VUA Filling
+</h1>
+                    <h2 className="mt-[18px]  md:mt-[41px] text-[24px] md:text-[31.5px] petrovsans-semibold text-black">Current Opening</h2>
 
                     <div className="mt-[18px]  md:mt-[41px] max-w-4xl mx-auto">
 
@@ -183,7 +189,7 @@ export default function ContactUs() {
                             </div>
                         </div>
                     </div>
-                    <p className="mt-[36px] md:mt-[93px] text-[19px] petrovsans-book md:text-[23.62px] text-gray-800">
+                    <p className="mt-[72px] md:mt-[93px] text-[19px] petrovsans-book md:text-[23.62px] text-gray-800">
                         Work With Us:{' '}
                         <a
                             href="mailto:hr@vvworx.com"
@@ -193,7 +199,7 @@ export default function ContactUs() {
                         </a>
                     </p>
                 </div>
-            </div>
+            
         </>
 
     )

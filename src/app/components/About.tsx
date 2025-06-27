@@ -133,7 +133,7 @@ export default function About() {
         {/* Card 2 - Performance Marketing */}
         <div
           ref={card2Ref}
-          className='absolute top-[100%] z-10 mb-5 bg-white rounded-[10px] md:rounded-[30px] shadow-lg max-w-[90%] lg:max-w-[800px] xl:max-w-[1100px] 2xl:max-w-[1200px] flex flex-col md:flex-row overflow-hidden mx-4 md:mx-0'
+          className='absolute top-[100%] z-10 mb-5 bg-white rounded-[10px] md:rounded-[30px] shadow-lg max-w-[90%] lg:max-w-[800px] xl:max-w-[1100px] 2xl:max-w-[70%] flex flex-col md:flex-row overflow-hidden mx-4 md:mx-0'
           style={{ boxShadow: '0 20px 50px -10px rgba(190, 47, 244, 0.3)' }}>
           <div className='w-full md:w-1/2 p-4 md:p-10 flex justify-center items-center'>
             <img
@@ -149,10 +149,10 @@ export default function About() {
             className='w-full md:w-1/2 p-4 pt-0 md:pr-0 md:p-8 flex flex-col h-full md:order-first'
             style={{ fontFamily: "'Outfit', sans-serif" }}>
             <div className='flex-grow'>
-              <h2 className='text-xl sm:text-3xl lg:text-3xl xl:text-5xl font-outfit leading-tight text-gray-900 mb-4'>
+              <h2 className='text-xl sm:text-3xl lg:text-3xl xl:text-4xl font-outfit leading-tight text-gray-900 mb-4'>
                 Performance Marketing
               </h2>
-              <p className='text-lg sm:text-xl md:text-xl xl:text-3xl leading-tight text-gray-900 mb-6 md:mb-8'>
+              <p className='text-lg sm:text-xl md:text-xl xl:text-2xl leading-tight text-gray-900 mb-6 md:mb-8'>
                 We design digital platforms to empower users and your brand's
               </p>
               <div className='flex flex-wrap gap-2 xl:gap-3 mb-2 xl:mb-6'>
@@ -192,7 +192,7 @@ export default function About() {
         {/* Card 1 - Websites & Digital Platforms */}
         <div
           ref={card1Ref}
-          className='absolute top-[100%] z-0 mb-5 bg-white rounded-[10px] md:rounded-[30px] shadow-lg max-w-[90%] lg:max-w-[800px] xl:max-w-[1000px] 2xl:max-w-[1200px] flex flex-col md:flex-row overflow-hidden mx-4 md:mx-0'
+          className='absolute top-[100%] z-0 mb-5 bg-white rounded-[10px] md:rounded-[30px] shadow-lg max-w-[90%] lg:max-w-[800px] xl:max-w-[1100px] 2xl:max-w-[70%] flex flex-col md:flex-row overflow-hidden mx-4 md:mx-0'
           style={{ boxShadow: '0 20px 50px -10px rgba(190, 47, 244, 0.3)' }}>
           <div className='w-full md:w-1/2 p-4 md:p-10 flex justify-center items-center'>
             <img
@@ -208,10 +208,10 @@ export default function About() {
             className='w-full md:w-1/2 p-4 pt-0 md:pl-0 md:p-8 flex flex-col h-full'
             style={{ fontFamily: "'Outfit', sans-serif" }}>
             <div className='flex-grow'>
-              <h2 className='text-xl sm:text-3xl lg:text-3xl xl:text-5xl font-outfit leading-tight text-gray-900 mb-4'>
+              <h2 className='text-xl sm:text-3xl lg:text-3xl xl:text-4xl font-outfit leading-tight text-gray-900 mb-4'>
                 Websites & Digital Platforms
               </h2>
-              <p className='text-lg sm:text-xl md:text-xl xl:text-3xl leading-tight text-gray-900 mb-6 md:mb-8'>
+              <p className='text-lg sm:text-xl md:text-xl xl:text-2xl leading-tight text-gray-900 mb-6 md:mb-8'>
                 We design digital platforms to empower users and your brand's
               </p>
               <div className='flex flex-wrap gap-2 xl:gap-3 mb-2 xl:mb-6'>

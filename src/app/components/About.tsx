@@ -125,7 +125,7 @@ export default function About() {
 
   return (
     <>
-      {/* Parallax Section 00 */}
+      {/* Parallax Section */}
       <section
         ref={parallaxContainerRef}
         className="parallax relative w-full h-screen flex flex-col justify-center items-center text-center overflow-hidden"

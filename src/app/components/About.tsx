@@ -16,6 +16,11 @@ export default function About() {
 
   const card1Ref = useRef(null);
   const card2Ref = useRef(null);
+  const card3Ref = useRef(null);
+  const card4Ref = useRef(null);
+  const card5Ref = useRef(null);
+  const card6Ref = useRef(null);
+  const card7Ref = useRef(null);
 
   useEffect(() => {
     // Parallax effect for the background image
@@ -35,7 +40,7 @@ export default function About() {
         scrollTrigger: {
           trigger: sectionRef.current,
           start: 'top top',
-          end: '200%',
+          end: '500%',
           pin: true,
           scrub: 1,
         },
@@ -62,6 +67,41 @@ export default function About() {
         { top: window.innerWidth < 768 ? '10%' : '20%', duration: 1 },
         '-=.9'
       );
+      tl.to(card2Ref.current, { scale: 0.5, opacity: 0, duration: 1 });
+
+      tl.to(
+        card3Ref.current,
+        { top: window.innerWidth < 768 ? '10%' : '20%', duration: 1 },
+        '-=.9'
+      );
+      tl.to(card3Ref.current, { scale: 0.5, opacity: 0, duration: 1 });
+
+      tl.to(
+        card4Ref.current,
+        { top: window.innerWidth < 768 ? '10%' : '20%', duration: 1 },
+        '-=.9'
+      );
+      tl.to(card4Ref.current, { scale: 0.5, opacity: 0, duration: 1 });
+
+      tl.to(
+        card5Ref.current,
+        { top: window.innerWidth < 768 ? '10%' : '20%', duration: 1 },
+        '-=.9'
+      );
+      tl.to(card5Ref.current, { scale: 0.5, opacity: 0, duration: 1 });
+
+      tl.to(
+        card6Ref.current,
+        { top: window.innerWidth < 768 ? '10%' : '20%', duration: 1 },
+        '-=.9'
+      );
+      tl.to(card6Ref.current, { scale: 0.5, opacity: 0, duration: 1 });
+
+      tl.to(
+        card7Ref.current,
+        { top: window.innerWidth < 768 ? '10%' : '20%', duration: 1 },
+        '-=.9'
+      );
     }, sectionRef);
 
     gsap.fromTo(
@@ -85,7 +125,7 @@ export default function About() {
 
   return (
     <>
-      {/* Parallax Section s */}
+      {/* Parallax Section */}
       <section
         ref={parallaxContainerRef}
         className='parallax relative w-full h-screen flex flex-col justify-center items-center text-center overflow-hidden'>
@@ -111,7 +151,7 @@ export default function About() {
 
       <div
         ref={sectionRef}
-        className='flex min-h-screen  overflow-hidden flex-col items-center justify-start bg-[#EEF0FF]'>
+        className='flex min-h-screen overflow-hidden flex-col items-center justify-start bg-[#EEF0FF]'>
         <div
           className='relative'
           ref={titleRef}>
@@ -130,27 +170,27 @@ export default function About() {
           </h1>
         </div>
 
-        {/* Card 2 - Performance Marketing */}
+        {/* Card 1 - Websites & Digital Platforms */}
         <div
-          ref={card2Ref}
-          className='absolute top-[100%] z-10 mb-5 bg-white rounded-[10px] md:rounded-[30px] shadow-lg max-w-[90%] lg:max-w-[800px] xl:max-w-[1100px] 2xl:max-w-[70%] flex flex-col md:flex-row overflow-hidden mx-4 md:mx-0'
+          ref={card1Ref}
+          className='absolute top-[100%] z-0 mb-5 bg-white rounded-[10px] md:rounded-[30px] shadow-lg max-w-[90%] lg:max-w-[800px] xl:max-w-[1100px] 2xl:max-w-[70%] flex flex-col md:flex-row overflow-hidden mx-4 md:mx-0'
           style={{ boxShadow: '0 20px 50px -10px rgba(190, 47, 244, 0.3)' }}>
           <div className='w-full md:w-1/2 p-4 md:p-10 flex justify-center items-center'>
             <img
               width={100}
               height={100}
               src={'/card-img.png'}
-              alt='Main Card'
-              className='w-full h-auto object-cover rounded-[10px]  md:rounded-[30px] shadow-xl'
+              alt='Websites & Digital Platforms'
+              className='w-full h-auto object-cover rounded-[10px] md:rounded-[30px] shadow-xl'
             />
           </div>
 
           <div
-            className='w-full md:w-1/2 p-4 pt-0 md:pr-0 md:p-8 flex flex-col h-full md:order-first'
+            className='w-full md:w-1/2 p-4 pt-0 md:pl-0 md:p-8 flex flex-col h-full'
             style={{ fontFamily: "'Outfit', sans-serif" }}>
             <div className='flex-grow'>
               <h2 className='text-xl sm:text-3xl lg:text-3xl xl:text-4xl font-outfit leading-tight text-gray-900 mb-4'>
-                Performance Marketing
+                Websites & Digital Platforms
               </h2>
               <p className='text-lg sm:text-xl md:text-xl xl:text-2xl leading-tight text-gray-900 mb-6 md:mb-8'>
                 We design digital platforms to empower users and your brand's
@@ -189,18 +229,77 @@ export default function About() {
           </div>
         </div>
 
-        {/* Card 1 - Websites & Digital Platforms */}
+        {/* Card 2 - Performance Marketing */}
         <div
-          ref={card1Ref}
-          className='absolute top-[100%] z-0 mb-5 bg-white rounded-[10px] md:rounded-[30px] shadow-lg max-w-[90%] lg:max-w-[800px] xl:max-w-[1100px] 2xl:max-w-[70%] flex flex-col md:flex-row overflow-hidden mx-4 md:mx-0'
+          ref={card2Ref}
+          className='absolute top-[100%] z-10 mb-5 bg-white rounded-[10px] md:rounded-[30px] shadow-lg max-w-[90%] lg:max-w-[800px] xl:max-w-[1100px] 2xl:max-w-[70%] flex flex-col md:flex-row overflow-hidden mx-4 md:mx-0'
+          style={{ boxShadow: '0 20px 50px -10px rgba(190, 47, 244, 0.3)' }}>
+          <div className='w-full md:w-1/2 p-4 md:p-10 flex justify-center items-center order-1'>
+            <img
+              width={100}
+              height={100}
+              src={'/marketing-img.jpg'}
+              alt='Performance Marketing'
+              className='w-full h-auto object-cover rounded-[10px] md:rounded-[30px] shadow-xl'
+            />
+          </div>
+
+          <div
+            className='w-full md:w-1/2 p-4 pt-0 md:pr-0 md:p-8 flex flex-col h-full md:order-first'
+            style={{ fontFamily: "'Outfit', sans-serif" }}>
+            <div className='flex-grow'>
+              <h2 className='text-xl sm:text-3xl lg:text-3xl xl:text-4xl font-outfit leading-tight text-gray-900 mb-4'>
+                Performance Marketing
+              </h2>
+              <p className='text-lg sm:text-xl md:text-xl xl:text-2xl leading-tight text-gray-900 mb-6 md:mb-8'>
+                Data-driven marketing strategies that deliver measurable results
+              </p>
+              <div className='flex flex-wrap gap-2 xl:gap-3 mb-2 xl:mb-6'>
+                {[
+                  'Paid Media Strategy',
+                  'Social Media Advertising',
+                  'Search Engine Marketing',
+                  'Conversion Rate Optimization',
+                  'Analytics & Reporting',
+                ].map((item) => (
+                  <span
+                    key={item}
+                    className='px-2 py-0 leading-normal xl:leading-relaxed md:px-4 md:py-2 border border-[#6210FF] text-gray-900 rounded-full text-xs xl:text-lg'>
+                    {item}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            <div className='mt-auto pt-4 md:pt-6 w-full flex md:justify-end justify-start'>
+              <button className='flex items-center gap-2 px-4 py-2 xl:px-6 xl:py-3 bg-white text-gray-900 border-2 border-[#6210FF] rounded-full hover:bg-gray-50 transition-all duration-200'>
+                <span className='text-xs md:text-sm xl:text-lg font-medium'>
+                  EXPLORE MORE
+                </span>
+                <img
+                  src='/curve.png'
+                  alt='Arrow icon'
+                  className='w-4 h-4 xl:w-8 xl:h-8 object-contain'
+                  width={30}
+                  height={30}
+                />
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* Card 3 - Brand Strategy */}
+        <div
+          ref={card3Ref}
+          className='absolute top-[100%] z-20 mb-5 bg-white rounded-[10px] md:rounded-[30px] shadow-lg max-w-[90%] lg:max-w-[800px] xl:max-w-[1100px] 2xl:max-w-[70%] flex flex-col md:flex-row overflow-hidden mx-4 md:mx-0'
           style={{ boxShadow: '0 20px 50px -10px rgba(190, 47, 244, 0.3)' }}>
           <div className='w-full md:w-1/2 p-4 md:p-10 flex justify-center items-center'>
             <img
               width={100}
               height={100}
-              src={'/card-img.png'}
-              alt='Main Card'
-              className='w-full h-auto object-cover rounded-[10px]  md:rounded-[30px] shadow-xl'
+              src={'/brand-strategy-img.jpg'}
+              alt='Brand Strategy'
+              className='w-full h-auto object-cover rounded-[10px] md:rounded-[30px] shadow-xl'
             />
           </div>
 
@@ -209,18 +308,254 @@ export default function About() {
             style={{ fontFamily: "'Outfit', sans-serif" }}>
             <div className='flex-grow'>
               <h2 className='text-xl sm:text-3xl lg:text-3xl xl:text-4xl font-outfit leading-tight text-gray-900 mb-4'>
-                Websites & Digital Platforms
+                Brand Strategy
               </h2>
               <p className='text-lg sm:text-xl md:text-xl xl:text-2xl leading-tight text-gray-900 mb-6 md:mb-8'>
-                We design digital platforms to empower users and your brand's
+                Crafting compelling brand narratives that resonate with your audience
               </p>
               <div className='flex flex-wrap gap-2 xl:gap-3 mb-2 xl:mb-6'>
                 {[
-                  'Digital Strategy',
-                  'Digital Activation',
-                  'UX & UI Design',
-                  'Web & App Development',
-                  'SEO Strategy & Systems',
+                  'Brand Positioning',
+                  'Visual Identity',
+                  'Messaging Strategy',
+                  'Brand Architecture',
+                  'Competitive Analysis',
+                ].map((item) => (
+                  <span
+                    key={item}
+                    className='px-2 py-0 leading-normal xl:leading-relaxed md:px-4 md:py-2 border border-[#6210FF] text-gray-900 rounded-full text-xs xl:text-lg'>
+                    {item}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            <div className='mt-auto pt-4 md:pt-6 w-full flex md:justify-end justify-start'>
+              <button className='flex items-center gap-2 px-4 py-2 xl:px-6 xl:py-3 bg-white text-gray-900 border-2 border-[#6210FF] rounded-full hover:bg-gray-50 transition-all duration-200'>
+                <span className='text-xs md:text-sm xl:text-lg font-medium'>
+                  EXPLORE MORE
+                </span>
+                <img
+                  src='/curve.png'
+                  alt='Arrow icon'
+                  className='w-4 h-4 xl:w-8 xl:h-8 object-contain'
+                  width={30}
+                  height={30}
+                />
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* Card 4 - Content Creation */}
+        <div
+          ref={card4Ref}
+          className='absolute top-[100%] z-30 mb-5 bg-white rounded-[10px] md:rounded-[30px] shadow-lg max-w-[90%] lg:max-w-[800px] xl:max-w-[1100px] 2xl:max-w-[70%] flex flex-col md:flex-row overflow-hidden mx-4 md:mx-0'
+          style={{ boxShadow: '0 20px 50px -10px rgba(190, 47, 244, 0.3)' }}>
+          <div className='w-full md:w-1/2 p-4 md:p-10 flex justify-center items-center order-1'>
+            <img
+              width={100}
+              height={100}
+              src={'/content-creation-img.jpg'}
+              alt='Content Creation'
+              className='w-full h-auto object-cover rounded-[10px] md:rounded-[30px] shadow-xl'
+            />
+          </div>
+
+          <div
+            className='w-full md:w-1/2 p-4 pt-0 md:pr-0 md:p-8 flex flex-col h-full md:order-first'
+            style={{ fontFamily: "'Outfit', sans-serif" }}>
+            <div className='flex-grow'>
+              <h2 className='text-xl sm:text-3xl lg:text-3xl xl:text-4xl font-outfit leading-tight text-gray-900 mb-4'>
+                Content Creation
+              </h2>
+              <p className='text-lg sm:text-xl md:text-xl xl:text-2xl leading-tight text-gray-900 mb-6 md:mb-8'>
+                Engaging content that tells your brand's story across all channels
+              </p>
+              <div className='flex flex-wrap gap-2 xl:gap-3 mb-2 xl:mb-6'>
+                {[
+                  'Video Production',
+                  'Photography',
+                  'Copywriting',
+                  'Graphic Design',
+                  'Content Strategy',
+                ].map((item) => (
+                  <span
+                    key={item}
+                    className='px-2 py-0 leading-normal xl:leading-relaxed md:px-4 md:py-2 border border-[#6210FF] text-gray-900 rounded-full text-xs xl:text-lg'>
+                    {item}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            <div className='mt-auto pt-4 md:pt-6 w-full flex md:justify-end justify-start'>
+              <button className='flex items-center gap-2 px-4 py-2 xl:px-6 xl:py-3 bg-white text-gray-900 border-2 border-[#6210FF] rounded-full hover:bg-gray-50 transition-all duration-200'>
+                <span className='text-xs md:text-sm xl:text-lg font-medium'>
+                  EXPLORE MORE
+                </span>
+                <img
+                  src='/curve.png'
+                  alt='Arrow icon'
+                  className='w-4 h-4 xl:w-8 xl:h-8 object-contain'
+                  width={30}
+                  height={30}
+                />
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* Card 5 - Social Media Management */}
+        <div
+          ref={card5Ref}
+          className='absolute top-[100%] z-40 mb-5 bg-white rounded-[10px] md:rounded-[30px] shadow-lg max-w-[90%] lg:max-w-[800px] xl:max-w-[1100px] 2xl:max-w-[70%] flex flex-col md:flex-row overflow-hidden mx-4 md:mx-0'
+          style={{ boxShadow: '0 20px 50px -10px rgba(190, 47, 244, 0.3)' }}>
+          <div className='w-full md:w-1/2 p-4 md:p-10 flex justify-center items-center'>
+            <img
+              width={100}
+              height={100}
+              src={'/social-media-img.jpg'}
+              alt='Social Media Management'
+              className='w-full h-auto object-cover rounded-[10px] md:rounded-[30px] shadow-xl'
+            />
+          </div>
+
+          <div
+            className='w-full md:w-1/2 p-4 pt-0 md:pl-0 md:p-8 flex flex-col h-full'
+            style={{ fontFamily: "'Outfit', sans-serif" }}>
+            <div className='flex-grow'>
+              <h2 className='text-xl sm:text-3xl lg:text-3xl xl:text-4xl font-outfit leading-tight text-gray-900 mb-4'>
+                Social Media Management
+              </h2>
+              <p className='text-lg sm:text-xl md:text-xl xl:text-2xl leading-tight text-gray-900 mb-6 md:mb-8'>
+                Building meaningful connections with your audience through social platforms
+              </p>
+              <div className='flex flex-wrap gap-2 xl:gap-3 mb-2 xl:mb-6'>
+                {[
+                  'Content Planning',
+                  'Community Management',
+                  'Influencer Partnerships',
+                  'Social Listening',
+                  'Platform Strategy',
+                ].map((item) => (
+                  <span
+                    key={item}
+                    className='px-2 py-0 leading-normal xl:leading-relaxed md:px-4 md:py-2 border border-[#6210FF] text-gray-900 rounded-full text-xs xl:text-lg'>
+                    {item}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            <div className='mt-auto pt-4 md:pt-6 w-full flex md:justify-end justify-start'>
+              <button className='flex items-center gap-2 px-4 py-2 xl:px-6 xl:py-3 bg-white text-gray-900 border-2 border-[#6210FF] rounded-full hover:bg-gray-50 transition-all duration-200'>
+                <span className='text-xs md:text-sm xl:text-lg font-medium'>
+                  EXPLORE MORE
+                </span>
+                <img
+                  src='/curve.png'
+                  alt='Arrow icon'
+                  className='w-4 h-4 xl:w-8 xl:h-8 object-contain'
+                  width={30}
+                  height={30}
+                />
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* Card 6 - E-commerce Solutions */}
+        <div
+          ref={card6Ref}
+          className='absolute top-[100%] z-50 mb-5 bg-white rounded-[10px] md:rounded-[30px] shadow-lg max-w-[90%] lg:max-w-[800px] xl:max-w-[1100px] 2xl:max-w-[70%] flex flex-col md:flex-row overflow-hidden mx-4 md:mx-0'
+          style={{ boxShadow: '0 20px 50px -10px rgba(190, 47, 244, 0.3)' }}>
+          <div className='w-full md:w-1/2 p-4 md:p-10 flex justify-center items-center order-1'>
+            <img
+              width={100}
+              height={100}
+              src={'/ecommerce-img.jpg'}
+              alt='E-commerce Solutions'
+              className='w-full h-auto object-cover rounded-[10px] md:rounded-[30px] shadow-xl'
+            />
+          </div>
+
+          <div
+            className='w-full md:w-1/2 p-4 pt-0 md:pr-0 md:p-8 flex flex-col h-full md:order-first'
+            style={{ fontFamily: "'Outfit', sans-serif" }}>
+            <div className='flex-grow'>
+              <h2 className='text-xl sm:text-3xl lg:text-3xl xl:text-4xl font-outfit leading-tight text-gray-900 mb-4'>
+                E-commerce Solutions
+              </h2>
+              <p className='text-lg sm:text-xl md:text-xl xl:text-2xl leading-tight text-gray-900 mb-6 md:mb-8'>
+                Optimized online stores that drive conversions and customer loyalty
+              </p>
+              <div className='flex flex-wrap gap-2 xl:gap-3 mb-2 xl:mb-6'>
+                {[
+                  'Shopify Development',
+                  'WooCommerce Solutions',
+                  'Checkout Optimization',
+                  'Product Photography',
+                  'Inventory Integration',
+                ].map((item) => (
+                  <span
+                    key={item}
+                    className='px-2 py-0 leading-normal xl:leading-relaxed md:px-4 md:py-2 border border-[#6210FF] text-gray-900 rounded-full text-xs xl:text-lg'>
+                    {item}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            <div className='mt-auto pt-4 md:pt-6 w-full flex md:justify-end justify-start'>
+              <button className='flex items-center gap-2 px-4 py-2 xl:px-6 xl:py-3 bg-white text-gray-900 border-2 border-[#6210FF] rounded-full hover:bg-gray-50 transition-all duration-200'>
+                <span className='text-xs md:text-sm xl:text-lg font-medium'>
+                  EXPLORE MORE
+                </span>
+                <img
+                  src='/curve.png'
+                  alt='Arrow icon'
+                  className='w-4 h-4 xl:w-8 xl:h-8 object-contain'
+                  width={30}
+                  height={30}
+                />
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* Card 7 - Data Analytics */}
+        <div
+          ref={card7Ref}
+          className='absolute top-[100%] z-60 mb-5 bg-white rounded-[10px] md:rounded-[30px] shadow-lg max-w-[90%] lg:max-w-[800px] xl:max-w-[1100px] 2xl:max-w-[70%] flex flex-col md:flex-row overflow-hidden mx-4 md:mx-0'
+          style={{ boxShadow: '0 20px 50px -10px rgba(190, 47, 244, 0.3)' }}>
+          <div className='w-full md:w-1/2 p-4 md:p-10 flex justify-center items-center'>
+            <img
+              width={100}
+              height={100}
+              src={'/data-analytics-img.jpg'}
+              alt='Data Analytics'
+              className='w-full h-auto object-cover rounded-[10px] md:rounded-[30px] shadow-xl'
+            />
+          </div>
+
+          <div
+            className='w-full md:w-1/2 p-4 pt-0 md:pl-0 md:p-8 flex flex-col h-full'
+            style={{ fontFamily: "'Outfit', sans-serif" }}>
+            <div className='flex-grow'>
+              <h2 className='text-xl sm:text-3xl lg:text-3xl xl:text-4xl font-outfit leading-tight text-gray-900 mb-4'>
+                Data Analytics
+              </h2>
+              <p className='text-lg sm:text-xl md:text-xl xl:text-2xl leading-tight text-gray-900 mb-6 md:mb-8'>
+                Actionable insights to drive your business decisions and growth
+              </p>
+              <div className='flex flex-wrap gap-2 xl:gap-3 mb-2 xl:mb-6'>
+                {[
+                  'Dashboard Creation',
+                  'KPI Identification',
+                  'Customer Segmentation',
+                  'Predictive Analytics',
+                  'Data Visualization',
                 ].map((item) => (
                   <span
                     key={item}

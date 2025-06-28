@@ -76,7 +76,8 @@ export default function Footer() {
                 <FontAwesomeIcon icon={faInstagram} />
               </a>
               <a
-                href='#'
+                href='https://www.behance.net/vvworx'
+                target='_blank'
                 className='bg-white text-[#6210FF] w-10 h-10 flex items-center justify-center rounded-full text-xl hover:scale-110 transition'>
                 <FontAwesomeIcon icon={faBehance} />
               </a>
@@ -86,7 +87,7 @@ export default function Footer() {
 
         {/* Second Column */}
         <div className='flex flex-col space-y-3 text-white font-medium text-xl'>
-          <Link
+          {/* <Link
             href='/Services'
             className='text-white'>
             Services
@@ -96,14 +97,14 @@ export default function Footer() {
             className='text-white'>
             About
           </a>
-          <a href='#'>Work</a>
-          <a href='#'>Culture</a>
+          <a href='#'>Work</a> */}
+          {/* <a href='#'>Culture</a> */}
           <Link
-            href='/ContactUs'
+            href='/contact'
             className='text-white'>
             Contact
           </Link>
-          <a href='#'>Careers</a>
+          {/* <a href='#'>Careers</a> */}
         </div>
 
         {/* Third Column - Locations */}

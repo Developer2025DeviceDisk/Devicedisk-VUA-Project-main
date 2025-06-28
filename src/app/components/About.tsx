@@ -309,7 +309,7 @@ export default function About() {
             <img
               width={100}
               height={100}
-              src={"/digital.jpeg"}
+              src={"/content.jpeg"}
               alt="Brand Strategy"
               className="w-full h-full object-cover rounded-[10px] md:rounded-[30px] shadow-xl"
             />
@@ -321,17 +321,21 @@ export default function About() {
           >
             <div className="flex-grow">
               <h2 className="text-xl sm:text-3xl lg:text-3xl xl:text-4xl font-outfit leading-tight text-gray-900 mb-4">
-                Digital Marketing
+             Content &amp; Production
               </h2>
               <p className="text-lg sm:text-xl md:text-xl xl:text-2xl leading-tight text-gray-900 mb-6 md:mb-8">
-                We convert digital footprints into tangible results, connecting
-                you with your audience and driving results.
+              We bring your story to life, crafting impactful content experiences
+that resonate.
               </p>
               <div className="flex flex-wrap gap-2 xl:gap-3 mb-2 xl:mb-6">
                 {[
-                  "Growth Marketing (Push &amp; Pull Mediums)",
-                  "Social Media Management Packages",
-                  "SEO Optimization &amp; Ranking",
+          'Influencer Marketing',
+'Conceptualization of Content',
+'High Quality Video Shoot & Production',
+'Reel Production',
+'Motion Graphics',
+'Creative Copywriting',
+' Blogs / Articles',
                 ].map((item) => (
                   <span
                     key={item}
@@ -370,7 +374,7 @@ export default function About() {
             <img
               width={100}
               height={100}
-              src={"/content.jpeg"}
+               src={"/digital.jpeg"}
               alt="Content Creation"
               className="w-full h-full object-cover rounded-[10px] md:rounded-[30px] shadow-xl"
             />
@@ -382,19 +386,17 @@ export default function About() {
           >
             <div className="flex-grow">
               <h2 className="text-xl sm:text-3xl lg:text-3xl xl:text-4xl font-outfit leading-tight text-gray-900 mb-4">
-                Content Creation
+          Digital Marketing
               </h2>
               <p className="text-lg sm:text-xl md:text-xl xl:text-2xl leading-tight text-gray-900 mb-6 md:mb-8">
-                Engaging content that tells your brand's story across all
-                channels
+                We convert digital footprints into tangible results, connecting
+                you with your audience and driving results.
               </p>
               <div className="flex flex-wrap gap-2 xl:gap-3 mb-2 xl:mb-6">
                 {[
-                  "Video Production",
-                  "Photography",
-                  "Copywriting",
-                  "Graphic Design",
-                  "Content Strategy",
+                 "Growth Marketing (Push &amp; Pull Mediums)",
+                  "Social Media Management Packages",
+                  "SEO Optimization &amp; Ranking",
                 ].map((item) => (
                   <span
                     key={item}
@@ -433,7 +435,7 @@ export default function About() {
             <img
               width={100}
               height={100}
-              src={"/digital.jpeg"}
+              src={"/vua.jpeg"}
               alt="Social Media Management"
               className="w-full h-full object-cover rounded-[10px] md:rounded-[30px] shadow-xl"
             />
@@ -445,17 +447,19 @@ export default function About() {
           >
             <div className="flex-grow">
               <h2 className="text-xl sm:text-3xl lg:text-3xl xl:text-4xl font-outfit leading-tight text-gray-900 mb-4">
-                Digital Marketing
+                   Agent Vua
               </h2>
               <p className="text-lg sm:text-xl md:text-xl xl:text-2xl leading-tight text-gray-900 mb-6 md:mb-8">
-                We convert digital footprints into tangible results, connecting
-                you with your audience and driving results.
+              AI Powered Calling Agent for all your Pre-Sales / Post-Sales
+                & Customer Support Requirements
               </p>
               <div className="flex flex-wrap gap-2 xl:gap-3 mb-2 xl:mb-6">
                 {[
-                  "Growth Marketing (Push &amp; Pull Mediums)",
-                  "Social Media Management Packages",
-                  "SEO Optimization &amp; Ranking",
+      "AI Powered, Human like conversations",
+                  "Real time objection handling",
+
+                  "CRM Integrated",
+                  "Available 24*7",
                 ].map((item) => (
                   <span
                     key={item}
@@ -494,7 +498,7 @@ export default function About() {
             <img
               width={100}
               height={100}
-              src={"/vua.jpeg"}
+              src={"/vision.png"}
               alt="E-commerce Solutions"
               className="w-full h-full object-cover rounded-[10px] md:rounded-[30px] shadow-xl"
             />
@@ -506,19 +510,17 @@ export default function About() {
           >
             <div className="flex-grow">
               <h2 className="text-xl sm:text-3xl lg:text-3xl xl:text-4xl font-outfit leading-tight text-gray-900 mb-4">
-                Agent Vua
+            Agent Vision
               </h2>
               <p className="text-lg sm:text-xl md:text-xl xl:text-2xl leading-tight text-gray-900 mb-6 md:mb-8">
-                AI Powered Calling Agent for all your Pre-Sales / Post-Sales
-                &amp; Customer Support Requirements
+              Fast, Affordable, Production Quality Films – Generated by AI
               </p>
               <div className="flex flex-wrap gap-2 xl:gap-3 mb-2 xl:mb-6">
                 {[
-                  "AI Powered, Human like conversations",
-                  "Real time objection handling",
-
-                  "CRM Integrated",
-                  "Available 24*7",
+               'Project Walkthroughs',
+'Launch Videos',
+'Reel / Content Generation',
+'Production & Films',
                 ].map((item) => (
                   <span
                     key={item}
@@ -557,7 +559,7 @@ export default function About() {
             <img
               width={100}
               height={100}
-              src={"/vision.png"}
+              src={"/xr.jpeg"}
               alt="Data Analytics"
               className="w-full h-full object-cover rounded-[10px] md:rounded-[30px] shadow-xl"
             />
@@ -569,17 +571,17 @@ export default function About() {
           >
             <div className="flex-grow">
               <h2 className="text-xl sm:text-3xl lg:text-3xl xl:text-4xl font-outfit leading-tight text-gray-900 mb-4">
-                Agent Vision
+              Agent XR
               </h2>
               <p className="text-lg sm:text-xl md:text-xl xl:text-2xl leading-tight text-gray-900 mb-6 md:mb-8">
-                Fast, Affordable, Production Quality Films – Generated by AI
+              Don’t leave it to their Imagination, Immerse them in the Experience
               </p>
               <div className="flex flex-wrap gap-2 xl:gap-3 mb-2 xl:mb-6">
                 {[
-                  "Project Walkthroughs",
-                  "Launch Videos",
-                  "Reel / Content Generation",
-                  "Production & Films",
+                  'Virtual Reality',
+ 'Digital Twins',
+'Mixed Reality',
+'Realistic Renderings',
                 ].map((item) => (
                   <span
                     key={item}

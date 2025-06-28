@@ -54,7 +54,7 @@ export default function About() {
         ease: "power3.out",
       });
 
-      // Cards animate in - adjusted for 
+      // Cards animate in - adjusted for  00
       tl.to(
         card1Ref.current,
         { top: window.innerWidth < 768 ? "10%" : "20%" },

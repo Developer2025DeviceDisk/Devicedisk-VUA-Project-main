@@ -228,7 +228,7 @@ export default function HeroSection() {
               {/* Images with clip path */}
               <image
                 ref={img1Ref}
-                href='/mask-img1.jpg'
+                href='/Ai.jpeg'
                 width='100%'
                 height='100%'
                 clipPath='url(#image_clip_path)'

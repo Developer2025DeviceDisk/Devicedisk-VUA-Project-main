@@ -669,11 +669,11 @@ that resonate.
      {/* Video Section new */}
       <section 
         ref={videoSectionRef} 
-        className="relative w-full h-screen bg-[#EEF0FF] overflow-hidden"
+        className="relative w-full h-[300px] md:h-screen bg-[#EEF0FF] overflow-hidden"
       >
         <video
           ref={videoRef}
-          className="absolute w-full h-full object-cover scale-[0.9]"
+          className="absolute w-full h-[300px] md:h-full  object-cover scale-[0.9]"
           playsInline
           muted
           loop

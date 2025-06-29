@@ -710,7 +710,6 @@ that resonate.
           ref={videoRef}
           className="absolute w-full h-[300px] md:h-full  object-cover scale-[0.9]"
           playsInline
-          
           loop
           preload="auto"
           src='/vua-intro.mp4'

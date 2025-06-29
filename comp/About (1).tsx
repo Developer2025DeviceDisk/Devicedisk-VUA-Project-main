@@ -5,6 +5,7 @@ import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import OurFoundation from "./OurFoundation";
 import FoundationSection from "./FoundationSection";
+
 gsap.registerPlugin(ScrollTrigger);
 export default function About() {
   const sectionRef = useRef(null);
@@ -26,6 +27,7 @@ export default function About() {
   const card7Ref = useRef(null);
   const foundationSectionRef = useRef(null);
   const scrollYProgress = useRef(0);
+
   useEffect(() => {
     // Parallax effect for the background image
     gsap.to(imageRef.current, {
@@ -128,39 +130,38 @@ export default function About() {
 
     */
 
-    
-        // foundation section gsap
-     // FOUNDATION SECTION SCROLL PROGRESS
-     ScrollTrigger.create({
-      trigger: foundationSectionRef.current,
-      start: 'top top',
-      end: '+=2000',
-      pin: true,
-      scrub: true,
-      onUpdate: (self) => {
-        scrollYProgress.current = self.progress;
-      },
-    });
-    
-    // Animate foundation points
-    gsap.from('.foundation-point', {
-      opacity: 0,
-      y: 50,
-      duration: 1,
-      stagger: 0.4,
-      ease: 'power2.out',
-      scrollTrigger: {
-        trigger: foundationSectionRef.current,
-        start: 'top top',
-        end: '+=2000',
-        scrub: true,
-      },
-    });
-    
-        //end foundation section gsap
-    
+    // foundation section gsap
+ // FOUNDATION SECTION SCROLL PROGRESS
+ ScrollTrigger.create({
+  trigger: foundationSectionRef.current,
+  start: 'top top',
+  end: '+=2000',
+  pin: true,
+  scrub: true,
+  onUpdate: (self) => {
+    scrollYProgress.current = self.progress;
+  },
+});
 
-     // Video scroll trigger
+// Animate foundation points
+gsap.from('.foundation-point', {
+  opacity: 0,
+  y: 50,
+  duration: 1,
+  stagger: 0.4,
+  ease: 'power2.out',
+  scrollTrigger: {
+    trigger: foundationSectionRef.current,
+    start: 'top top',
+    end: '+=2000',
+    scrub: true,
+  },
+});
+
+    //end foundation section gsap
+
+
+     // Video scroll trigger 0
     ScrollTrigger.create({
       trigger: videoSectionRef.current,
       start: "top 70%",
@@ -335,7 +336,7 @@ export default function About() {
           </div>
 
           <div
-            className="w-full md:w-1/2 p-4 pt-0 md:pr-0 md:p-8 flex flex-col h-full order-2 md:order-first"
+            className="w-full md:w-1/2 p-4 pt-0 md:pr-0 md:p-8 flex flex-col h-full md:order-first"
             style={{ fontFamily: "'Outfit', sans-serif" }}
           >
             <div className="flex-grow">
@@ -464,7 +465,7 @@ that resonate.
           </div>
 
           <div
-            className="w-full md:w-1/2 p-4 pt-0 md:pr-0 md:p-8 flex flex-col h-full order-2 md:order-first"
+            className="w-full md:w-1/2 p-4 pt-0 md:pr-0 md:p-8 flex flex-col h-full md:order-first"
             style={{ fontFamily: "'Outfit', sans-serif" }}
           >
             <div className="flex-grow">
@@ -588,7 +589,7 @@ that resonate.
           </div>
 
           <div
-            className="w-full md:w-1/2 p-4 pt-0 md:pr-0 md:p-8 flex flex-col h-full order-2  md:order-first"
+            className="w-full md:w-1/2 p-4 pt-0 md:pr-0 md:p-8 flex flex-col h-full md:order-first"
             style={{ fontFamily: "'Outfit', sans-serif" }}
           >
             <div className="flex-grow">
@@ -695,22 +696,22 @@ that resonate.
       </div>
 
       <div>
-              <FoundationSection
-              sectionRef={foundationSectionRef}
-              scrollYProgress={scrollYProgress}
-            />
+      <FoundationSection
+      sectionRef={foundationSectionRef}
+      scrollYProgress={scrollYProgress}
+    />
       </div>
 
-     {/* Video Section */}
+     {/* Video Section new */}
       <section 
         ref={videoSectionRef} 
-        className="relative w-full h-[300px] md:h-screen bg-[#EEF0FF] overflow-hidden"
+        className="relative w-full h-screen bg-[#EEF0FF] overflow-hidden"
       >
         <video
           ref={videoRef}
-          className="absolute w-full h-[300px] md:h-full  object-cover scale-[0.9]"
+          className="absolute w-full h-full object-cover scale-[0.9]"
           playsInline
-          
+          muted
           loop
           preload="auto"
           src='/vua-intro.mp4'

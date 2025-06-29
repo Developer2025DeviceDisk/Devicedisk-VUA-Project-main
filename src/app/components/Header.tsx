@@ -92,7 +92,7 @@ export default function Header() {
 
         <button
           onClick={toggleMenu}
-          className={`w-9 h-9 sm:w-10 sm:h-10 cursor-pointer rounded-full border opacity-0 ${
+          className={`w-9 h-9 sm:w-10 sm:h-10 cursor-pointer rounded-full border hidden ${
             isOnLightBg ? 'border-[#6210FF]' : 'border-white'
           } flex items-center justify-center ${
             isOnLightBg ? 'hover:bg-[#6210FF]/10' : 'hover:bg-white/10'

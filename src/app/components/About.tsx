@@ -571,7 +571,7 @@ that resonate.
           </div>
         </div>
 
-        {/* Card 6 - E-commerce Solutions */}
+        {/* Card 6 - E-commerce Solutions 1 */}
         <div
           ref={card6Ref}
           className="absolute top-[100%] z-50 mb-5 bg-white rounded-[10px] md:rounded-[30px] shadow-lg max-w-[90%] lg:max-w-[800px] xl:max-w-[1100px] 2xl:max-w-[70%] flex flex-col md:flex-row overflow-hidden mx-4 md:mx-0"

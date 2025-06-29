@@ -150,7 +150,7 @@ export default function ContactUs() {
         </p>
         <div className="mt-16 flex justify-center w-full">
             <div className="w-full md:w-[100%]">
-                {/* <Map /> */}
+                <Map />
             </div>
         </div>
 

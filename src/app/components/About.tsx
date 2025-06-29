@@ -666,7 +666,7 @@ that resonate.
         <OurFoundation />
       </div>
 
-     {/* Video Section new */}
+     {/* Video Section */}
       <section 
         ref={videoSectionRef} 
         className="relative w-full h-[300px] md:h-screen bg-[#EEF0FF] overflow-hidden"

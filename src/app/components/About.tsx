@@ -290,6 +290,7 @@ export default function About() {
                   "Campaign Strategy",
                   "PR Strategy",
                   "Social Media Strategy",
+                  
                 ].map((item) => (
                   <span
                     key={item}
@@ -297,6 +298,7 @@ export default function About() {
                   >
                     {item}
                   </span>
+                  
                 ))}
               </div>
             </div>
@@ -311,10 +313,11 @@ export default function About() {
                   alt="Arrow icon"
                   className="w-4 h-4 xl:w-8 xl:h-8 object-contain"
                   width={30}
-                  height={30}
+                  height={40}
                 />
               </button>
             </div>
+            
           </div>
         </div>
 
@@ -375,7 +378,7 @@ export default function About() {
                   alt="Arrow icon"
                   className="w-4 h-4 xl:w-8 xl:h-8 object-contain"
                   width={30}
-                  height={30}
+                  height={40}
                 />
               </button>
             </div>
@@ -429,8 +432,7 @@ that resonate.
                 ))}
               </div>
             </div>
-
-            <div className="mt-auto pt-4 md:pt-6 w-full flex md:justify-end justify-start opacity-0">
+<div className="mt-auto pt-2 md:pt-2 w-full flex md:justify-end justify-start opacity-0">
               <button className="flex items-center gap-2 px-4 py-2 xl:px-6 xl:py-3 bg-white text-gray-900 border-2 border-[#6210FF] rounded-full hover:bg-gray-50 transition-all duration-200">
                 <span className="text-xs md:text-sm xl:text-lg font-medium">
                   EXPLORE MORE
@@ -444,6 +446,7 @@ that resonate.
                 />
               </button>
             </div>
+         
           </div>
         </div>
 
@@ -564,7 +567,7 @@ that resonate.
                   alt="Arrow icon"
                   className="w-4 h-4 xl:w-8 xl:h-8 object-contain"
                   width={30}
-                  height={30}
+                  height={50}
                 />
               </button>
             </div>
@@ -614,7 +617,20 @@ that resonate.
                 ))}
               </div>
             </div>
-
+    <div className="mt-auto pt-4 md:pt-6 w-full flex md:justify-end justify-start opacity-0">
+              <button className="flex items-center gap-2 px-4 py-2 xl:px-6 xl:py-3 bg-white text-gray-900 border-2 border-[#6210FF] rounded-full hover:bg-gray-50 transition-all duration-200">
+                <span className="text-xs md:text-sm xl:text-lg font-medium">
+                  EXPLORE MORE
+                </span>
+                <img
+                  src="/curve.png"
+                  alt="Arrow icon"
+                  className="w-4 h-4 xl:w-8 xl:h-8 object-contain"
+                  width={30}
+                  height={40}
+                />
+              </button>
+            </div>
             <div className="mt-auto pt-4 md:pt-6 w-full flex md:justify-end justify-start opacity-0">
               <button className="flex items-center gap-2 px-4 py-2 xl:px-6 xl:py-3 bg-white text-gray-900 border-2 border-[#6210FF] rounded-full hover:bg-gray-50 transition-all duration-200">
                 <span className="text-xs md:text-sm xl:text-lg font-medium">
@@ -625,7 +641,7 @@ that resonate.
                   alt="Arrow icon"
                   className="w-4 h-4 xl:w-8 xl:h-8 object-contain"
                   width={30}
-                  height={30}
+                  height={40}
                 />
               </button>
             </div>
@@ -675,7 +691,20 @@ that resonate.
                 ))}
               </div>
             </div>
-
+    <div className="mt-auto pt-4 md:pt-6 w-full flex md:justify-end justify-start opacity-0">
+              <button className="flex items-center gap-2 px-4 py-2 xl:px-6 xl:py-3 bg-white text-gray-900 border-2 border-[#6210FF] rounded-full hover:bg-gray-50 transition-all duration-200">
+                <span className="text-xs md:text-sm xl:text-lg font-medium">
+                  EXPLORE MORE
+                </span>
+                <img
+                  src="/curve.png"
+                  alt="Arrow icon"
+                  className="w-4 h-4 xl:w-8 xl:h-8 object-contain"
+                  width={30}
+                  height={40}
+                />
+              </button>
+            </div>
             <div className="mt-auto pt-4 md:pt-6 w-full flex md:justify-end justify-start opacity-0">
               <button className="flex items-center gap-2 px-4 py-2 xl:px-6 xl:py-3 bg-white text-gray-900 border-2 border-[#6210FF] rounded-full hover:bg-gray-50 transition-all duration-200">
                 <span className="text-xs md:text-sm xl:text-lg font-medium">
@@ -686,7 +715,7 @@ that resonate.
                   alt="Arrow icon"
                   className="w-4 h-4 xl:w-8 xl:h-8 object-contain"
                   width={30}
-                  height={30}
+                  height={40}
                 />
               </button>
             </div>

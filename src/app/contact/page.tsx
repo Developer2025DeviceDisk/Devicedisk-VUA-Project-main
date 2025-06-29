@@ -36,9 +36,7 @@ export default function ContactUs() {
     <div className="relative  min-h-screen bg-[#EEF0FF] pb-6 pt-[120px] py-12 px-8 md:px-20">
         <h1 className="text-[55px] md:text-[94.5px] md:text-6xl petrovsans-book text-center bg-gradient-to-r from-[#6210FF] to-[#BE2FF4] text-transparent bg-clip-text">Reach Us</h1>
         <p className="text-center text-[10px] md:text-[20px] md:max-w-[1176px] outfit-light leading-[149%] tracking-[0.08em] mx-auto mt-6 text-[#6210FF]">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet
-            dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper
-            suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit.
+           At Voix & Vision Worx, we are dedicated to transforming your aspirations into tangible achievements. We partner with businesses to navigate complex challenges and unlock new possibilities, leveraging our expertise to deliver innovative and impactful solutions. Our commitment is to your success, helping you connect, engage, and grow in an ever-evolving landscape. Contact us today to explore how our collaborative approach can help achieve your strategic goals.
         </p>
 
         <div className="mt-16 grid md:max-w-[1176px] md:grid-cols-2 gap-10 items-start">
@@ -152,7 +150,7 @@ export default function ContactUs() {
         </p>
         <div className="mt-16 flex justify-center w-full">
             <div className="w-full md:w-[100%]">
-                <Map />
+                {/* <Map /> */}
             </div>
         </div>
 

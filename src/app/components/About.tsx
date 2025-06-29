@@ -268,7 +268,7 @@ export default function About() {
                   "Brand Identity Design",
                   "Office Branding",
                   "Event Branding",
-                  "Print &amp; Digital Creatives",
+                  "Print & Digital Creatives",
                   "Website Design",
                   "UI/UX Design",
                 ].map((item) => (
@@ -394,9 +394,9 @@ that resonate.
               </p>
               <div className="flex flex-wrap gap-2 xl:gap-3 mb-2 xl:mb-6">
                 {[
-                 "Growth Marketing (Push &amp; Pull Mediums)",
+                 "Growth Marketing (Push & Pull Mediums)",
                   "Social Media Management Packages",
-                  "SEO Optimization &amp; Ranking",
+                  "SEO Optimization & Ranking",
                 ].map((item) => (
                   <span
                     key={item}

@@ -303,7 +303,7 @@ export default function About() {
           </div>
 
           <div
-            className="w-full md:w-1/2 p-4 pt-0 md:pr-0 md:p-8 flex flex-col h-full md:order-first"
+            className="w-full md:w-1/2 p-4 pt-0 md:pr-0 md:p-8 flex flex-col h-full order-2 md:order-first"
             style={{ fontFamily: "'Outfit', sans-serif" }}
           >
             <div className="flex-grow">
@@ -432,7 +432,7 @@ that resonate.
           </div>
 
           <div
-            className="w-full md:w-1/2 p-4 pt-0 md:pr-0 md:p-8 flex flex-col h-full md:order-first"
+            className="w-full md:w-1/2 p-4 pt-0 md:pr-0 md:p-8 flex flex-col h-full order-2 md:order-first"
             style={{ fontFamily: "'Outfit', sans-serif" }}
           >
             <div className="flex-grow">
@@ -556,7 +556,7 @@ that resonate.
           </div>
 
           <div
-            className="w-full md:w-1/2 p-4 pt-0 md:pr-0 md:p-8 flex flex-col h-full md:order-first"
+            className="w-full md:w-1/2 p-4 pt-0 md:pr-0 md:p-8 flex flex-col h-full order-2  md:order-first"
             style={{ fontFamily: "'Outfit', sans-serif" }}
           >
             <div className="flex-grow">

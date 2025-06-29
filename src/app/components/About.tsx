@@ -11,6 +11,9 @@ export default function About() {
   const imageRef = useRef(null);
   const parallaxContainerRef = useRef(null);
 
+  const videoSectionRef = useRef<HTMLDivElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
   const maskRef = useRef<SVGRectElement>(null);
   const titleRef = useRef(null);
 
@@ -104,6 +107,8 @@ export default function About() {
       );
     }, sectionRef);
 
+    /*
+
     gsap.fromTo(
       maskRef.current,
       { scale: 0.8, transformOrigin: "50% 50%" },
@@ -119,6 +124,52 @@ export default function About() {
         },
       }
     );
+
+    */
+
+
+     // Video scroll trigger
+    ScrollTrigger.create({
+      trigger: videoSectionRef.current,
+      start: "top 70%",
+      end: "bottom 30%",
+      onEnter: () => {
+        if (videoRef.current) {
+          videoRef.current.currentTime = 0;
+          videoRef.current.play().catch(e => console.log("Autoplay prevented:", e));
+        }
+      },
+      onEnterBack: () => {
+        if (videoRef.current) {
+          videoRef.current.play().catch(e => console.log("Autoplay prevented:", e));
+        }
+      },
+      onLeave: () => {
+        if (videoRef.current) {
+          videoRef.current.pause();
+        }
+      },
+      onLeaveBack: () => {
+        if (videoRef.current) {
+          videoRef.current.pause();
+        }
+      },
+    });
+
+    // Video scale animation
+    gsap.fromTo(videoRef.current, 
+      { scale: 0.9 },
+      {
+        scale: 1.1,
+        scrollTrigger: {
+          trigger: videoSectionRef.current,
+          start: "top bottom",
+          end: "bottom top",
+          scrub: 1,
+        }
+      }
+    );
+
 
     return () => ctx.revert();
   }, []);
@@ -615,47 +666,22 @@ that resonate.
         <OurFoundation />
       </div>
 
-      <section className="video-mask relative w-full h-screen bg-[#EEF0FF]">
-        <svg
-          className="absolute inset-0 w-full h-full"
-          viewBox="0 0 1920 1080"
-          preserveAspectRatio="xMidYMid slice"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <defs>
-            <mask id="rect-mask">
-              <rect
-                ref={maskRef}
-                x="0"
-                y="0"
-                width="1920"
-                height="1080"
-                fill="white"
-              />
-            </mask>
-          </defs>
-
-          <image
-            href="/frame1.jpg"
-            width="1920"
-            height="1080"
-            mask="url(#rect-mask)"
-            preserveAspectRatio="xMidYMid slice"
-          />
-        </svg>
-
-        <div className="relative z-10 flex justify-center items-center h-full">
-          <button className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-white bg-opacity-90 flex items-center justify-center shadow-lg hover:scale-110 transition-transform">
-            <svg
-              className="w-8 h-8 md:w-10 md:h-10 text-[#6210FF]"
-              fill="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path d="M8 5v14l11-7z" />
-            </svg>
-          </button>
-        </div>
+     {/* Video Section new */}
+      <section 
+        ref={videoSectionRef} 
+        className="relative w-full h-screen bg-[#EEF0FF] overflow-hidden"
+      >
+        <video
+          ref={videoRef}
+          className="absolute w-full h-full object-cover scale-[0.9]"
+          playsInline
+          muted
+          loop
+          preload="auto"
+          src='/vua-intro.mp4'
+        />
       </section>
+
     </>
   );
 }

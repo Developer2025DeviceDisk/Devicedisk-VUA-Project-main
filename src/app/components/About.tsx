@@ -128,7 +128,7 @@ export default function About() {
     */
 
 
-     // Video scroll trigger 0
+     // Video scroll trigger
     ScrollTrigger.create({
       trigger: videoSectionRef.current,
       start: "top 70%",

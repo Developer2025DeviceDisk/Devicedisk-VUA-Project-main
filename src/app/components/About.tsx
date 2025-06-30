@@ -1,5 +1,5 @@
 "use client";
-import Image from "next/image";
+import img from "next/img";
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
@@ -8,7 +8,7 @@ import FoundationSection from "./FoundationSection";
 gsap.registerPlugin(ScrollTrigger);
 export default function About() {
   const sectionRef = useRef(null);
-  const imageRef = useRef(null);
+  const imgRef = useRef(null);
   const parallaxContainerRef = useRef(null);
 
   const videoSectionRef = useRef<HTMLDivElement>(null);
@@ -27,8 +27,8 @@ export default function About() {
   const foundationSectionRef = useRef(null);
   const scrollYProgress = useRef(0);
   useEffect(() => {
-    // Parallax effect for the background image
-    gsap.to(imageRef.current, {
+    // Parallax effect for the background img
+    gsap.to(imgRef.current, {
       y: () => (window.innerWidth < 768 ? -80 : -150), // move upward in pixels
       ease: "none",
       scrollTrigger: {
@@ -214,12 +214,12 @@ export default function About() {
         className="parallax relative w-full h-screen flex flex-col justify-center items-center text-center overflow-hidden"
       >
         <div className="relative h-screen w-full flex flex-col justify-center items-center">
-          {/* Parallax Background Image */}
+          {/* Parallax Background img */}
           <div
-            ref={imageRef}
+            ref={imgRef}
             className="absolute top-0 left-0 w-full h-[120%] z-0"
             style={{
-              backgroundImage: "url('/voice.jpg')",
+              backgroundimg: "url('/voice.jpg')",
               backgroundSize: "cover",
               backgroundPosition: "center",
               backgroundRepeat: "no-repeat",
@@ -239,9 +239,9 @@ export default function About() {
         className="flex min-h-screen overflow-hidden flex-col items-center justify-start bg-[#EEF0FF]"
       >
         <div className="relative" ref={titleRef}>
-          {/* Background Image */}
+          {/* Background img */}
           <div className="absolute -top-44 -left-56 -right-56 flex items-center justify-center">
-            <Image
+            <img
               src={"/serviceVector.png"}
               className="max-w-full h-auto"
               alt="Decorative background"
@@ -261,7 +261,7 @@ export default function About() {
           style={{ boxShadow: "0 20px 50px -10px rgba(190, 47, 244, 0.3)" }}
         >
           <div className="w-full md:w-1/2 p-4 md:p-10 flex justify-center items-center">
-            <Image
+            <img
               width={100}
               height={100}
               src={"/strategy.jpeg"}
@@ -308,7 +308,7 @@ export default function About() {
                 <span className="text-xs md:text-sm xl:text-lg font-medium">
                   EXPLORE MORE
                 </span>
-                <Image
+                <img
                   src="/curve.png"
                   alt="Arrow icon"
                   className="w-4 h-4 xl:w-8 xl:h-8 object-contain"
@@ -328,7 +328,7 @@ export default function About() {
           style={{ boxShadow: "0 20px 50px -10px rgba(190, 47, 244, 0.3)" }}
         >
           <div className="w-full md:w-1/2 p-4 md:p-10 flex justify-center items-center order-1">
-            <Image
+            <img
               width={100}
               height={100}
               src={"/brand.jpg"}
@@ -373,7 +373,7 @@ export default function About() {
                 <span className="text-xs md:text-sm xl:text-lg font-medium">
                   EXPLORE MORE
                 </span>
-                <Image
+                <img
                   src="/curve.png"
                   alt="Arrow icon"
                   className="w-4 h-4 xl:w-8 xl:h-8 object-contain"
@@ -392,7 +392,7 @@ export default function About() {
           style={{ boxShadow: "0 20px 50px -10px rgba(190, 47, 244, 0.3)" }}
         >
           <div className="w-full md:w-1/2 p-4 md:p-10 flex justify-center items-center">
-            <Image
+            <img
               width={100}
               height={100}
               src={"/content.jpeg"}
@@ -437,7 +437,7 @@ that resonate.
                 <span className="text-xs md:text-sm xl:text-lg font-medium">
                   EXPLORE MORE
                 </span>
-                <Image
+                <img
                   src="/curve.png"
                   alt="Arrow icon"
                   className="w-4 h-4 xl:w-8 xl:h-8 object-contain"
@@ -457,7 +457,7 @@ that resonate.
           style={{ boxShadow: "0 20px 50px -10px rgba(190, 47, 244, 0.3)" }}
         >
           <div className="w-full md:w-1/2 p-4 md:p-10 flex justify-center items-center order-1">
-            <Image
+            <img
               width={100}
               height={100}
                src={"/digital.jpeg"}
@@ -499,7 +499,7 @@ that resonate.
                 <span className="text-xs md:text-sm xl:text-lg font-medium">
                   EXPLORE MORE
                 </span>
-                <Image
+                <img
                   src="/curve.png"
                   alt="Arrow icon"
                   className="w-4 h-4 xl:w-8 xl:h-8 object-contain"
@@ -518,7 +518,7 @@ that resonate.
           style={{ boxShadow: "0 20px 50px -10px rgba(190, 47, 244, 0.3)" }}
         >
           <div className="w-full md:w-1/2 p-4 md:p-10 flex justify-center items-center">
-            <Image
+            <img
               width={100}
               height={100}
               src={"/vua.jpeg"}
@@ -562,7 +562,7 @@ that resonate.
                 <span className="text-xs md:text-sm xl:text-lg font-medium">
                   EXPLORE MORE
                 </span>
-                <Image
+                <img
                   src="/curve.png"
                   alt="Arrow icon"
                   className="w-4 h-4 xl:w-8 xl:h-8 object-contain"
@@ -581,7 +581,7 @@ that resonate.
           style={{ boxShadow: "0 20px 50px -10px rgba(190, 47, 244, 0.3)" }}
         >
           <div className="w-full md:w-1/2 p-4 md:p-10 flex justify-center items-center order-1">
-            <Image
+            <img
               width={100}
               height={100}
               src={"/vision.png"}
@@ -622,7 +622,7 @@ that resonate.
                 <span className="text-xs md:text-sm xl:text-lg font-medium">
                   EXPLORE MORE
                 </span>
-                <Image
+                <img
                   src="/curve.png"
                   alt="Arrow icon"
                   className="w-4 h-4 xl:w-8 xl:h-8 object-contain"
@@ -636,7 +636,7 @@ that resonate.
                 <span className="text-xs md:text-sm xl:text-lg font-medium">
                   EXPLORE MORE
                 </span>
-                <Image
+                <img
                   src="/curve.png"
                   alt="Arrow icon"
                   className="w-4 h-4 xl:w-8 xl:h-8 object-contain"
@@ -655,7 +655,7 @@ that resonate.
           style={{ boxShadow: "0 20px 50px -10px rgba(190, 47, 244, 0.3)" }}
         >
           <div className="w-full md:w-1/2 p-4 md:p-10 flex justify-center items-center">
-            <Image
+            <img
               width={100}
               height={100}
               src={"/xr.jpeg"}
@@ -696,7 +696,7 @@ that resonate.
                 <span className="text-xs md:text-sm xl:text-lg font-medium">
                   EXPLORE MORE
                 </span>
-                <Image
+                <img
                   src="/curve.png"
                   alt="Arrow icon"
                   className="w-4 h-4 xl:w-8 xl:h-8 object-contain"
@@ -710,7 +710,7 @@ that resonate.
                 <span className="text-xs md:text-sm xl:text-lg font-medium">
                   EXPLORE MORE
                 </span>
-                <Image
+                <img
                   src="/curve.png"
                   alt="Arrow icon"
                   className="w-4 h-4 xl:w-8 xl:h-8 object-contain"

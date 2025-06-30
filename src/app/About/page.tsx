@@ -1,24 +1,24 @@
 'use client';
-import img from 'next/img';
+import Image from 'next/image';
 export default function AboutPage() {
 const team = [
 
   {
     name: "Shivendra Singh",
     role: "Co-Founder",
-    img: "/team-left.png",
+    image: "/team-left.png",
     isFocused: false,
   },
   {
     name: "Aishwarya Chaudhary",
     role: "Business Strategy",
-    img: "/team-aishwarya.png", 
+    image: "/team-aishwarya.png", 
     isFocused: true,
   },
   {
     name: "Aishwarya Chaudhary",
     role: "Business Strategy",
-    img: "/team-right.png",
+    image: "/team-right.png",
     isFocused: false,
   },
 ];
@@ -134,7 +134,7 @@ const team = [
         <h2 className="text-[48px] sm:text-[90px] leading-[48px] sm:leading-[90px] font-extrabold text-[#6210FF] z-10 text-left">
           Our<br />Foundation
         </h2>
-        <img
+        <Image
           src={'/GlassRing.png'}
           alt="Glass Ring" width={ 100 } height = { 100 }
           className="absolute left-0 md:left-1/2 top-1/2 md:-translate-x-1/2 -translate-y-1/2 w-[264px] h-[110px] sm:w-[493.36px] sm:h-[448.91px] pointer-events-none select-none"
@@ -186,7 +186,7 @@ const team = [
 
     <div className="md:col-span-5 flex justify-center">
       <div className="relative w-full max-w-[300px] h-[480px] sm:h-[475px]">
-        <img
+        <Image
           src="/vishal.png"
           alt="Vishal Sharma"
           layout="fill"
@@ -234,7 +234,7 @@ const team = [
 
     <div className="md:col-span-5 flex justify-center">
       <div className="relative w-full max-w-[300px] h-[480px] sm:h-[475px]">
-        <img
+        <Image
           src="/Shivendra.png"
           alt="Shivendra Singh"
           layout="fill"
@@ -283,8 +283,8 @@ const team = [
         >
 
           <div className="relative w-[240px] h-[340px] sm:w-[280px] sm:h-[400px] mb-[-60px] z-20">
-            <img
-              src={member.img}
+            <Image
+              src={member.image}
               alt={member.name}
               layout="fill"
               objectFit="contain"

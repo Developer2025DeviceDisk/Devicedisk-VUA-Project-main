@@ -1,7 +1,6 @@
 'use client';
 import React, { useState, useCallback } from 'react';
 import dynamic from 'next/dynamic';
-import PhoneInput from './phoneInput';
 
 // Lazy load Map to avoid initial render weight
 const Map = dynamic(() => import('./map'), { ssr: false });
@@ -45,8 +44,6 @@ const ContactForm = React.memo(() => {
     },
     []
   );
-
-  
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -101,7 +98,6 @@ const ContactForm = React.memo(() => {
       )}
 
       <form className="space-y-8 w-full" onSubmit={handleSubmit}>
-        
         <input
           type="text"
           name="fullName"
@@ -121,10 +117,18 @@ const ContactForm = React.memo(() => {
           placeholder="Company Name"
         />
 
-<PhoneInput
-  formData={formData}
-  handleInputChange={handleInputChange}
-/>
+        <div className="flex items-center pb-2 border-b border-gray-400 focus-within:border-[#6210FF]">
+          <img src="https://flagcdn.com/w40/in.png" alt="India Flag" className="w-6 h-4 mr-2" />
+          <input
+            type="tel"
+            name="phone"
+            value={formData.phone}
+            onChange={handleInputChange}
+            className="flex-1 outfit-light bg-transparent text-[15px] md:text-[20px] outline-none text-black placeholder-black"
+            placeholder="Phone*"
+            required
+          />
+        </div>
 
         <p className='outfit-light text-[19.69px] md:text-[20px] text-black'>Services <span className='text-[14px] md:text-[18px]'>(Select from Below)</span></p>
         <div className="flex flex-wrap gap-[8px] mt-[15px] md:gap-[16px]">
@@ -188,9 +192,8 @@ export default function ContactUsPage() {
       <div className="relative min-h-screen bg-[#EEF0FF] pb-6 pt-[120px] py-12 px-8 md:px-20">
         <h1 className="text-[55px] md:text-[94.5px] petrovsans-book text-center bg-gradient-to-r from-[#6210FF] to-[#BE2FF4] text-transparent bg-clip-text">Reach Us</h1>
         <p className="text-center text-[10px] md:text-[20px] md:max-w-[1176px] outfit-light leading-[149%] tracking-[0.08em] mx-auto mt-6 text-[#6210FF]">
-          At Voix & Vision Worx, we are dedicated to transforming your aspirations into tangible achievements...
+        At Voix & Vision Worx, we are dedicated to transforming your aspirations into tangible achievements. We partner with businesses to navigate complex challenges and unlock new possibilities, leveraging our expertise to deliver innovative and impactful solutions. Our commitment is to your success, helping you connect, engage, and grow in an ever-evolving landscape. Contact us today to explore how our collaborative approach can help achieve your strategic goals.        
         </p>
-
         <div className="mt-16 grid md:max-w-[1176px] md:grid-cols-2 gap-10 items-start">
           <div>
             <h2 className="text-[40px] md:text-[51px] petrovsans-book text-center md:text-start text-[#6210FF] mb-6">I am interested in</h2>

@@ -1,24 +1,24 @@
 'use client';
-import Image from 'next/image';
+import img from 'next/img';
 export default function AboutPage() {
 const team = [
 
   {
     name: "Shivendra Singh",
     role: "Co-Founder",
-    image: "/team-left.png",
+    img: "/team-left.png",
     isFocused: false,
   },
   {
     name: "Aishwarya Chaudhary",
     role: "Business Strategy",
-    image: "/team-aishwarya.png", 
+    img: "/team-aishwarya.png", 
     isFocused: true,
   },
   {
     name: "Aishwarya Chaudhary",
     role: "Business Strategy",
-    image: "/team-right.png",
+    img: "/team-right.png",
     isFocused: false,
   },
 ];
@@ -37,7 +37,7 @@ const team = [
   {/* Right */}
   <div className="relative w-full lg:w-1/2 flex items-center lg:justify-center">
 
-    <Image
+    <img
       src="/Markofinnovation.png"
       alt="Arc"
       className="absolute z-0 w-[180px] sm:w-[250px] lg:w-[609.53px] h-auto object-contain"
@@ -48,7 +48,7 @@ const team = [
       }}
     />
 
-    <Image
+    <img
       src="/Marketingwoman.png"
       alt="Marketing Woman"
       className="relative z-10 w-[180px] sm:w-[250px] lg:w-[570px] h-auto object-contain"
@@ -60,7 +60,7 @@ const team = [
 <section className="min-h-[60vh] flex flex-col items-center justify-center bg-[#EEF0FF] px-4 py-16">
 
   <div className="flex items-center justify-center ">
-    <Image
+    <img
       src="/Group 26.png"
       alt="VUA WAH olg wow वा"
       className="w-full max-w-[90%] mx-auto my-auto sm:max-w-[80%] md:max-w-[70%] lg:w-[1169.73px] h-auto lg:mt-[211.04px] opacity-60"
@@ -82,13 +82,13 @@ const team = [
     {/* Left Side: */}
     <div className="relative w-full lg:w-1/2 hidden lg:block">
 
-      <Image
+      <img
         src="/Layer_1.png"
         alt="Decorative Arc"
         className="absolute top-1/2 left-1/2 transform -translate-x-[38%] -translate-y-[60%] w-[1200px] z-0"
       />
 
-      <Image
+      <img
         src="/astronaut.png"
         alt="Astronaut"
         className="relative z-10 mx-auto w-[519px] h-auto"
@@ -134,7 +134,7 @@ const team = [
         <h2 className="text-[48px] sm:text-[90px] leading-[48px] sm:leading-[90px] font-extrabold text-[#6210FF] z-10 text-left">
           Our<br />Foundation
         </h2>
-        <Image
+        <img
           src={'/GlassRing.png'}
           alt="Glass Ring" width={ 100 } height = { 100 }
           className="absolute left-0 md:left-1/2 top-1/2 md:-translate-x-1/2 -translate-y-1/2 w-[264px] h-[110px] sm:w-[493.36px] sm:h-[448.91px] pointer-events-none select-none"
@@ -186,7 +186,7 @@ const team = [
 
     <div className="md:col-span-5 flex justify-center">
       <div className="relative w-full max-w-[300px] h-[480px] sm:h-[475px]">
-        <Image
+        <img
           src="/vishal.png"
           alt="Vishal Sharma"
           layout="fill"
@@ -234,7 +234,7 @@ const team = [
 
     <div className="md:col-span-5 flex justify-center">
       <div className="relative w-full max-w-[300px] h-[480px] sm:h-[475px]">
-        <Image
+        <img
           src="/Shivendra.png"
           alt="Shivendra Singh"
           layout="fill"
@@ -283,8 +283,8 @@ const team = [
         >
 
           <div className="relative w-[240px] h-[340px] sm:w-[280px] sm:h-[400px] mb-[-60px] z-20">
-            <Image
-              src={member.image}
+            <img
+              src={member.img}
               alt={member.name}
               layout="fill"
               objectFit="contain"

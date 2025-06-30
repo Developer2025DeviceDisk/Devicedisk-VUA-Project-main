@@ -1,5 +1,5 @@
 "use client";
-import img from "next/img";
+import Image from "next/image";
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
@@ -8,7 +8,7 @@ import FoundationSection from "./FoundationSection";
 gsap.registerPlugin(ScrollTrigger);
 export default function About() {
   const sectionRef = useRef(null);
-  const imgRef = useRef(null);
+  const imageRef = useRef(null);
   const parallaxContainerRef = useRef(null);
 
   const videoSectionRef = useRef<HTMLDivElement>(null);
@@ -27,8 +27,8 @@ export default function About() {
   const foundationSectionRef = useRef(null);
   const scrollYProgress = useRef(0);
   useEffect(() => {
-    // Parallax effect for the background img
-    gsap.to(imgRef.current, {
+    // Parallax effect for the background image
+    gsap.to(imageRef.current, {
       y: () => (window.innerWidth < 768 ? -80 : -150), // move upward in pixels
       ease: "none",
       scrollTrigger: {
@@ -214,12 +214,12 @@ export default function About() {
         className="parallax relative w-full h-screen flex flex-col justify-center items-center text-center overflow-hidden"
       >
         <div className="relative h-screen w-full flex flex-col justify-center items-center">
-          {/* Parallax Background img */}
+          {/* Parallax Background Image */}
           <div
-            ref={imgRef}
+            ref={imageRef}
             className="absolute top-0 left-0 w-full h-[120%] z-0"
             style={{
-              backgroundimg: "url('/voice.jpg')",
+              backgroundImage: "url('/voice.jpg')",
               backgroundSize: "cover",
               backgroundPosition: "center",
               backgroundRepeat: "no-repeat",
@@ -239,7 +239,7 @@ export default function About() {
         className="flex min-h-screen overflow-hidden flex-col items-center justify-start bg-[#EEF0FF]"
       >
         <div className="relative" ref={titleRef}>
-          {/* Background img */}
+          {/* Background Image */}
           <div className="absolute -top-44 -left-56 -right-56 flex items-center justify-center">
             <img
               src={"/serviceVector.png"}

@@ -10,8 +10,8 @@ import Footer from './components/Footer';
 // Use different weights based on your needs
 
 export const metadata: Metadata = {
-  title: "VUA Prototype",
-  description: "Welcome to VUA Landing Page",
+  title: "VVWorx Future Forward Marketing",
+  description: "VVWorx Future Forward Marketing",
 };
 
 export default function RootLayout({

@@ -130,7 +130,7 @@ export default function Footer() {
               className={`${activeLocation === 'dubai' ? 'max-h-40' : 'max-h-0'} overflow-hidden transition-all duration-500 text-white mt-1 md:group-hover:max-h-40`}>
               <p>14th Floor, Office No 1402, Burjuman</p>
               <p>Business Tower, Burjuman, Dubai.</p>
-              <p>+971 55 750 6100</p>
+              <p>+971 56 189 9800</p>
             </div>
           </div>
 
@@ -145,7 +145,7 @@ export default function Footer() {
               className={`${activeLocation === 'mumbai' ? 'max-h-40' : 'max-h-0'} overflow-hidden transition-all duration-500 text-white mt-1 md:group-hover:max-h-40`}>
               <p>Unit No 711, A Wing, Centrum Business Square, Road No 16,</p>
               <p> Wagle Estate, Thane(W) - 400604</p>
-              <p>+91 9820 154 205</p>
+              <p>+91 877 96 32312</p>
             </div>
           </div>
 
@@ -160,7 +160,7 @@ export default function Footer() {
               className={`${activeLocation === 'pune' ? 'max-h-40' : 'max-h-0'} overflow-hidden transition-all duration-500 text-white mt-1 md:group-hover:max-h-40`}>
               <p>Office 3B, 2nd Floor, Building 3, Cerebrum IT Park,</p>
               <p>Kalyaninagar, 411032.</p>
-              <p>+91 7709 233 344</p>
+              <p>+91 797 67 48422</p>
             </div>
           </div>
         </div>

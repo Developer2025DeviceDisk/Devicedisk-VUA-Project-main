@@ -87,22 +87,32 @@ export default function Footer() {
 
         {/* Second Column */}
         <div className='flex flex-col space-y-3 text-white font-medium text-xl'>
+          <Link
+            href='/'
+            className='text-white'>
+            Home
+          </Link>
           {/* <Link
             href='/Services'
             className='text-white'>
             Services
           </Link>
-          <a
+          <Link
             href='/About'
             className='text-white'>
             About
-          </a>
+          </Link>
           <a href='#'>Work</a> */}
           {/* <a href='#'>Culture</a> */}
           <Link
             href='/contact'
             className='text-white'>
             Contact
+          </Link>
+          <Link
+            href='/privacy-policy'
+            className='text-white'>
+            Privacy Policy
           </Link>
           {/* <a href='#'>Careers</a> */}
         </div>

@@ -191,9 +191,8 @@ export default function ContactUsPage() {
       <div className="relative min-h-screen bg-[#EEF0FF] pb-6 pt-[120px] py-12 px-8 md:px-20">
         <h1 className="text-[55px] md:text-[94.5px] petrovsans-book text-center bg-gradient-to-r from-[#6210FF] to-[#BE2FF4] text-transparent bg-clip-text">Reach Us</h1>
         <p className="text-center text-[10px] md:text-[20px] md:max-w-[1176px] outfit-light leading-[149%] tracking-[0.08em] mx-auto mt-6 text-[#6210FF]">
-          At Voix & Vision Worx, we are dedicated to transforming your aspirations into tangible achievements...
+        At Voix & Vision Worx, we are dedicated to transforming your aspirations into tangible achievements. We partner with businesses to navigate complex challenges and unlock new possibilities, leveraging our expertise to deliver innovative and impactful solutions. Our commitment is to your success, helping you connect, engage, and grow in an ever-evolving landscape. Contact us today to explore how our collaborative approach can help achieve your strategic goals.        
         </p>
-
         <div className="mt-16 grid md:max-w-[1176px] md:grid-cols-2 gap-10 items-start">
           <div>
             <h2 className="text-[40px] md:text-[51px] petrovsans-book text-center md:text-start text-[#6210FF] mb-6">I am interested in</h2>

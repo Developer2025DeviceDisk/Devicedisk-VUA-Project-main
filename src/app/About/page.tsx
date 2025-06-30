@@ -37,7 +37,7 @@ const team = [
   {/* Right */}
   <div className="relative w-full lg:w-1/2 flex items-center lg:justify-center">
 
-    <img
+    <Image
       src="/Markofinnovation.png"
       alt="Arc"
       className="absolute z-0 w-[180px] sm:w-[250px] lg:w-[609.53px] h-auto object-contain"
@@ -48,7 +48,7 @@ const team = [
       }}
     />
 
-    <img
+    <Image
       src="/Marketingwoman.png"
       alt="Marketing Woman"
       className="relative z-10 w-[180px] sm:w-[250px] lg:w-[570px] h-auto object-contain"
@@ -60,7 +60,7 @@ const team = [
 <section className="min-h-[60vh] flex flex-col items-center justify-center bg-[#EEF0FF] px-4 py-16">
 
   <div className="flex items-center justify-center ">
-    <img
+    <Image
       src="/Group 26.png"
       alt="VUA WAH olg wow वा"
       className="w-full max-w-[90%] mx-auto my-auto sm:max-w-[80%] md:max-w-[70%] lg:w-[1169.73px] h-auto lg:mt-[211.04px] opacity-60"
@@ -82,13 +82,13 @@ const team = [
     {/* Left Side: */}
     <div className="relative w-full lg:w-1/2 hidden lg:block">
 
-      <img
+      <Image
         src="/Layer_1.png"
         alt="Decorative Arc"
         className="absolute top-1/2 left-1/2 transform -translate-x-[38%] -translate-y-[60%] w-[1200px] z-0"
       />
 
-      <img
+      <Image
         src="/astronaut.png"
         alt="Astronaut"
         className="relative z-10 mx-auto w-[519px] h-auto"

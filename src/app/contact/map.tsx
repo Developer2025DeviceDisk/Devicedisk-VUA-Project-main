@@ -25102,67 +25102,71 @@ export default function Map() {
                 <path d="M405.589 810.322C405.589 810.322 405.81 810.211 405.81 810.101C405.81 809.99 405.7 809.852 405.589 809.852C405.478 809.852 405.34 809.962 405.34 810.101C405.34 810.239 405.451 810.322 405.589 810.322Z" fill="#333333" />
                 <path d="M409.824 810.35C409.976 810.35 410.1 810.226 410.1 810.073C410.1 809.92 409.976 809.796 409.824 809.796C409.671 809.796 409.547 809.92 409.547 810.073C409.547 810.226 409.671 810.35 409.824 810.35Z" fill="#333333" />
                 <path d="M414.084 810.267C414.084 810.267 414.25 810.184 414.25 810.101C414.25 810.018 414.167 809.935 414.084 809.935C414.001 809.935 413.918 810.018 413.918 810.101C413.918 810.184 414.001 810.267 414.084 810.267Z" fill="#333333" />
-                {/* Render circles with hover popovers */}
+                {/* Render all dots (and outlines) first */}
                 {circleData.map((circle) => (
                 <g key={circle.id} className="circle-container">
-                {/* Main circle */}
-                <circle
+                    {/* Main circle */}
+                    <circle
                     cx={circle.cx}
                     cy={circle.cy}
                     r="5"
                     className={`addCircle${hoveredId === circle.id ? ' hovered' : ''}`}
                     onMouseEnter={() => setHoveredId(circle.id)}
                     onMouseLeave={() => setHoveredId(null)}
-                />
+                    />
                     {/* Outline circles on hover */}
                     {hoveredId === circle.id && (
-                        <>
+                    <>
                         <circle
-                            cx={circle.cx}
-                            cy={circle.cy}
-                            r="18"
-                            className="circle-outline"
+                        cx={circle.cx}
+                        cy={circle.cy}
+                        r="18"
+                        className="circle-outline"
                         />
                         <circle
-                            cx={circle.cx}
-                            cy={circle.cy}
-                            r="24"
-                            className="circle-outline"
+                        cx={circle.cx}
+                        cy={circle.cy}
+                        r="24"
+                        className="circle-outline"
                         />
-                        </>
+                    </>
                     )}
-                    {hoveredId === circle.id && (
-                    <foreignObject 
-                        x={circle.cx + 20}
-                        y={circle.cy - 60}
-                        width="370"
-                        height="160"
-                        overflow="visible"
-                        style={{ pointerEvents: 'none' }}
+                </g>
+                ))}
+
+                {/* Render all popovers after all dots */}
+                {circleData.map((circle) =>
+                hoveredId === circle.id && (
+                    <foreignObject
+                    key={circle.id}
+                    x={circle.cx + 20}
+                    y={circle.cy - 60}
+                    width="370"
+                    height="160"
+                    overflow="visible"
+                    style={{ pointerEvents: 'none' }}
                     >
-                        <div style={{
-                        background: 'white',
-                        borderRadius: '24px',
-                        boxShadow: '0 4px 24px rgba(0,0,0,0.12)',
+                    <div style={{
+                        background: 'rgba(255,255,255,0.9)',
+                        borderRadius: '12px',
                         padding: '32px',
                         minWidth: '350px',
                         fontFamily: 'PetrovSans, Outfit, Arial, sans-serif',
                         position: 'relative',
                         zIndex: 1000,
                         pointerEvents: 'auto',
-                        }}>
+                    }}>
                         <div style={{ fontSize: '40px', fontWeight: 700, color: '#6210FF', marginBottom: '12px', fontFamily: 'PetrovSans, Outfit, Arial, sans-serif' }}>{circle.city}</div>
                         <div style={{ fontSize: '24px', color: '#222', marginBottom: '12px', fontFamily: 'Outfit, Arial, sans-serif' }}>
-                            {circle.address.map((line, i) => (
+                        {circle.address.map((line, i) => (
                             <div key={i}>{line}</div>
-                            ))}
+                        ))}
                         </div>
                         <div style={{ fontSize: '24px', color: '#222', textDecoration: 'underline', fontFamily: 'Outfit, Arial, sans-serif' }}>{circle.phone}</div>
-                        </div>
+                    </div>
                     </foreignObject>
-                    )}
-                </g>
-                ))}
+                )
+                )}
             </g>
             <defs>
                 <clipPath id="clip0_1_861">
@@ -25170,8 +25174,8 @@ export default function Map() {
                 </clipPath>
             </defs>
             </svg>
-                    </div>
-                </div>
+        </div>
+    </div>
             
         </>
     )

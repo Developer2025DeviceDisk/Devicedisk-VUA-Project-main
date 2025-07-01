@@ -731,19 +731,19 @@ that resonate.
       </div>
 
      {/* Video Section */}
-      <section 
+     <section 
         ref={videoSectionRef} 
-        className="relative w-full h-[300px] md:h-screen bg-[#EEF0FF] overflow-hidden"
+        className="relative w-full h-auto md:h-screen bg-[#EEF0FF] flex items-center justify-center overflow-hidden p-0 m-0"
       >
-        <video
-          ref={videoRef}
-          className="absolute w-full h-[300px] md:h-full  object-cover scale-[0.9]"
-          playsInline
-          loop
-          preload="auto"
-          src='/vua-intro.mp4'
-        />
-      </section>
+      <video
+        ref={videoRef}
+        className="w-full h-auto md:absolute md:inset-0 md:w-full md:h-full md:object-cover md:scale-[0.9]"
+        playsInline
+        loop
+        preload="auto"
+        src='/vua-intro.mp4'
+      />
+    </section>
 
     </>
   );

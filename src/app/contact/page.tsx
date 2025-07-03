@@ -156,7 +156,7 @@ const ContactForm = React.memo(function ContactForm() {
           name='fullName'
           value={formData.fullName}
           onChange={handleInputChange}
-          className='block outfit-light w-full border-b text-[15px] md:text-[20px] pb-2 border-gray-400 focus:outline-none focus:border-[#6210FF] text-black placeholder-black'
+          className='block outfit-light w-full border-b text-[15px] md:text-[20px] pb-2 border-gray-400 focus:outline-none focus:border-[#6210FF] text-black placeholder-gray-500'
           placeholder='Full Name*'
           required
         />
@@ -166,7 +166,7 @@ const ContactForm = React.memo(function ContactForm() {
           name='companyName'
           value={formData.companyName}
           onChange={handleInputChange}
-          className='outfit-light block w-full text-[15px] md:text-[20px] pb-2 border-b border-gray-400 focus:outline-none focus:border-[#6210FF] text-black placeholder-black'
+          className='outfit-light block w-full text-[15px] md:text-[20px] pb-2 border-b border-gray-400 focus:outline-none focus:border-[#6210FF] text-black placeholder-gray-500'
           placeholder='Company Name'
         />
 
@@ -218,7 +218,7 @@ const ContactForm = React.memo(function ContactForm() {
           name='message'
           value={formData.message}
           onChange={handleInputChange}
-          className='outfit-light block w-full text-[15px] md:text-[20px] pb-2 border-b border-gray-400 focus:outline-none text-black placeholder-black'
+          className='outfit-light block w-full text-[15px] md:text-[20px] pb-2 border-b border-gray-400 focus:outline-none text-black placeholder-gray-500'
           placeholder='Message*'
           rows={1}
         />

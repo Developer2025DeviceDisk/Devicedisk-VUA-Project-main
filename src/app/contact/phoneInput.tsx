@@ -69,7 +69,7 @@ const PhoneInput: React.FC<PhoneInputProps> = ({
           type="tel"
           value={value}
           onChange={handlePhoneChange}
-          className="flex-1 outfit-light bg-transparent text-[15px] md:text-[20px] outline-none text-black placeholder-black"
+          className="flex-1 outfit-light bg-transparent text-[15px] md:text-[20px] outline-none text-black placeholder-gray-500"
           placeholder="Phone*"
           required
           inputMode="numeric"

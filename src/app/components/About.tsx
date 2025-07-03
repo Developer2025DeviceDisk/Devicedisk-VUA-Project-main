@@ -258,7 +258,7 @@ export default function About() {
         {/* Card 1 - Websites & Digital Platforms */}
         <div
           ref={card1Ref}
-          className='absolute top-[40%] z-0 mb-5 bg-white rounded-[10px] md:rounded-[30px] shadow-lg max-w-[90%] lg:max-w-[800px] xl:max-w-[1100px] 2xl:max-w-[70%] flex flex-col md:flex-row overflow-hidden mx-4 md:mx-0'
+          className='absolute top-[40%] z-0 mb-5 bg-white rounded-[10px] md:rounded-[30px] shadow-lg max-w-[90%] lg:max-w-[800px] xl:max-w-[1100px] 2xl:max-w-[70%] flex flex-col md:flex-row overflow-hidden mx-4 md:mx-0 h-[500px]'
           style={{ boxShadow: '0 20px 50px -10px rgba(190, 47, 244, 0.3)' }}>
           <div className='w-full md:w-1/2 p-4 md:p-10 flex justify-center items-center'>
             <img
@@ -266,7 +266,7 @@ export default function About() {
               height={100}
               src={'/strategy.jpeg'}
               alt='Websites & Digital Platforms'
-              className='w-full h-full object-cover rounded-[10px] md:rounded-[30px] shadow-xl'
+              className='w-full h-full object-cover rounded-[10px] md:rounded-[30px]'
             />
           </div>
 
@@ -319,7 +319,7 @@ export default function About() {
         {/* Card 2 - Performance Marketing */}
         <div
           ref={card2Ref}
-          className='absolute top-[100%] z-10 mb-5 bg-white rounded-[10px] md:rounded-[30px] shadow-lg max-w-[90%] lg:max-w-[800px] xl:max-w-[1100px] 2xl:max-w-[70%] flex flex-col md:flex-row overflow-hidden mx-4 md:mx-0'
+          className='absolute top-[100%] z-10 mb-5 bg-white rounded-[10px] md:rounded-[30px] shadow-lg max-w-[90%] lg:max-w-[800px] xl:max-w-[1100px] 2xl:max-w-[70%] flex flex-col md:flex-row overflow-hidden mx-4 md:mx-0 h-[500px]'
           style={{ boxShadow: '0 20px 50px -10px rgba(190, 47, 244, 0.3)' }}>
           <div className='w-full md:w-1/2 p-4 md:p-10 flex justify-center items-center order-1'>
             <img
@@ -327,7 +327,7 @@ export default function About() {
               height={100}
               src={'/brand.jpg'}
               alt='Performance Marketing'
-              className='w-full h-full object-cover rounded-[10px] md:rounded-[30px] shadow-xl'
+              className='w-full h-full object-cover rounded-[10px] md:rounded-[30px] '
             />
           </div>
 
@@ -380,7 +380,7 @@ export default function About() {
         {/* Card 3 - Brand Strategy */}
         <div
           ref={card3Ref}
-          className='absolute top-[100%] z-20 mb-5 bg-white rounded-[10px] md:rounded-[30px] shadow-lg max-w-[90%] lg:max-w-[800px] xl:max-w-[1100px] 2xl:max-w-[70%] flex flex-col md:flex-row overflow-hidden mx-4 md:mx-0'
+          className='absolute top-[100%] z-20 mb-5 bg-white rounded-[10px] md:rounded-[30px] shadow-lg max-w-[90%] lg:max-w-[800px] xl:max-w-[1100px] 2xl:max-w-[70%] flex flex-col md:flex-row overflow-hidden mx-4 md:mx-0 h-[500px]'
           style={{ boxShadow: '0 20px 50px -10px rgba(190, 47, 244, 0.3)' }}>
           <div className='w-full md:w-1/2 p-4 md:p-10 flex justify-center items-center'>
             <img
@@ -388,7 +388,7 @@ export default function About() {
               height={100}
               src={'/content.jpeg'}
               alt='Brand Strategy'
-              className='w-full h-full object-cover rounded-[10px] md:rounded-[30px] shadow-xl'
+              className='w-full h-full object-cover rounded-[10px] md:rounded-[30px]'
             />
           </div>
 
@@ -441,7 +441,7 @@ export default function About() {
         {/* Card 4 - Content Creation */}
         <div
           ref={card4Ref}
-          className='absolute top-[100%] z-30 mb-5 bg-white rounded-[10px] md:rounded-[30px] shadow-lg max-w-[90%] lg:max-w-[800px] xl:max-w-[1100px] 2xl:max-w-[70%] flex flex-col md:flex-row overflow-hidden mx-4 md:mx-0'
+          className='absolute top-[100%] z-30 mb-5 bg-white rounded-[10px] md:rounded-[30px] shadow-lg max-w-[90%] lg:max-w-[800px] xl:max-w-[1100px] 2xl:max-w-[70%] flex flex-col md:flex-row overflow-hidden mx-4 md:mx-0 h-[500px]'
           style={{ boxShadow: '0 20px 50px -10px rgba(190, 47, 244, 0.3)' }}>
           <div className='w-full md:w-1/2 p-4 md:p-10 flex justify-center items-center order-1'>
             <img
@@ -449,7 +449,7 @@ export default function About() {
               height={100}
               src={'/digital.jpeg'}
               alt='Content Creation'
-              className='w-full h-full object-cover rounded-[10px] md:rounded-[30px] shadow-xl'
+              className='w-full h-full object-cover rounded-[10px] md:rounded-[30px]'
             />
           </div>
 
@@ -499,7 +499,7 @@ export default function About() {
         {/* Card 5 - Social Media Management */}
         <div
           ref={card5Ref}
-          className='absolute top-[100%] z-40 mb-5 bg-white rounded-[10px] md:rounded-[30px] shadow-lg max-w-[90%] lg:max-w-[800px] xl:max-w-[1100px] 2xl:max-w-[70%] flex flex-col md:flex-row overflow-hidden mx-4 md:mx-0'
+          className='absolute top-[100%] z-40 mb-5 bg-white rounded-[10px] md:rounded-[30px] shadow-lg max-w-[90%] lg:max-w-[800px] xl:max-w-[1100px] 2xl:max-w-[70%] flex flex-col md:flex-row overflow-hidden mx-4 md:mx-0 h-[500px]'
           style={{ boxShadow: '0 20px 50px -10px rgba(190, 47, 244, 0.3)' }}>
           <div className='w-full md:w-1/2 p-4 md:p-10 flex justify-center items-center'>
             <img
@@ -507,7 +507,7 @@ export default function About() {
               height={100}
               src={'/vua.jpeg'}
               alt='Social Media Management'
-              className='w-full h-full object-cover rounded-[10px] md:rounded-[30px] shadow-xl'
+              className='w-full h-full object-cover rounded-[10px] md:rounded-[30px]'
             />
           </div>
 
@@ -559,7 +559,7 @@ export default function About() {
         {/* Card 6 - E-commerce Solutions */}
         <div
           ref={card6Ref}
-          className='absolute top-[100%] z-50 mb-5 bg-white rounded-[10px] md:rounded-[30px] shadow-lg max-w-[90%] lg:max-w-[800px] xl:max-w-[1100px] 2xl:max-w-[70%] flex flex-col md:flex-row overflow-hidden mx-4 md:mx-0'
+          className='absolute top-[100%] z-50 mb-5 bg-white rounded-[10px] md:rounded-[30px] shadow-lg max-w-[90%] lg:max-w-[800px] xl:max-w-[1100px] 2xl:max-w-[70%] flex flex-col md:flex-row overflow-hidden mx-4 md:mx-0 h-[500px]'
           style={{ boxShadow: '0 20px 50px -10px rgba(190, 47, 244, 0.3)' }}>
           <div className='w-full md:w-1/2 p-4 md:p-10 flex justify-center items-center order-1'>
             <img
@@ -567,7 +567,7 @@ export default function About() {
               height={100}
               src={'/vision.png'}
               alt='E-commerce Solutions'
-              className='w-full h-full object-cover rounded-[10px] md:rounded-[30px] shadow-xl'
+              className='w-full h-full object-cover rounded-[10px] md:rounded-[30px] '
             />
           </div>
 
@@ -630,7 +630,7 @@ export default function About() {
         {/* Card 7 - Data Analytics */}
         <div
           ref={card7Ref}
-          className='absolute top-[100%] z-60 mb-5 bg-white rounded-[10px] md:rounded-[30px] shadow-lg max-w-[90%] lg:max-w-[800px] xl:max-w-[1100px] 2xl:max-w-[70%] flex flex-col md:flex-row overflow-hidden mx-4 md:mx-0'
+          className='absolute top-[100%] z-60 mb-5 bg-white rounded-[10px] md:rounded-[30px] shadow-lg max-w-[90%] lg:max-w-[800px] xl:max-w-[1100px] 2xl:max-w-[70%] flex flex-col md:flex-row overflow-hidden mx-4 md:mx-0 h-[500px]'
           style={{ boxShadow: '0 20px 50px -10px rgba(190, 47, 244, 0.3)' }}>
           <div className='w-full md:w-1/2 p-4 md:p-10 flex justify-center items-center'>
             <img
@@ -638,7 +638,7 @@ export default function About() {
               height={100}
               src={'/xr.jpeg'}
               alt='Data Analytics'
-              className='w-full h-full object-cover rounded-[10px] md:rounded-[30px] shadow-xl'
+              className='w-full h-full object-cover rounded-[10px] md:rounded-[30px] '
             />
           </div>
 

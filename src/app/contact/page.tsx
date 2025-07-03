@@ -70,13 +70,14 @@ const ContactForm = React.memo(function ContactForm() {
 
     // Validate required fields
     let isValid = true;
-
+    /*
     if (selected.length === 0) {
       setShowServicesError(true);
       isValid = false;
     }
+    */
 
-    if (!formData.fullName || !formData.phone || !formData.message) {
+    if (!formData.fullName || !formData.phone) {
       isValid = false;
     }
 
@@ -104,7 +105,8 @@ const ContactForm = React.memo(function ContactForm() {
         services: selectedServices,
       };
 
-      const response = await fetch('https://admin.vvworx.com/api/contact', {
+      const response = await fetch('http://localhost:8000/api/contact', {
+      // const response = await fetch('https://admin.vvworx.com/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
@@ -125,7 +127,8 @@ const ContactForm = React.memo(function ContactForm() {
 
   return (
     <>
-      {showSuccessModal && (
+    
+      {/* {showSuccessModal && (
         <div className='fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50'>
           <div className='bg-white p-8 rounded-lg max-w-md w-full mx-4'>
             <h3 className='text-2xl font-bold text-[#6210FF] mb-4'>
@@ -142,7 +145,8 @@ const ContactForm = React.memo(function ContactForm() {
             </button>
           </div>
         </div>
-      )}
+      )} */}
+    
 
       <form
         className='space-y-8 w-full'
@@ -214,30 +218,39 @@ const ContactForm = React.memo(function ContactForm() {
           name='message'
           value={formData.message}
           onChange={handleInputChange}
-          className='outfit-light block w-full text-[15px] md:text-[20px] pb-2 border-b border-gray-400 focus:outline-none focus:text-[#6210FF] text-black placeholder-black'
+          className='outfit-light block w-full text-[15px] md:text-[20px] pb-2 border-b border-gray-400 focus:outline-none text-black placeholder-black'
           placeholder='Message*'
-          required
           rows={1}
         />
 
         <button
           type='submit'
           disabled={isLoading}
-          className='mt-4 relative inline-flex items-center text-[24px] md:text-[35.81px] petrovsans-semibold gap-7 text-[#6210FF] px-6 tracking-[0.05em] font-semibold rounded-full'
+          className='mt-4 cursor-pointer relative inline-flex items-center text-[24px] md:text-[35.81px] petrovsans-semibold gap-7 text-[#6210FF] px-6 tracking-[0.05em] font-semibold rounded-full'
           style={{
             background:
               'linear-gradient(to right, #6210FF, #BE2FF4) border-box',
             padding: '2px',
           }}>
           <span className='bg-[#EEF0FF] rounded-full px-7 flex items-center gap-7'>
-            {isLoading ? 'Processing...' : 'Submit'}
+            Submit
+            {/* {isLoading ? 'Processing...' : 'Submit'}
             {isLoading ? (
               <span className='inline-block h-6 w-6 border-2 border-[#6210FF] border-t-transparent rounded-full animate-spin'></span>
             ) : (
+              )} */}
               <span className='text-[35.81px]'>→</span>
-            )}
           </span>
         </button>
+
+{showSuccessModal && (
+          <div className='text-center py-4'>
+            <p className='text-[#6210FF] text-lg petrovsans-semibold'>
+              Thank you! We've received your message and will contact you soon.
+            </p>
+          </div>
+        )}
+
       </form>
     </>
   );

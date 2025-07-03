@@ -164,7 +164,7 @@ export default function HeroSection() {
               />
               <image
                 ref={img2Ref}
-                href='/tech.jpeg'
+                href='/ai.jpeg'
                 width='100%'
                 height='100%'
                 clipPath='url(#image_clip_path)'
@@ -173,9 +173,9 @@ export default function HeroSection() {
               />
               <image
                 ref={img3Ref}
-                href='/creative.jpeg'
+                href='/tech.jpeg'
                 width='100%'
-                height='100%'
+                height='150%'
                 clipPath='url(#image_clip_path)'
                 preserveAspectRatio='xMidYMid slice'
                 style={{ opacity: 0 }}
@@ -184,7 +184,7 @@ export default function HeroSection() {
                 ref={img4Ref}
                 href='/content.jpeg'
                 width='100%'
-                height='100%'
+                height='105%'
                 clipPath='url(#image_clip_path)'
                 preserveAspectRatio='xMidYMid slice'
                 style={{ opacity: 0 }}

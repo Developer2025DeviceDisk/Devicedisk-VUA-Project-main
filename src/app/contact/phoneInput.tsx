@@ -77,8 +77,8 @@ const PhoneInput: React.FC<PhoneInputProps> = ({
       </div>
 
       {showDropdown && (
-        <div className="absolute z-20 bg-white border border-gray-200 rounded shadow-md mt-2 w-full max-h-64 overflow-y-auto">
-          <div className="sticky top-0 bg-white p-2 border-b">
+        <div className="absolute z-20 bg-[#EEF0FF] border border-gray-200 rounded shadow-md mt-2 w-full max-h-64 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-[#EEF0FF]">
+          <div className="sticky top-0 bg-[#EEF0FF] p-2 border-b">
             <div className="relative">
               <Search size={16} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
               <input
@@ -86,7 +86,7 @@ const PhoneInput: React.FC<PhoneInputProps> = ({
                 value={searchTerm}
                 onChange={handleSearchChange}
                 placeholder="Search countries..."
-                className="w-full pl-10 pr-4 py-2 text-sm border rounded-md focus:outline-none focus:ring-1 focus:ring-[#6210FF]"
+                className="w-full pl-10 pr-4 py-2 text-md text-black bg-[#EEF0FF] border rounded-md focus:outline-none focus:ring-1 focus:ring-[#6210FF] placeholder-gray-500 outfit-light"
                 autoFocus
               />
             </div>
@@ -98,7 +98,7 @@ const PhoneInput: React.FC<PhoneInputProps> = ({
                 key={country.code}
                 type="button"
                 onClick={() => handleCountrySelect(country)}
-                className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 cursor-pointer w-full text-left"
+                className="flex items-center gap-2 px-4 py-2 hover:bg-[#DDD8FF] cursor-pointer w-full text-left bg-[#EEF0FF]"
               >
                 <img 
                   src={country.flag} 
@@ -106,12 +106,12 @@ const PhoneInput: React.FC<PhoneInputProps> = ({
                   className="w-5 h-3" 
                   loading="lazy"
                 />
-                <span className="text-sm text-black">{country.name}</span>
-                <span className="ml-auto text-sm text-gray-500">{country.dialCode}</span>
+                <span className="text-md outfit-light">{country.name}</span>
+                <span className="ml-auto text-md font-semibold outfit-light">{country.dialCode}</span>
               </button>
             ))
           ) : (
-            <div className="px-4 py-2 text-sm text-gray-500">No countries found</div>
+            <div className="px-4 py-2 text-sm text-black bg-[#EEF0FF]">No countries found</div>
           )}
         </div>
       )}

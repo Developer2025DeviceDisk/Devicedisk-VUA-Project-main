@@ -180,7 +180,7 @@ const ContactForm = React.memo(function ContactForm() {
         <p className='outfit-light text-[19.69px] md:text-[20px] text-black'>
           Services{' '}
           <span className='text-[14px] md:text-[18px]'>
-            (Select at least one)*
+            (Select at least one)
           </span>
         </p>
         {showServicesError && (
@@ -219,7 +219,7 @@ const ContactForm = React.memo(function ContactForm() {
           value={formData.message}
           onChange={handleInputChange}
           className='outfit-light block w-full text-[15px] md:text-[20px] pb-2 border-b border-gray-400 focus:outline-none text-black placeholder-gray-500'
-          placeholder='Message*'
+          placeholder='Message'
           rows={1}
         />
 

@@ -258,7 +258,7 @@ export default function About() {
         {/* Card 1 - Websites & Digital Platforms */}
         <div
           ref={card1Ref}
-          className='absolute top-[40%] z-0 mb-5 bg-white rounded-[10px] md:rounded-[30px] shadow-lg max-w-[90%] lg:max-w-[800px] xl:max-w-[1100px] 2xl:max-w-[70%] flex flex-col md:flex-row overflow-hidden mx-4 md:mx-0 h-[500px]'
+          className='absolute top-[40%] z-0 mb-5 bg-white rounded-[10px] md:rounded-[30px] shadow-lg max-w-[90%] lg:max-w-[800px] xl:max-w-[1100px] 2xl:max-w-[70%] flex flex-col md:flex-row overflow-hidden mx-4 md:mx-0 h-[530px] md:h-[500px]'
           style={{ boxShadow: '0 20px 50px -10px rgba(190, 47, 244, 0.3)' }}>
           <div className='w-full md:w-1/2 p-4 md:p-10 flex justify-center items-center'>
             <img
@@ -274,7 +274,7 @@ export default function About() {
             className='w-full md:w-1/2 p-4 pt-0 md:pl-0 md:p-8 flex flex-col h-full'
             style={{ fontFamily: "'Outfit', sans-serif" }}>
             <div className='flex-grow'>
-              <h2 className='text-xl sm:text-3xl lg:text-3xl xl:text-4xl font-outfit leading-tight text-gray-900 mb-4'>
+              <h2 className='text-3xl md:text-[50px] font-outfit leading-tight text-gray-900 mb-4'>
                 Strategy
               </h2>
               <p className='text-lg sm:text-xl md:text-xl xl:text-2xl leading-tight text-gray-900 mb-6 md:mb-8'>
@@ -319,7 +319,7 @@ export default function About() {
         {/* Card 2 - Performance Marketing */}
         <div
           ref={card2Ref}
-          className='absolute top-[100%] z-10 mb-5 bg-white rounded-[10px] md:rounded-[30px] shadow-lg max-w-[90%] lg:max-w-[800px] xl:max-w-[1100px] 2xl:max-w-[70%] flex flex-col md:flex-row overflow-hidden mx-4 md:mx-0 h-[500px]'
+          className='absolute top-[100%] z-10 mb-5 bg-white rounded-[10px] md:rounded-[30px] shadow-lg max-w-[90%] lg:max-w-[800px] xl:max-w-[1100px] 2xl:max-w-[70%] flex flex-col md:flex-row overflow-hidden mx-4 md:mx-0 h-[530px] md:h-[500px]'
           style={{ boxShadow: '0 20px 50px -10px rgba(190, 47, 244, 0.3)' }}>
           <div className='w-full md:w-1/2 p-4 md:p-10 flex justify-center items-center order-1'>
             <img
@@ -335,7 +335,7 @@ export default function About() {
             className='w-full md:w-1/2 p-4 pt-0 md:pr-0 md:p-8 flex flex-col h-full order-2 md:order-first'
             style={{ fontFamily: "'Outfit', sans-serif" }}>
             <div className='flex-grow'>
-              <h2 className='text-xl sm:text-3xl lg:text-3xl xl:text-4xl font-outfit leading-tight text-gray-900 mb-4'>
+              <h2 className='text-3xl md:text-[50px] font-outfit leading-tight text-gray-900 mb-4'>
                 Branding & Design
               </h2>
               <p className='text-lg sm:text-xl md:text-xl xl:text-2xl leading-tight text-gray-900 mb-6 md:mb-8'>
@@ -380,7 +380,7 @@ export default function About() {
         {/* Card 3 - Brand Strategy */}
         <div
           ref={card3Ref}
-          className='absolute top-[100%] z-20 mb-5 bg-white rounded-[10px] md:rounded-[30px] shadow-lg max-w-[90%] lg:max-w-[800px] xl:max-w-[1100px] 2xl:max-w-[70%] flex flex-col md:flex-row overflow-hidden mx-4 md:mx-0 h-[500px]'
+          className='absolute top-[100%] z-20 mb-5 bg-white rounded-[10px] md:rounded-[30px] shadow-lg max-w-[90%] lg:max-w-[800px] xl:max-w-[1100px] 2xl:max-w-[70%] flex flex-col md:flex-row overflow-hidden mx-4 md:mx-0 h-[530px] md:h-[500px]'
           style={{ boxShadow: '0 20px 50px -10px rgba(190, 47, 244, 0.3)' }}>
           <div className='w-full md:w-1/2 p-4 md:p-10 flex justify-center items-center'>
             <img
@@ -396,7 +396,7 @@ export default function About() {
             className='w-full md:w-1/2 p-4 pt-0 md:pl-0 md:p-8 flex flex-col h-full'
             style={{ fontFamily: "'Outfit', sans-serif" }}>
             <div className='flex-grow'>
-              <h2 className='text-xl sm:text-3xl lg:text-3xl xl:text-4xl font-outfit leading-tight text-gray-900 mb-4'>
+              <h2 className='text-3xl md:text-[50px] font-outfit leading-tight text-gray-900 mb-4'>
                 Content &amp; Production
               </h2>
               <p className='text-lg sm:text-xl md:text-xl xl:text-2xl leading-tight text-gray-900 mb-6 md:mb-8'>
@@ -441,7 +441,7 @@ export default function About() {
         {/* Card 4 - Content Creation */}
         <div
           ref={card4Ref}
-          className='absolute top-[100%] z-30 mb-5 bg-white rounded-[10px] md:rounded-[30px] shadow-lg max-w-[90%] lg:max-w-[800px] xl:max-w-[1100px] 2xl:max-w-[70%] flex flex-col md:flex-row overflow-hidden mx-4 md:mx-0 h-[500px]'
+          className='absolute top-[100%] z-30 mb-5 bg-white rounded-[10px] md:rounded-[30px] shadow-lg max-w-[90%] lg:max-w-[800px] xl:max-w-[1100px] 2xl:max-w-[70%] flex flex-col md:flex-row overflow-hidden mx-4 md:mx-0 h-[530px] md:h-[500px]'
           style={{ boxShadow: '0 20px 50px -10px rgba(190, 47, 244, 0.3)' }}>
           <div className='w-full md:w-1/2 p-4 md:p-10 flex justify-center items-center order-1'>
             <img
@@ -457,7 +457,7 @@ export default function About() {
             className='w-full md:w-1/2 p-4 pt-0 md:pr-0 md:p-8 flex flex-col h-full order-2 md:order-first'
             style={{ fontFamily: "'Outfit', sans-serif" }}>
             <div className='flex-grow'>
-              <h2 className='text-xl sm:text-3xl lg:text-3xl xl:text-4xl font-outfit leading-tight text-gray-900 mb-4'>
+              <h2 className='text-3xl md:text-[50px] font-outfit leading-tight text-gray-900 mb-4'>
                 Digital Marketing
               </h2>
               <p className='text-lg sm:text-xl md:text-xl xl:text-2xl leading-tight text-gray-900 mb-6 md:mb-8'>
@@ -499,7 +499,7 @@ export default function About() {
         {/* Card 5 - Social Media Management */}
         <div
           ref={card5Ref}
-          className='absolute top-[100%] z-40 mb-5 bg-white rounded-[10px] md:rounded-[30px] shadow-lg max-w-[90%] lg:max-w-[800px] xl:max-w-[1100px] 2xl:max-w-[70%] flex flex-col md:flex-row overflow-hidden mx-4 md:mx-0 h-[500px]'
+          className='absolute top-[100%] z-40 mb-5 bg-white rounded-[10px] md:rounded-[30px] shadow-lg max-w-[90%] lg:max-w-[800px] xl:max-w-[1100px] 2xl:max-w-[70%] flex flex-col md:flex-row overflow-hidden mx-4 md:mx-0 h-[530px] md:h-[500px]'
           style={{ boxShadow: '0 20px 50px -10px rgba(190, 47, 244, 0.3)' }}>
           <div className='w-full md:w-1/2 p-4 md:p-10 flex justify-center items-center'>
             <img
@@ -515,7 +515,7 @@ export default function About() {
             className='w-full md:w-1/2 p-4 pt-0 md:pl-0 md:p-8 flex flex-col h-full'
             style={{ fontFamily: "'Outfit', sans-serif" }}>
             <div className='flex-grow'>
-              <h2 className='text-xl sm:text-3xl lg:text-3xl xl:text-4xl font-outfit leading-tight text-gray-900 mb-4'>
+              <h2 className='text-3xl md:text-[50px] font-outfit leading-tight text-gray-900 mb-4'>
                 Agent Vua
               </h2>
               <p className='text-lg sm:text-xl md:text-xl xl:text-2xl leading-tight text-gray-900 mb-6 md:mb-8'>
@@ -559,7 +559,7 @@ export default function About() {
         {/* Card 6 - E-commerce Solutions */}
         <div
           ref={card6Ref}
-          className='absolute top-[100%] z-50 mb-5 bg-white rounded-[10px] md:rounded-[30px] shadow-lg max-w-[90%] lg:max-w-[800px] xl:max-w-[1100px] 2xl:max-w-[70%] flex flex-col md:flex-row overflow-hidden mx-4 md:mx-0 h-[500px]'
+          className='absolute top-[100%] z-50 mb-5 bg-white rounded-[10px] md:rounded-[30px] shadow-lg max-w-[90%] lg:max-w-[800px] xl:max-w-[1100px] 2xl:max-w-[70%] flex flex-col md:flex-row overflow-hidden mx-4 md:mx-0 h-[530px] md:h-[500px]'
           style={{ boxShadow: '0 20px 50px -10px rgba(190, 47, 244, 0.3)' }}>
           <div className='w-full md:w-1/2 p-4 md:p-10 flex justify-center items-center order-1'>
             <img
@@ -575,7 +575,7 @@ export default function About() {
             className='w-full md:w-1/2 p-4 pt-0 md:pr-0 md:p-8 flex flex-col h-full order-2  md:order-first'
             style={{ fontFamily: "'Outfit', sans-serif" }}>
             <div className='flex-grow'>
-              <h2 className='text-xl sm:text-3xl lg:text-3xl xl:text-4xl font-outfit leading-tight text-gray-900 mb-4'>
+              <h2 className='text-3xl md:text-[50px] font-outfit leading-tight text-gray-900 mb-4'>
                 Agent Vision
               </h2>
               <p className='text-lg sm:text-xl md:text-xl xl:text-2xl leading-tight text-gray-900 mb-6 md:mb-8'>
@@ -630,7 +630,7 @@ export default function About() {
         {/* Card 7 - Data Analytics */}
         <div
           ref={card7Ref}
-          className='absolute top-[100%] z-60 mb-5 bg-white rounded-[10px] md:rounded-[30px] shadow-lg max-w-[90%] lg:max-w-[800px] xl:max-w-[1100px] 2xl:max-w-[70%] flex flex-col md:flex-row overflow-hidden mx-4 md:mx-0 h-[500px]'
+          className='absolute top-[100%] z-60 mb-5 bg-white rounded-[10px] md:rounded-[30px] shadow-lg max-w-[90%] lg:max-w-[800px] xl:max-w-[1100px] 2xl:max-w-[70%] flex flex-col md:flex-row overflow-hidden mx-4 md:mx-0 h-[530px] md:h-[500px]'
           style={{ boxShadow: '0 20px 50px -10px rgba(190, 47, 244, 0.3)' }}>
           <div className='w-full md:w-1/2 p-4 md:p-10 flex justify-center items-center'>
             <img
@@ -646,7 +646,7 @@ export default function About() {
             className='w-full md:w-1/2 p-4 pt-0 md:pl-0 md:p-8 flex flex-col h-full'
             style={{ fontFamily: "'Outfit', sans-serif" }}>
             <div className='flex-grow'>
-              <h2 className='text-xl sm:text-3xl lg:text-3xl xl:text-4xl font-outfit leading-tight text-gray-900 mb-4'>
+              <h2 className='text-3xl md:text-[50px] font-outfit leading-tight text-gray-900 mb-4'>
                 Agent XR
               </h2>
               <p className='text-lg sm:text-xl md:text-xl xl:text-2xl leading-tight text-gray-900 mb-6 md:mb-8'>

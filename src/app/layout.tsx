@@ -22,7 +22,10 @@ export default function RootLayout({
   return (
 
     <html lang="en">   
-      <body suppressHydrationWarning>
+        <head>
+        <link rel="icon" type="image/png" href="/favicon.png" />
+      </head>  
+            <body suppressHydrationWarning>
 
 
         {/* Wrap the entire page with the children */}

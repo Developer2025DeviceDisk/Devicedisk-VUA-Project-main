@@ -182,9 +182,9 @@ export default function HeroSection() {
               />
               <image
                 ref={img4Ref}
-                href='/content.jpeg'
+                  href='/creative.jpeg'
                 width='100%'
-                height='105%'
+          height='120%'
                 clipPath='url(#image_clip_path)'
                 preserveAspectRatio='xMidYMid slice'
                 style={{ opacity: 0 }}

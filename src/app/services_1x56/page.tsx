@@ -1,474 +1,311 @@
+'use client';
 import Image from 'next/image';
-const services = [
-  { title: "Web Development", description: "Building responsive websites." },
-  { title: "UI/UX Design", description: "Crafting user-centered interfaces." },
-  { title: "SEO Optimization", description: "Boosting your site visibility." },
+export default function AboutPage() {
+const team = [
+
+  {
+    name: "Shivendra Singh",
+    role: "Co-Founder",
+    image: "/team-left.png",
+    isFocused: false,
+  },
+  {
+    name: "Aishwarya Chaudhary",
+    role: "Business Strategy",
+    image: "/team-aishwarya.png", 
+    isFocused: true,
+  },
+  {
+    name: "Aishwarya Chaudhary",
+    role: "Business Strategy",
+    image: "/team-right.png",
+    isFocused: false,
+  },
 ];
-
-export default function Services() {
   return (
-    
     <>
-
-    <section className="max-sm:px-[22px] relative min-h-screen flex flex-col items-center justify-center text-center md:px-6 py-20 overflow-hidden bg-gradient-to-b from-[#BE2FF4] to-[#6210FF] ">
-
-        {/* <div className="absolute top-0 left-0 w-2/3 h-2/3 bg-gradient-to-br from-[#BE2FF4] to-transparent opacity-40 blur-[120px] rounded-full pointer-events-none"></div> */}
-
-        {/* <div className="absolute bottom-0 right-0 w-2/3 h-2/3 bg-gradient-to-tl from-[#6210FFCC] to-transparent opacity-40 blur-[120px] rounded-full pointer-events-none"></div> */}
-
-          <style>
-          {`
-          @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
-          }
-          .floating {
-            animation: float 3s ease-in-out infinite;
-          }
-          @keyframes orbit-border-vector6 {
-            0%   { top: -75vh; left: -25vw; transform: rotate(0deg); }
-            25%  { top: -75vh; left: 25vw; transform: rotate(90deg); }
-            50%  { top: 25vh; left: 25vw; transform: rotate(180deg); }
-            75%  { top: 25vh; left: -25vw; transform: rotate(270deg); }
-            100% { top: -75vh; left: -25vw; transform: rotate(360deg); }
-          }
-          @keyframes orbit-border-vector7 {
-            0%   { top: -25vh; left: -35vw; transform: rotate(180deg); }
-            25%  { top: 25vh; left: -10vw; transform: rotate(270deg); }
-            50%  { top: -25vh; left: 25vw; transform: rotate(0deg); }
-            75%  { top: -75vh; left: -10vw; transform: rotate(90deg); }
-            100% { top: -25vh; left: -35vw; transform: rotate(180deg); }
-          }
-          .border-orbit {
-            position: fixed;
-            width: 300vw;
-            height: 300vh;
-            pointer-events: none;
-            z-index: 0;
-          }
-          .orbit-image-vector6 {
-            width: 130%;
-            height: 130%;
-            position: fixed;
-            animation: orbit-border-vector6 15s linear infinite;
-          }
-          .orbit-image-vector7 {
-            width: 150%;
-            height: 150%;
-            position: fixed;
-            animation: orbit-border-vector7 15s linear infinite;
-          }
-          
-
-          @media (max-width: 768px) {
-            .orbit-image-vector6, .orbit-image-vector7 {
-            width: 250%;
-            height: 250%;
-            }
-          }
-          `}
-          </style>
-
-          <div className="absolute top-0 left-0 z-0 border-orbit">
-            <img
-              src="/Vector6.png"
-              alt="Vector6 Rotating"
-              className="orbit-image-vector6 object-contain"
-            />
-          </div>
-
-          <div className="absolute top-0 left-0 z-0 border-orbit">
-            <img
-              src="/Vector7.png"
-              alt="Vector7 Rotating"
-              className="orbit-image-vector7 object-contain"
-            />
-          </div>
-
-          <h1 className="text-white petrovsans-book max-sm:text-[45px] md:text-[94px] mb-[60px] z-10 floating mt-[150px] max-sm:leading-[55px] md:leading-[122.8px]">
-            <span className="max-sm:block md:inline">Your 360°</span> <span className="max-sm:block md:inline">Growth Engine</span>
-          </h1>
-
-          <p className="text-white justify-center mx-[10px] max-w-6xl z-10 max-sm:text-[16px] md:text-[19.69px] leading-[1.49] text-center mb-[322px] floating outfit-light" style={{ letterSpacing: '0.08em', lineHeight: '1.49' }}>
-            Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit
-          </p>
-
-                 
-
-        {/* Puzzle Image */}
-     <Image src={'/puzzle.png'} alt="Puzzle Icon"  width={ 100 } height = { 100 } className="w-120 h-auto mb-[-6%] z-10" />
-
-        {/* Heading */}
-        <h1 className="text-white text-[45px] md:text-[131.76px]  leading-[122.85px] z-10 petrovsans-semibold">
-          Strategy
-        </h1>
-
-        {/* Paragraph */}
-        <p className="text-white max-sm:[11.74px] md:text-[31.5px] mt-2 mb-10 z-10 outfit-light" style={{ letterSpacing: '0.08em', lineHeight: '1.49' }}>
-          Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam
-        </p>
-
-        <div className="flex flex-wrap justify-center gap-x-[8px] gap-y-[12px] mb-2 z-10 outfit-light" >
-          {[
-            'GTM Strategy',
-            'Brand strategy',
-            'Brand Voice',
-
-          ].map((tag, idx) => (
-            <button
-              key={idx}
-              className="inline-flex items-center justify-center h-[26px] px-[12px] max-sm:px-[8px]
-                 max-sm:text-[12px] md:text-[20.56px] font-light border border-[#F52FFF] rounded-[13.78px]
-                 text-center whitespace-nowrap leading-none text-white"
-            >
-              {tag}
-            </button>
-          ))}
-        </div>
-
-        <div className="flex flex-wrap justify-center gap-x-[8px] gap-y-[8px] mb-10 z-10 outfit-light">
-          {[
-            'Campaign Strategy',
-            'PR Strategy',
-            'Social Media Strategy',
-
-          ].map((tag, idx) => (
-            <button
-              key={idx}
-              className="inline-flex items-center justify-center h-[26px] px-[12px] max-sm:px-[8px]
-                 max-sm:text-[12px] md:text-[20.56px] border border-[#F52FFF] rounded-[13.78px]
-                 text-center whitespace-nowrap leading-none text-white"
-            >
-              {tag}
-            </button>
-          ))}
-        </div>
-
-        {/* Explore More Button */}
-        <button className="mt-4 mb-[200px] px-6 py-2 text-white border border-white rounded-full flex items-center gap-2 z-10 text-[18.36px] outfit-light" style={{ letterSpacing: '0.08em', lineHeight: '1.49' }}>
-          EXPLORE MORE
-          <Image src={'/vector.png'} alt="Arrow Icon" width={ 100 } height = { 100 } className="w-8 h-3" />
-        </button>
-
-
-        {/* Group Circle Image */}
-       <Image src={'/groupcircle.png'} alt="Group Circle Icon" width={ 100 } height = { 100 } className="w-120 h-auto mb-[-20%] z-10" />
-
-        {/* Heading */}
-        <h1 className="text-white petrovsans-semibold text-[48px] md:text-[131.5px] z-10">
-          Design & <br></br> Communications
-        </h1>
-
-        {/* Paragraph */}
-        <p className="text-white max-sm:[11.74px] md:text-[31.5px] mt-2 mb-10 z-10 outfit-light" style={{ letterSpacing: '0.08em', lineHeight: '1.49' }}>
-          Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam
-        </p>
-
-        <div className="flex flex-wrap justify-center gap-x-[8px] gap-y-[12px] mb-2 z-10 outfit-light">
-          {[
-            'Brand Identity Design',
-            'Website Design',
-            'UI/UX Design',
-
-          ].map((tag, idx) => (
-            <button
-              key={idx}
-              className="inline-flex items-center justify-center h-[26px] px-[12px] max-sm:px-[8px]
-                 max-sm:text-[12px] md:text-[20.56px] font-light border border-[#F52FFF] rounded-[13.78px]
-                 text-center whitespace-nowrap leading-none text-white"
-            >
-              {tag}
-            </button>
-          ))}
-        </div>
-
-        <div className="flex flex-wrap justify-center gap-x-[8px] gap-y-[8px] mb-10 z-10 outfit-light">
-          {[
-            'Event Branding',
-            'Office Branding',
-            'Packaging',
-            'Print & Digital Creatives'
-
-          ].map((tag, idx) => (
-            <button
-              key={idx}
-              className="inline-flex items-center justify-center h-[26px] px-[12px] max-sm:px-[8px]
-                 max-sm:text-[12px] md:text-[20.56px] font-light border border-[#F52FFF] rounded-[13.78px]
-                 text-center whitespace-nowrap leading-none text-white"
-            >
-              {tag}
-            </button>
-          ))}
-        </div>
-
-        {/* Explore More Button */}
-        <button className="mt-4 mb-[200px] px-6 py-2 text-white border border-white rounded-full flex items-center gap-2 z-10 text-[18.36px] outfit-light" style={{ letterSpacing: '0.08em', lineHeight: '1.49'  }}>
-          EXPLORE MORE
-          <Image src={'/vector.png'} alt="Arrow Icon" width={ 100 } height = { 100 } className="w-8 h-3" />
-        </button>
-
-
-        {/* Heading */}
-        <h1 className="flex text-white petrovsans-semibold text-[48px] md:text-[131.5px] leading-[122.85px] z-10 mt-[5%]">
-          Production <Image src={'/box.png'} alt="Puzzle Icon" width={ 100 } height = { 100 } className="w-50 h-auto  mt-[-3%] mb-[5%] ml-[28%] z-[-60] absolute" />
-        </h1>
-
-        {/* Paragraph */}
-        <p className="text-white max-sm:[11.74px] md:text-[31.5px] mt-2 mb-10 z-10 outfit-light" style={{ letterSpacing: '0.08em', lineHeight: '1.49' }}>
-         <Image src={'/box1.png'} alt="Puzzle Icon" width={ 100 } height = { 100 } className="w-30 h-auto ml-[-3%] mt-[-2%] mb-[5%] z-[-60] absolute " /> 
-         Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam
-        </p>
-
-        <div className="flex flex-wrap justify-center gap-x-[8px] gap-y-[12px] mb-2 z-10 outfit-light">
-          {[
-            'Influencer Marketing',
-            'Blogs / Articles',
-            'Conceptualization of Content',
-            'Motion Graphics',
-
-          ].map((tag, idx) => (
-            <button
-              key={idx}
-              className="inline-flex items-center justify-center h-[26px] px-[12px] max-sm:px-[8px]
-                 max-sm:text-[12px] md:text-[20.56px] font-light border border-[#F52FFF] rounded-[13.78px]
-                 text-center whitespace-nowrap leading-none text-white"
-            >
-              {tag}
-            </button>
-          ))}
-        </div>
-
-        <div className="flex flex-wrap justify-center gap-x-[8px] gap-y-[8px] mb-10 z-10 outfit-light">
-          {[
-            'Creative Copywriting',
-            'Office High Quality Video Shoot & Production',
-            'Reel Production',
-
-          ].map((tag, idx) => (
-            <button
-              key={idx}
-              className="inline-flex items-center justify-center h-[26px] px-[12px] max-sm:px-[8px]
-                 max-sm:text-[12px] md:text-[20.56px] font-light border border-[#F52FFF] rounded-[13.78px]
-                 text-center whitespace-nowrap leading-none text-white"
-            >
-              {tag}
-            </button>
-          ))}
-        </div>
-
-        {/* Explore More Button */}
-        <button className="mt-4 mb-[200px] px-6 py-2 text-white border border-white rounded-full flex items-center gap-2 z-10 text-[18.36px] outfit-light" style={{ letterSpacing: '0.08em', lineHeight: '1.49'  }}>
-          EXPLORE MORE
-          <Image src={'/vector.png'} alt="Arrow Icon" width={ 100 } height = { 100 } className="w-8 h-3" />
-        </button>
-
-        {/* Cloud Image */}
-        <Image src={'/cloud.png'} alt="Cloud Icon" width={ 100 } height = { 100 } className="w-120 h-auto mb-[-20%] z-10" />
-
-        {/* Heading */}
-        <h1 className="text-white text-[45px] petrovsans-semibold md:text-[131.5px] z-10">
-          Digital Marketing
-        </h1>
-
-        {/* Paragraph */}
-        <p className="text-white max-sm:[11.74px] md:text-[31.5px] mt-2 mb-10 z-10 outfit-light" style={{ letterSpacing: '0.08em', lineHeight: '1.49' }}> 
-          Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam
-        </p>
-
-        <div className="flex flex-wrap justify-center gap-x-[8px] gap-y-[12px] mb-2 z-10 outfit-light">
-          {[
-            'Growth Marketing',
-            'Social Media Management Packages',
-            'SEO Optimization & Ranking',
-
-          ].map((tag, idx) => (
-            <button
-              key={idx}
-              className="inline-flex items-center justify-center h-[26px] px-[12px] max-sm:px-[8px]
-                 max-sm:text-[12px] md:text-[20.56px] border border-[#F52FFF] rounded-[13.78px]
-                 text-center whitespace-nowrap leading-none text-white"
-            >
-              {tag}
-            </button>
-          ))}
-        </div>
-
-        {/* Explore More Button */}
-        <button className="mt-4 mb-[200px] px-6 py-2 text-white border border-white rounded-full flex items-center gap-2 z-10 text-[18.36px] outfit-light" style={{ letterSpacing: '0.08em', lineHeight: '1.49' }}>
-          EXPLORE MORE
-          <Image src={'/vector.png'} alt="Arrow Icon" width={ 100 } height = { 100 } className="w-8 h-3" />
-        </button>
-
-      </section>
-
-      {/* Technological Solutions Section */}
-      <section className="bg-black py-20 px-4 md:px-8">
-        
-        {/* Main Title */}
-        <div className="flex items-center justify-center text-center mb-16">
-          <h1 className="max-sm:text-[54px] md:text-[140px] leading-tight petrovsans-book z-50"
-          >
-            <span className="md:hidden" style={{ 
-              color: 'transparent', 
-              WebkitTextStroke: '2px #6210FF',
-              textShadow: '0 0 0 #6210FF'
-            }}>
-              Technological<br />
-              Solution
-            </span>
-            <span className="hidden md:block" style={{ 
-              color: 'transparent', 
-              WebkitTextStroke: '4px #6210FF' 
-            }}>
-              Technological<br />
-              Solution
-            </span>
-          </h1>
-        </div>
-
-        {/* Agent VUA Section */}
-        <div className="max-w-6xl mx-auto mb-32">
-          <div className="text-center">
-            <h1 className="text-[48px] md:text-[131px] petrovsans-semibold text-transparent bg-clip-text bg-gradient-to-r from-[#6210FF] to-[#BE2FF4] mb-8" style={{ lineHeight: '1.80' }}>
-              Agent VUA
-            </h1>
-
-            <p className="text-[17px] md:text-[31px] text-[#BE2FF4] outfit-light px-4 py-5 mb-14">
-              AI Powered telecalling agent to seamlessly handle <span className="md:block">all your inbound & outbound call</span>
-            </p>
-
-            <div className="bg-[#6210FF7A] p-4 md:p-8 rounded-3xl">
-              <h1 className="text-[24px] md:text-[55px] text-white mb-8 md:mb-12" style={{ fontFamily: 'Outfit' }}>
-                The Impact of Agent Vua
-              </h1>
-
-              <div className="grid grid-cols-3 text-white gap-2 md:gap-7 text-center">
-                <div className="px-1 md:px-2">
-                  <h3 className="text-[14px] md:text-[35.04px] outfit-light leading-tight">
-                    Integrate With<br />
-                    Your CRM
-                  </h3>
-                </div>
-                <div className="px-1 md:px-2">
-                  <h3 className="text-[14px] md:text-[35.04px] outfit-light leading-tight">
-                    Integrated<br />
-                    Virtual Numbers
-                  </h3>
-                </div>
-                <div className="px-1 md:px-2">
-                  <h3 className="text-[14px] md:text-[35.04px] outfit-light leading-tight">
-                    Automate Pre-Sales/ Customers
-                    Support Process
-                  </h3>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Agent Vision Section */}
-        <div className="max-w-6xl mx-auto mb-32">
-          <div className="text-center">
-            <h1 className="text-[48px] md:text-[131px] leading-tight petrovsans-semibold text-transparent bg-clip-text bg-gradient-to-r from-[#6210FF] to-[#BE2FF4] mb-8">
-              Agent Vision
-            </h1>
-
-            <p className="text-[17px] md:text-[31px] text-[#BE2FF4] px-4 py-5 mb-12 outfit-light">
-              Fast, affordable production quality films
-            </p>
-
-            <div className="flex flex-row flex-nowrap w-full text-white text-center mb-16 text-[13px] md:text-[35.04px] outfit-light leading-none">
-              <div className="flex-1 py-4">Project<br />Walkthroughs</div>
-              <div className="flex-1 py-4">Launch <br/> Videos</div>
-              <div className="flex-1 py-4">Reel/Content<br />Generation</div>
-              <div className="flex-1 py-4">Production & Films</div>
-            </div>
-            
-            <div className="grid grid-cols-3 gap-3 text-center px-4 leading-none">
-              <div className="py-2">
-                <h1 className="text-[28px] md:text-[65px] petrovsans-semibold text-transparent bg-clip-text bg-gradient-to-r from-[#6210FF] to-[#BE2FF4] mb-4">
-                  10%
-                </h1>
-                <p className="text-white text-[18px] md:text-[35.04px] outfit-light">
-                  Production<br />
-                  Budget
-                </p>
-              </div>
-              <div className="py-2">
-                <h1 className="text-[28px] md:text-[65px] petrovsans-semibold text-transparent bg-clip-text bg-gradient-to-r from-[#6210FF] to-[#BE2FF4] mb-4">
-                  50X
-                </h1>
-                <p className="text-white text-[18px] md:text-[35.04px] outfit-light">
-                  Faster time<br />
-                  to market
-                </p>
-              </div>
-              <div className="py-2">
-                <h1 className="text-[28px] md:text-[65px] petrovsans-semibold text-transparent bg-clip-text bg-gradient-to-r from-[#6210FF] to-[#BE2FF4] mb-4">
-                  100%
-                </h1>
-                <p className="text-white text-[18px] md:text-[35.04px] outfit-light">
-                  Realistic<br />
-                  footage
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-  
-
-<div className="bg-black flex items-center justify-center text-center px-4 pt-[150px]">
-  <div>
-   <h1 className="text-[48px] sm:text-[131px] leading-tight petrovsans-semibold text-transparent bg-clip-text bg-gradient-to-r from-[#6210FF] to-[#BE2FF4]">
-    Agent XR
-   </h1>
-   <p className="text-[17px] sm:text-[31px] text-[#BE2FF4] leading-none outfit-light mx-2 my-4 px-2 py-4 sm:m-8 sm:px-[10px] sm:py-[30px] text-center">
-     Don’t leave it to their imagination, <span className="md:block">immerse them in the experience </span> 
-   </p>
-  
-    <div className="grid grid-cols-4 gap-3 text-white outfit-light text-center mb-16 text-[14px] md:text-[35.04px]">
-      <div className="py-4">Virtual Reality</div>
-      <div className="py-4">Digital twins</div>
-      <div className="py-4">Mixed reality</div>
-      <div className="py-4">Realistic renderings</div>
-    </div> 
-  
-  <div className="grid grid-cols-3 gap-3 text-center mb-[80px]">
-              <div className="py-2">
-                <h1 className="text-[28px] md:text-[65px] leading-tight petrovsans-semibold text-transparent bg-clip-text bg-gradient-to-r from-[#6210FF] to-[#BE2FF4] mb-4">
-                  90%
-                </h1>
-                <p className="text-white text-[18px] md:text-[35.04px] outfit-light leading-none">
-                  Cost Saving
-                </p>
-              </div>
-              <div className="py-2">
-                <h1 className="text-[28px] md:text-[65px] leading-tight petrovsans-semibold text-transparent bg-clip-text bg-gradient-to-r from-[#6210FF] to-[#BE2FF4] mb-4">
-                  50X
-                </h1>
-                <p className="text-white text-[18px] md:text-[35.04px] outfit-light leading-none">
-                  Faster time<br />
-                  to market
-                </p>
-              </div>
-              <div className="py-2">
-                <h1 className="text-[28px] md:text-[65px] leading-tight petrovsans-semibold text-transparent bg-clip-text bg-gradient-to-r from-[#6210FF] to-[#BE2FF4] mb-4">
-                  400%
-                </h1>
-                <p className="text-white text-[18px] md:text-[35.04px] outfit-light leading-none">
-                  Increased<br />
-                  Engagement
-                </p>
-              </div>
-            </div>
+<section className="relative flex flex-col md:flex-row md:gap-20 items-end justify-between px-4 sm:px-8 lg:px-20 bg-gradient-to-tr from-[#6210FF] to-[#BE2FF4] text-white overflow-hidden">
+  {/* Left: Text */}
+  <div className=" py-[163px] px-auto ">
+    <h1 className="font-bold text-[93.72px] sm:text-[45px] lg:text-[80px] leading-30" >
+      Your Voice In <br />
+      The Future Of <br />
+      Marketing.
+    </h1>
   </div>
+
+  {/* Right */}
+  <div className="relative w-full lg:w-1/2 flex items-center lg:justify-center">
+
+    <img
+      src="/Markofinnovation.png"
+      alt="Arc"
+      className="absolute z-0 w-[180px] sm:w-[250px] lg:w-[609.53px] h-auto object-contain"
+      style={{
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-43%, -90%)',
+      }}
+    />
+
+    <img
+      src="/Marketingwoman.png"
+      alt="Marketing Woman"
+      className="relative z-10 w-[180px] sm:w-[250px] lg:w-[570px] h-auto object-contain"
+
+    />
+  </div>
+</section>
+
+<section className="min-h-[60vh] flex flex-col items-center justify-center bg-[#EEF0FF] px-4 py-16">
+
+  <div className="flex items-center justify-center ">
+    <img
+      src="/Group 26.png"
+      alt="VUA WAH olg wow वा"
+      className="w-full max-w-[90%] mx-auto my-auto sm:max-w-[80%] md:max-w-[70%] lg:w-[1169.73px] h-auto lg:mt-[211.04px] opacity-60"
+    />
+  </div>
+
+  <p className=" text-[#6210FF] text-4xl font-extrabold text-center mt-[78.53px] mb-[20px] leading-[120%] tracking-[2%]">
+    ‘Vua’ is the Voice that will lead the dialogue<br />
+    for a future-forward world of Marketing.
+  </p>
+</section>
+
+
+<section
+  className="relative min-h-screen w-full bg-[url('/Whoarewe.png')] bg-cover bg-center text-white px-6 py-16 lg:py-32"
+>
+  <div className="relative z-10 max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-12">
+    
+    {/* Left Side: */}
+    <div className="relative w-full lg:w-1/2 hidden lg:block">
+
+      <img
+        src="/Layer_1.png"
+        alt="Decorative Arc"
+        className="absolute top-1/2 left-1/2 transform -translate-x-[38%] -translate-y-[60%] w-[1200px] z-0"
+      />
+
+      <img
+        src="/astronaut.png"
+        alt="Astronaut"
+        className="relative z-10 mx-auto w-[519px] h-auto"
+      />
+    </div>
+
+    {/* Right Side */}
+    <div className="w-full lg:w-1/2 text-left">
+      <h2
+        className="text-4xl sm:text-5xl lg:text-[67px] font-thin mb-[77px]"
+        style={{ fontFamily: "'Outfit', sans-serif" }}
+      >
+        Who Are We?
+      </h2>
+      <p
+        className="text-base sm:text-lg lg:text-[19.69px] leading-relaxed mb-4"
+        style={{ fontFamily: "'Outfit', sans-serif" }}
+      >
+        We are a future-focused Marketing agency that aims to help brands leverage the latest in marketing creativity and technology to achieve their Growth KPIs.
+        <span className="font-semibold text-white">
+          {" "}Our 360-degree service portfolio of creative, digital and Mar-Tech solutions{" "}
+        </span>
+        empowers brands to lead, not follow, in a world shaped by innovation.
+      </p>
+      <p
+        className="text-base sm:text-lg leading-relaxed"
+        style={{ fontFamily: "'Outfit', sans-serif" }}
+      >
+        VUA is more than a brand—it’s a movement for those who seek to lead the next era of change.
+      </p>
+    </div>
+  </div>
+</section>
+
+
+
+<section className="min-h-screen flex items-center justify-center bg-[#EEF0FF] px-8 py-12">
+  <div className="flex flex-col md:flex-row w-full max-w-7xl items-center justify-between gap-0">
+
+   
+    <div className="relative flex-shrink-0 flex flex-col items-start w-full md:w-auto">
+      <div className="relative flex items-center justify-start w-full md:w-auto min-h-[220px]">
+        <h2 className="text-[48px] sm:text-[90px] leading-[48px] sm:leading-[90px] font-extrabold text-[#6210FF] z-10 text-left">
+          Our<br />Foundation
+        </h2>
+        <Image
+          src={'/GlassRing.png'}
+          alt="Glass Ring" width={ 100 } height = { 100 }
+          className="absolute left-0 md:left-1/2 top-1/2 md:-translate-x-1/2 -translate-y-1/2 w-[264px] h-[110px] sm:w-[493.36px] sm:h-[448.91px] pointer-events-none select-none"
+          style={{ zIndex: 1 }}
+        />
+      </div>
+    </div>
+
+<div className="flex flex-col gap-12 w-full md:w-1/2">
+  {[
+    {
+      title: "Creativity",
+      subtitle: "Creativity That Inspires",
+    },
+    {
+      title: "Innovation",
+      subtitle: "Technology That Keeps You Ahead",
+    },
+    {
+      title: "Strategic Thinking",
+      subtitle: "Strategy That Always Makes You Win",
+    },
+    {
+      title: "Customer Centricity",
+      subtitle: "Everything Is About “You”",
+    },
+  ].map(({ title, subtitle }, index) => (
+    <div key={index}>
+      <h3 className="text-[48px] font-extrabold leading-[56px] bg-gradient-to-r from-[#6210FF] to-[#BE2FF4] text-transparent bg-clip-text">
+        {title}
+      </h3>
+      <p className="text-[18px] font-light leading-[28px] mt-1 bg-gradient-to-r from-[#6210FF] to-[#BE2FF4] text-transparent bg-clip-text">
+        {subtitle}
+      </p>
+    </div>
+  ))}
 </div>
 
-      </section>
+
+  </div>
+</section>
+
+ <section className="bg-[#EEF0FF] py-16 px-6 md:px-20">
+  <h2 className="text-[94.5px] font-extrabold text-center text-[#6210FF] mb-12">
+    Director
+  </h2>
+
+  <div className="max-w-6xl mx-auto grid md:grid-cols-12 gap-12 items-start">
+
+    <div className="md:col-span-5 flex justify-center">
+      <div className="relative w-full max-w-[300px] h-[480px] sm:h-[475px]">
+        <Image
+          src="/vishal.png"
+          alt="Vishal Sharma"
+          layout="fill"
+          objectFit="cover"
+          className="rounded-md"
+        />
+      </div>
+    </div>
+
+    <div
+      className="md:col-span-7 text-[#6210FF] leading-relaxed tracking-[0.08em] space-y-4"
+      style={{ fontFamily: "'Outfit', sans-serif" }}
+    >
+      <p>
+        A seasoned leader with over <strong>25 years</strong> of diverse
+        industry experience spanning{" "}
+        <strong>
+          Media, Telecom, Real Estate, Infrastructure, and Utilities
+        </strong>
+        , Vishal is recognized for his ability to develop and implement
+        winning, comprehensive <strong>Marketing Communication</strong> and{" "}
+        <strong>Branding Strategies</strong> in complex environments. His
+        expertise as a brand marketing leader encompasses cross-functional
+        knowledge of both <strong>Domestic And Global Markets</strong>.
+      </p>
+      <p>
+        Prior to his entrepreneurial ventures, Vishal held{" "}
+        <strong>Senior Managerial Positions</strong> leading{" "}
+        <strong>Branding & Communications</strong> at prestigious
+        organizations including{" "}
+        <strong>
+          Bharti Airtel, Vodafone, Reliance, Etisalat, Essel Group, Anarock,
+          GreenCell Mobility, and PropertyPistol
+        </strong>
+        .
+      </p>
+    </div>
+  </div>
+</section>
+
+
+
+    <section className="bg-[#EEF0FF] py-16 px-6 md:px-20">
+  <div className="max-w-6xl mx-auto grid md:grid-cols-12 gap-12 items-start">
+
+    <div className="md:col-span-5 flex justify-center">
+      <div className="relative w-full max-w-[300px] h-[480px] sm:h-[475px]">
+        <Image
+          src="/Shivendra.png"
+          alt="Shivendra Singh"
+          layout="fill"
+          objectFit="cover"
+          className="rounded-md"
+        />
+      </div>
+    </div>
+
+    <div
+      className="md:col-span-7 text-[#6210FF] leading-relaxed tracking-[0.08em] space-y-4"
+      style={{ fontFamily: "'Outfit', sans-serif" }}
+    >
+      <p>
+        A seasoned business leader with over <strong>17 years</strong> of
+        experience in the <strong>Real Estate Industry</strong> across India
+        and international markets, including the GCC, Europe, and North
+        America. He has held key positions in prestigious organizations such as{" "}
+        <strong>
+          AllCheckDeals (InfoEdge), Proptiger.com, JLL, ANAROCK
+        </strong>, and <strong>PropertyPistol</strong>. He has been
+        instrumental in successfully managing both Indian and international
+        portfolios, showcasing a proven ability to navigate diverse market
+        dynamics.
+      </p>
+    </div>
+  </div>
+</section>
+
+
+
+<section className="bg-black text-white py-20 px-4 sm:px-6 md:px-8 text-center">
+  <h2 className="text-6xl md:text-[100px] font-extrabold bg-gradient-to-r from-[#6210FF] to-[#BE2FF4] bg-clip-text text-transparent block mb-20">
+    Our Team
+  </h2>
+
+  <div className="flex justify-center gap-8 sm:gap-12 md:gap-20 flex-wrap md:flex-nowrap">
+    {team.map((member, index) => {
+      const isVisible = member.isFocused ? "block" : "hidden md:block";
+      return (
+        <div
+          key={index}
+          className={`relative flex flex-col items-center transition-all duration-300 ${isVisible} ${
+            member.isFocused ? "scale-110 z-10" : "blur-sm opacity-100"
+          }`}
+        >
+
+          <div className="relative w-[240px] h-[340px] sm:w-[280px] sm:h-[400px] mb-[-60px] z-20">
+            <Image
+              src={member.image}
+              alt={member.name}
+              layout="fill"
+              objectFit="contain"
+            />
+          </div>
+
+          <div className="text-center mt-6">
+            <p className="text-xl sm:text-2xl font-extrabold leading-tight">
+                {member.name.split(" ")[0]}<br />
+                {member.name.split(" ")[1]}
+            </p>
+            <p className="text-sm sm:text-base text-[#BE2FF4] font-semibold">
+              {member.role}
+            </p>
+          </div>
+        </div>
+      );
+    })}
+  </div>
+</section>
 
     </>
-
   );
 }
-

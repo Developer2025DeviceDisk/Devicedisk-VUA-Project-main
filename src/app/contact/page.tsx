@@ -31,8 +31,10 @@ const servicesList = [
 
 const ContactForm = React.memo(function ContactForm() {
   const [selected, setSelected] = useState<number[]>([]);
-  const [selectedCountry, setSelectedCountry] = useState<Country>(countries[8]); // Default to India
-  const [showServicesError, setShowServicesError] = useState(false);
+ const [selectedCountry, setSelectedCountry] = useState<Country>(
+    countries.find(country => country.code === 'IN') || countries[0]  // Default to India
+  );  
+   const [showServicesError, setShowServicesError] = useState(false);
 
   const [formData, setFormData] = useState({
     fullName: '',

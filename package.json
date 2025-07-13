@@ -25,7 +25,12 @@
     "react-router-dom": "^7.6.2",
     "resend": "^4.3.0",
     "three": "^0.177.0",
-    "three-stdlib": "^2.36.0"
+    "three-stdlib": "^2.36.0",
+    "@react-three/postprocessing": "^3.0.4",
+    "@studio-freight/lenis": "^1.0.42",
+    "clsx": "^2.1.1",
+    "leva": "^0.10.0",
+    "usehooks-ts": "^3.1.1"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",

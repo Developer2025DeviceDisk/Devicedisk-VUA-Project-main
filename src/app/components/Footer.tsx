@@ -96,14 +96,14 @@ export default function Footer() {
             href='/Services'
             className='text-white'>
             Services
-          </Link>
+          </Link>*/}
           <Link
             href='/About'
             className='text-white'>
             About
           </Link>
-          <a href='#'>Work</a> */}
-          {/* <a href='#'>Culture</a> */}
+           {/*<a href='#'>Work</a> 
+          <a href='#'>Culture</a> */}
           <Link
             href='/contact'
             className='text-white'>

@@ -29,14 +29,14 @@ const mapProgress = (
 
 const team = [
   {
-    name: "Dishank Shah",
-    role: "CBO",
-    image: "/Group 32.png",
-  },
-  {
     name: "Gourav Bhatt",
     role: "Digital Marketing",
     image: "/Group 30.png",
+  },
+  {
+    name: "Dishank Shah",
+    role: "Chief Business Officer",
+    image: "/Group 32.png",
   },
   {
     name: "Heramb Gharat",
@@ -44,9 +44,9 @@ const team = [
     image: "/Group 33.png",
   },
   {
-    name: "Gourav Bhatt",
-    role: "Digital Marketing",
-    image: "/Group 30.png",
+    name: "Dishank Shah",
+    role: "Chief Business Officer",
+    image: "/Group 32.png",
   },
 ];
 const getTeamSlice = (
@@ -647,25 +647,25 @@ export default function AboutPage() {
       teamStateFourRef.current
     ) {
       gsap.set(teamRefStateOneRef.current, {
-        xPercent: -100, // Center horizontally
+        xPercent: -120, 
         filter: `blur(${10}px)`,
         scale: 0.8,
       });
 
       gsap.set(teamRefStateTwoRef.current, {
-        xPercent: 0, // Center horizontally
+        xPercent: 0, 
         filter: `blur(${0}px)`,
         scale: 1,
       });
 
       gsap.set(teamRefStateThreeRef.current, {
-        xPercent: 100, // Center horizontally
+        xPercent: 120, 
         filter: `blur(${10}px)`,
         scale: 0.8,
       });
 
       gsap.set(teamStateFourRef.current, {
-        xPercent: -100, // Center horizontally
+        xPercent: -120,
         filter: `blur(${10}px)`,
         scale: 0.6,
         opacity: 0,
@@ -682,7 +682,7 @@ export default function AboutPage() {
         },
 
         {
-          xPercent: 100,
+          xPercent: 120,
           filter: `blur(${10}px)`,
           scale: 0.8,
           duration: 1.5,
@@ -745,7 +745,7 @@ export default function AboutPage() {
             }
           }
         })
-        .to(teamRefStateOneRef.current, { xPercent: -100, duration: 0 })
+        .to(teamRefStateOneRef.current, { xPercent: -120, duration: 0 })
         .to(teamRefStateOneRef.current, { ...animatedFrames[3] })
         .to({}, { duration: pause });
 
@@ -784,7 +784,7 @@ export default function AboutPage() {
             }
           }
         })
-        .to(teamRefStateTwoRef.current, { xPercent: -100, duration: 0 })
+        .to(teamRefStateTwoRef.current, { xPercent: -120, duration: 0 })
         .to(teamRefStateTwoRef.current, { ...animatedFrames[3] })
         .to(teamRefStateTwoRef.current, { ...animatedFrames[0] })
         .to({}, { duration: pause });
@@ -827,7 +827,7 @@ export default function AboutPage() {
             }
           }
         })
-        .to(teamRefStateThreeRef.current, { xPercent: -100, duration: 0 })
+        .to(teamRefStateThreeRef.current, { xPercent: -120, duration: 0 })
         .to(teamRefStateThreeRef.current, { ...animatedFrames[3] })
         .to(teamRefStateThreeRef.current, { ...animatedFrames[0] })
         .to(teamRefStateThreeRef.current, { ...animatedFrames[1] })
@@ -868,7 +868,7 @@ export default function AboutPage() {
             }
           }
         })
-        .to(teamStateFourRef.current, { xPercent: -100, duration: 0 })
+        .to(teamStateFourRef.current, { xPercent: -120, duration: 0 })
         .to(teamStateFourRef.current, { ...animatedFrames[3] })
         .to(teamStateFourRef.current, { ...animatedFrames[0] })
         .to(teamStateFourRef.current, { ...animatedFrames[1] })
@@ -1296,7 +1296,7 @@ export default function AboutPage() {
                     <div className="overflow-hidden height-[fit-content] ">
                       <h2
                         ref={directorOneNameRef}
-                        className="relative text-[20.5px]  lg:text-[30.5px] font-[500] text-center text-[#6210FF] text-[#6210FF] mb-0"
+                        className="relative text-[20.5px]  lg:text-[30.5px] font-[500] text-center text-[#6210FF] mb-0 mt-4"
                       >
                         Vishal Sharma
                       </h2>
@@ -1402,7 +1402,7 @@ export default function AboutPage() {
                     <div className="overflow-hidden height-[fit-content] ">
                       <h2
                         ref={directorTwoNameRef}
-                        className="relative text-[20.5px]  lg:text-[30.5px] font-[500] text-center text-[#6210FF] text-[#6210FF] mb-0"
+                        className="relative text-[20.5px] lg:text-[30.5px] font-[500] text-center text-[#6210FF] mb-0 mt-4"
                       >
                         Shivendra Singh
                       </h2>
@@ -1455,15 +1455,16 @@ export default function AboutPage() {
             flexDirection: "column",
             overflowX: "hidden",
             width: "100vw",
+            height:"50vw",
           }}
         >
-          <h2 className="text-[54.5px] lg:text-[94.5px] font-[500] bg-gradient-to-r from-[#6210FF] to-[#BE2FF4] bg-clip-text text-transparent block mb-10">
+          <h2 className="text-[54.5px] lg:text-[94.5px] font-[500] bg-gradient-to-r from-[#6210FF] to-[#BE2FF4] bg-clip-text text-transparent block mb-[90px]">
             Our Team
           </h2>
 
           <div
             ref={teamSectionContainerRef}
-            className="flex justify-center gap-8 sm:gap-12 md:gap-20 flex-wrap md:flex-nowrap  "
+            className="flex justify-center gap-24 sm:gap-32 md:gap-40 lg:gap-60 xl:gap-72 flex-wrap md:flex-nowrap"
             style={{
               width: "100%",
               height: "100%",
@@ -1487,21 +1488,21 @@ export default function AboutPage() {
                   className={`absolute flex flex-col items-center
                 `}
                 >
-                  <div className="relative w-[280px] h-[360px] lg:w-[240px] lg:h-[350px]   mb-[-60px] z-20">
+                  <div className="relative w-[280px] h-[340px] sm:w-[300px] sm:h-[360px] md:w-[280px] md:h-[340px] lg:w-[260px] lg:h-[320px] xl:w-[300px] xl:h-[360px] mb-3 z-20">
                     <img
-                      className="team-image"
+                      className="team-image w-full h-full object-cover"
                       src={member.image}
                       alt={member.name}
                     />
                   </div>
 
-                  <div className="text-center mt-6">
-                    <p className="team-name text-xl sm:text-2xl font-extrabold leading-tight">
+                  <div className="text-center mt-3">
+                    <p className="team-name text-lg sm:text-xl md:text-lg lg:text-xl xl:text-2xl font-semibold leading-tight">
                       {member.name.split(" ")[0]}
                       <br />
                       {member.name.split(" ")[1]}
                     </p>
-                    <p className="team-role text-sm sm:text-base text-[#BE2FF4] font-semibold">
+                    <p className="team-role text-sm sm:text-base md:text-sm lg:text-base xl:text-lg text-[#BE2FF4] font-semibold mt-1 mb-[140px]">
                       {member.role}
                     </p>
                   </div>

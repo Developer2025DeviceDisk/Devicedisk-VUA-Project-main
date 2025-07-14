@@ -29,7 +29,7 @@ export default function RootLayout({
 
 
         {/* Wrap the entire page with the children */}
-        <Header />
+        {/* <Header /> */}
         <main>{children}</main>
 
 

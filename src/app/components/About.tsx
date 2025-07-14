@@ -5,7 +5,24 @@ import gsap from 'gsap';
 import ScrollTrigger from 'gsap/ScrollTrigger';
 import OurFoundation from './OurFoundation';
 import FoundationSection from './FoundationSection';
+import { RingScene } from '../About/Scene';
+import * as THREE from "three";
+
 gsap.registerPlugin(ScrollTrigger);
+
+const mapProgress = (
+  progress: number,
+  completeAt = 0.1,
+  from = 0.8,
+  to = -0.5
+) => {
+  if (progress < 0) return from;
+
+  if (progress > completeAt) return to;
+  const t = progress / completeAt;
+  return from + (to - from) * t;
+};
+
 export default function About() {
   const sectionRef = useRef(null);
   const imageRef = useRef(null);
@@ -24,8 +41,29 @@ export default function About() {
   const card5Ref = useRef(null);
   const card6Ref = useRef(null);
   const card7Ref = useRef(null);
-  const foundationSectionRef = useRef(null);
   const scrollYProgress = useRef(0);
+
+
+  // -------------- Foundation section refs --------------
+  const foundationSectionRef = useRef<HTMLElement>(null);
+    const foundationTitleRef = useRef<THREE.Object3D>(null);
+    const foundationTitleTopRef = useRef<THREE.Mesh>(null);
+    const foundationTitleBottomRef = useRef<THREE.Mesh>(null);
+  
+    const foundationMobileTitle = useRef<HTMLDivElement>(null);
+    const foundationContent1Ref = useRef<HTMLDivElement>(null);
+    const foundationContent2Ref = useRef<HTMLDivElement>(null);
+    const foundationContent3Ref = useRef<HTMLDivElement>(null);
+    const foundationContent4Ref = useRef<HTMLDivElement>(null);
+  
+    const modalGroupRef = useRef<THREE.Group>(null);
+    const torus = useRef<THREE.Mesh>(null);
+    const torus001 = useRef<THREE.Mesh>(null);
+    const torus002 = useRef<THREE.Mesh>(null);
+    const torus003 = useRef<THREE.Mesh>(null);
+  
+
+
   useEffect(() => {
     // Parallax effect for the background image
     gsap.to(imageRef.current, {
@@ -129,30 +167,262 @@ export default function About() {
     */
 
     // foundation section gsap
-    // FOUNDATION SECTION SCROLL PROGRESS
+  // ---------- Foundation Section Animation ----------
+
+    gsap.set(
+      [
+        foundationContent1Ref.current,
+        foundationContent2Ref.current,
+        foundationContent3Ref.current,
+        foundationContent4Ref.current,
+      ],
+      {
+        yPercent: 50,
+        opacity: 0,
+      }
+    );
+
+    if (foundationMobileTitle.current) {
+      gsap.set(foundationMobileTitle.current, {
+        xPercent: -50,
+        opacity: 0,
+      });
+    }
+
+    // First ScrollTrigger: Handle the pinning and positioning
     ScrollTrigger.create({
       trigger: foundationSectionRef.current,
-      start: 'top top',
-      end: '+=2000',
-      pin: true,
+      start: "top 50%",
+      end: "top top",
       scrub: true,
-      onUpdate: (self) => {
-        scrollYProgress.current = self.progress;
+      onUpdate: ({ progress }) => {
+        const animatedFramesParts = 1;
+
+        if (torus001.current && modalGroupRef.current && torus002.current) {
+          // Animated per frames
+          if (foundationTitleRef.current) {
+            const foundationTitlePorgess = mapProgress(
+              progress,
+              animatedFramesParts,
+              6,
+              5.0 // desktop
+            );
+            const foundationTitleOpacityPorgess = mapProgress(
+              progress,
+              animatedFramesParts,
+              0,
+              1
+            );
+
+            gsap.to(foundationTitleRef.current.position, {
+              z: foundationTitlePorgess,
+              duration: 0,
+            });
+
+            gsap.to(foundationTitleTopRef.current, {
+              opacity: foundationTitleOpacityPorgess,
+              duration: 0,
+            });
+            gsap.to(foundationTitleBottomRef.current, {
+              opacity: foundationTitleOpacityPorgess,
+              duration: 0,
+            });
+          }
+
+          if (foundationMobileTitle.current) {
+            const foundationTitleOpacityPorgess = mapProgress(
+              progress,
+              animatedFramesParts,
+              0,
+              1
+            );
+
+            gsap.to(foundationMobileTitle.current, {
+              xPercent: -50 + foundationTitleOpacityPorgess * 50,
+              opacity: foundationTitleOpacityPorgess,
+            });
+          }
+        }
       },
     });
 
-    // Animate foundation points
-    gsap.from('.foundation-point', {
-      opacity: 0,
-      y: 50,
-      duration: 1,
-      stagger: 0.4,
-      ease: 'power2.out',
-      scrollTrigger: {
-        trigger: foundationSectionRef.current,
-        start: 'top top',
-        end: '+=2000',
-        scrub: true,
+    ScrollTrigger.create({
+      trigger: foundationSectionRef.current,
+      start: "top top",
+      end: `+=${window.innerHeight * 4}px`,
+      pin: true,
+      pinSpacing: true,
+      scrub: false,
+      onUpdate: ({ progress }) => {
+        const animatedFramesParts = 1 / 5;
+
+        if (
+          torus001.current &&
+          modalGroupRef.current &&
+          torus002.current &&
+          torus003.current &&
+          torus.current
+        ) {
+          const groupRotationProgress = mapProgress(progress, 1, -180, 180);
+
+          gsap.to(modalGroupRef.current.rotation, {
+            y: THREE.MathUtils.degToRad(groupRotationProgress),
+            duration: 0,
+          });
+
+          // -------------------------- Frame 2 --------------------------
+          const foundationContent1Y = mapProgress(
+            progress - animatedFramesParts * 0,
+            animatedFramesParts / 4, // how long you want the animation to last
+            50,
+            0
+          );
+          const foundationContent1Opacity = mapProgress(
+            progress - animatedFramesParts * 0,
+            animatedFramesParts / 4, // how long you want the animation to last
+            0,
+            1
+          );
+          gsap.to(foundationContent1Ref.current, {
+            yPercent: foundationContent1Y,
+            opacity: foundationContent1Opacity,
+            duration: 0,
+          });
+
+          const torus1Progress = mapProgress(
+            progress - animatedFramesParts * 0,
+            animatedFramesParts / 4, // how long you want the animation to last
+            -25,
+            0
+          );
+          gsap.to(torus001.current.position, {
+            y: torus1Progress,
+            duration: 0,
+          });
+
+          // -------------------------- Frame 3 --------------------------
+
+          const foundationContent2Y = mapProgress(
+            progress - animatedFramesParts * 1,
+            animatedFramesParts / 4, // how long you want the animation to last
+            50,
+            0
+          );
+          const foundationContent2pacity = mapProgress(
+            progress - animatedFramesParts * 1,
+            animatedFramesParts / 4, // how long you want the animation to last
+            0,
+            1
+          );
+
+          gsap.to(foundationContent2Ref.current, {
+            yPercent: foundationContent2Y,
+            opacity: foundationContent2pacity,
+            duration: 0,
+          });
+
+          const torus2Progress = mapProgress(
+            progress - animatedFramesParts * 1,
+            animatedFramesParts / 4,
+            -30,
+            0
+          );
+          gsap.to(torus002.current.position, {
+            z: torus2Progress,
+            direction: 0,
+          });
+
+          // -------------------------- Frame 4 --------------------------
+
+          const foundationContent3Y = mapProgress(
+            progress - animatedFramesParts * 2,
+            animatedFramesParts / 4, // how long you want the animation to last
+            50,
+            0
+          );
+          const foundationContent3Opacity = mapProgress(
+            progress - animatedFramesParts * 2,
+            animatedFramesParts / 4, // how long you want the animation to last
+            0,
+            1
+          );
+          gsap.to(foundationContent3Ref.current, {
+            yPercent: foundationContent3Y,
+            opacity: foundationContent3Opacity,
+            duration: 0,
+          });
+          const torus3Progress = mapProgress(
+            progress - animatedFramesParts * 2,
+            animatedFramesParts / 4,
+            30,
+            0
+          );
+          gsap.to(torus003.current.position, {
+            y: torus3Progress,
+            direction: 0,
+          });
+
+          // -------------------------- Frame 5 --------------------------
+
+          const foundationContent4Y = mapProgress(
+            progress - animatedFramesParts * 3,
+            animatedFramesParts / 4, // how long you want the animation to last
+            50,
+            0
+          );
+          const foundationContent4Opacity = mapProgress(
+            progress - animatedFramesParts * 3,
+            animatedFramesParts / 4, // how long you want the animation to last
+            0,
+            1
+          );
+          gsap.to(foundationContent4Ref.current, {
+            yPercent: foundationContent4Y,
+            opacity: foundationContent4Opacity,
+            duration: 0,
+          });
+          const torus4Progress = mapProgress(
+            progress - animatedFramesParts * 3,
+            animatedFramesParts / 4,
+            -30,
+            0
+          );
+
+          gsap.to(torus.current.position, {
+            y: torus4Progress,
+            direction: 0,
+          });
+
+          // -------------------------- Frame 6 --------------------------
+          const torusAllProgress = mapProgress(
+            progress - animatedFramesParts * 4,
+            animatedFramesParts / 4,
+            0,
+            1
+          );
+          gsap.to(torus001.current.position, {
+            x: -1 + torusAllProgress,
+            z: 1 - torusAllProgress,
+            duration: 0,
+          });
+
+          gsap.to(torus002.current.position, {
+            x: -1 + torusAllProgress,
+            duration: 0,
+          });
+
+          gsap.to(torus003.current.position, {
+            x: 1 - torusAllProgress,
+            z: -1 + torusAllProgress,
+            duration: 0,
+          });
+
+          gsap.to(torus.current.position, {
+            x: 1 - torusAllProgress,
+            z: 1 - torusAllProgress,
+            duration: 0,
+          });
+        }
       },
     });
 
@@ -700,12 +970,124 @@ export default function About() {
         </div>
       </div>
 
-      <div>
-        <FoundationSection
-          sectionRef={foundationSectionRef}
-          scrollYProgress={scrollYProgress}
-        />
-      </div>
+
+        <section
+          ref={foundationSectionRef}
+          className="relative w-screen h-screen text-zinc-900 bg-[#6310FF] overflow-hidden"
+        >
+          <section
+            style={{
+              position: "absolute",
+              left: "0%",
+              width: "100%",
+              height: "100vh",
+              bottom: "0%",
+              zIndex: 1,
+            }}
+          >
+            <RingScene
+              modalGroupRef={modalGroupRef}
+              torus={torus}
+              torus001={torus001}
+              torus002={torus002}
+              torus003={torus003}
+              foundationTitleRef={foundationTitleRef}
+              foundationTitleTopRef={foundationTitleTopRef}
+              foundationTitleBottomRef={foundationTitleBottomRef}
+            />
+          </section>
+
+          <div
+            className="absolute right-0 top-[120px] w-full h-screen z-[2]  pl-8 gap-7
+             lg:w-1/2  lg:gap-8 lg:top-0 lg:hidden
+            "
+          >
+            <div
+              style={{
+                position: "relative",
+                overflow: "hidden",
+              }}
+            >
+              <div ref={foundationMobileTitle}>
+                <h2 className="text-[50px] text-white font-[400] m-0 leading-[45px]        max-[350px]:text-[40px] lg:text-6xl">
+                  Our
+                </h2>
+                <h2 className="text-[50px] text-white font-[400] m-0 leading-[45px]        max-[350px]:text-[40px] lg:text-6xl">
+                  Foundation
+                </h2>
+              </div>
+            </div>
+          </div>
+
+          <div
+            className="absolute right-0 bottom-[40px] w-full h-screen z-[2] flex flex-col items-start justify-end pl-8 gap-7
+            max-[350px]:gap-[14px]
+             lg:w-1/2  lg:gap-[5.5%] lg:bottom-0 lg:justify-center
+            "
+          >
+            <div
+              style={{
+                position: "relative",
+                overflow: "hidden",
+              }}
+            >
+              <div ref={foundationContent1Ref}>
+                <h2 className="text-[35px] text-white font-medium m-0  max-[350px]:text-[27px]  lg:text-[3rem]">
+                  Creativity
+                </h2>
+                <p className="text-base text-white font-medium m-0">
+                  Creativity that inspires
+                </p>
+              </div>
+            </div>
+            <div
+              style={{
+                position: "relative",
+                overflow: "hidden",
+              }}
+            >
+              <div ref={foundationContent2Ref}>
+                <h2 className="text-[35px] text-white font-medium m-0 max-[350px]:text-[27px]  lg:text-[3rem]">
+                  Innovation
+                </h2>
+                <p className="text-base text-white font-medium m-0">
+                  Technology that keeps You ahead
+                </p>
+              </div>
+            </div>
+            <div
+              style={{
+                position: "relative",
+                overflow: "hidden",
+              }}
+            >
+              <div ref={foundationContent3Ref}>
+                <h2 className="text-[35px] text-white font-medium m-0 max-[350px]:text-[27px]  lg:text-[3rem]">
+                  Strategic Thinking
+                </h2>
+                <p className="text-base text-white font-medium m-0">
+                  Strategy that always makes you win
+                </p>
+              </div>
+            </div>
+            <div
+              style={{
+                position: "relative",
+                overflow: "hidden",
+              }}
+            >
+              <div ref={foundationContent4Ref}>
+                <h2 className="text-[35px] text-white font-medium m-0 max-[350px]:text-[27px]  lg:text-[3rem]">
+                  Customer Centricity
+                </h2>
+                <p className="text-base text-white font-medium m-0">
+                  Everything is about “You”
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
 
       {/* Video Section */}
       <section

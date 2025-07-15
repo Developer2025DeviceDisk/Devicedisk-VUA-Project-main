@@ -10,7 +10,6 @@ import { useParallax } from "@/hooks/useParrallax";
 import { RingScene } from "./Scene";
 import * as THREE from "three";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
-import Header from "./Header";
 
 gsap.registerPlugin(ScrollTrigger, SplitText, Observer);
 
@@ -62,7 +61,7 @@ const getTeamSlice = (
 
 export default function AboutPage() {
   const rootRef = useRef<HTMLElement>(null);
-  const navigationRef = useRef<HTMLElement>(null);
+  // navigationRef is now handled in layout - removed from here
 
   const headerRef = useRef<HTMLElement>(null);
   const headerTitleOneRef = useRef<HTMLHeadingElement>(null);
@@ -134,34 +133,8 @@ export default function AboutPage() {
     gsap.ticker.add((time) => lenis.raf(time * 1000));
     gsap.ticker.lagSmoothing(0);
 
-    // ---------- Navigation Animation ----------
-    ScrollTrigger.create({
-      start: "top -100",
-      end: 99999,
-      onUpdate: (self) => {
-        if (navigationRef.current) {
-          const direction = self.direction;
-          const progress = self.progress;
-
-          if (direction === 1 && self.scroll() > 100) {
-            // Scrolling down and past 100px - hide navigation
-            gsap.to(navigationRef.current, {
-              y: "-100%",
-              duration: 0.25,
-              ease: "power2.out",
-            });
-          } else if (direction === -1) {
-            // Scrolling up - show navigation
-            gsap.to(navigationRef.current, {
-              y: "0%",
-              duration: 0.25,
-              ease: "power2.out",
-            });
-          }
-        }
-      },
-    });
-
+    // Navigation animation is now handled in layout.tsx
+    
     // ---------- Initial Section Animation ----------
 
     ScrollTrigger.create({
@@ -897,7 +870,7 @@ export default function AboutPage() {
 
   useParallax([
     { wrapper: headerRef, image: headerImageElementRef } as any,
-    { wrapper: antronutSectionRef, image: antronutImageElementRef },
+    { wrapper: antronutSectionRef, image: antronutImageElementRef } as any,
   ]);
 
   return (
@@ -921,12 +894,12 @@ export default function AboutPage() {
               }
         }
       >
-        <Header ref={navigationRef} />
+        {/* Header is already included in layout.tsx */}
         <section
           ref={headerRef}
           className="relative flex flex-col md:flex-row md:gap-20 items-end justify-between px-4 sm:px-8 lg:px-20 bg-gradient-to-tr from-[#6210FF] to-[#BE2FF4] text-white overflow-hidden"
         >
-          <div className="lg:pb-[300px] pt-[0] pt-[100px] w-full pl-[28px] lg:pl-[0] px-auto ">
+          <div className="lg:pb-[300px] pt-[100px] w-full pl-[28px] lg:pl-[0] px-auto ">
             <div>
               <h1
                 ref={headerTitleOneRef}
@@ -997,7 +970,7 @@ export default function AboutPage() {
                     <img src={"/title/2.svg"} />
                     <img src={"/title/3.svg"} />
                   </div>
-                  <div className="flex flex relative left-[-7.5%] overflow-hidden w-[370px]">
+                  <div className="flex relative left-[-7.5%] overflow-hidden w-[370px]">
                     <img src={"/title/4.svg"} />
                     <img src={"/title/5.svg"} />
                     <img src={"/title/6.svg"} />
@@ -1023,7 +996,7 @@ export default function AboutPage() {
                 </div>
               </div>
 
-              <div className="mb-[20px] mt-[-15%] lg:mt-[60px] mb-[20px]  ">
+              <div className="mt-[-15%] lg:mt-[60px] mb-[20px]  ">
                 <p className="text-[#6210FF] text-[18px] lg:text-4xl font-[500] text-center mt-[0px] mb-[20px]  leading-[75%] tracking-[2%] relative overflow-hidden">
                   <span
                     ref={aboutSectionTitleRefOne}
@@ -1089,7 +1062,7 @@ export default function AboutPage() {
               <h2 className="text-[50px] lg:text-[67px] font-thin mb-[30px] outfit-light leading-[58px] lg:hidden ">
                 Who <br /> Are We?
               </h2>
-              <p className="text-base font-[400] text-lg lg:text-[19.69px] leading-relaxed mb-4 lg:font-[300]">
+              <p className="text-lg lg:text-[19.69px] font-[400] leading-relaxed mb-4 lg:font-[300]">
                 We are a future-focused Marketing agency that aims to help
                 brands leverage the latest in marketing creativity and
                 technology to achieve their Growth KPIs.
@@ -1101,7 +1074,7 @@ export default function AboutPage() {
                 empowers brands to lead, not follow, in a world shaped by
                 innovation.
               </p>
-              <p className="text-base font-[400] text-lg lg:text-[19.69px] leading-relaxed mb-4 lg:font-[300]">
+              <p className="text-lg lg:text-[19.69px] font-[400] leading-relaxed mb-4 lg:font-[300]">
                 VUA is more than a brand-it’s a movement for those who seek to
                 lead the next era of change.
               </p>
@@ -1283,7 +1256,7 @@ export default function AboutPage() {
                     alignItems: "center",
                   }}
                 >
-                  <div className="relative h-[235px] w-[235px] lg:h-[375px]  lg:w-[70%] lg:h-[50%] overflow-hidden">
+                  <div className="relative h-[235px] w-[235px] lg:h-[375px] lg:w-[70%] overflow-hidden">
                     <Image
                       src="/Vishal-Sharma.png"
                       alt="Vishal Sharma"
@@ -1389,7 +1362,7 @@ export default function AboutPage() {
                     alignItems: "center",
                   }}
                 >
-                  <div className="relative h-[235px] w-[235px] lg:h-[375px]  lg:w-[70%] lg:h-[50%] overflow-hidden">
+                  <div className="relative h-[235px] w-[235px] lg:h-[375px] lg:w-[70%] overflow-hidden">
                     <Image
                       src="/Shivendra-Singh.png"
                       alt="Shivendra Singh"
@@ -1447,7 +1420,7 @@ export default function AboutPage() {
         </section>
 
         <section
-          className="relative bg-black text-white pt-10 px-4 sm:px-6 md:px-8 text-center h-[100vh] w-[100vw] "
+          className="relative max-sm:pt-[50px] bg-black text-white px-4 sm:px-6 md:px-8 text-center h-[100vh] w-[100vw] "
           style={{
             display: "flex",
             alignItems: "center",
@@ -1455,10 +1428,9 @@ export default function AboutPage() {
             flexDirection: "column",
             overflowX: "hidden",
             width: "100vw",
-            height:"50vw",
           }}
         >
-          <h2 className="text-[54.5px] lg:text-[94.5px] font-[500] bg-gradient-to-r from-[#6210FF] to-[#BE2FF4] bg-clip-text text-transparent block mb-[90px]">
+          <h2 className="text-[54.5px] lg:text-[94.5px] font-[500] bg-gradient-to-r from-[#6210FF] to-[#BE2FF4] bg-clip-text text-transparent block mb-[60px]">
             Our Team
           </h2>
 

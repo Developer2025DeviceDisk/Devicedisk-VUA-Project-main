@@ -59,7 +59,7 @@ export default function Header({ ref }: any) {
     <>
       <header
       ref={ref}
-        className={`fixed top-0 left-0 w-full z-50 mx-auto fixed top-0 w-full flex justify-between items-center px-4 sm:px-6 py-3 sm:py-4 ${
+        className={`fixed top-0 left-0 w-full z-50 mx-auto flex justify-between items-center px-4 sm:px-6 py-3 sm:py-4 ${
           isOnLightBg
             ? "text-[#6210FF] bg-[rgba(114,40,255,0.05)] backdrop-blur-md"
             : "text-white backdrop-blur-md"

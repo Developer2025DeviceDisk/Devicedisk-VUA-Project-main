@@ -1,14 +1,17 @@
-'use client';
+"use client";
 
-import { useState, useEffect } from 'react';
-import { X } from 'lucide-react';
-import Link from 'next/link';
+import { useState, useEffect, useRef } from "react";
+import { X } from "lucide-react";
+import Link from "next/link";
+import gsap from "gsap";
+import ScrollTrigger from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isOnLightBg, setIsOnLightBg] = useState(false);
-
-  
+  const headerRef = useRef<HTMLElement>(null);
 
   // Toggle menu function
   const toggleMenu = () => {
@@ -25,88 +28,138 @@ export default function Header() {
     const handleScroll = () => {
       const elementsUnderHeader = document.elementsFromPoint(
         window.innerWidth / 2,
-        70 
+        70
       );
 
       const hasLightBackground = elementsUnderHeader.some((element) => {
         const bgColor = window.getComputedStyle(element).backgroundColor;
-        const bgClasses = String(element.className || '');
+        const bgClasses = String(element.className || "");
 
         return (
-          bgClasses.indexOf('bg-[#EEF0FF]') !== -1 ||
-          bgColor === 'rgb(238, 240, 255)' // #EEF0FF in RGB
+          bgClasses.indexOf("bg-[#EEF0FF]") !== -1 ||
+          bgColor === "rgb(238, 240, 255)" // #EEF0FF in RGB
         );
       });
 
       setIsOnLightBg(hasLightBackground);
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
     handleScroll();
 
-    return () => window.removeEventListener('scroll', handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // Effect to handle header hide/show on scroll
+  useEffect(() => {
+    // ---------- Navigation Animation ----------
+    ScrollTrigger.create({
+      start: "top -100",
+      end: 99999,
+      onUpdate: (self) => {
+        if (headerRef.current) {
+          const direction = self.direction;
+
+          if (direction === 1 && self.scroll() > 100) {
+            // Scrolling down and past 100px - hide navigation
+            gsap.to(headerRef.current, {
+              y: "-100%",
+              duration: 0.25,
+              ease: "power2.out",
+            });
+          } else if (direction === -1) {
+            // Scrolling up - show navigation
+            gsap.to(headerRef.current, {
+              y: "0%",
+              duration: 0.25,
+              ease: "power2.out",
+            });
+          }
+        }
+      },
+    });
+
+    // Handle screen resize to fix timeline issues
+    let resizeTimeout: NodeJS.Timeout;
+    const handleResize = () => {
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(() => {
+        ScrollTrigger.refresh();
+      }, 150);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+      clearTimeout(resizeTimeout);
+      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+    };
   }, []);
 
   // Navigation links array
   const navLinks = [
-    { title: 'Services', href: '/services' },
-    { title: 'Product', href: '/product' },
-    { title: 'About', href: '/about' },
-    { title: 'Work', href: '/work' },
-    { title: 'Culture', href: '/culture' },
-    { title: 'Contact us', href: '/contact' },
+    { title: "Services", href: "/services" },
+    { title: "Product", href: "/product" },
+    { title: "About", href: "/about" },
+    { title: "Work", href: "/work" },
+    { title: "Culture", href: "/culture" },
+    { title: "Contact us", href: "/contact" },
   ];
 
   return (
     <>
       <header
-        className={`mx-auto fixed top-0 w-full flex justify-between items-center px-4 sm:px-6 py-3 sm:py-4 ${
-          isOnLightBg 
-            ? 'text-[#6210FF] bg-[rgba(114,40,255,0.05)] backdrop-blur-md' 
-            : 'text-white backdrop-blur-md'
-        } z-50 transition-all duration-300`}
+      ref={headerRef}
+        className={`fixed top-0 left-0 w-full z-50 mx-auto flex justify-between items-center px-4 sm:px-6 py-3 sm:py-4 ${
+          isOnLightBg
+            ? "text-[#6210FF] bg-[rgba(114,40,255,0.05)] backdrop-blur-md"
+            : "text-white backdrop-blur-md"
+        } transition-all duration-300`}
+             style={{ willChange: 'transform',
+              }}
       >
         <div className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-wide">
           <Link href="/">
-  <svg
-    className="w-[64px] h-[35px] sm:w-[94px] sm:h-[52px]" // Small on mobile, original on sm+
-    viewBox="0 0 94 52"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <path
-      d="M75.5327 15.0625C65.5458 15.0625 57.4453 23.163 57.4453 33.15C57.4453 43.137 65.5458 51.2375 75.5327 51.2375C79.7748 51.2375 83.6758 49.7773 86.7561 47.3365V51.2375H93.6202V32.9741C93.5242 23.0724 85.4611 15.0678 75.5327 15.0678V15.0625ZM75.5327 44.3734C69.3348 44.3734 64.3094 39.3479 64.3094 33.15C64.3094 26.9521 69.3348 21.9266 75.5327 21.9266C81.7306 21.9266 86.7561 26.9521 86.7561 33.15C86.7561 39.3479 81.7306 44.3734 75.5327 44.3734Z"
-      fill={isOnLightBg ? '#6210FF' : 'white'}
-    />
-    <path
-      d="M89.5638 0.0498047C87.9863 6.333 82.3 10.9801 75.5319 10.9801C68.7637 10.9801 63.0721 6.333 61.5 0.0498047H67.2822C68.6518 3.24736 71.8281 5.49097 75.5319 5.49097C79.2357 5.49097 82.4119 3.24736 83.7815 0.0498047H89.5638Z"
-      fill={isOnLightBg ? '#6210FF' : 'white'}
-    />
-    <path
-      d="M53.6465 0.0498047L35.2233 45.8921C33.9283 49.1216 30.7947 51.2373 27.3147 51.2373C23.8347 51.2373 20.7065 49.1216 19.4061 45.8921L0.988281 0.0498047H10.0586L26.5846 41.1597C26.8511 41.8258 27.7943 41.8258 28.0608 41.1597L44.5761 0.0498047H53.6518H53.6465Z"
-      fill={isOnLightBg ? '#6210FF' : 'white'}
-    />
-  </svg>
-  </Link>
-</div>
+            <svg
+              className="w-[64px] h-[35px] sm:w-[94px] sm:h-[52px]" // Small on mobile, original on sm+
+              viewBox="0 0 94 52"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M75.5327 15.0625C65.5458 15.0625 57.4453 23.163 57.4453 33.15C57.4453 43.137 65.5458 51.2375 75.5327 51.2375C79.7748 51.2375 83.6758 49.7773 86.7561 47.3365V51.2375H93.6202V32.9741C93.5242 23.0724 85.4611 15.0678 75.5327 15.0678V15.0625ZM75.5327 44.3734C69.3348 44.3734 64.3094 39.3479 64.3094 33.15C64.3094 26.9521 69.3348 21.9266 75.5327 21.9266C81.7306 21.9266 86.7561 26.9521 86.7561 33.15C86.7561 39.3479 81.7306 44.3734 75.5327 44.3734Z"
+                fill={isOnLightBg ? "#6210FF" : "white"}
+              />
+              <path
+                d="M89.5638 0.0498047C87.9863 6.333 82.3 10.9801 75.5319 10.9801C68.7637 10.9801 63.0721 6.333 61.5 0.0498047H67.2822C68.6518 3.24736 71.8281 5.49097 75.5319 5.49097C79.2357 5.49097 82.4119 3.24736 83.7815 0.0498047H89.5638Z"
+                fill={isOnLightBg ? "#6210FF" : "white"}
+              />
+              <path
+                d="M53.6465 0.0498047L35.2233 45.8921C33.9283 49.1216 30.7947 51.2373 27.3147 51.2373C23.8347 51.2373 20.7065 49.1216 19.4061 45.8921L0.988281 0.0498047H10.0586L26.5846 41.1597C26.8511 41.8258 27.7943 41.8258 28.0608 41.1597L44.5761 0.0498047H53.6518H53.6465Z"
+                fill={isOnLightBg ? "#6210FF" : "white"}
+              />
+            </svg>
+          </Link>
+        </div>
 
         <button
           onClick={toggleMenu}
           className={`w-9 h-9 sm:w-10 sm:h-10 cursor-pointer rounded-full border hidden ${
-            isOnLightBg ? 'border-[#6210FF]' : 'border-white'
+            isOnLightBg ? "border-[#6210FF]" : "border-white"
           } flex items-center justify-center ${
-            isOnLightBg ? 'hover:bg-[#6210FF]/10' : 'hover:bg-white/10'
+            isOnLightBg ? "hover:bg-[#6210FF]/10" : "hover:bg-white/10"
           } transition-colors duration-200`}
         >
           <div className="space-y-1">
             <span
               className={`block w-5 h-0.5 ${
-                isOnLightBg ? 'bg-[#6210FF]' : 'bg-white'
+                isOnLightBg ? "bg-[#6210FF]" : "bg-white"
               } transition-all duration-300`}
             ></span>
             <span
               className={`block w-5 h-0.5 ${
-                isOnLightBg ? 'bg-[#6210FF]' : 'bg-white'
+                isOnLightBg ? "bg-[#6210FF]" : "bg-white"
               } transition-all duration-300`}
             ></span>
           </div>
@@ -117,19 +170,19 @@ export default function Header() {
       <div
         className={`fixed inset-0 z-[60] transition-all duration-500 ease-in-out ${
           isMenuOpen
-            ? 'opacity-100 backdrop-blur-md'
-            : 'opacity-0 backdrop-blur-0 pointer-events-none'
+            ? "opacity-100 backdrop-blur-md"
+            : "opacity-0 backdrop-blur-0 pointer-events-none"
         }`}
         style={{
           background: isMenuOpen
-            ? 'linear-gradient(135deg, rgba(45, 39, 68, 0.95), rgba(33, 28, 48, 0.95))'
-            : 'transparent',
+            ? "linear-gradient(135deg, rgba(45, 39, 68, 0.95), rgba(33, 28, 48, 0.95))"
+            : "transparent",
         }}
       >
         {/* Menu Content */}
         <div
           className={`absolute inset-0 flex flex-col transition-transform duration-700 ease-out ${
-            isMenuOpen ? 'translate-x-0' : 'translate-x-full'
+            isMenuOpen ? "translate-x-0" : "translate-x-full"
           }`}
         >
           {/* Menu Header */}
@@ -164,10 +217,14 @@ export default function Header() {
                 href={item.href}
                 onClick={closeMenu}
                 className={`text-2xl sm:text-4xl md:text-5xl font-light text-white/90 hover:text-white transition-all duration-300 hover:translate-x-[-10px] ${
-                  isMenuOpen ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+                  isMenuOpen
+                    ? "opacity-100 translate-y-0"
+                    : "opacity-0 translate-y-8"
                 }`}
                 style={{
-                  transitionDelay: isMenuOpen ? `${index * 100 + 200}ms` : '0ms',
+                  transitionDelay: isMenuOpen
+                    ? `${index * 100 + 200}ms`
+                    : "0ms",
                 }}
               >
                 {item.title}
@@ -179,9 +236,9 @@ export default function Header() {
           <div className="px-6 pb-8">
             <div
               className={`w-16 sm:w-24 h-0.5 bg-gradient-to-r from-white/50 to-transparent ml-auto transition-all duration-500 ${
-                isMenuOpen ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'
+                isMenuOpen ? "opacity-100 scale-x-100" : "opacity-0 scale-x-0"
               }`}
-              style={{ transitionDelay: isMenuOpen ? '800ms' : '0ms' }}
+              style={{ transitionDelay: isMenuOpen ? "800ms" : "0ms" }}
             ></div>
           </div>
         </div>

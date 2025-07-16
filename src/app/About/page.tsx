@@ -997,7 +997,7 @@ export default function AboutPage() {
               </div>
 
               <div className="mt-[-15%] lg:mt-[60px] mb-[20px]  ">
-                <p className="text-[#6210FF] text-[18px] lg:text-4xl font-[500] text-center mt-[0px] mb-[20px]  leading-[75%] tracking-[2%] relative overflow-hidden">
+                <p className="text-[#6210FF] text-[18px] lg:text-4xl font-[500] text-center mt-[0px] mb-[20px]  leading-[120%] tracking-[2%] relative overflow-hidden">
                   <span
                     ref={aboutSectionTitleRefOne}
                     className={"relative block"}
@@ -1005,7 +1005,7 @@ export default function AboutPage() {
                     ‘Vua’ is the Voice that will lead the dialogue{" "}
                   </span>
                 </p>
-                <p className="text-[#6210FF] text-[18px] lg:text-4xl font-[500] text-center mt-[0px]  leading-[75%] tracking-[2%] relative overflow-hidden">
+                <p className="text-[#6210FF] text-[18px] lg:text-4xl font-[500] text-center mt-[0px]  leading-[120%] tracking-[2%] relative overflow-hidden">
                   <span
                     ref={aboutSectionTitleRefTwo}
                     className={"relative block"}
@@ -1201,7 +1201,7 @@ export default function AboutPage() {
 
         <section
           ref={directorContainerRef}
-          className="relative w-screen h-screen text-zinc-900 bg-[#EEF0FF] overflow-hidden"
+          className="relative w-screen min-h-screen text-zinc-900 bg-[#EEF0FF] overflow-hidden"
         >
           <h2
             className="text-[94.5px] font-[500] text-center text-[#6210FF] mb-12"
@@ -1220,43 +1220,44 @@ export default function AboutPage() {
           </h2>
 
           <section
-            className="bg-[transparent] py-[0] px-6 md:px-20"
+            className="bg-[transparent] py-[0] px-4 sm:px-6 md:px-20"
             ref={directionCarousalOne}
             style={{
               position: "absolute",
               // transform: "translateX(-50%)",
               left: "50%",
               width: "100%",
-              height: "100vh",
+              minHeight: "100vh",
               top: "0%",
               zIndex: 1,
             }}
           >
             <div
               style={{
-                height: "100%",
+                minHeight: "100%",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "flex-start",
                 flexDirection: "column",
                 gap: "5%",
                 paddingTop: 30,
+                paddingBottom: 20,
               }}
             >
-              <h2 className="text-[54.5px] lg:text-[94.5px] font-[500] text-center text-[#6210FF] mb-1">
+              <h2 className="text-[48px] sm:text-[54.5px] lg:text-[94.5px] font-[500] text-center text-[#6210FF] mb-1">
                 Director
               </h2>
-              <div className="max-w-6xl mx-auto grid md:grid-cols-12 gap-[20px] lg:gap-12 items-start">
+              <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-[12px] sm:gap-[20px] lg:gap-12 items-start">
                 <div
                   ref={directorOneImageRef}
-                  className="md:col-span-5 flex justify-center"
+                  className="col-span-1 md:col-span-5 flex justify-center mb-4 md:mb-0"
                   style={{
                     display: "flex",
                     flexDirection: "column",
                     alignItems: "center",
                   }}
                 >
-                  <div className="relative h-[235px] w-[235px] lg:h-[375px] lg:w-[70%] overflow-hidden">
+                  <div className="relative h-[200px] w-[180px] sm:h-[235px] sm:w-[235px] lg:h-[375px] lg:w-[70%] overflow-hidden">
                     <Image
                       src="/Vishal-Sharma.png"
                       alt="Vishal Sharma"
@@ -1269,7 +1270,7 @@ export default function AboutPage() {
                     <div className="overflow-hidden height-[fit-content] ">
                       <h2
                         ref={directorOneNameRef}
-                        className="relative text-[20.5px]  lg:text-[30.5px] font-[500] text-center text-[#6210FF] mb-0 mt-4"
+                        className="relative text-[18px] sm:text-[20.5px] lg:text-[30.5px] font-[500] text-center text-[#6210FF] mb-0 mt-4"
                       >
                         Vishal Sharma
                       </h2>
@@ -1277,7 +1278,7 @@ export default function AboutPage() {
                     <div className="overflow-hidden height-[fit-content] ">
                       <p
                         ref={directorOneSubNameRef}
-                        className="relative text-[16.5px] lg:text-[25.5px] font-[500] text-center text-[#BE2FF4] mt-[-5px]"
+                        className="relative text-[14px] sm:text-[16.5px] lg:text-[25.5px] font-[500] text-center text-[#BE2FF4] mt-[-5px]"
                       >
                         {/* co-Founder */}
                       </p>
@@ -1285,13 +1286,13 @@ export default function AboutPage() {
                   </div>
                 </div>
                 <div
-                  className="md:col-span-7 text-[#6210FF] leading-relaxed tracking-[0.08em] space-y-4 relative lg:h-[100%] "
+                  className="col-span-1 md:col-span-7 text-[#6210FF] leading-[1.4] sm:leading-relaxed tracking-[0.08em] space-y-4 relative lg:h-[100%] px-2 sm:px-0"
                   style={{
                     fontFamily: "'Outfit', sans-serif",
                   }}
                 >
                   <div ref={directorOneTextRef}>
-                    <p className="text-[14px] lg:text-[17px]">
+                    <p className="text-[12px] sm:text-[14px] lg:text-[17px] text-justify">
                       A seasoned leader with over <strong>25 Years</strong> of
                       diverse industry experience spanning{" "}
                       <strong>
@@ -1308,7 +1309,7 @@ export default function AboutPage() {
                       <strong> Domestic and Global Markets.</strong>
                     </p>
                     <br />
-                    <p className="text-[14px] lg:text-[17px]">
+                    <p className="text-[12px] sm:text-[14px] lg:text-[17px] text-justify">
                       Prior to his entrepreneurial ventures, Vishal held{" "}
                       <strong> Senior Managerial Positions </strong> leading{" "}
                       <strong> Branding & Communications </strong> at
@@ -1326,43 +1327,44 @@ export default function AboutPage() {
           </section>
 
           <section
-            className="bg-[transparent] py-[0] px-6 md:px-20"
+            className="bg-[transparent] py-[0] px-4 sm:px-6 md:px-20"
             ref={directionCarousalTwo}
             style={{
               position: "absolute",
               // transform: "translateX(-50%)",
               left: "50%",
               width: "100%",
-              height: "100vh",
+              minHeight: "100vh",
               top: "0%",
               zIndex: 1,
             }}
           >
             <div
               style={{
-                height: "100%",
+                minHeight: "100%",
                 display: "flex",
                 alignItems: "center",
-                justifyContent: "flex-start",
+                justifyContent: "center",
                 flexDirection: "column",
                 gap: "5%",
                 paddingTop: 30,
+                paddingBottom: 20,
               }}
             >
-              <h2 className="text-[54.5px] lg:text-[94.5px] font-[500] text-center text-[#6210FF] mb-1">
+              <h2 className="text-[48px] sm:text-[54.5px] lg:text-[94.5px] font-[500] text-center text-[#6210FF] mb-1">
                 Director
               </h2>
-              <div className="max-w-6xl mx-auto grid md:grid-cols-12 gap-[20px]  lg:gap-12 items-start">
+              <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-[12px] sm:gap-[20px] lg:gap-12 items-center md:items-start">
                 <div
                   ref={directorTwoImageRef}
-                  className="md:col-span-5 flex justify-center "
+                  className="col-span-1 md:col-span-5 flex justify-center mb-4 md:mb-0"
                   style={{
                     display: "flex",
                     flexDirection: "column",
                     alignItems: "center",
                   }}
                 >
-                  <div className="relative h-[235px] w-[235px] lg:h-[375px] lg:w-[70%] overflow-hidden">
+                  <div className="relative h-[220px] w-[200px] sm:h-[235px] sm:w-[235px] lg:h-[375px] lg:w-[70%] overflow-hidden">
                     <Image
                       src="/Shivendra-Singh.png"
                       alt="Shivendra Singh"
@@ -1375,7 +1377,7 @@ export default function AboutPage() {
                     <div className="overflow-hidden height-[fit-content] ">
                       <h2
                         ref={directorTwoNameRef}
-                        className="relative text-[20.5px] lg:text-[30.5px] font-[500] text-center text-[#6210FF] mb-0 mt-4"
+                        className="relative text-[18px] sm:text-[20.5px] lg:text-[30.5px] font-[500] text-center text-[#6210FF] mb-0 mt-4"
                       >
                         Shivendra Singh
                       </h2>
@@ -1383,7 +1385,7 @@ export default function AboutPage() {
                     <div className="overflow-hidden height-[fit-content] ">
                       <p
                         ref={directorTwoSubNameRef}
-                        className="relative text-[16.5px] lg:text-[25.5px] font-[500] text-center text-[#BE2FF4] mt-[-5px]"
+                        className="relative text-[14px] sm:text-[16.5px] lg:text-[25.5px] font-[500] text-center text-[#BE2FF4] mt-[-5px]"
                       >
                         {/* co-Founder */}
                       </p>
@@ -1391,13 +1393,13 @@ export default function AboutPage() {
                   </div>
                 </div>
                 <div
-                  className="md:col-span-7 text-[#6210FF] leading-relaxed tracking-[0.08em] space-y-4 relative overflow-hidden lg:h-[100%] "
+                  className="col-span-1 md:col-span-7 text-[#6210FF] leading-[1.4] sm:leading-relaxed tracking-[0.08em] space-y-4 relative overflow-hidden lg:h-[100%] px-2 sm:px-0 flex flex-col justify-center md:justify-start"
                   style={{
                     fontFamily: "'Outfit', sans-serif",
                   }}
                 >
                   <div ref={directorTwoTextRef}>
-                    <p className="text-[14px] lg:text-[17px]">
+                    <p className="text-[14px] lg:text-[17px] text-justify">
                       A seasoned business leader with over{" "}
                       <strong>17 Years</strong> of experience in the{" "}
                       <strong>Real Estate Industry </strong> across India and

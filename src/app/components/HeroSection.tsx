@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useMemo } from 'react';
 import gsap from 'gsap';
 import ScrollTrigger from 'gsap/ScrollTrigger';
 
@@ -12,7 +12,11 @@ export default function HeroSection() {
   const img2Ref = useRef(null);
   const img3Ref = useRef(null);
   const img4Ref = useRef(null);
-  const textRefs = [useRef(null), useRef(null), useRef(null), useRef(null)];
+  const textRef1 = useRef(null);
+  const textRef2 = useRef(null);
+  const textRef3 = useRef(null);
+  const textRef4 = useRef(null);
+  const textRefs = useMemo(() => [textRef1, textRef2, textRef3, textRef4], [textRef1, textRef2, textRef3, textRef4]);
 
   useEffect(() => {
     const isMobile = window.innerWidth < 768;
@@ -76,7 +80,7 @@ export default function HeroSection() {
     }, heroRef);
 
     return () => ctx.revert();
-  }, []);
+  }, [textRefs]);
 
   return (
     <section

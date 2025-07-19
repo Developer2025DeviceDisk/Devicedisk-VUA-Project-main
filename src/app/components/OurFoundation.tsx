@@ -62,9 +62,11 @@ const OurFoundation = () => {
               <br />
               Foundation
             </h2>
-            <img
+            <Image
               src='/GlassRing.png'
               alt='Glass Ring'
+              width={512}
+              height={512}
               className='absolute w-[264px] h-[264px] sm:w-[512px] sm:h-[512px] object-contain z-20 pointer-events-none select-none'
               style={{
                 top: '50%',

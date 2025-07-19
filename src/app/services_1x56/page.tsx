@@ -70,17 +70,21 @@ export default function Services() {
           </style>
 
           <div className="absolute top-0 left-0 z-0 border-orbit">
-            <img
+            <Image
               src="/Vector6.png"
               alt="Vector6 Rotating"
+              width={800}
+              height={600}
               className="orbit-image-vector6 object-contain"
             />
           </div>
 
           <div className="absolute top-0 left-0 z-0 border-orbit">
-            <img
+            <Image
               src="/Vector7.png"
               alt="Vector7 Rotating"
+              width={800}
+              height={600}
               className="orbit-image-vector7 object-contain"
             />
           </div>

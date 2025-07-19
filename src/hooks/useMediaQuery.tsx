@@ -20,7 +20,7 @@ export const useMediaQuery = (query:any, val:any) => {
     return function cleanup() {
       mediaWatcher.removeEventListener("change", updateMediaWatcher);
     };
-  }, []);
+  }, [queryStr]);
 
   return media;
 };

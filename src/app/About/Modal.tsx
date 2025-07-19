@@ -54,7 +54,7 @@ export const GlassModel = ({
 
   useEffect(() => {
     invalidate();
-  }, [isDesktop]);
+  }, [isDesktop, invalidate]);
 
   // Transmission material props
   const transmissionMaterialProps = {

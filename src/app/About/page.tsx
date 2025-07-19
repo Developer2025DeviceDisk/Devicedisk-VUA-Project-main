@@ -938,16 +938,20 @@ export default function AboutPage() {
             }
           >
             <div>
-              <img
+              <Image
                 src="/Markofinnovation.png"
                 alt="Arc"
+                width={610}
+                height={400}
                 className="absolute z-0 w-[90%] lg:w-[609.53px] h-auto object-contain top-[35%] left-[45%]   lg:top-1/2 lg:left-1/2 -translate-x-[43%] -translate-y-[90%]"
               />
 
-              <img
+              <Image        
                 ref={headerImageElementRef}
                 src="/Marketingwoman.png"
                 alt="Marketing Woman"
+                width={570}
+                height={600}
                 className="relative z-0 w-[95%] lg:w-[570px] h-auto object-contain  transition-transform [transition-duration:var(--base-duration)] [transition-timing-function:var(--base-ease)]"
               />
             </div>
@@ -966,14 +970,14 @@ export default function AboutPage() {
                   className="flex items-center justify-start"
                 >
                   <div className="flex relative left-[-12%] overflow-hidden w-[370px] ">
-                    <img src={"/title/1.svg"} />
-                    <img src={"/title/2.svg"} />
-                    <img src={"/title/3.svg"} />
+                    <Image src={"/title/1.svg"} alt="Title part 1" width={132} height={130} className="w-auto h-auto object-contain" unoptimized />
+                    <Image src={"/title/2.svg"} alt="Title part 2" width={111} height={131} className="w-auto h-auto object-contain" unoptimized />
+                    <Image src={"/title/3.svg"} alt="Title part 3" width={132} height={129} className="w-auto h-auto object-contain" unoptimized />
                   </div>
                   <div className="flex relative left-[-7.5%] overflow-hidden w-[370px]">
-                    <img src={"/title/4.svg"} />
-                    <img src={"/title/5.svg"} />
-                    <img src={"/title/6.svg"} />
+                    <Image src={"/title/4.svg"} alt="Title part 4" width={146} height={106} className="w-auto h-auto object-contain" unoptimized />
+                    <Image src={"/title/5.svg"} alt="Title part 5" width={108} height={106} className="w-auto h-auto object-contain" unoptimized />
+                    <Image src={"/title/6.svg"} alt="Title part 6" width={91} height={105} className="w-auto h-auto object-contain" unoptimized />
                   </div>
                 </div>
                 <div
@@ -981,17 +985,17 @@ export default function AboutPage() {
                   className="flex items-center justify-center mt-[-60px]  gap-[5px]"
                 >
                   <div className="flex relative left-[-30px] overflow-hidden  w-[230px]">
-                    <img src={"/title/7.svg"} />
-                    <img src={"/title/8.svg"} />
-                    <img src={"/title/9.svg"} />
+                    <Image src={"/title/7.svg"} alt="Title part 7" width={89} height={93} className="w-auto h-auto object-contain" unoptimized />
+                    <Image src={"/title/8.svg"} alt="Title part 8" width={27} height={137} className="w-auto h-auto object-contain" unoptimized />
+                    <Image src={"/title/9.svg"} alt="Title part 9" width={84} height={132} className="w-auto h-auto object-contain" unoptimized />
                   </div>
                   <div className="flex mt-[-20px] overflow-hidden w-[490px]">
-                    <img src={"/title/10.svg"} />
-                    <img src={"/title/11.svg"} />
-                    <img src={"/title/12.svg"} />
+                    <Image src={"/title/10.svg"} alt="Title part 10" width={178} height={129} className="w-auto h-auto object-contain" unoptimized />
+                    <Image src={"/title/11.svg"} alt="Title part 11" width={133} height={134} className="w-auto h-auto object-contain" unoptimized />
+                    <Image src={"/title/12.svg"} alt="Title part 12" width={179} height={129} className="w-auto h-auto object-contain" unoptimized />
                   </div>
                   <div className="flex relative top-[-70px] overflow-hidden w-[310px]">
-                    <img src={"/title/13.svg"} />
+                    <Image src={"/title/13.svg"} alt="Title part 13" width={289} height={328} className="w-auto h-auto object-contain" unoptimized />
                   </div>
                 </div>
               </div>
@@ -1034,16 +1038,22 @@ export default function AboutPage() {
                 } as React.CSSProperties
               }
             >
-              <img
+              <Image
                 src="/Layer_1.png"
                 alt="Decorative Arc"
+                width={1200}
+                height={800}
+                unoptimized={true}
                 className="absolute top-1/2 left-1/2 transform -translate-x-[38%] -translate-y-[60%] w-[1200px] z-0 "
               />
 
-              <img
+              <Image
                 ref={antronutImageElementRef}
                 src="/astro.png"
                 alt="Astronaut"
+                width={519}
+                height={1000}
+                unoptimized= {true}
                 className="relative z-10 mx-auto w-[519px] h-auto transition-transform [transition-duration:var(--base-duration)] [transition-timing-function:var(--base-ease)]"
                 style={{
                   objectFit: "cover",
@@ -1463,17 +1473,18 @@ export default function AboutPage() {
                 `}
                 >
                   <div className="relative w-[280px] h-[340px] sm:w-[300px] sm:h-[360px] md:w-[280px] md:h-[340px] lg:w-[260px] lg:h-[320px] xl:w-[300px] xl:h-[360px] mb-3 z-20">
-                    <img
+                    <Image
                       className="team-image w-full h-full object-cover"
                       src={member.image}
                       alt={member.name}
+                      width={300}
+                      height={360}
                     />
                   </div>
 
                   <div className="text-center mt-3">
                     <p className="team-name text-lg sm:text-xl md:text-lg lg:text-xl xl:text-2xl font-semibold leading-tight">
-                      {member.name.split(" ")[0]}
-                      <br />
+                      {member.name.split(" ")[0]}{" "}
                       {member.name.split(" ")[1]}
                     </p>
                     <p className="team-role text-sm sm:text-base md:text-sm lg:text-base xl:text-lg text-[#BE2FF4] font-semibold mt-1 mb-[140px]">

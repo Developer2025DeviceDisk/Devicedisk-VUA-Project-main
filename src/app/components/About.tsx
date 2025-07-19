@@ -512,10 +512,13 @@ export default function About() {
           ref={titleRef}>
           {/* Background Image */}
           <div className='absolute -top-44 -left-56 -right-56 flex items-center justify-center'>
-            <img
+            <Image
               src={'/serviceVector.png'}
               className='max-w-full h-auto'
               alt='Decorative background'
+              width={1300}
+              height={600}
+              unoptimized={true}
             />
           </div>
 
@@ -531,12 +534,13 @@ export default function About() {
           className='absolute top-[40%] z-0 mb-5 bg-white rounded-[10px] md:rounded-[30px] shadow-lg max-w-[90%] lg:max-w-[800px] xl:max-w-[1100px] 2xl:max-w-[70%] flex flex-col md:flex-row overflow-hidden mx-4 md:mx-0 h-[530px] md:h-[500px]'
           style={{ boxShadow: '0 20px 50px -10px rgba(190, 47, 244, 0.3)' }}>
           <div className='w-full md:w-1/2 p-4 md:p-10 flex justify-center items-center'>
-            <img
-              width={100}
-              height={100}
+            <Image
+              width={800}
+              height={600}
               src={'/strategy.jpeg'}
               alt='Websites & Digital Platforms'
               className='w-full h-full object-cover rounded-[10px] md:rounded-[30px]'
+              unoptimized={true}
             />
           </div>
 
@@ -574,7 +578,7 @@ export default function About() {
                 <span className='text-xs md:text-sm xl:text-lg font-medium'>
                   EXPLORE MORE
                 </span>
-                <img
+                <Image
                   src='/curve.png'
                   alt='Arrow icon'
                   className='w-4 h-4 xl:w-8 xl:h-8 object-contain'
@@ -592,12 +596,13 @@ export default function About() {
           className='absolute top-[100%] z-10 mb-5 bg-white rounded-[10px] md:rounded-[30px] shadow-lg max-w-[90%] lg:max-w-[800px] xl:max-w-[1100px] 2xl:max-w-[70%] flex flex-col md:flex-row overflow-hidden mx-4 md:mx-0 h-[530px] md:h-[500px]'
           style={{ boxShadow: '0 20px 50px -10px rgba(190, 47, 244, 0.3)' }}>
           <div className='w-full md:w-1/2 p-4 md:p-10 flex justify-center items-center order-1'>
-            <img
-              width={100}
-              height={100}
+            <Image
+              width={800}
+              height={600}
               src={'/brand.jpg'}
               alt='Performance Marketing'
               className='w-full h-full object-cover rounded-[10px] md:rounded-[30px] '
+              unoptimized={true}
             />
           </div>
 
@@ -635,12 +640,12 @@ export default function About() {
                 <span className='text-xs md:text-sm xl:text-lg font-medium'>
                   EXPLORE MORE
                 </span>
-                <img
+                <Image
                   src='/curve.png'
                   alt='Arrow icon'
-                  className='w-4 h-4 xl:w-8 xl:h-8 object-contain'
                   width={30}
                   height={40}
+                  className='w-4 h-4 xl:w-8 xl:h-8 object-contain'
                 />
               </button>
             </div>
@@ -653,12 +658,13 @@ export default function About() {
           className='absolute top-[100%] z-20 mb-5 bg-white rounded-[10px] md:rounded-[30px] shadow-lg max-w-[90%] lg:max-w-[800px] xl:max-w-[1100px] 2xl:max-w-[70%] flex flex-col md:flex-row overflow-hidden mx-4 md:mx-0 h-[530px] md:h-[500px]'
           style={{ boxShadow: '0 20px 50px -10px rgba(190, 47, 244, 0.3)' }}>
           <div className='w-full md:w-1/2 p-4 md:p-10 flex justify-center items-center'>
-            <img
-              width={100}
-              height={100}
+            <Image
+              width={800}
+              height={600}
               src={'/content.jpeg'}
               alt='Brand Strategy'
               className='w-full h-full object-cover rounded-[10px] md:rounded-[30px]'
+              unoptimized={true}
             />
           </div>
 
@@ -696,7 +702,7 @@ export default function About() {
                 <span className='text-xs md:text-sm xl:text-lg font-medium'>
                   EXPLORE MORE
                 </span>
-                <img
+                <Image
                   src='/curve.png'
                   alt='Arrow icon'
                   className='w-4 h-4 xl:w-8 xl:h-8 object-contain'
@@ -714,12 +720,13 @@ export default function About() {
           className='absolute top-[100%] z-30 mb-5 bg-white rounded-[10px] md:rounded-[30px] shadow-lg max-w-[90%] lg:max-w-[800px] xl:max-w-[1100px] 2xl:max-w-[70%] flex flex-col md:flex-row overflow-hidden mx-4 md:mx-0 h-[530px] md:h-[500px]'
           style={{ boxShadow: '0 20px 50px -10px rgba(190, 47, 244, 0.3)' }}>
           <div className='w-full md:w-1/2 p-4 md:p-10 flex justify-center items-center order-1'>
-            <img
-              width={100}
-              height={100}
+            <Image
+              width={800}
+              height={600}
               src={'/digital.jpeg'}
               alt='Content Creation'
               className='w-full h-full object-cover rounded-[10px] md:rounded-[30px]'
+              unoptimized={true}
             />
           </div>
 
@@ -754,7 +761,7 @@ export default function About() {
                 <span className='text-xs md:text-sm xl:text-lg font-medium'>
                   EXPLORE MORE
                 </span>
-                <img
+                <Image
                   src='/curve.png'
                   alt='Arrow icon'
                   className='w-4 h-4 xl:w-8 xl:h-8 object-contain'
@@ -772,12 +779,13 @@ export default function About() {
           className='absolute top-[100%] z-40 mb-5 bg-white rounded-[10px] md:rounded-[30px] shadow-lg max-w-[90%] lg:max-w-[800px] xl:max-w-[1100px] 2xl:max-w-[70%] flex flex-col md:flex-row overflow-hidden mx-4 md:mx-0 h-[530px] md:h-[500px]'
           style={{ boxShadow: '0 20px 50px -10px rgba(190, 47, 244, 0.3)' }}>
           <div className='w-full md:w-1/2 p-4 md:p-10 flex justify-center items-center'>
-            <img
-              width={100}
-              height={100}
+            <Image
+              width={800}
+              height={600}
               src={'/vua.jpeg'}
               alt='Social Media Management'
               className='w-full h-full object-cover rounded-[10px] md:rounded-[30px]'
+              unoptimized={true}
             />
           </div>
 
@@ -814,7 +822,7 @@ export default function About() {
                 <span className='text-xs md:text-sm xl:text-lg font-medium'>
                   EXPLORE MORE
                 </span>
-                <img
+                <Image
                   src='/curve.png'
                   alt='Arrow icon'
                   className='w-4 h-4 xl:w-8 xl:h-8 object-contain'
@@ -832,12 +840,13 @@ export default function About() {
           className='absolute top-[100%] z-50 mb-5 bg-white rounded-[10px] md:rounded-[30px] shadow-lg max-w-[90%] lg:max-w-[800px] xl:max-w-[1100px] 2xl:max-w-[70%] flex flex-col md:flex-row overflow-hidden mx-4 md:mx-0 h-[530px] md:h-[500px]'
           style={{ boxShadow: '0 20px 50px -10px rgba(190, 47, 244, 0.3)' }}>
           <div className='w-full md:w-1/2 p-4 md:p-10 flex justify-center items-center order-1'>
-            <img
-              width={100}
-              height={100}
+            <Image
+              width={800}
+              height={600}
               src={'/vision.png'}
               alt='E-commerce Solutions'
               className='w-full h-full object-cover rounded-[10px] md:rounded-[30px] '
+              unoptimized={true}
             />
           </div>
 
@@ -871,21 +880,7 @@ export default function About() {
                 <span className='text-xs md:text-sm xl:text-lg font-medium'>
                   EXPLORE MORE
                 </span>
-                <img
-                  src='/curve.png'
-                  alt='Arrow icon'
-                  className='w-4 h-4 xl:w-8 xl:h-8 object-contain'
-                  width={30}
-                  height={40}
-                />
-              </button>
-            </div>
-            <div className='mt-auto pt-4 md:pt-6 w-full flex md:justify-end justify-start opacity-0'>
-              <button className='flex items-center gap-2 px-4 py-2 xl:px-6 xl:py-3 bg-white text-gray-900 border-2 border-[#6210FF] rounded-full hover:bg-gray-50 transition-all duration-200'>
-                <span className='text-xs md:text-sm xl:text-lg font-medium'>
-                  EXPLORE MORE
-                </span>
-                <img
+                <Image
                   src='/curve.png'
                   alt='Arrow icon'
                   className='w-4 h-4 xl:w-8 xl:h-8 object-contain'
@@ -903,12 +898,13 @@ export default function About() {
           className='absolute top-[100%] z-60 mb-5 bg-white rounded-[10px] md:rounded-[30px] shadow-lg max-w-[90%] lg:max-w-[800px] xl:max-w-[1100px] 2xl:max-w-[70%] flex flex-col md:flex-row overflow-hidden mx-4 md:mx-0 h-[530px] md:h-[500px]'
           style={{ boxShadow: '0 20px 50px -10px rgba(190, 47, 244, 0.3)' }}>
           <div className='w-full md:w-1/2 p-4 md:p-10 flex justify-center items-center'>
-            <img
-              width={100}
-              height={100}
+            <Image
+              width={800}
+              height={600}
               src={'/xr.jpeg'}
               alt='Data Analytics'
               className='w-full h-full object-cover rounded-[10px] md:rounded-[30px] '
+              unoptimized={true}
             />
           </div>
 
@@ -938,26 +934,13 @@ export default function About() {
                 ))}
               </div>
             </div>
+
             <div className='mt-auto pt-4 md:pt-6 w-full flex md:justify-end justify-start opacity-0'>
               <button className='flex items-center gap-2 px-4 py-2 xl:px-6 xl:py-3 bg-white text-gray-900 border-2 border-[#6210FF] rounded-full hover:bg-gray-50 transition-all duration-200'>
                 <span className='text-xs md:text-sm xl:text-lg font-medium'>
                   EXPLORE MORE
                 </span>
-                <img
-                  src='/curve.png'
-                  alt='Arrow icon'
-                  className='w-4 h-4 xl:w-8 xl:h-8 object-contain'
-                  width={30}
-                  height={40}
-                />
-              </button>
-            </div>
-            <div className='mt-auto pt-4 md:pt-6 w-full flex md:justify-end justify-start opacity-0'>
-              <button className='flex items-center gap-2 px-4 py-2 xl:px-6 xl:py-3 bg-white text-gray-900 border-2 border-[#6210FF] rounded-full hover:bg-gray-50 transition-all duration-200'>
-                <span className='text-xs md:text-sm xl:text-lg font-medium'>
-                  EXPLORE MORE
-                </span>
-                <img
+                <Image
                   src='/curve.png'
                   alt='Arrow icon'
                   className='w-4 h-4 xl:w-8 xl:h-8 object-contain'

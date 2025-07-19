@@ -1,5 +1,6 @@
 'use client';
 import React, { useCallback, useState, useMemo } from 'react';
+import Image from 'next/image';
 import { ChevronDown, Search } from 'lucide-react';
 import { countries, Country } from '@/lib/countries';
 
@@ -53,9 +54,11 @@ const PhoneInput: React.FC<PhoneInputProps> = ({
           className="flex items-center cursor-pointer mr-2"
           onClick={() => setShowDropdown(!showDropdown)}
         >
-          <img 
+          <Image 
             src={selectedCountry.flag} 
             alt={selectedCountry.code} 
+            width={28}
+            height={22}
             className="w-6 h-4 mr-1" 
             loading="lazy"
           />
@@ -100,9 +103,11 @@ const PhoneInput: React.FC<PhoneInputProps> = ({
                 onClick={() => handleCountrySelect(country)}
                 className="flex items-center gap-2 px-4 py-2 hover:bg-[#DDD8FF] cursor-pointer w-full text-left bg-[#EEF0FF]"
               >
-                <img 
+                <Image 
                   src={country.flag} 
                   alt={country.name} 
+                  width={28}
+                  height={22}
                   className="w-5 h-3" 
                   loading="lazy"
                 />

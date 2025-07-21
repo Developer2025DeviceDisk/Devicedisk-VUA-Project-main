@@ -515,99 +515,87 @@ export default function AboutPage() {
     if (directionCarousalTwo.current) {
       gsap.set(directionCarousalTwo.current, {
         xPercent: -50, // Center horizontally
-        opacity: 1, // Hidden initially
-      });
-
-      gsap.set(directorTwoImageRef.current, {
-        scale: 0.3,
-        opacity: 0,
-      });
-
-      gsap.set(directorTwoTextRef.current, {
-        yPercent: 100,
-        opacity: 0,
+        top: '100%', 
+        opacity: 1,
       });
     }
     if (directionCarousalOne.current) {
       gsap.set(directionCarousalOne.current, {
         xPercent: -50, // Center horizontally
-        opacity: 1, // Hidden initially
-      });
-
-      gsap.set(directorOneImageRef.current, {
-        scale: 0.3,
-        opacity: 0,
-      });
-
-      gsap.set(directorOneTextRef.current, {
-        yPercent: 100,
-        opacity: 0,
+        top: '20%', 
+        opacity: 1,
       });
     }
 
-    ScrollTrigger.create({
-      trigger: directorContainerRef.current,
-      start: "top 75%",
-      end: "top top",
-      scrub: true,
-      onUpdate: ({ progress }) => {
-        const directorOneTextOpacity = mapProgress(progress, 1, 0, 1);
-
-        const directorOneTextY = mapProgress(progress, 1, 100, 0);
-        const directorImageScale = mapProgress(progress, 1, 0.3, 1);
-
-        gsap.to(directorOneTextRef.current, {
-          yPercent: directorOneTextY,
-          opacity: directorOneTextOpacity,
-        });
-
-        gsap.set(directorOneImageRef.current, {
-          scale: directorImageScale,
-          opacity: directorOneTextOpacity,
-        });
-      },
-    });
+    // Configuration for director scroll timing
+    const directorScrollConfig = {
+      totalScreens: 2, // Total number of screen heights to scroll through
+      directorOneScreens: 1, // How many screen heights for director one
+      directorTwoScreens: 1, // How many screen heights for director two
+      transitionSpeed: 3, // Speed multiplier for transitions (higher = faster)
+    };
 
     ScrollTrigger.create({
       trigger: directorContainerRef.current,
       start: "top top",
-      end: `+=${window.innerHeight * 2}px`,
+      end: `+=${window.innerHeight * directorScrollConfig.totalScreens}px`,
       pin: true,
       pinSpacing: true,
-      scrub: false,
+      scrub: 1,
       onUpdate: ({ progress }) => {
-        // Top Card animate
-        // --------------- Part 1 ---------------
-        const directorOneTextOpacity = mapProgress(progress - 0.2, 0.4, 1, 0);
-
-        const directorOneTextY = mapProgress(progress - 0.2, 0.4, 0, -50);
-        const directorImageScale = mapProgress(progress - 0.2, 0.4, 1, 0.2);
-
-        gsap.to(directorOneTextRef.current, {
-          yPercent: directorOneTextY,
-          opacity: directorOneTextOpacity,
-        });
-
-        gsap.set(directorOneImageRef.current, {
-          scale: directorImageScale,
-          opacity: directorOneTextOpacity,
-        });
-
-        // Part 2 initialize
-        {
-          const directorTwoTextOpacity = mapProgress(progress - 0.4, 0.4, 0, 1);
-
-          const directorTwoTextY = mapProgress(progress - 0.4, 0.4, 100, 0);
-          const directorImageScale = mapProgress(progress - 0.4, 0.4, 0.3, 1);
-
-          gsap.to(directorTwoTextRef.current, {
-            yPercent: directorTwoTextY,
-            opacity: directorTwoTextOpacity,
+        // Calculate normalized progress points
+        const directorOneEndPoint = directorScrollConfig.directorOneScreens / directorScrollConfig.totalScreens;
+        const directorTwoStartPoint = (directorScrollConfig.totalScreens - directorScrollConfig.directorTwoScreens) / directorScrollConfig.totalScreens;
+        
+        // Director One: Visible from start until directorOneEndPoint
+        if (progress <= directorOneEndPoint) {
+          // Director one is fully visible
+          gsap.to(directionCarousalOne.current, {
+            top: window.innerWidth < 768 ? '20%' : '20%',
+            scale: 1,
+            opacity: 1,
+            duration: 0,
           });
+        } else {
+          // Director one transitions out
+          const exitProgress = Math.min((progress - directorOneEndPoint) * directorScrollConfig.transitionSpeed, 1);
+          
+          const directorOneTop = gsap.utils.interpolate(
+            window.innerWidth < 768 ? '20%' : '20%',
+            window.innerWidth < 768 ? '5%' : '20%',
+            exitProgress
+          );
+          
+          const directorOneScale = gsap.utils.interpolate(1, 0.5, exitProgress);
+          const directorOneOpacity = gsap.utils.interpolate(1, 0, exitProgress);
 
-          gsap.set(directorTwoImageRef.current, {
-            scale: directorImageScale,
-            opacity: directorTwoTextOpacity,
+          gsap.to(directionCarousalOne.current, {
+            top: directorOneTop,
+            scale: directorOneScale,
+            opacity: directorOneOpacity,
+            duration: 0,
+          });
+        }
+
+        // Director Two: Starts entering at directorTwoStartPoint
+        if (progress >= directorTwoStartPoint) {
+          const enterProgress = Math.min((progress - directorTwoStartPoint) * directorScrollConfig.transitionSpeed, 1);
+          
+          const directorTwoTop = gsap.utils.interpolate(
+            '100%',
+            window.innerWidth < 768 ? '5%' : '20%',
+            enterProgress
+          );
+
+          gsap.to(directionCarousalTwo.current, {
+            top: directorTwoTop,
+            duration: 0,
+          });
+        } else {
+          // Keep director two off-screen
+          gsap.to(directionCarousalTwo.current, {
+            top: '100%',
+            duration: 0,
           });
         }
       },
@@ -1214,19 +1202,18 @@ export default function AboutPage() {
           className="relative w-screen min-h-screen text-zinc-900 bg-[#EEF0FF] overflow-hidden"
         >
           <h2
-            className="text-[94.5px] font-[500] text-center text-[#6210FF] mb-12"
+            className="text-[48px] sm:text-[54.5px] lg:text-[94.5px] font-[500] text-center text-[#6210FF] mb-4"
             style={{
-              position: "relative",
-              // Remove this line: transform: "translateX(-50%)",
+              position: "absolute",
               left: "50%",
               width: "100%",
               top: "7%",
-              zIndex: 10,
+              zIndex: 100,
               willChange: "transform",
               transform: "translateX(-50%)",
             }}
           >
-            {/* Director */}
+            Director
           </h2>
 
           <section
@@ -1243,6 +1230,7 @@ export default function AboutPage() {
             }}
           >
             <div
+              className="pt-[10px] sm:pt-[140px] lg:pt-16 pb-5"
               style={{
                 minHeight: "100%",
                 display: "flex",
@@ -1250,13 +1238,8 @@ export default function AboutPage() {
                 justifyContent: "flex-start",
                 flexDirection: "column",
                 gap: "5%",
-                paddingTop: 30,
-                paddingBottom: 20,
               }}
             >
-              <h2 className="text-[48px] sm:text-[54.5px] lg:text-[94.5px] font-[500] text-center text-[#6210FF] mb-1">
-                Director
-              </h2>
               <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-[12px] sm:gap-[20px] lg:gap-12 items-start">
                 <div
                   ref={directorOneImageRef}
@@ -1350,6 +1333,7 @@ export default function AboutPage() {
             }}
           >
             <div
+              className="pt-[120px] sm:pt-[140px] lg:pt-16 pb-5"
               style={{
                 minHeight: "100%",
                 display: "flex",
@@ -1357,13 +1341,8 @@ export default function AboutPage() {
                 justifyContent: "center",
                 flexDirection: "column",
                 gap: "5%",
-                paddingTop: 30,
-                paddingBottom: 20,
               }}
             >
-              <h2 className="text-[48px] sm:text-[54.5px] lg:text-[94.5px] font-[500] text-center text-[#6210FF] mb-1">
-                Director
-              </h2>
               <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-[12px] sm:gap-[20px] lg:gap-12 items-center md:items-start">
                 <div
                   ref={directorTwoImageRef}

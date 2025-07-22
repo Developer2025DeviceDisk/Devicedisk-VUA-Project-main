@@ -165,10 +165,8 @@ export default function AboutPage() {
 
     // ---------- About Section Animation ----------
 
-    if (
-      aboutSectionSvgTextBoxRef.current &&
-      aboutSectionSvgTextBoxRef2.current
-    ) {
+    // Function to animate the about section elements
+    const animateAboutSection = () => {
       const allImages = aboutSectionSvgTextBoxRef.current
         ? gsap.utils.toArray(
             aboutSectionSvgTextBoxRef.current.querySelectorAll("img")
@@ -181,29 +179,33 @@ export default function AboutPage() {
           )
         : [];
 
-      gsap.set(
+      gsap.to(allImages2, {
+        yPercent: 0,
+        duration: 0.5,
+        ease: "power3.out",
+        stagger: 0.085,
+      });
+
+      gsap.to(
         [
           allImages,
           aboutSectionTitleRefOne.current,
           aboutSectionTitleRefTwo.current,
         ],
         {
-          yPercent: 100,
+          yPercent: 0,
+          duration: 0.5,
+          ease: "power3.out",
+          stagger: 0.085,
         }
       );
+    };
 
-      gsap.set(allImages2, {
-        yPercent: 100,
-      });
-    }
-
-    ScrollTrigger.create({
-      trigger: aboutSectionRef.current,
-      start: "top 50%",
-      end: `+=${window.innerHeight * 1.2}px`,
-
-      scrub: false,
-      onEnter: () => {
+    const resetAboutSection = () => {
+      if (
+        aboutSectionSvgTextBoxRef.current &&
+        aboutSectionSvgTextBoxRef2.current
+      ) {
         const allImages = aboutSectionSvgTextBoxRef.current
           ? gsap.utils.toArray(
               aboutSectionSvgTextBoxRef.current.querySelectorAll("img")
@@ -216,28 +218,53 @@ export default function AboutPage() {
             )
           : [];
 
-        gsap.to(allImages2, {
-          yPercent: 0,
-          duration: 0.5,
-          ease: "power3.out",
-          stagger: 0.085,
-        });
-
-        gsap.to(
+        gsap.set(
           [
             allImages,
             aboutSectionTitleRefOne.current,
             aboutSectionTitleRefTwo.current,
           ],
           {
-            yPercent: 0,
-            duration: 0.5,
-            ease: "power3.out",
-            stagger: 0.085,
+            yPercent: 100,
           }
         );
-      },
-    });
+
+        gsap.set(allImages2, {
+          yPercent: 100,
+        });
+      }
+    };
+
+    resetAboutSection();
+
+
+    setTimeout(() => {
+      ScrollTrigger.create({
+        trigger: aboutSectionRef.current,
+        start: "top 70%",
+        end: "bottom 30%",
+        scrub: false,
+        onEnter: animateAboutSection,
+        onLeave: resetAboutSection,
+        onEnterBack: animateAboutSection,
+        onLeaveBack: resetAboutSection,
+        onRefresh: () => {
+          const trigger = aboutSectionRef.current;
+          if (trigger) {
+            const rect = trigger.getBoundingClientRect();
+            const windowHeight = window.innerHeight;
+            const triggerTop = rect.top;
+            const triggerBottom = rect.bottom;
+            
+            if (triggerTop <= windowHeight * 0.7 && triggerBottom >= windowHeight * 0.3) {
+              animateAboutSection();
+            } else {
+              resetAboutSection();
+            }
+          }
+        }
+      });
+    }, 100);
 
     // ---------- About Section Animation ----------
     ScrollTrigger.create({
@@ -514,15 +541,15 @@ export default function AboutPage() {
     // ---------- Director Section Animation ----------
     if (directionCarousalTwo.current) {
       gsap.set(directionCarousalTwo.current, {
-        xPercent: -50, // Center horizontally
+        xPercent: -50, 
         top: '100%', 
         opacity: 1,
       });
     }
     if (directionCarousalOne.current) {
       gsap.set(directionCarousalOne.current, {
-        xPercent: -50, // Center horizontally
-        top: '20%', 
+        xPercent: -50,
+        top: '20%',
         opacity: 1,
       });
     }
@@ -547,9 +574,9 @@ export default function AboutPage() {
         const directorOneEndPoint = directorScrollConfig.directorOneScreens / directorScrollConfig.totalScreens;
         const directorTwoStartPoint = (directorScrollConfig.totalScreens - directorScrollConfig.directorTwoScreens) / directorScrollConfig.totalScreens;
         
-        // Director One: Visible from start until directorOneEndPoint
+        // Director One
         if (progress <= directorOneEndPoint) {
-          // Director one is fully visible
+
           gsap.to(directionCarousalOne.current, {
             top: window.innerWidth < 768 ? '20%' : '20%',
             scale: 1,
@@ -577,7 +604,7 @@ export default function AboutPage() {
           });
         }
 
-        // Director Two: Starts entering at directorTwoStartPoint
+        // Director Two
         if (progress >= directorTwoStartPoint) {
           const enterProgress = Math.min((progress - directorTwoStartPoint) * directorScrollConfig.transitionSpeed, 1);
           

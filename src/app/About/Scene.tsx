@@ -9,11 +9,12 @@ export const RingScene = ({ ...props }) => {
       style={{ background: "#6310FF" }}
       gl={{ preserveDrawingBuffer: true }}
       camera={{ position: [2, 0, 2], fov: 50 }}
+      dpr={1}
+      performance={{ min: 0.2 }}
     >
       <color attach="background" args={["#6310FF"]} />
       <GlassModel {...props} />
-      <Environment preset="sunset" backgroundRotation={[1,3,3]} />
+      <Environment preset="sunset" backgroundRotation={[1, 3, 3]} />
     </Canvas>
   );
 };
- 

@@ -81,6 +81,8 @@ export default function AboutPage() {
   const foundationContent4Ref = useRef<HTMLDivElement>(null);
 
   const modalGroupRef = useRef<THREE.Group>(null);
+  const modalGroupRe2 = useRef<THREE.Group>(null);
+
   const torus = useRef<THREE.Mesh>(null);
   const torus001 = useRef<THREE.Mesh>(null);
   const torus002 = useRef<THREE.Mesh>(null);
@@ -134,7 +136,7 @@ export default function AboutPage() {
     gsap.ticker.lagSmoothing(0);
 
     // Navigation animation is now handled in layout.tsx
-    
+
     // ---------- Initial Section Animation ----------
 
     ScrollTrigger.create({
@@ -237,7 +239,6 @@ export default function AboutPage() {
 
     resetAboutSection();
 
-
     setTimeout(() => {
       ScrollTrigger.create({
         trigger: aboutSectionRef.current,
@@ -255,14 +256,17 @@ export default function AboutPage() {
             const windowHeight = window.innerHeight;
             const triggerTop = rect.top;
             const triggerBottom = rect.bottom;
-            
-            if (triggerTop <= windowHeight * 0.7 && triggerBottom >= windowHeight * 0.3) {
+
+            if (
+              triggerTop <= windowHeight * 0.7 &&
+              triggerBottom >= windowHeight * 0.3
+            ) {
               animateAboutSection();
             } else {
               resetAboutSection();
             }
           }
-        }
+        },
       });
     }, 100);
 
@@ -310,7 +314,12 @@ export default function AboutPage() {
       onUpdate: ({ progress }) => {
         const animatedFramesParts = 1;
 
-        if (torus001.current && modalGroupRef.current && torus002.current) {
+        if (
+          torus001.current &&
+          modalGroupRef.current &&
+          torus002.current &&
+          modalGroupRe2.current
+        ) {
           // Animated per frames
           if (foundationTitleRef.current) {
             const foundationTitlePorgess = mapProgress(
@@ -373,7 +382,8 @@ export default function AboutPage() {
           modalGroupRef.current &&
           torus002.current &&
           torus003.current &&
-          torus.current
+          torus.current &&
+          modalGroupRe2.current
         ) {
           const groupRotationProgress = mapProgress(progress, 1, -180, 180);
 
@@ -534,6 +544,15 @@ export default function AboutPage() {
             z: 1 - torusAllProgress,
             duration: 0,
           });
+
+          if (progress < 0.8) {
+            modalGroupRef.current.visible = true;
+            modalGroupRe2.current.visible = false;
+          }
+          if (progress > 0.8) {
+            modalGroupRef.current.visible = false;
+            modalGroupRe2.current.visible = true;
+          }
         }
       },
     });
@@ -541,15 +560,15 @@ export default function AboutPage() {
     // ---------- Director Section Animation ----------
     if (directionCarousalTwo.current) {
       gsap.set(directionCarousalTwo.current, {
-        xPercent: -50, 
-        top: '100%', 
+        xPercent: -50,
+        top: "100%",
         opacity: 1,
       });
     }
     if (directionCarousalOne.current) {
       gsap.set(directionCarousalOne.current, {
         xPercent: -50,
-        top: '20%',
+        top: "20%",
         opacity: 1,
       });
     }
@@ -571,28 +590,36 @@ export default function AboutPage() {
       scrub: 1,
       onUpdate: ({ progress }) => {
         // Calculate normalized progress points
-        const directorOneEndPoint = directorScrollConfig.directorOneScreens / directorScrollConfig.totalScreens;
-        const directorTwoStartPoint = (directorScrollConfig.totalScreens - directorScrollConfig.directorTwoScreens) / directorScrollConfig.totalScreens;
-        
+        const directorOneEndPoint =
+          directorScrollConfig.directorOneScreens /
+          directorScrollConfig.totalScreens;
+        const directorTwoStartPoint =
+          (directorScrollConfig.totalScreens -
+            directorScrollConfig.directorTwoScreens) /
+          directorScrollConfig.totalScreens;
+
         // Director One
         if (progress <= directorOneEndPoint) {
-
           gsap.to(directionCarousalOne.current, {
-            top: window.innerWidth < 768 ? '20%' : '20%',
+            top: window.innerWidth < 768 ? "20%" : "20%",
             scale: 1,
             opacity: 1,
             duration: 0,
           });
         } else {
           // Director one transitions out
-          const exitProgress = Math.min((progress - directorOneEndPoint) * directorScrollConfig.transitionSpeed, 1);
-          
+          const exitProgress = Math.min(
+            (progress - directorOneEndPoint) *
+              directorScrollConfig.transitionSpeed,
+            1
+          );
+
           const directorOneTop = gsap.utils.interpolate(
-            window.innerWidth < 768 ? '20%' : '20%',
-            window.innerWidth < 768 ? '5%' : '20%',
+            window.innerWidth < 768 ? "20%" : "20%",
+            window.innerWidth < 768 ? "5%" : "20%",
             exitProgress
           );
-          
+
           const directorOneScale = gsap.utils.interpolate(1, 0.5, exitProgress);
           const directorOneOpacity = gsap.utils.interpolate(1, 0, exitProgress);
 
@@ -606,11 +633,15 @@ export default function AboutPage() {
 
         // Director Two
         if (progress >= directorTwoStartPoint) {
-          const enterProgress = Math.min((progress - directorTwoStartPoint) * directorScrollConfig.transitionSpeed, 1);
-          
+          const enterProgress = Math.min(
+            (progress - directorTwoStartPoint) *
+              directorScrollConfig.transitionSpeed,
+            1
+          );
+
           const directorTwoTop = gsap.utils.interpolate(
-            '100%',
-            window.innerWidth < 768 ? '5%' : '20%',
+            "100%",
+            window.innerWidth < 768 ? "5%" : "20%",
             enterProgress
           );
 
@@ -621,7 +652,7 @@ export default function AboutPage() {
         } else {
           // Keep director two off-screen
           gsap.to(directionCarousalTwo.current, {
-            top: '100%',
+            top: "100%",
             duration: 0,
           });
         }
@@ -635,19 +666,19 @@ export default function AboutPage() {
       teamStateFourRef.current
     ) {
       gsap.set(teamRefStateOneRef.current, {
-        xPercent: -120, 
+        xPercent: -120,
         filter: `blur(${10}px)`,
         scale: 0.8,
       });
 
       gsap.set(teamRefStateTwoRef.current, {
-        xPercent: 0, 
+        xPercent: 0,
         filter: `blur(${0}px)`,
         scale: 1,
       });
 
       gsap.set(teamRefStateThreeRef.current, {
-        xPercent: 120, 
+        xPercent: 120,
         filter: `blur(${10}px)`,
         scale: 0.8,
       });
@@ -961,7 +992,7 @@ export default function AboutPage() {
                 className="absolute z-0 w-[90%] lg:w-[609.53px] h-auto object-contain top-[35%] left-[45%]   lg:top-1/2 lg:left-1/2 -translate-x-[43%] -translate-y-[90%]"
               />
 
-              <Image        
+              <Image
                 ref={headerImageElementRef}
                 src="/Marketingwoman.png"
                 alt="Marketing Woman"
@@ -985,14 +1016,56 @@ export default function AboutPage() {
                   className="flex items-center justify-start"
                 >
                   <div className="flex relative left-[-12%] overflow-hidden w-[370px] ">
-                    <Image src={"/title/1.svg"} alt="Title part 1" width={132} height={130} className="w-auto h-auto object-contain" unoptimized />
-                    <Image src={"/title/2.svg"} alt="Title part 2" width={111} height={131} className="w-auto h-auto object-contain" unoptimized />
-                    <Image src={"/title/3.svg"} alt="Title part 3" width={132} height={129} className="w-auto h-auto object-contain" unoptimized />
+                    <Image
+                      src={"/title/1.svg"}
+                      alt="Title part 1"
+                      width={132}
+                      height={130}
+                      className="w-auto h-auto object-contain"
+                      unoptimized
+                    />
+                    <Image
+                      src={"/title/2.svg"}
+                      alt="Title part 2"
+                      width={111}
+                      height={131}
+                      className="w-auto h-auto object-contain"
+                      unoptimized
+                    />
+                    <Image
+                      src={"/title/3.svg"}
+                      alt="Title part 3"
+                      width={132}
+                      height={129}
+                      className="w-auto h-auto object-contain"
+                      unoptimized
+                    />
                   </div>
                   <div className="flex relative left-[-7.5%] overflow-hidden w-[370px]">
-                    <Image src={"/title/4.svg"} alt="Title part 4" width={146} height={106} className="w-auto h-auto object-contain" unoptimized />
-                    <Image src={"/title/5.svg"} alt="Title part 5" width={108} height={106} className="w-auto h-auto object-contain" unoptimized />
-                    <Image src={"/title/6.svg"} alt="Title part 6" width={91} height={105} className="w-auto h-auto object-contain" unoptimized />
+                    <Image
+                      src={"/title/4.svg"}
+                      alt="Title part 4"
+                      width={146}
+                      height={106}
+                      className="w-auto h-auto object-contain"
+                      unoptimized
+                    />
+                    <Image
+                      src={"/title/5.svg"}
+                      alt="Title part 5"
+                      width={108}
+                      height={106}
+                      className="w-auto h-auto object-contain"
+                      unoptimized
+                    />
+                    <Image
+                      src={"/title/6.svg"}
+                      alt="Title part 6"
+                      width={91}
+                      height={105}
+                      className="w-auto h-auto object-contain"
+                      unoptimized
+                    />
                   </div>
                 </div>
                 <div
@@ -1000,17 +1073,66 @@ export default function AboutPage() {
                   className="flex items-center justify-center mt-[-60px]  gap-[5px]"
                 >
                   <div className="flex relative left-[-30px] overflow-hidden  w-[230px]">
-                    <Image src={"/title/7.svg"} alt="Title part 7" width={89} height={93} className="w-auto h-auto object-contain" unoptimized />
-                    <Image src={"/title/8.svg"} alt="Title part 8" width={27} height={137} className="w-auto h-auto object-contain" unoptimized />
-                    <Image src={"/title/9.svg"} alt="Title part 9" width={84} height={132} className="w-auto h-auto object-contain" unoptimized />
+                    <Image
+                      src={"/title/7.svg"}
+                      alt="Title part 7"
+                      width={89}
+                      height={93}
+                      className="w-auto h-auto object-contain"
+                      unoptimized
+                    />
+                    <Image
+                      src={"/title/8.svg"}
+                      alt="Title part 8"
+                      width={27}
+                      height={137}
+                      className="w-auto h-auto object-contain"
+                      unoptimized
+                    />
+                    <Image
+                      src={"/title/9.svg"}
+                      alt="Title part 9"
+                      width={84}
+                      height={132}
+                      className="w-auto h-auto object-contain"
+                      unoptimized
+                    />
                   </div>
                   <div className="flex mt-[-20px] overflow-hidden w-[490px]">
-                    <Image src={"/title/10.svg"} alt="Title part 10" width={178} height={129} className="w-auto h-auto object-contain" unoptimized />
-                    <Image src={"/title/11.svg"} alt="Title part 11" width={133} height={134} className="w-auto h-auto object-contain" unoptimized />
-                    <Image src={"/title/12.svg"} alt="Title part 12" width={179} height={129} className="w-auto h-auto object-contain" unoptimized />
+                    <Image
+                      src={"/title/10.svg"}
+                      alt="Title part 10"
+                      width={178}
+                      height={129}
+                      className="w-auto h-auto object-contain"
+                      unoptimized
+                    />
+                    <Image
+                      src={"/title/11.svg"}
+                      alt="Title part 11"
+                      width={133}
+                      height={134}
+                      className="w-auto h-auto object-contain"
+                      unoptimized
+                    />
+                    <Image
+                      src={"/title/12.svg"}
+                      alt="Title part 12"
+                      width={179}
+                      height={129}
+                      className="w-auto h-auto object-contain"
+                      unoptimized
+                    />
                   </div>
                   <div className="flex relative top-[-70px] overflow-hidden w-[310px]">
-                    <Image src={"/title/13.svg"} alt="Title part 13" width={289} height={328} className="w-auto h-auto object-contain" unoptimized />
+                    <Image
+                      src={"/title/13.svg"}
+                      alt="Title part 13"
+                      width={289}
+                      height={328}
+                      className="w-auto h-auto object-contain"
+                      unoptimized
+                    />
                   </div>
                 </div>
               </div>
@@ -1068,7 +1190,7 @@ export default function AboutPage() {
                 alt="Astronaut"
                 width={519}
                 height={1000}
-                unoptimized= {true}
+                unoptimized={true}
                 className="relative z-10 mx-auto w-[519px] h-auto transition-transform [transition-duration:var(--base-duration)] [transition-timing-function:var(--base-ease)]"
                 style={{
                   objectFit: "cover",
@@ -1123,6 +1245,7 @@ export default function AboutPage() {
           >
             <RingScene
               modalGroupRef={modalGroupRef}
+              modalGroupRe2={modalGroupRe2}
               torus={torus}
               torus001={torus001}
               torus002={torus002}
@@ -1490,8 +1613,7 @@ export default function AboutPage() {
 
                   <div className="text-center mt-3">
                     <p className="team-name text-lg sm:text-xl md:text-lg lg:text-xl xl:text-2xl font-semibold leading-tight">
-                      {member.name.split(" ")[0]}{" "}
-                      {member.name.split(" ")[1]}
+                      {member.name.split(" ")[0]} {member.name.split(" ")[1]}
                     </p>
                     <p className="team-role text-sm sm:text-base md:text-sm lg:text-base xl:text-lg text-[#BE2FF4] font-semibold mt-1 mb-[140px]">
                       {member.role}

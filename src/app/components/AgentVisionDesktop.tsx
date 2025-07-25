@@ -1,0 +1,277 @@
+"use client";
+
+import React from 'react';
+
+interface AgentVisionDesktopProps {
+  agentVisionRef: React.RefObject<any>;
+  videoLeftOne: React.RefObject<any>;
+  videoLeftTwo: React.RefObject<any>;
+  videoLeftThree: React.RefObject<any>;
+}
+
+export default function AgentVisionDesktop({
+  agentVisionRef,
+  videoLeftOne,
+  videoLeftTwo,
+  videoLeftThree
+}: AgentVisionDesktopProps) {
+  return (
+    <section className="hidden lg:block">
+      <div
+        ref={agentVisionRef}
+        className="max-w-[1272px] mx-auto mb-[0] lg:flex"
+        style={{
+          height: "100vh",
+          flexDirection: "column",
+          justifyContent: "center",
+        }}
+      >
+        <div
+          className="text-center"
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-between",
+          }}
+        >
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "center",
+              width: "70%",
+            }}
+          >
+            <div
+              style={{
+                width: "50%",
+                height: "100%",
+              }}
+              id="video-left"
+            >
+              <div className="relative">
+                <div
+                  id="video-left-one"
+                  ref={videoLeftOne}
+                  className="relative"
+                  style={{
+                    maxWidth: "328px",
+                    height: "197px",
+                    background: "purple",
+                    borderRadius: 20,
+                    width: "100%",
+                    zIndex: 2,
+                    position: "relative",
+                    overflow: "hidden",
+                  }}
+                >
+                            {["/agentVision/4.mp4", "/agentVision/6.mp4"].map(
+                    (iem) => (
+                      <video
+                        key={iem}
+                        className="absolute top-[0] left-[0]  w-full h-full object-cover rounded-lg"
+                        autoPlay
+                        muted
+                        loop
+                        playsInline
+                      >
+                        <source src={iem} type="video/mp4" />
+                        Your browser does not support the video tag.
+                      </video>
+                    )
+                  )}
+                </div>
+                <h3
+                  style={{
+                    position: "absolute",
+                    left: 0,
+                    bottom: -40,
+                    fontSize: 22,
+                    color: "white"
+                  }}
+                >
+                  Launch Videos
+                </h3>
+              </div>
+              <svg width="0" height="0">
+                <defs>
+                  <clipPath
+                    id="folderClip"
+                    clipPathUnits="userSpaceOnUse"
+                  >
+                    <path d="M308.055 251C308.055 262.046 299.1 271 288.055 271H20.4297C9.384 271 0.429688 262.046 0.429688 251V99.333C0.429688 88.2873 9.38399 79.333 20.4297 79.333H127.68C143.144 79.3328 155.68 66.7969 155.68 51.333V20.75C155.68 9.7043 164.634 0.75 175.68 0.75H288.055C299.1 0.75 308.055 9.70431 308.055 20.75V251Z" />
+                  </clipPath>
+                </defs>
+              </svg>
+
+              <div
+                className="relative"
+                style={{
+                  transform: "translateX(43%) translateY(-22%) ",
+                }}
+              >
+                <div
+                  className="folder-shape relative"
+                  id="video-left-two"
+                  ref={videoLeftTwo}
+                  style={{
+                    maxWidth: "307.63px",
+                    width: "100%",
+                    height: "270.25px",
+                    background: "purple",
+                    borderRadius: 20,
+                    zIndex: 1,
+                    position: "relative",
+                    overflow: "hidden",
+                  }}
+                >
+                                   {["/agentVision/2.mp4", "/agentVision/3.mp4"].map(
+                    (item) => (
+                      <video
+                        className="absolute top-[0] left-[0]  w-full h-full object-cover rounded-lg"
+                        key={item}
+                        autoPlay
+                        muted
+                        loop
+                        playsInline
+                      >
+                        <source src={item} type="video/mp4" />
+                        Your browser does not support the video tag.
+                      </video>
+                    )
+                  )}
+                </div>
+
+                <h3
+                  style={{
+                    position: "absolute",
+                    left: "0%",
+                    bottom: -40,
+                    fontSize: 22,
+                    color: "white"
+                  }}
+                >
+                  Production & films
+                </h3>
+              </div>
+            </div>
+            <div
+              style={{
+                width: "50%",
+              }}
+            >
+              <h1 className="text-[48px] md:text-[121px] m-[0] leading-tight petrovsans-semibold text-transparent bg-clip-text bg-gradient-to-r from-[#6210FF] to-[#BE2FF4]">
+                Agent
+              </h1>
+              <h1
+                className="text-[48px] md:text-[121px]  m-[0] leading-tight petrovsans-semibold text-transparent bg-clip-text bg-gradient-to-r from-[#6210FF] to-[#BE2FF4]"
+                style={{
+                  transform: "translateX(20%)",
+                }}
+              >
+                Vision
+              </h1>
+
+              <p
+                style={{
+                  transform: "translateX(20%)",
+                  textAlign: "left",
+                }}
+                className="text-[17px] md:text-[31px] text-[#BE2FF4] px-4 py-5 mb-12 outfit-light"
+              >
+                Fast, affordable <br /> production quality films
+              </p>
+            </div>
+          </div>
+
+          <div
+            style={{
+              width: "27%",
+              display: "flex",
+              flexDirection: "column",
+              gap: 14,
+            }}
+            id="video-right"
+          >
+            <h3 className="text-[22px] "
+              style={{
+                color: "white"
+              }}
+            >Reel/content generation</h3>
+
+            <div
+              ref={videoLeftThree}
+              style={{
+                height: "350px",
+                width: "100%",
+                maxWidth: "261px",
+                background: "purple",
+                margin: "0 auto",
+                borderRadius: 20,
+                position: "relative",
+                overflow: "hidden",
+              }}
+            >
+              {["/agentVision/1.mp4", "/agentVision/5.mp4"].map(
+                (item) => (
+                  <video
+                    className="absolute top-[0] left-[0]  w-full h-full object-cover rounded-lg"
+                    autoPlay
+                    key={item}
+                    muted
+                    loop
+                    playsInline
+                  >
+                    <source src={item} type="video/mp4" />
+                    Your browser does not support the video tag.
+                  </video>
+                )
+              )}
+            </div>
+
+            <h3
+              style={{
+                color: "white"
+              }}
+              className="text-[22px]">Project walkthroughs</h3>
+          </div>
+        </div>
+
+        <div className="text-center">
+          <div className="grid grid-cols-3 gap-3 text-center px-4 leading-none">
+            <div className="py-2">
+              <h1 className="text-[28px] md:text-[65px] petrovsans-semibold text-transparent bg-clip-text bg-gradient-to-r from-[#6210FF] to-[#BE2FF4] mb-4">
+                10%
+              </h1>
+              <p className="text-white text-[18px] md:text-[35.04px] outfit-light">
+                Production
+                <br />
+                Budget
+              </p>
+            </div>
+            <div className="py-2">
+              <h1 className="text-[28px] md:text-[65px] petrovsans-semibold text-transparent bg-clip-text bg-gradient-to-r from-[#6210FF] to-[#BE2FF4] mb-4">
+                50X
+              </h1>
+              <p className="text-white text-[18px] md:text-[35.04px] outfit-light">
+                Faster time
+                <br />
+                to market
+              </p>
+            </div>
+            <div className="py-2">
+              <h1 className="text-[28px] md:text-[65px] petrovsans-semibold text-transparent bg-clip-text bg-gradient-to-r from-[#6210FF] to-[#BE2FF4] mb-4">
+                100%
+              </h1>
+              <p className="text-white text-[18px] md:text-[35.04px] outfit-light">
+                Realistic
+                <br />
+                footage
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}

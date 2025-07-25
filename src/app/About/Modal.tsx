@@ -39,6 +39,7 @@ const staticProps = {
 
 export const GlassModel = ({
   modalGroupRef,
+  modalGroupRe2,
   torus,
   torus001,
   torus002,
@@ -47,14 +48,15 @@ export const GlassModel = ({
   foundationTitleTopRef,
   foundationTitleBottomRef,
 }: any) => {
-  const { nodes } = useGLTF("/ring10.glb");
+  const { nodes } = useGLTF("/3D/ring-s.glb");
+  const { nodes: nodes2, scene } = useGLTF("/3D/ring-joint.glb");
   const { invalidate } = useThree();
 
   const isDesktop = useMediaQuery("min-width", 920) as any;
 
   useEffect(() => {
     invalidate();
-  }, [isDesktop, invalidate]);
+  }, [isDesktop]);
 
   // Transmission material props
   const transmissionMaterialProps = {
@@ -279,6 +281,26 @@ export const GlassModel = ({
           </Text>
         </group>
       )}
+
+      <group
+        ref={modalGroupRe2}
+        scale={groupControls.scale}
+        visible={false}
+        position={[
+          groupControls.positionX,
+          groupControls.positionY,
+          groupControls.positionZ,
+        ]}
+        rotation={[
+          THREE.MathUtils.degToRad(groupControls.rotationX),
+          THREE.MathUtils.degToRad(groupControls.rotationY),
+          THREE.MathUtils.degToRad(groupControls.rotationZ),
+        ]}
+      >
+        <mesh {...nodes2.Ring} renderOrder={1}>
+          <MeshTransmissionMaterial {...transmissionMaterialProps} />
+        </mesh>
+      </group>
 
       <group
         ref={modalGroupRef}

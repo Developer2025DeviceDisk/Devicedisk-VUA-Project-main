@@ -100,11 +100,11 @@ export default function Header() {
   // Navigation links array
   const navLinks = [
     { title: "Services", href: "/services" },
-    { title: "Product", href: "/product" },
-    { title: "About", href: "/about" },
-    { title: "Work", href: "/work" },
-    { title: "Culture", href: "/culture" },
-    { title: "Contact us", href: "/contact" },
+    // { title: "Product", href: "/product" },
+    { title: "About Us", href: "/About" },
+    // { title: "Work", href: "/work" },
+    // { title: "Culture", href: "/culture" },
+    { title: "Contact Us", href: "/contact" },
   ];
 
   return (
@@ -145,7 +145,7 @@ export default function Header() {
 
         <button
           onClick={toggleMenu}
-          className={`w-9 h-9 sm:w-10 sm:h-10 cursor-pointer rounded-full border hidden ${
+          className={`w-9 h-9 sm:w-10 sm:h-10 cursor-pointer rounded-full border ${
             isOnLightBg ? "border-[#6210FF]" : "border-white"
           } flex items-center justify-center ${
             isOnLightBg ? "hover:bg-[#6210FF]/10" : "hover:bg-white/10"

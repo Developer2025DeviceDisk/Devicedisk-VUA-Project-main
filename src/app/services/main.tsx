@@ -955,13 +955,13 @@ export default function Services() {
          }
          }
 
-@media (min-width: 991px){
-        
-          @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
+          @media (min-width: 991px){
+                  
+                    @keyframes float {
+                      0%, 100% { transform: translateY(0); }
+                      50% { transform: translateY(-20px); }
+                    }
           }
-}
           
 
           @media (max-width: 768px) {
@@ -976,7 +976,7 @@ export default function Services() {
             <div>
               <h1
                 ref={headerTitleRef}
-                className="text-white petrovsans-book max-sm:text-[45px] md:text-[94px] mb-[60px] z-10 max-sm:leading-[55px] md:leading-[122.8px] "
+                className="text-white petrovsans-book max-sm:text-[45px] md:text-[94px] max-sm:mb-[100px] md:mb-[60px] z-10 max-sm:leading-[55px] md:leading-[122.8px] "
               >
                 <span className="max-sm:block md:inline">Your 360°</span>{" "}
                 <span className="max-sm:block md:inline">Growth Engine</span>
@@ -984,15 +984,10 @@ export default function Services() {
 
               <p
                 ref={headerSubTitleRef}
-                className="text-white justify-center mx-[10px] max-w-6xl z-10 max-sm:text-[16px] md:text-[19.69px] leading-[1.49] text-center outfit-light"
+                className="text-white justify-center mx-[10px] max-w-6xl z-10 max-sm:text-[16px] md:text-[19.69px] leading-[1.49] text-justify outfit-light"
                 style={{ letterSpacing: "0.08em", lineHeight: "1.49" }}
               >
-                Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed
-                diam nonummy nibh euismod tincidunt ut laoreet dolore magna
-                aliquam erat volutpat. Ut wisi enim ad minim veniam, quis
-                nostrud exerci tation ullamcorper suscipit lobortis nisl ut
-                aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor
-                in hendrerit
+              We are India-UAE focused Tech-infused brand marketing agency offering an exhaustive services portfolio in Go-To-Market Strategy Development, Branding & Creative Solutions, AI-backed Performance & Social Media Marketing, and MarTech Automation. Founded by industry veterans, we are a passionate team offering scalable marketing solutions with a data-driven approach with presence in Mumbai, Pune and Dubai.
               </p>
             </div>
           </div>
@@ -1033,25 +1028,86 @@ export default function Services() {
                   className="text-white max-sm:[11.74px] md:text-[31.5px] mb-[60px] z-10 outfit-light"
                   style={{ letterSpacing: "0.08em", lineHeight: "1.49" }}
                 >
-                  Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed
-                  diam
+                  We translate your aspirations into a precise and actionable blueprint for achieving your goals.
                 </p>
 
-                <div className="flex flex-wrap justify-center gap-x-[8px] gap-y-[12px] mb-2 z-10 outfit-light">
-                  {[
-                    "Growth Marketing",
-                    "Social Media Management Packages",
-                    "SEO Optimization & Ranking",
-                  ].map((tag, idx) => (
-                    <button
-                      key={idx}
-                      className="inline-flex items-center justify-center h-[26px] px-[12px] max-sm:px-[8px]
-                 max-sm:text-[12px] md:text-[20.56px] border border-[#F52FFF] rounded-[13.78px]
-                 text-center whitespace-nowrap leading-none text-white"
-                    >
-                      {tag}
-                    </button>
-                  ))}
+                {/* Mobile: Structured layout, Desktop: Flex wrap */}
+                <div className="mb-10 z-10 outfit-light">
+                  {/* Mobile Layout */}
+                  <div className="block md:hidden">
+                    {/* First Row */}
+                    <div className="flex justify-center gap-x-[8px] mb-[16px]">
+                      {[
+                        "GTM Strategy",
+                        "Brand Strategy",
+                        "Brand Voice",
+                      ].map((tag, idx) => (
+                        <button
+                          key={idx}
+                          className="inline-flex items-center justify-center h-[26px] px-[8px] py-[2px]
+                     text-[12px] font-light border border-[#F52FFF] rounded-full
+                     text-center whitespace-nowrap leading-none text-white"
+                        >
+                          {tag}
+                        </button>
+                      ))}
+                    </div>
+                    
+                    {/* Second Row */}
+                    <div className="flex justify-center gap-x-[8px]">
+                      {[
+                        "Campaign Strategy",
+                        "PR Strategy",
+                        "Social Media Strategy",
+                      ].map((tag, idx) => (
+                        <button
+                          key={idx}
+                          className="inline-flex items-center justify-center h-[26px] px-[8px] py-[2px]
+                     text-[12px] font-light border border-[#F52FFF] rounded-full
+                     text-center whitespace-nowrap leading-none text-white"
+                        >
+                          {tag}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Desktop Layout */}
+                  <div className="hidden md:block">
+                    <div className="flex flex-wrap justify-center gap-x-[8px] gap-y-[20px] mb-6">
+                      {[
+                        "GTM Strategy",
+                        "Brand Strategy",
+                        "Brand Voice",
+                      ].map((tag, idx) => (
+                        <button
+                          key={idx}
+                          className="inline-flex items-center justify-center h-[36px] px-[12px] py-[6px]
+                     text-[20.56px] font-light border border-[#F52FFF] rounded-full
+                     text-center whitespace-nowrap leading-none text-white"
+                        >
+                          {tag}
+                        </button>
+                      ))}
+                    </div>
+
+                    <div className="flex flex-wrap justify-center gap-x-[8px] gap-y-[16px]">
+                      {[
+                        "Campaign Strategy",
+                        "PR Strategy",
+                        "Social Media Strategy",
+                      ].map((tag, idx) => (
+                        <button
+                          key={idx}
+                          className="inline-flex items-center justify-center h-[36px] px-[12px] py-[6px]
+                     text-[20.56px] font-light border border-[#F52FFF] rounded-full
+                     text-center whitespace-nowrap leading-none text-white"
+                        >
+                          {tag}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
                 </div>
 
                 {/* Explore More Button */}
@@ -1087,8 +1143,8 @@ export default function Services() {
               {/* Heading */}
 
               <div className="flex flex-col items-center justify-center">
-                <h1 className="text-white text-[45px] leading-[50px] petrovsans-semibold md:text-[126.5px] z-10 lg:leading-[126px] ">
-                  Design & Communications
+                <h1 className="text-white text-[45px] leading-[50px] mb-[10px] petrovsans-semibold md:text-[126.5px] z-10 lg:leading-[126px] ">
+                  Branding & Design
                 </h1>
 
                 {/* Paragraph */}
@@ -1096,25 +1152,86 @@ export default function Services() {
                   className="text-white max-sm:[11.74px] md:text-[31.5px] mt-[10px] lg:mt-[0] mb-[60px] z-10 outfit-light"
                   style={{ letterSpacing: "0.08em", lineHeight: "1.49" }}
                 >
-                  Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed
-                  diam
+                We transform your vision into a tangible and impactful brand experience.
                 </p>
 
-                <div className="flex flex-wrap justify-center gap-x-[8px] gap-y-[12px] mb-2 z-10 outfit-light">
-                  {[
-                    "Growth Marketing",
-                    "Social Media Management Packages",
-                    "SEO Optimization & Ranking",
-                  ].map((tag, idx) => (
-                    <button
-                      key={idx}
-                      className="inline-flex items-center justify-center h-[26px] px-[12px] max-sm:px-[8px]
-                 max-sm:text-[12px] md:text-[20.56px] border border-[#F52FFF] rounded-[13.78px]
-                 text-center whitespace-nowrap leading-none text-white"
-                    >
-                      {tag}
-                    </button>
-                  ))}
+                {/* Mobile: Structured layout, Desktop: Flex wrap */}
+                <div className="mb-10 z-10 outfit-light">
+                  {/* Mobile Layout */}
+                  <div className="block md:hidden">
+                    {/* First Row */}
+                    <div className="flex justify-center gap-x-[8px] mb-[16px]">
+                      {[
+                        "Brand Identity Design",
+                        "Website Design",
+                        "UI/UX Design",
+                      ].map((tag, idx) => (
+                        <button
+                          key={idx}
+                          className="inline-flex items-center justify-center h-[26px] px-[8px] py-[2px]
+                     text-[12px] font-light border border-[#F52FFF] rounded-full
+                     text-center whitespace-nowrap leading-none text-white"
+                        >
+                          {tag}
+                        </button>
+                      ))}
+                    </div>
+                    
+                    {/* Second Row */}
+                    <div className="flex justify-center gap-x-[8px]">
+                      {[
+                        "Event Branding",
+                        "Office Branding",
+                        "Print & Digital Creatives",
+                      ].map((tag, idx) => (
+                        <button
+                          key={idx}
+                          className="inline-flex items-center justify-center h-[26px] px-[8px] py-[2px]
+                     text-[12px] font-light border border-[#F52FFF] rounded-full
+                     text-center whitespace-nowrap leading-none text-white"
+                        >
+                          {tag}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Desktop Layout */}
+                  <div className="hidden md:block">
+                    <div className="flex flex-wrap justify-center gap-x-[8px] gap-y-[20px] mb-6">
+                      {[
+                        "Brand Identity Design",
+                        "Website Design",
+                        "UI/UX Design",
+                      ].map((tag, idx) => (
+                        <button
+                          key={idx}
+                          className="inline-flex items-center justify-center h-[36px] px-[12px] py-[6px]
+                     text-[20.56px] font-light border border-[#F52FFF] rounded-full
+                     text-center whitespace-nowrap leading-none text-white"
+                        >
+                          {tag}
+                        </button>
+                      ))}
+                    </div>
+
+                    <div className="flex flex-wrap justify-center gap-x-[8px] gap-y-[16px]">
+                      {[
+                        "Event Branding",
+                        "Office Branding",
+                        "Print & Digital Creatives",
+                      ].map((tag, idx) => (
+                        <button
+                          key={idx}
+                          className="inline-flex items-center justify-center h-[36px] px-[12px] py-[6px]
+                     text-[20.56px] font-light border border-[#F52FFF] rounded-full
+                     text-center whitespace-nowrap leading-none text-white"
+                        >
+                          {tag}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
                 </div>
 
                 {/* Explore More Button */}
@@ -1151,7 +1268,7 @@ export default function Services() {
 
               <div className="flex flex-col items-center justify-center mt-[50px] lg:mt-[0]">
                 <h1 className="text-white text-[45px] leading-[50px] lg:leading-[131.5px] petrovsans-semibold md:text-[131.5px] z-10 m-[0]">
-                  Production
+                  Content & Production
                 </h1>
 
                 {/* Paragraph */}
@@ -1159,25 +1276,103 @@ export default function Services() {
                   className="text-white max-sm:[11.74px] md:text-[31.5px] mt-2 mb-[60px] z-10 outfit-light"
                   style={{ letterSpacing: "0.08em", lineHeight: "1.49" }}
                 >
-                  Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed
-                  diam
+                We bring your story to life, crafting impactful content experiences that resonate.
                 </p>
 
-                <div className="flex flex-wrap justify-center gap-x-[8px] gap-y-[12px] mb-2 z-10 outfit-light">
-                  {[
-                    "Growth Marketing",
-                    "Social Media Management Packages",
-                    "SEO Optimization & Ranking",
-                  ].map((tag, idx) => (
-                    <button
-                      key={idx}
-                      className="inline-flex items-center justify-center h-[26px] px-[12px] max-sm:px-[8px]
-                 max-sm:text-[12px] md:text-[20.56px] border border-[#F52FFF] rounded-[13.78px]
-                 text-center whitespace-nowrap leading-none text-white"
-                    >
-                      {tag}
-                    </button>
-                  ))}
+                {/* Mobile: Structured layout, Desktop: Flex wrap */}
+                <div className="mb-10 z-10 outfit-light">
+                  {/* Mobile Layout */}
+                  <div className="block md:hidden">
+                    {/* First Row */}
+                    <div className="flex justify-center gap-x-[8px] mb-[16px]">
+                      {[
+                        "Influencer Marketing",
+                        "Blogs / Articles",
+                      ].map((tag, idx) => (
+                        <button
+                          key={idx}
+                          className="inline-flex items-center justify-center h-[26px] px-[8px] py-[2px]
+                     text-[12px] font-light border border-[#F52FFF] rounded-full
+                     text-center whitespace-nowrap leading-none text-white"
+                        >
+                          {tag}
+                        </button>
+                      ))}
+                    </div>
+                    
+                    {/* Second Row */}
+                    <div className="flex justify-center gap-x-[8px] mb-[16px]">
+                      {[
+                        "Conceptualization of Content",
+                        "Motion Graphics",
+                      ].map((tag, idx) => (
+                        <button
+                          key={idx}
+                          className="inline-flex items-center justify-center h-[26px] px-[8px] py-[2px]
+                     text-[11px] font-light border border-[#F52FFF] rounded-full
+                     text-center whitespace-nowrap leading-none text-white"
+                        >
+                          {tag}
+                        </button>
+                      ))}
+                    </div>
+                    
+                    {/* Third Row */}
+                    <div className="flex justify-center gap-x-[8px]">
+                      {[
+                        "Creative Copywriting",
+                        "Reel Production",
+                        "Video Production",
+                      ].map((tag, idx) => (
+                        <button
+                          key={idx}
+                          className="inline-flex items-center justify-center h-[26px] px-[6px] py-[2px]
+                     text-[10px] font-light border border-[#F52FFF] rounded-full
+                     text-center whitespace-nowrap leading-none text-white"
+                        >
+                          {tag === "Video Production" ? "High Quality Video Production" : tag}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Desktop Layout */}
+                  <div className="hidden md:block">
+                    <div className="flex flex-wrap justify-center gap-x-[8px] gap-y-[20px] mb-6">
+                      {[
+                        "Influencer Marketing",
+                        "Blogs / Articles",
+                        "Conceptualization of Content",
+                        "Motion Graphics",
+                      ].map((tag, idx) => (
+                        <button
+                          key={idx}
+                          className="inline-flex items-center justify-center h-[36px] px-[12px] py-[6px]
+                     text-[20.56px] font-light border border-[#F52FFF] rounded-full
+                     text-center whitespace-nowrap leading-none text-white"
+                        >
+                          {tag}
+                        </button>
+                      ))}
+                    </div>
+
+                    <div className="flex flex-wrap justify-center gap-x-[8px] gap-y-[16px]">
+                      {[
+                        "Creative Copywriting",
+                        "Office High Quality Video Shoot & Production",
+                        "Reel Production",
+                      ].map((tag, idx) => (
+                        <button
+                          key={idx}
+                          className="inline-flex items-center justify-center h-[36px] px-[12px] py-[6px]
+                     text-[20.56px] font-light border border-[#F52FFF] rounded-full
+                     text-center whitespace-nowrap leading-none text-white"
+                        >
+                          {tag}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
                 </div>
 
                 {/* Explore More Button */}
@@ -1229,25 +1424,48 @@ export default function Services() {
                   textAlign: "center",
                 }}
               >
-                Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed
-                diam
+              We convert digital footprints into tangible results, connecting you with your audience and driving results.
               </p>
 
-              <div className="flex flex-wrap justify-center gap-x-[8px] gap-y-[12px] mb-2 z-10 outfit-light">
-                {[
-                  "Growth Marketing",
-                  "Social Media Management Packages",
-                  "SEO Optimization & Ranking",
-                ].map((tag, idx) => (
-                  <button
-                    key={idx}
-                    className="inline-flex items-center justify-center h-[26px] px-[12px] max-sm:px-[8px]
-                 max-sm:text-[12px] md:text-[20.56px] border border-[#F52FFF] rounded-[13.78px]
+              {/* Mobile: 1 row, Desktop: Flex wrap */}
+              <div className="mb-2 z-10 outfit-light">
+                {/* Mobile Layout - Single Row */}
+                <div className="block md:hidden">
+                  <div className="flex justify-center gap-x-[6px]">
+                    {[
+                      "Growth Marketing",
+                      "Social Media Management",
+                      "SEO Optimization",
+                    ].map((tag, idx) => (
+                      <button
+                        key={idx}
+                        className="inline-flex items-center justify-center h-[26px] px-[6px] py-[2px]
+                   text-[10px] font-light border border-[#F52FFF] rounded-full
+                   text-center whitespace-nowrap leading-none text-white"
+                      >
+                        {tag}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Desktop Layout */}
+                <div className="hidden md:flex flex-wrap justify-center gap-x-[8px] gap-y-[20px]">
+                  {[
+                    "Growth Marketing",
+                    "Social Media Management Packages",
+                    "SEO Optimization & Ranking",
+                  ].map((tag, idx) => (
+                    <button
+                      key={idx}
+                      className="inline-flex items-center justify-center h-[36px] px-[12px] py-[6px]
+                 text-[20.56px] font-light border border-[#F52FFF] rounded-full
                  text-center whitespace-nowrap leading-none text-white"
-                  >
-                    {tag}
-                  </button>
-                ))}
+                    >
+                      {tag}
+                    </button>
+                  ))}
+                </div>
               </div>
 
               {/* Explore More Button */}
@@ -1278,8 +1496,8 @@ export default function Services() {
         >
           {/*---------------- Agent Vua Section ---------------------- */}
           <div>
-            <div className="h-[30vh]  lg:h-[100vh] flex flex-col  items-center justify-center">
-              <div className="flex items-center justify-center text-center mb-[10px] lg:mb-[40px]  ">
+            <div className="h-[50vh] md:h-[30vh] lg:h-[100vh] flex flex-col items-center justify-center px-4 md:px-0">
+              <div className="flex items-center justify-center text-center mb-[20px] md:mb-[10px] lg:mb-[40px]">
                 <h1 className=" text-[95px] leading-tight petrovsans-light z-50 ">
                   <span
                     className="hidden lg:block"
@@ -1308,19 +1526,21 @@ export default function Services() {
                 </h1>
               </div>
               <p
-                className="text-[#9259FF] text-[19.6px] text-center hidden  lg:block"
+                className="text-[#9259FF] text-[16px] md:text-[19.6px] text-center px-4 md:px-0 mb-4 md:mb-0"
                 style={{
                   maxWidth: "1176.53px",
                   margin: "0 auto",
                 }}
               >
-                Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed
-                diam nonummy nibh euismod tincidunt ut laoreet dolore magna
-                aliquam erat volutpat. Ut wisi enim ad minim veniam, quis
-                nostrud exerci tation ullamcorper suscipit lobortis nisl ut
-                aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor
-                in hendrerit{" "}
+              Your story deserves more than a slow, costly production cycle.
+              With our AI video engine, you can turn sparks of inspiration into cinematic content-on demand. Whether you're crafting personalized ads or big brand moments, we help you scale creativity without compromise.
               </p>
+              
+              <div className="text-center mt-4 md:mt-6">
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#6210FF] to-[#BE2FF4] text-[18px] md:text-[24px] petrovsans-semibold tracking-wider">
+                  Less waiting. More wow.
+                </span>
+              </div>
             </div>
 
             <div className="relative flex flex-col items-center  max-w-[1272px]  mx-auto mb-32 lg:mt-[-200px]">
@@ -1341,14 +1561,14 @@ export default function Services() {
                 <SVGComponent svgRef={svgRef} />
               </div>
               <div className="text-center lg:bottom-[0]">
-                <h1 className="text-[58.94px] md:text-[131px] md:leading-[150px] petrovsans-semibold text-transparent bg-clip-text bg-gradient-to-r from-[#6210FF] to-[#BE2FF4] lg:mb-0">
+                <h1 className="text-[58.94px] md:text-[131px] md:leading-[150px] petrovsans-semibold text-transparent bg-clip-text bg-gradient-to-r from-[#6210FF] to-[#BE2FF4] mb-6 lg:mb-8">
                   Agent VUA
                 </h1>
 
                 <p className="text-[17px] md:text-[31px] text-[#BE2FF4] outfit-light px-4 py-2 lg:py-0 mb-14">
-                  AI Powered telecalling agent to seamlessly handle{" "}
+                  AI Powered Calling Agent for all your{" "}
                   <span className="md:block">
-                    all your inbound & outbound call
+                  Pre-Sales / Post-Sales & Customer Support Requirements
                   </span>
                 </p>
 
@@ -1360,28 +1580,33 @@ export default function Services() {
                     The Impact of Agent Vua
                   </h1>
 
-                  <div className="lg:grid lg:grid-cols-3 text-white gap-2 md:gap-7 text-center">
+                  <div className="lg:grid lg:grid-cols-4 text-white gap-2 md:gap-7 text-center">
                     <div className="py-[20px] px-1 md:px-2  border-b border-white-500 lg:border-0">
                       <h3 className="text-[19px] md:text-[35.04px] outfit-light leading-tight">
-                        Integrate With
-                        <br />
-                        Your CRM
+                        AI Powered, Human like conversations
                       </h3>
                     </div>
                     <div className="py-[20px] px-1 md:px-2 border-b border-white-500 lg:border-0">
                       <h3 className="text-[19px] md:text-[35.04px] outfit-light leading-tight">
-                        Integrated
-                        <br />
-                        Virtual Numbers
+                        Real time objection handling
+                      </h3>
+                    </div>
+                    <div className="py-[20px] px-1 md:px-2 border-b border-white-500 lg:border-0">
+                      <h3 className="text-[19px] md:text-[35.04px] outfit-light leading-tight">
+                        CRM Integrated
                       </h3>
                     </div>
                     <div className="py-[20px] px-1 md:px-2">
                       <h3 className="text-[19px] md:text-[35.04px] outfit-light leading-tight">
-                        Automate Pre-Sales/ Customers Support Process
+                        Available 24*7
                       </h3>
                     </div>
                   </div>
                 </div>
+                
+                <p className="text-[17px] md:text-[31px] text-[#BE2FF4] outfit-light text-center mt-8 md:mt-12">
+                  Agent Vua can breakeven at the cost of just 5 Agents
+                </p>
               </div>
             </div>
           </div>

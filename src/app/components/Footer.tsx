@@ -92,22 +92,22 @@ export default function Footer() {
             className='text-white'>
             Home
           </Link>
-          {/* <Link
-            href='/Services'
+          <Link
+            href='/services'
             className='text-white'>
             Services
-          </Link>*/}
+          </Link>
           <Link
             href='/About'
             className='text-white'>
-            About
+            About Us
           </Link>
            {/*<a href='#'>Work</a> 
           <a href='#'>Culture</a> */}
           <Link
             href='/contact'
             className='text-white'>
-            Contact
+            Contact Us
           </Link>
           <Link
             href='/privacy-policy'

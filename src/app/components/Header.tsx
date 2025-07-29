@@ -99,12 +99,14 @@ export default function Header() {
 
   // Navigation links array
   const navLinks = [
-    { title: "Services", href: "/services" },
+       { title: "Home", href: "/" },
+     { title: "Services", href: "/services" },
     // { title: "Product", href: "/product" },
-    { title: "About Us", href: "/About" },
+     { title: "About Us", href: "/About"  },
     // { title: "Work", href: "/work" },
     // { title: "Culture", href: "/culture" },
-    { title: "Contact Us", href: "/contact" },
+     { title: "Contact Us", href: "/contact" },
+      { title: "Privacy Policy", href: "/privacy-policy" },  
   ];
 
   return (

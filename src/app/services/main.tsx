@@ -881,22 +881,7 @@ export default function Services() {
     <section>
       <section
         className="z-10 bg-[black]"
-        style={
-          isDesktop
-            ? {
-                overflowY: loaderFinished ? "visible" : "hidden",
-                height: loaderFinished ? "auto" : "100vh",
-                position: loaderFinished ? "static" : "fixed",
-
-                overflowX: "hidden",
-              }
-            : {
-                overflowY: "visible",
-                height: "auto",
-                position: "static",
-                overflowX: "hidden",
-              }
-        }
+       
       >
         <section className="max-sm:px-[22px] relative flex flex-col items-center justify-center text-center overflow-hidden bg-[#6210ff] ">
           <div

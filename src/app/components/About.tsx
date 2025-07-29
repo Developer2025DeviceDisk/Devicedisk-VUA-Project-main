@@ -5,6 +5,7 @@ import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import { RingScene } from "../About/Scene";
 import * as THREE from "three";
+import Lenis from "@studio-freight/lenis";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -63,6 +64,13 @@ export default function About() {
 
   useEffect(() => {
     // Parallax effect for the background image
+
+    let lenis: any = null;
+    lenis = new Lenis();
+    lenis.on("scroll", ScrollTrigger.update);
+    gsap.ticker.add((time) => lenis.raf(time * 1000));
+    gsap.ticker.lagSmoothing(0);
+
     gsap.to(imageRef.current, {
       y: () => (window.innerWidth < 768 ? -80 : -150), // move upward in pixels
       ease: "none",

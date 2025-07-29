@@ -7,6 +7,7 @@ import {
   faFacebookF,
   faInstagram,
   faBehance,
+  faYoutube,
 } from '@fortawesome/free-brands-svg-icons';
 import { useState } from 'react';
 
@@ -80,6 +81,13 @@ export default function Footer() {
                 target='_blank'
                 className='bg-white text-[#6210FF] w-10 h-10 flex items-center justify-center rounded-full text-xl hover:scale-110 transition'>
                 <FontAwesomeIcon icon={faBehance} />
+              </a>
+
+                 <a
+                href='http://www.youtube.com/@VVWorx'
+                target='_blank'
+                className='bg-white text-[#6210FF] w-10 h-10 flex items-center justify-center rounded-full text-xl hover:scale-110 transition'>
+                <FontAwesomeIcon icon={faYoutube} />
               </a>
             </div>
           </div>

@@ -53,12 +53,23 @@ export const WithGenericLoader = ({ children }: { children: ReactNode }) => {
     handleLoad();
   }, []); // Add all loading states as dependencies
 
+  const loaderFinished = !showOverlay;
+
   return (
-    <div className="relative">
+    <div 
+      className="relative"
+      style={{
+        overflowY: loaderFinished ? "visible" : "hidden",
+        height: loaderFinished ? "auto" : "100lvh",
+        position: loaderFinished ? "static" : "fixed",
+        overflowX: "hidden",
+        zIndex: 1000,
+      }}
+    >
       {children}
 
       {showOverlay && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-purple-900 bg-opacity-95 backdrop-blur-sm">
+        <div className="fixed inset-0 z-50 flex items-center justify-center h-[100lvh] bg-purple-900 bg-opacity-95 backdrop-blur-sm">
           <div className="text-center max-w-md">
             {loadingAnimationData && (
               <div className="w-[100vw] h-[100vh] mx-auto mb-6 absolute top-[30%] left-[0] lg:top-[0] lg:left-[0] items-center justify-center">

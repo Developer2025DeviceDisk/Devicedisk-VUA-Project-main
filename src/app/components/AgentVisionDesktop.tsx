@@ -7,14 +7,19 @@ interface AgentVisionDesktopProps {
   videoLeftOne: React.RefObject<any>;
   videoLeftTwo: React.RefObject<any>;
   videoLeftThree: React.RefObject<any>;
+  content?: any;
 }
 
 export default function AgentVisionDesktop({
   agentVisionRef,
   videoLeftOne,
   videoLeftTwo,
-  videoLeftThree
+  videoLeftThree,
+  content
 }: AgentVisionDesktopProps) {
+
+  console.log('content?.videos :', content?.videos)
+
   return (
     <section className="hidden lg:block">
       <div
@@ -65,7 +70,7 @@ export default function AgentVisionDesktop({
                     overflow: "hidden",
                   }}
                 >
-                            {["/agentVision/4.mp4", "/agentVision/6.mp4"].map(
+                            {(content?.videos?.agentVisionVideoThree || ["/agentVision/4.mp4", "/agentVision/6.mp4"]).map(
                     (iem) => (
                       <video
                         key={iem}
@@ -125,7 +130,7 @@ export default function AgentVisionDesktop({
                     overflow: "hidden",
                   }}
                 >
-                                   {["/agentVision/2.mp4", "/agentVision/3.mp4"].map(
+                                   {(content?.videos?.agentVisionVideoTwo || ["/agentVision/2.mp4", "/agentVision/3.mp4"]).map(
                     (item) => (
                       <video
                         className="absolute top-[0] left-[0]  w-full h-full object-cover rounded-lg"
@@ -212,7 +217,7 @@ export default function AgentVisionDesktop({
                 overflow: "hidden",
               }}
             >
-              {["/agentVision/1.mp4", "/agentVision/5.mp4"].map(
+              {(content?.videos?.agentVisionVideoOne || ["/agentVision/1.mp4", "/agentVision/5.mp4"]).map(
                 (item) => (
                   <video
                     className="absolute top-[0] left-[0]  w-full h-full object-cover rounded-lg"

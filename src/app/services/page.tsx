@@ -4,11 +4,61 @@ import { AssetProvider, useAssets } from "@/contexts/AssetProvider";
 import Lottie from "lottie-react";
 import Services from "./main";
 
+// Default content fallback
+const defaultContent = {
+  headerTitle: "Your 360° Growth Engine",
+  headerDescription: "We are India-UAE focused Tech-infused brand marketing agency offering an exhaustive services portfolio in Go-To-Market Strategy Development, Branding & Creative Solutions, AI-backed Performance & Social Media Marketing, and MarTech Automation. Founded by industry veterans, we are a passionate team offering scalable marketing solutions with a data-driven approach with presence in Mumbai, Pune and Dubai.",
+  strategyTitle: "Strategy",
+  strategyDescription: "We translate your aspirations into a precise and actionable blueprint for achieving your goals.",
+  strategyServices: ["GTM Strategy", "Brand Strategy", "Brand Voice", "Campaign Strategy", "PR Strategy", "Social Media Strategy"],
+  brandingTitle: "Branding & Design",
+  brandingDescription: "We transform your vision into a tangible and impactful brand experience.",
+  brandingServices: ["Brand Identity Design", "Website Design", "UI/UX Design", "Event Branding", "Office Branding", "Print & Digital Creatives"],
+  contentTitle: "Content & Production",
+  contentDescription: "We bring your story to life, crafting impactful content experiences that resonate.",
+  contentServices: ["Influencer Marketing", "Blogs / Articles", "Conceptualization of Content", "Motion Graphics", "Creative Copywriting", "Reel Production", "High Quality Video Production"],
+  digitalTitle: "Digital Marketing",
+  digitalDescription: "We convert digital footprints into tangible results, connecting you with your audience and driving results.",
+  digitalServices: ["Growth Marketing", "Social Media Management", "SEO Optimization"],
+  techSolutionsTitle: "Technological Solution",
+  techSolutionsDescription: "Your story deserves more than a slow, costly production cycle. With our AI video engine, you can turn sparks of inspiration into cinematic content-on demand. Whether you're crafting personalized ads or big brand moments, we help you scale creativity without compromise.",
+  techSolutionsTagline: "Less waiting. More wow.",
+  agentVUATitle: "Agent VUA",
+  agentVUADescription: "AI Powered Calling Agent for all your Pre-Sales / Post-Sales & Customer Support Requirements",
+  agentVUATagline: "Agent Vua can breakeven at the cost of just 5 Agents",
+  agentXRTitle: "Agent XR",
+  agentXRDescription: "Don't leave it to their imagination, immerse them in the experience",
+  videos: {
+    agentVision4: "/agentVision/4.mp4",
+    agentVision6: "/agentVision/6.mp4"
+  }
+};
+
 function AppWithAssets() {
   const [showOverlay, setShowOverlay] = useState(true);
   const [loadingAnimationData, setLoadingAnimationData] = useState(null);
+  const [servicesContent, setServicesContent] = useState(defaultContent);
   const { jigjawLoaded, springLoaded, cloudLoaded, vrLoaded, allAssetsLoaded } =
     useAssets();
+
+  // Fetch services content from API
+  useEffect(() => {
+    const fetchServicesContent = async () => {
+      try {
+        const response = await fetch('http://localhost:8000/api/services-content/active');
+        const result = await response.json();
+        
+        if (result.success && result.data) {
+          setServicesContent(result.data);
+        }
+      } catch (error) {
+        console.warn('Failed to load services content from API, using default:', error);
+        // Keep default content if API fails
+      }
+    };
+
+    fetchServicesContent();
+  }, []);
 
   useEffect(() => {
     fetch("/3D/LoadingAnimation2.json")
@@ -89,7 +139,7 @@ function AppWithAssets() {
         zIndex: 1000
       }}
     >
-      <Services />
+      <Services content={servicesContent} />
 
       {showOverlay && (
         <div className="fixed inset-0 z-50 flex items-center h-[100lvh] justify-center bg-purple-900 bg-opacity-95 backdrop-blur-sm">

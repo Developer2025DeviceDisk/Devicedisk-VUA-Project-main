@@ -8,6 +8,7 @@ interface TechnologicalSolutionsProps {
   agentVisionMobileVideoTwo: React.RefObject<any>;
   agentVisionMobileTwoContainer: React.RefObject<any>;
   agentVisionMobileVideoThree: React.RefObject<any>;
+  content?: any;
 }
 
 // Custom hook for intersection observer (keep only this for video loading)
@@ -41,7 +42,8 @@ export default function TechnologicalSolutions({
   agentVisionMobileVideoOne,
   agentVisionMobileVideoTwo,
   agentVisionMobileTwoContainer,
-  agentVisionMobileVideoThree
+  agentVisionMobileVideoThree,
+  content
 }: TechnologicalSolutionsProps) {
   // Remove the duplicate refs since they're now passed as props
 
@@ -72,7 +74,7 @@ export default function TechnologicalSolutions({
             }}
           >
             <h1 className="text-[58.94px] m-[0] leading-tight petrovsans-semibold text-transparent bg-clip-text bg-gradient-to-r from-[#6210FF] to-[#BE2FF4]">
-              Agent Vision
+              {content?.agentVisionTitle || "Agent Vision"}
             </h1>
 
             <p
@@ -81,7 +83,7 @@ export default function TechnologicalSolutions({
               }}
               className="text-[16px] text-[#BE2FF4] px-4 outfit-light"
             >
-              Fast, affordable <br /> production quality films
+              {content?.agentVisionDescription || "Fast, affordable production quality films"}
             </p>
           </div>
 
@@ -98,7 +100,7 @@ export default function TechnologicalSolutions({
             }}
           >
             { 
-              ["/agentVision/2.mp4", "/agentVision/3.mp4"].map((iem) => (
+              (content?.videos?.agentVisionVideoTwo || ["/agentVision/2.mp4", "/agentVision/3.mp4"]).map((iem) => (
                 <video
                   key={iem}
                   className="absolute top-[0] left-[0]  w-full h-full object-cover rounded-lg"
@@ -127,7 +129,7 @@ export default function TechnologicalSolutions({
             }}
           >
             {
-              ["/agentVision/4.mp4", "/agentVision/6.mp4"].map((iem) => (
+              (content?.videos?.agentVisionVideoThree || ["/agentVision/4.mp4", "/agentVision/6.mp4"]).map((iem) => (
                 <video
                   key={iem}
                   className="absolute top-[0] left-[0]  w-full h-full object-cover rounded-lg"
@@ -169,7 +171,7 @@ export default function TechnologicalSolutions({
             ref={agentVisionMobileVideoThree}
           >
             {
-              ["/agentVision/1.mp4", "/agentVision/5.mp4"].map((iem) => (
+              (content?.videos?.agentVisionVideoOne || ["/agentVision/1.mp4", "/agentVision/5.mp4"]).map((iem) => (
                 <video
                   key={iem}
                   className="absolute top-[0] left-[0]  w-full h-full object-cover rounded-lg"

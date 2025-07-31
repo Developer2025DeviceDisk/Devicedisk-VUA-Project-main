@@ -2,13 +2,37 @@
 
 import React, { useRef, useState, useEffect } from 'react';
 
+interface StatisticItem {
+  value: string;
+  description: string;
+}
+
+interface VideoLabels {
+  launchVideos: string;
+  productionFilms: string;
+  reelContent: string;
+  projectWalkthroughs: string;
+}
+
+interface AgentVisionContent {
+  agentVisionTitle?: string;
+  agentVisionDescription?: string;
+  agentVisionVideoLabels?: VideoLabels;
+  agentVisionStats?: StatisticItem[];
+  videos?: {
+    agentVisionVideoOne?: string[];
+    agentVisionVideoTwo?: string[];
+    agentVisionVideoThree?: string[];
+  };
+}
+
 interface TechnologicalSolutionsProps {
   agentVisionMobileOneContainer: React.RefObject<any>;
   agentVisionMobileVideoOne: React.RefObject<any>;
   agentVisionMobileVideoTwo: React.RefObject<any>;
   agentVisionMobileTwoContainer: React.RefObject<any>;
   agentVisionMobileVideoThree: React.RefObject<any>;
-  content?: any;
+  content?: AgentVisionContent;
 }
 
 // Custom hook for intersection observer (keep only this for video loading)
@@ -45,7 +69,43 @@ export default function TechnologicalSolutions({
   agentVisionMobileVideoThree,
   content
 }: TechnologicalSolutionsProps) {
-  // Remove the duplicate refs since they're now passed as props
+
+  // Default content if none provided
+  const defaultContent: AgentVisionContent = {
+    agentVisionTitle: "Agent Vision",
+    agentVisionDescription: "Fast, affordable production quality films",
+    agentVisionVideoLabels: {
+      launchVideos: "Launch Videos",
+      productionFilms: "Production & films",
+      reelContent: "Reel/content generation",
+      projectWalkthroughs: "Project walkthroughs"
+    },
+    agentVisionStats: [
+      {
+        value: "10%",
+        description: "Production\nBudget"
+      },
+      {
+        value: "50X",
+        description: "Faster time\nto market"
+      },
+      {
+        value: "100%",
+        description: "Realistic\nfootage"
+      }
+    ]
+  };
+
+  const agentVisionContent = {
+    ...defaultContent,
+    agentVisionTitle: content?.agentVisionTitle || defaultContent.agentVisionTitle,
+    agentVisionDescription: content?.agentVisionDescription || defaultContent.agentVisionDescription,
+    agentVisionVideoLabels: {
+      ...defaultContent.agentVisionVideoLabels,
+      ...content?.agentVisionVideoLabels
+    },
+    agentVisionStats: content?.agentVisionStats || defaultContent.agentVisionStats
+  };
 
   return (
     <section
@@ -74,7 +134,7 @@ export default function TechnologicalSolutions({
             }}
           >
             <h1 className="text-[58.94px] m-[0] leading-tight petrovsans-semibold text-transparent bg-clip-text bg-gradient-to-r from-[#6210FF] to-[#BE2FF4]">
-              {content?.agentVisionTitle || "Agent Vision"}
+              {agentVisionContent.agentVisionTitle}
             </h1>
 
             <p
@@ -83,7 +143,7 @@ export default function TechnologicalSolutions({
               }}
               className="text-[16px] text-[#BE2FF4] px-4 outfit-light"
             >
-              {content?.agentVisionDescription || "Fast, affordable production quality films"}
+              {agentVisionContent.agentVisionDescription}
             </p>
           </div>
 
@@ -201,51 +261,36 @@ export default function TechnologicalSolutions({
             }}
           >
             <h3 className="text-[32px] leading-tight petrovsans-normal text-white">
-              Project walkthroughs
+              {agentVisionContent.agentVisionVideoLabels?.projectWalkthroughs}
             </h3>
             <h3 className="text-[32px] leading-tight petrovsans-normal text-white">
-              Launch Videos
+              {agentVisionContent.agentVisionVideoLabels?.launchVideos}
             </h3>
             <h3 className="text-[32px] leading-tight petrovsans-normal text-white">
-              Reel/content generation
+              {agentVisionContent.agentVisionVideoLabels?.reelContent}
             </h3>
             <h3 className="text-[32px] leading-tight petrovsans-normal text-white">
-              Production & films
+              {agentVisionContent.agentVisionVideoLabels?.productionFilms}
             </h3>
           </div>
         </div>
         <div className="text-center lg:hidden">
           <div className="text-center px-4 leading-none">
-            <div className="py-[40px]">
-              <h1 className="text-[57.49px]  petrovsans-semibold text-transparent bg-clip-text bg-gradient-to-r from-[#6210FF] to-[#BE2FF4] mb-4">
-                10%
-              </h1>
-              <p className="text-white text-[30.99px]  outfit-light">
-                Production
-                <br />
-                Budget
-              </p>
-            </div>
-            <div className="py-[40px]">
-              <h1 className="text-[57.49px]  petrovsans-semibold text-transparent bg-clip-text bg-gradient-to-r from-[#6210FF] to-[#BE2FF4] mb-4">
-                50X
-              </h1>
-              <p className="text-white text-[30.99px]  outfit-light">
-                Faster time
-                <br />
-                to market
-              </p>
-            </div>
-            <div className="py-[40px]">
-              <h1 className="text-[57.49px]  petrovsans-semibold text-transparent bg-clip-text bg-gradient-to-r from-[#6210FF] to-[#BE2FF4] mb-4">
-                100%
-              </h1>
-              <p className="text-white text-[30.99px]  outfit-light">
-                Realistic
-                <br />
-                footage
-              </p>
-            </div>
+            {(agentVisionContent.agentVisionStats || []).map((stat, index) => (
+              <div key={index} className="py-[40px]">
+                <h1 className="text-[57.49px]  petrovsans-semibold text-transparent bg-clip-text bg-gradient-to-r from-[#6210FF] to-[#BE2FF4] mb-4">
+                  {stat.value}
+                </h1>
+                <p className="text-white text-[30.99px]  outfit-light">
+                  {stat.description.split('\n').map((line, lineIndex) => (
+                    <React.Fragment key={lineIndex}>
+                      {line}
+                      {lineIndex < stat.description.split('\n').length - 1 && <br />}
+                    </React.Fragment>
+                  ))}
+                </p>
+              </div>
+            ))}
           </div>
         </div>
       </section>

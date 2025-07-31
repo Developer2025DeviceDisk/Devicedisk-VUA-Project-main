@@ -4,6 +4,7 @@ import {
   Environment,
 } from "@react-three/drei";
 import { JigJawModel } from "./modal";
+import { Suspense } from "react";
 
 export const SceneJigJaw = ({ ...props }: any) => {
   return (
@@ -20,7 +21,9 @@ export const SceneJigJaw = ({ ...props }: any) => {
       <JigJawModel {...props} />
       <ambientLight intensity={1} position={[1, 4, 10]} />
       {/* @ts-ignore */}
-      <Environment preset="sunset" environmentRotation={[1, 2, 1]} />
+       <Suspense fallback={null}>
+      <Environment files="/hdri/sunset_small_03_1k.hdr" environmentRotation={[1, 2, 1]} />
+      </Suspense>
     </Canvas>
   );
 };

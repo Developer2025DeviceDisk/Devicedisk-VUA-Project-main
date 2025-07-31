@@ -13,7 +13,9 @@ export const VRScene = ({ vrOneRef, vrGroupRef, vrModalContainer }) => {
         dpr={1}
         performance={{ min: 0.2 }}
       >
-        <Environment preset="studio" />
+        <Suspense fallback={null}>
+          <Environment files="/hdri/studio_small_03_1k.hdr" />
+        </Suspense>
         <VRModel vrGroupRef={vrGroupRef} vrOne={vrOneRef} />
       </Canvas>
     </div>

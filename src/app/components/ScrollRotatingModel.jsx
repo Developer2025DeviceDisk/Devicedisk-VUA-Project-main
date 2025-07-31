@@ -360,7 +360,7 @@ export default function ScrollRotatingModel({ scrollYProgress }) {
         )}
       </PerspectiveCamera>
 
-      <Environment preset="city" background={true}>
+      <Environment files="/hdri/city_small_03_1k.hdr" background={true}>
         <Lightformer intensity={1} position={[10, 5, 0]} scale={[10, 50, 1]} />
       </Environment>
       {/* <OrbitControls /> */}

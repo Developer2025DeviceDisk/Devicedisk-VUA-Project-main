@@ -2,6 +2,7 @@
 import { Canvas } from "@react-three/fiber";
 import { Environment } from "@react-three/drei";
 import { GlassModel } from "./Modal";
+import { Suspense } from "react";
 
 export const RingScene = ({ ...props }) => {
   return (
@@ -14,7 +15,9 @@ export const RingScene = ({ ...props }) => {
     >
       <color attach="background" args={["#6310FF"]} />
       <GlassModel {...props} />
-      <Environment preset="sunset" backgroundRotation={[1, 3, 3]} />
+             <Suspense fallback={null}>
+      <Environment files="/hdri/sunset_small_03_1k.hdr" backgroundRotation={[1, 3, 3]} />
+      </Suspense>
     </Canvas>
   );
 };

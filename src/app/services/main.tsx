@@ -25,7 +25,11 @@ const mapProgress = (progress, completeAt = 0.1, from = 0.8, to = -0.5) => {
   return from + (to - from) * t;
 };
 
-export default function Services() {
+interface ServicesProps {
+  content?: any;
+}
+
+export default function Services({ content }: ServicesProps) {
   const headerRef = useRef<any>(null);
   const headerTitleRef = useRef<any>(null);
   const headerSubTitleRef = useRef<any>(null);
@@ -879,10 +883,7 @@ export default function Services() {
 
   return (
     <section>
-      <section
-        className="z-10 bg-[black]"
-       
-      >
+      <section className="z-10 bg-[black]">
         <section className="max-sm:px-[22px] relative flex flex-col items-center justify-center text-center overflow-hidden bg-[#6210ff] ">
           <div
             ref={headerRef}
@@ -963,8 +964,7 @@ export default function Services() {
                 ref={headerTitleRef}
                 className="text-white petrovsans-book max-sm:text-[45px] md:text-[94px] max-sm:mb-[100px] md:mb-[60px] z-10 max-sm:leading-[55px] md:leading-[122.8px] "
               >
-                <span className="max-sm:block md:inline">Your 360°</span>{" "}
-                <span className="max-sm:block md:inline">Growth Engine</span>
+                {content?.headerTitle || "Your 360° Growth Engine"}
               </h1>
 
               <p
@@ -972,7 +972,8 @@ export default function Services() {
                 className="text-white justify-center mx-[10px] max-w-6xl z-10 max-sm:text-[16px] md:text-[19.69px] leading-[1.49] text-justify outfit-light"
                 style={{ letterSpacing: "0.08em", lineHeight: "1.49" }}
               >
-              We are India-UAE focused Tech-infused brand marketing agency offering an exhaustive services portfolio in Go-To-Market Strategy Development, Branding & Creative Solutions, AI-backed Performance & Social Media Marketing, and MarTech Automation. Founded by industry veterans, we are a passionate team offering scalable marketing solutions with a data-driven approach with presence in Mumbai, Pune and Dubai.
+                {content?.headerDescription ||
+                  "We are India-UAE focused Tech-infused brand marketing agency offering an exhaustive services portfolio in Go-To-Market Strategy Development, Branding & Creative Solutions, AI-backed Performance & Social Media Marketing, and MarTech Automation. Founded by industry veterans, we are a passionate team offering scalable marketing solutions with a data-driven approach with presence in Mumbai, Pune and Dubai."}
               </p>
             </div>
           </div>
@@ -1005,7 +1006,7 @@ export default function Services() {
 
               <div className="flex flex-col items-center justify-center">
                 <h1 className="text-white text-[45px] leading-[50px] lg:leading-[135px] mb-[10px] petrovsans-semibold md:text-[131.5px] z-10">
-                  Strategy
+                  {content?.strategyTitle || "Strategy"}
                 </h1>
 
                 {/* Paragraph */}
@@ -1013,7 +1014,8 @@ export default function Services() {
                   className="text-white max-sm:[11.74px] md:text-[31.5px] mb-[60px] z-10 outfit-light"
                   style={{ letterSpacing: "0.08em", lineHeight: "1.49" }}
                 >
-                  We translate your aspirations into a precise and actionable blueprint for achieving your goals.
+                  {content?.strategyDescription ||
+                    "We translate your aspirations into a precise and actionable blueprint for achieving your goals."}
                 </p>
 
                 {/* Mobile: Structured layout, Desktop: Flex wrap */}
@@ -1022,11 +1024,13 @@ export default function Services() {
                   <div className="block md:hidden">
                     {/* First Row */}
                     <div className="flex justify-center gap-x-[8px] mb-[16px]">
-                      {[
-                        "GTM Strategy",
-                        "Brand Strategy",
-                        "Brand Voice",
-                      ].map((tag, idx) => (
+                      {(
+                        content?.strategyServices?.slice(0, 3) || [
+                          "GTM Strategy",
+                          "Brand Strategy",
+                          "Brand Voice",
+                        ]
+                      ).map((tag, idx) => (
                         <button
                           key={idx}
                           className="inline-flex items-center justify-center h-[26px] px-[8px] py-[2px]
@@ -1037,14 +1041,16 @@ export default function Services() {
                         </button>
                       ))}
                     </div>
-                    
+
                     {/* Second Row */}
                     <div className="flex justify-center gap-x-[8px]">
-                      {[
-                        "Campaign Strategy",
-                        "PR Strategy",
-                        "Social Media Strategy",
-                      ].map((tag, idx) => (
+                      {(
+                        content?.strategyServices?.slice(3, 6) || [
+                          "Campaign Strategy",
+                          "PR Strategy",
+                          "Social Media Strategy",
+                        ]
+                      ).map((tag, idx) => (
                         <button
                           key={idx}
                           className="inline-flex items-center justify-center h-[26px] px-[8px] py-[2px]
@@ -1060,11 +1066,13 @@ export default function Services() {
                   {/* Desktop Layout */}
                   <div className="hidden md:block">
                     <div className="flex flex-wrap justify-center gap-x-[8px] gap-y-[20px] mb-6">
-                      {[
-                        "GTM Strategy",
-                        "Brand Strategy",
-                        "Brand Voice",
-                      ].map((tag, idx) => (
+                      {(
+                        content?.strategyServices?.slice(0, 3) || [
+                          "GTM Strategy",
+                          "Brand Strategy",
+                          "Brand Voice",
+                        ]
+                      ).map((tag, idx) => (
                         <button
                           key={idx}
                           className="inline-flex items-center justify-center h-[36px] px-[12px] py-[6px]
@@ -1077,11 +1085,13 @@ export default function Services() {
                     </div>
 
                     <div className="flex flex-wrap justify-center gap-x-[8px] gap-y-[16px]">
-                      {[
-                        "Campaign Strategy",
-                        "PR Strategy",
-                        "Social Media Strategy",
-                      ].map((tag, idx) => (
+                      {(
+                        content?.strategyServices?.slice(3, 6) || [
+                          "Campaign Strategy",
+                          "PR Strategy",
+                          "Social Media Strategy",
+                        ]
+                      ).map((tag, idx) => (
                         <button
                           key={idx}
                           className="inline-flex items-center justify-center h-[36px] px-[12px] py-[6px]
@@ -1129,7 +1139,7 @@ export default function Services() {
 
               <div className="flex flex-col items-center justify-center">
                 <h1 className="text-white text-[45px] leading-[50px] mb-[10px] petrovsans-semibold md:text-[126.5px] z-10 lg:leading-[126px] ">
-                  Branding & Design
+                  {content?.brandingTitle || "Branding & Design"}
                 </h1>
 
                 {/* Paragraph */}
@@ -1137,7 +1147,8 @@ export default function Services() {
                   className="text-white max-sm:[11.74px] md:text-[31.5px] mt-[10px] lg:mt-[0] mb-[60px] z-10 outfit-light"
                   style={{ letterSpacing: "0.08em", lineHeight: "1.49" }}
                 >
-                We transform your vision into a tangible and impactful brand experience.
+                  {content?.brandingDescription ||
+                    "We transform your vision into a tangible and impactful brand experience."}
                 </p>
 
                 {/* Mobile: Structured layout, Desktop: Flex wrap */}
@@ -1146,11 +1157,13 @@ export default function Services() {
                   <div className="block md:hidden">
                     {/* First Row */}
                     <div className="flex justify-center gap-x-[8px] mb-[16px]">
-                      {[
-                        "Brand Identity Design",
-                        "Website Design",
-                        "UI/UX Design",
-                      ].map((tag, idx) => (
+                      {(
+                        content?.brandingServices?.slice(0, 3) || [
+                          "Brand Identity Design",
+                          "Website Design",
+                          "UI/UX Design",
+                        ]
+                      ).map((tag, idx) => (
                         <button
                           key={idx}
                           className="inline-flex items-center justify-center h-[26px] px-[8px] py-[2px]
@@ -1161,14 +1174,16 @@ export default function Services() {
                         </button>
                       ))}
                     </div>
-                    
+
                     {/* Second Row */}
                     <div className="flex justify-center gap-x-[8px]">
-                      {[
-                        "Event Branding",
-                        "Office Branding",
-                        "Print & Digital Creatives",
-                      ].map((tag, idx) => (
+                      {(
+                        content?.brandingServices?.slice(3, 6) || [
+                          "Event Branding",
+                          "Office Branding",
+                          "Print & Digital Creatives",
+                        ]
+                      ).map((tag, idx) => (
                         <button
                           key={idx}
                           className="inline-flex items-center justify-center h-[26px] px-[8px] py-[2px]
@@ -1184,11 +1199,13 @@ export default function Services() {
                   {/* Desktop Layout */}
                   <div className="hidden md:block">
                     <div className="flex flex-wrap justify-center gap-x-[8px] gap-y-[20px] mb-6">
-                      {[
-                        "Brand Identity Design",
-                        "Website Design",
-                        "UI/UX Design",
-                      ].map((tag, idx) => (
+                      {(
+                        content?.brandingServices?.slice(0, 3) || [
+                          "Brand Identity Design",
+                          "Website Design",
+                          "UI/UX Design",
+                        ]
+                      ).map((tag, idx) => (
                         <button
                           key={idx}
                           className="inline-flex items-center justify-center h-[36px] px-[12px] py-[6px]
@@ -1201,11 +1218,13 @@ export default function Services() {
                     </div>
 
                     <div className="flex flex-wrap justify-center gap-x-[8px] gap-y-[16px]">
-                      {[
-                        "Event Branding",
-                        "Office Branding",
-                        "Print & Digital Creatives",
-                      ].map((tag, idx) => (
+                      {(
+                        content?.brandingServices?.slice(3, 6) || [
+                          "Event Branding",
+                          "Office Branding",
+                          "Print & Digital Creatives",
+                        ]
+                      ).map((tag, idx) => (
                         <button
                           key={idx}
                           className="inline-flex items-center justify-center h-[36px] px-[12px] py-[6px]
@@ -1253,7 +1272,7 @@ export default function Services() {
 
               <div className="flex flex-col items-center justify-center mt-[50px] lg:mt-[0]">
                 <h1 className="text-white text-[45px] leading-[50px] lg:leading-[131.5px] petrovsans-semibold md:text-[131.5px] z-10 m-[0]">
-                  Content & Production
+                  {content?.contentTitle || "Content & Production"}
                 </h1>
 
                 {/* Paragraph */}
@@ -1261,7 +1280,8 @@ export default function Services() {
                   className="text-white max-sm:[11.74px] md:text-[31.5px] mt-2 mb-[60px] z-10 outfit-light"
                   style={{ letterSpacing: "0.08em", lineHeight: "1.49" }}
                 >
-                We bring your story to life, crafting impactful content experiences that resonate.
+                  {content?.contentDescription ||
+                    "We bring your story to life, crafting impactful content experiences that resonate."}
                 </p>
 
                 {/* Mobile: Structured layout, Desktop: Flex wrap */}
@@ -1270,10 +1290,12 @@ export default function Services() {
                   <div className="block md:hidden">
                     {/* First Row */}
                     <div className="flex justify-center gap-x-[8px] mb-[16px]">
-                      {[
-                        "Influencer Marketing",
-                        "Blogs / Articles",
-                      ].map((tag, idx) => (
+                      {(
+                        content?.contentServices?.slice(0, 2) || [
+                          "Influencer Marketing",
+                          "Blogs / Articles",
+                        ]
+                      ).map((tag, idx) => (
                         <button
                           key={idx}
                           className="inline-flex items-center justify-center h-[26px] px-[8px] py-[2px]
@@ -1284,13 +1306,15 @@ export default function Services() {
                         </button>
                       ))}
                     </div>
-                    
+
                     {/* Second Row */}
                     <div className="flex justify-center gap-x-[8px] mb-[16px]">
-                      {[
-                        "Conceptualization of Content",
-                        "Motion Graphics",
-                      ].map((tag, idx) => (
+                      {(
+                        content?.contentServices?.slice(2, 4) || [
+                          "Conceptualization of Content",
+                          "Motion Graphics",
+                        ]
+                      ).map((tag, idx) => (
                         <button
                           key={idx}
                           className="inline-flex items-center justify-center h-[26px] px-[8px] py-[2px]
@@ -1301,21 +1325,23 @@ export default function Services() {
                         </button>
                       ))}
                     </div>
-                    
+
                     {/* Third Row */}
                     <div className="flex justify-center gap-x-[8px]">
-                      {[
-                        "Creative Copywriting",
-                        "Reel Production",
-                        "Video Production",
-                      ].map((tag, idx) => (
+                      {(
+                        content?.contentServices?.slice(4, 7) || [
+                          "Creative Copywriting",
+                          "Reel Production",
+                          "Video Production",
+                        ]
+                      ).map((tag, idx) => (
                         <button
                           key={idx}
                           className="inline-flex items-center justify-center h-[26px] px-[6px] py-[2px]
                      text-[10px] font-light border border-[#F52FFF] rounded-full
                      text-center whitespace-nowrap leading-none text-white"
                         >
-                          {tag === "Video Production" ? "High Quality Video Production" : tag}
+                          {tag.includes("Video Production") ? tag : tag}
                         </button>
                       ))}
                     </div>
@@ -1324,12 +1350,14 @@ export default function Services() {
                   {/* Desktop Layout */}
                   <div className="hidden md:block">
                     <div className="flex flex-wrap justify-center gap-x-[8px] gap-y-[20px] mb-6">
-                      {[
-                        "Influencer Marketing",
-                        "Blogs / Articles",
-                        "Conceptualization of Content",
-                        "Motion Graphics",
-                      ].map((tag, idx) => (
+                      {(
+                        content?.contentServices?.slice(0, 4) || [
+                          "Influencer Marketing",
+                          "Blogs / Articles",
+                          "Conceptualization of Content",
+                          "Motion Graphics",
+                        ]
+                      ).map((tag, idx) => (
                         <button
                           key={idx}
                           className="inline-flex items-center justify-center h-[36px] px-[12px] py-[6px]
@@ -1342,11 +1370,13 @@ export default function Services() {
                     </div>
 
                     <div className="flex flex-wrap justify-center gap-x-[8px] gap-y-[16px]">
-                      {[
-                        "Creative Copywriting",
-                        "Office High Quality Video Shoot & Production",
-                        "Reel Production",
-                      ].map((tag, idx) => (
+                      {(
+                        content?.contentServices?.slice(4, 7) || [
+                          "Creative Copywriting",
+                          "High Quality Video Production",
+                          "Reel Production",
+                        ]
+                      ).map((tag, idx) => (
                         <button
                           key={idx}
                           className="inline-flex items-center justify-center h-[36px] px-[12px] py-[6px]
@@ -1393,11 +1423,13 @@ export default function Services() {
 
             <div className=" flex flex-col items-center justify-center">
               <h1 className="text-white text-[45px] petrovsans-semibold lg:leading-[131.5px] md:text-[131.5px] z-10 hidden lg:block">
-                Digital Marketing
+                {content?.digitalTitle || "Digital Marketing"}
               </h1>
 
               <h1 className="text-white text-center leading-[55px] text-[45px] lg:mb-[10px] petrovsans-semibold md:text-[131.5px] z-10 lg:hidden ">
-                Digital <br /> Marketing
+                {content?.digitalTitle
+                  ? content.digitalTitle.replace(" ", " \n ")
+                  : "Digital \n Marketing"}
               </h1>
 
               {/* Paragraph */}
@@ -1409,7 +1441,8 @@ export default function Services() {
                   textAlign: "center",
                 }}
               >
-              We convert digital footprints into tangible results, connecting you with your audience and driving results.
+                {content?.digitalDescription ||
+                  "We convert digital footprints into tangible results, connecting you with your audience and driving results."}
               </p>
 
               {/* Mobile: 1 row, Desktop: Flex wrap */}
@@ -1417,11 +1450,13 @@ export default function Services() {
                 {/* Mobile Layout - Single Row */}
                 <div className="block md:hidden">
                   <div className="flex justify-center gap-x-[6px]">
-                    {[
-                      "Growth Marketing",
-                      "Social Media Management",
-                      "SEO Optimization",
-                    ].map((tag, idx) => (
+                    {(
+                      content?.digitalServices || [
+                        "Growth Marketing",
+                        "Social Media Management",
+                        "SEO Optimization",
+                      ]
+                    ).map((tag, idx) => (
                       <button
                         key={idx}
                         className="inline-flex items-center justify-center h-[26px] px-[6px] py-[2px]
@@ -1436,11 +1471,13 @@ export default function Services() {
 
                 {/* Desktop Layout */}
                 <div className="hidden md:flex flex-wrap justify-center gap-x-[8px] gap-y-[20px]">
-                  {[
-                    "Growth Marketing",
-                    "Social Media Management Packages",
-                    "SEO Optimization & Ranking",
-                  ].map((tag, idx) => (
+                  {(
+                    content?.digitalServices || [
+                      "Growth Marketing",
+                      "Social Media Management Packages",
+                      "SEO Optimization & Ranking",
+                    ]
+                  ).map((tag, idx) => (
                     <button
                       key={idx}
                       className="inline-flex items-center justify-center h-[36px] px-[12px] py-[6px]
@@ -1492,7 +1529,7 @@ export default function Services() {
                       textShadow: "0 0 0 #6210FF",
                     }}
                   >
-                    Technological Solution
+                    {content?.techSolutionsTitle || "Technological Solution"}
                   </span>
                 </h1>
 
@@ -1504,9 +1541,9 @@ export default function Services() {
                       WebkitTextStroke: "1.5px #6210FF",
                     }}
                   >
-                    Technological
-                    <br />
-                    Solution
+                    {content?.techSolutionsTitle
+                      ? content.techSolutionsTitle.replace(" ", "\n")
+                      : "Technological\nSolution"}
                   </span>
                 </h1>
               </div>
@@ -1517,13 +1554,13 @@ export default function Services() {
                   margin: "0 auto",
                 }}
               >
-              Your story deserves more than a slow, costly production cycle.
-              With our AI video engine, you can turn sparks of inspiration into cinematic content-on demand. Whether you're crafting personalized ads or big brand moments, we help you scale creativity without compromise.
+                {content?.techSolutionsDescription ||
+                  "Your story deserves more than a slow, costly production cycle. With our AI video engine, you can turn sparks of inspiration into cinematic content-on demand. Whether you're crafting personalized ads or big brand moments, we help you scale creativity without compromise."}
               </p>
-              
+
               <div className="text-center mt-4 md:mt-6">
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#6210FF] to-[#BE2FF4] text-[18px] md:text-[24px] petrovsans-semibold tracking-wider">
-                  Less waiting. More wow.
+                  {content?.techSolutionsTagline || "Less waiting. More wow."}
                 </span>
               </div>
             </div>
@@ -1547,14 +1584,12 @@ export default function Services() {
               </div>
               <div className="text-center lg:bottom-[0]">
                 <h1 className="text-[58.94px] md:text-[131px] md:leading-[150px] petrovsans-semibold text-transparent bg-clip-text bg-gradient-to-r from-[#6210FF] to-[#BE2FF4] mb-6 lg:mb-8">
-                  Agent VUA
+                  {content?.agentVUATitle || "Agent VUA"}
                 </h1>
 
                 <p className="text-[17px] md:text-[31px] text-[#BE2FF4] outfit-light px-4 py-2 lg:py-0 mb-14">
-                  AI Powered Calling Agent for all your{" "}
-                  <span className="md:block">
-                  Pre-Sales / Post-Sales & Customer Support Requirements
-                  </span>
+                  {content?.agentVUADescription ||
+                    "AI Powered Calling Agent for all your Pre-Sales / Post-Sales & Customer Support Requirements"}
                 </p>
 
                 <div className=" lg:h-[unset] bg-[#6210FF7A] p-- md:p-8 rounded-3xl">
@@ -1562,35 +1597,33 @@ export default function Services() {
                     className="text-[24px] md:text-[45px] text-white mb-8 md:mb-12 pt-[20px] lg:pt-[0px]"
                     style={{ fontFamily: "Outfit" }}
                   >
-                    The Impact of Agent Vua
+                    {content?.agentVUAImpactTitle || "The Impact of Agent Vua"}
                   </h1>
 
                   <div className="lg:grid lg:grid-cols-4 text-white gap-2 md:gap-7 text-center">
-                    <div className="py-[20px] px-1 md:px-2  border-b border-white-500 lg:border-0">
-                      <h3 className="text-[19px] md:text-[35.04px] outfit-light leading-tight">
-                        AI Powered, Human like conversations
-                      </h3>
-                    </div>
-                    <div className="py-[20px] px-1 md:px-2 border-b border-white-500 lg:border-0">
-                      <h3 className="text-[19px] md:text-[35.04px] outfit-light leading-tight">
-                        Real time objection handling
-                      </h3>
-                    </div>
-                    <div className="py-[20px] px-1 md:px-2 border-b border-white-500 lg:border-0">
-                      <h3 className="text-[19px] md:text-[35.04px] outfit-light leading-tight">
-                        CRM Integrated
-                      </h3>
-                    </div>
-                    <div className="py-[20px] px-1 md:px-2">
-                      <h3 className="text-[19px] md:text-[35.04px] outfit-light leading-tight">
-                        Available 24*7
-                      </h3>
-                    </div>
+                    {(
+                      content?.agentVUAFeatures || [
+                        "AI Powered, Human like conversations",
+                        "Real time objection handling",
+                        "CRM Integrated",
+                        "Available 24*7",
+                      ]
+                    ).map((feature, idx) => (
+                      <div
+                        key={idx}
+                        className="py-[20px] px-1 md:px-2 border-b border-white-500 lg:border-0"
+                      >
+                        <h3 className="text-[19px] md:text-[35.04px] outfit-light leading-tight">
+                          {feature}
+                        </h3>
+                      </div>
+                    ))}
                   </div>
                 </div>
-                
+
                 <p className="text-[17px] md:text-[31px] text-[#BE2FF4] outfit-light text-center mt-8 md:mt-12">
-                  Agent Vua can breakeven at the cost of just 5 Agents
+                  {content?.agentVUATagline ||
+                    "Agent Vua can breakeven at the cost of just 5 Agents"}
                 </p>
               </div>
             </div>
@@ -1604,6 +1637,7 @@ export default function Services() {
               agentVisionMobileVideoTwo={agentVisionMobileVideoTwo}
               agentVisionMobileTwoContainer={agentVisionMobileTwoContainer}
               agentVisionMobileVideoThree={agentVisionMobileVideoThree}
+              content={content}
             />
           )}
 
@@ -1614,6 +1648,7 @@ export default function Services() {
               videoLeftOne={videoLeftOne}
               videoLeftTwo={videoLeftTwo}
               videoLeftThree={videoLeftThree}
+              content={content}
             />
           )}
 
@@ -1672,7 +1707,9 @@ export default function Services() {
                 }}
                 className="w-[120vw]  lg:h-[58%]  lg:w-[82%]"
               >
-                {["/agentVision/2.mp4"].map((iem) => (
+                {[
+                  content?.videos?.vrVideo ? content?.videos?.vrVideo : "/agentVision/2.mp4",
+                ].map((iem) => (
                   <video
                     key={iem}
                     className=" w-full h-full object-cover rounded-lg"
@@ -1701,53 +1738,45 @@ export default function Services() {
             >
               <div>
                 <h1 className="text-[48px] sm:text-[131px] leading-tight mt-[20px] lg:mt-[-20px] petrovsans-semibold text-transparent bg-clip-text bg-gradient-to-r from-[#6210FF] to-[#BE2FF4]">
-                  Agent XR
+                  {content?.agentXRTitle || "Agent XR"}
                 </h1>
                 <p className="text-[17px] sm:text-[31px] text-[#BE2FF4] leading-none outfit-light mx-2 px-2 mt-[10px] text-center">
-                  Don’t leave it to their imagination,{" "}
-                  <span className="md:block">
-                    immerse them in the experience{" "}
-                  </span>
+                  {content?.agentXRDescription ||
+                    "Don't leave it to their imagination, immerse them in the experience"}
                 </p>
               </div>
 
               <div className="lg:hidden">
                 <div className="hidden lg:block lg:grid grid-cols-4 gap-3 text-white outfit-light text-center text-[14px] md:text-[35.04px]">
-                  <div className="py-4">Virtual Reality</div>
-                  <div className="py-4">Digital twins</div>
-                  <div className="py-4">Mixed reality</div>
-                  <div className="py-4">Realistic renderings</div>
+                  {(
+                    content?.agentXRServices || [
+                      "Virtual Reality",
+                      "Digital twins",
+                      "Mixed reality",
+                      "Realistic renderings",
+                    ]
+                  ).map((service, idx) => (
+                    <div key={idx} className="py-4">
+                      {service}
+                    </div>
+                  ))}
                 </div>
 
                 <div className=" lg:grid grid-cols-3 gap-3 text-center mb-[25px] lg:mb-[10px]">
-                  <div className="py-2">
-                    <h1 className="text-[48px] md:text-[65px] leading-tight petrovsans-semibold text-transparent bg-clip-text bg-gradient-to-r from-[#6210FF] to-[#BE2FF4] mb-4">
-                      90%
-                    </h1>
-                    <p className="text-white text-[18px] md:text-[35.04px] outfit-light leading-none">
-                      Cost Saving
-                    </p>
-                  </div>
-                  <div className="py-2">
-                    <h1 className="text-[48px] md:text-[65px] leading-tight petrovsans-semibold text-transparent bg-clip-text bg-gradient-to-r from-[#6210FF] to-[#BE2FF4] mb-4">
-                      50X
-                    </h1>
-                    <p className="text-white text-[18px] md:text-[35.04px] outfit-light leading-none">
-                      Faster time
-                      <br />
-                      to market
-                    </p>
-                  </div>
-                  <div className="py-2">
-                    <h1 className="text-[48px] md:text-[65px] leading-tight petrovsans-semibold text-transparent bg-clip-text bg-gradient-to-r from-[#6210FF] to-[#BE2FF4] mb-4">
-                      400%
-                    </h1>
-                    <p className="text-white text-[18px] md:text-[35.04px] outfit-light leading-none">
-                      Increased
-                      <br />
-                      Engagement
-                    </p>
-                  </div>
+                  {(content?.agentXRStats || [
+                    { value: '90%', label: 'Cost Saving' },
+                    { value: '50X', label: 'Faster time to market' },
+                    { value: '400%', label: 'Increased Engagement' }
+                  ]).map((stat, index) => (
+                    <div key={index} className="py-2">
+                      <h1 className="text-[48px] md:text-[65px] leading-tight petrovsans-semibold text-transparent bg-clip-text bg-gradient-to-r from-[#6210FF] to-[#BE2FF4] mb-4">
+                        {stat.value}
+                      </h1>
+                      <p className="text-white text-[18px] md:text-[35.04px] outfit-light leading-none">
+                        {stat.label}
+                      </p>
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
@@ -1756,41 +1785,35 @@ export default function Services() {
           {/* ----------------- i2 --------------- */}
           <div className="hidden lg:block  pt-[150px] pb-[100px]">
             <div className="lg:grid grid-cols-4 gap-3 text-white outfit-light text-center text-[14px] md:text-[35.04px] lg:mb-[70px]">
-              <div className="py-4">Virtual Reality</div>
-              <div className="py-4">Digital twins</div>
-              <div className="py-4">Mixed reality</div>
-              <div className="py-4">Realistic renderings</div>
+              {(
+                content?.agentXRServices || [
+                  "Virtual Reality",
+                  "Digital twins",
+                  "Mixed reality",
+                  "Realistic renderings",
+                ]
+              ).map((service, idx) => (
+                <div key={idx} className="py-4">
+                  {service}
+                </div>
+              ))}
             </div>
 
             <div className=" lg:grid grid-cols-3 gap-3 text-center mb-[25px] lg:mb-[10px]">
-              <div className="py-2">
-                <h1 className="text-[48px] md:text-[65px] leading-tight petrovsans-semibold text-transparent bg-clip-text bg-gradient-to-r from-[#6210FF] to-[#BE2FF4] mb-4">
-                  90%
-                </h1>
-                <p className="text-white text-[18px] md:text-[35.04px] outfit-light leading-none">
-                  Cost Saving
-                </p>
-              </div>
-              <div className="py-2">
-                <h1 className="text-[48px] md:text-[65px] leading-tight petrovsans-semibold text-transparent bg-clip-text bg-gradient-to-r from-[#6210FF] to-[#BE2FF4] mb-4">
-                  50X
-                </h1>
-                <p className="text-white text-[18px] md:text-[35.04px] outfit-light leading-none">
-                  Faster time
-                  <br />
-                  to market
-                </p>
-              </div>
-              <div className="py-2">
-                <h1 className="text-[48px] md:text-[65px] leading-tight petrovsans-semibold text-transparent bg-clip-text bg-gradient-to-r from-[#6210FF] to-[#BE2FF4] mb-4">
-                  400%
-                </h1>
-                <p className="text-white text-[18px] md:text-[35.04px] outfit-light leading-none">
-                  Increased
-                  <br />
-                  Engagement
-                </p>
-              </div>
+              {(content?.agentXRStats || [
+                { value: '90%', label: 'Cost Saving' },
+                { value: '50X', label: 'Faster time to market' },
+                { value: '400%', label: 'Increased Engagement' }
+              ]).map((stat, index) => (
+                <div key={index} className="py-2">
+                  <h1 className="text-[48px] md:text-[65px] leading-tight petrovsans-semibold text-transparent bg-clip-text bg-gradient-to-r from-[#6210FF] to-[#BE2FF4] mb-4">
+                    {stat.value}
+                  </h1>
+                  <p className="text-white text-[18px] md:text-[35.04px] outfit-light leading-none">
+                    {stat.label}
+                  </p>
+                </div>
+              ))}
             </div>
           </div>
         </section>

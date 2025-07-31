@@ -4,6 +4,7 @@ import {
   Environment,
 } from "@react-three/drei";
 import { SpringModel } from "./modal";
+import { Suspense } from "react";
 
 
 export const SceneSpring = ({ ...props }: any) => {
@@ -20,7 +21,9 @@ export const SceneSpring = ({ ...props }: any) => {
       <color attach="background" args={["#6210ff"]} />
       <SpringModel name="Spring" {...props} />
       <ambientLight intensity={1} position={[1, 4, 10]} />
-      <Environment preset="sunset" environmentRotation={[1, 2, 1]} />
+             <Suspense fallback={null}>
+      <Environment files="/hdri/sunset_small_03_1k.hdr" environmentRotation={[1, 2, 1]} />
+      </Suspense>
     </Canvas>
   );
 };

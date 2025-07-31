@@ -30,6 +30,9 @@ interface ServicesProps {
 }
 
 export default function Services({ content }: ServicesProps) {
+
+  console.log('content :', content)
+
   const headerRef = useRef<any>(null);
   const headerTitleRef = useRef<any>(null);
   const headerSubTitleRef = useRef<any>(null);

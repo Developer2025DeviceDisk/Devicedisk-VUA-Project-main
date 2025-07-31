@@ -2,12 +2,36 @@
 
 import React from 'react';
 
+interface StatisticItem {
+  value: string;
+  description: string;
+}
+
+interface VideoLabels {
+  launchVideos: string;
+  productionFilms: string;
+  reelContent: string;
+  projectWalkthroughs: string;
+}
+
+interface AgentVisionContent {
+  agentVisionTitle?: string;
+  agentVisionDescription?: string;
+  agentVisionVideoLabels?: VideoLabels;
+  agentVisionStats?: StatisticItem[];
+  videos?: {
+    agentVisionVideoOne?: string[];
+    agentVisionVideoTwo?: string[];
+    agentVisionVideoThree?: string[];
+  };
+}
+
 interface AgentVisionDesktopProps {
   agentVisionRef: React.RefObject<any>;
   videoLeftOne: React.RefObject<any>;
   videoLeftTwo: React.RefObject<any>;
   videoLeftThree: React.RefObject<any>;
-  content?: any;
+  content?: AgentVisionContent;
 }
 
 export default function AgentVisionDesktop({
@@ -17,6 +41,45 @@ export default function AgentVisionDesktop({
   videoLeftThree,
   content
 }: AgentVisionDesktopProps) {
+
+  // Default content if none provided
+  const defaultContent: AgentVisionContent = {
+    agentVisionTitle: "Agent Vision",
+    agentVisionDescription: "Fast, affordable production quality films",
+    agentVisionVideoLabels: {
+      launchVideos: "Launch Videos",
+      productionFilms: "Production & films",
+      reelContent: "Reel/content generation",
+      projectWalkthroughs: "Project walkthroughs"
+    },
+    agentVisionStats: [
+      {
+        value: "10%",
+        description: "Production\nBudget"
+      },
+      {
+        value: "50X",
+        description: "Faster time\nto market"
+      },
+      {
+        value: "100%",
+        description: "Realistic\nfootage"
+      }
+    ]
+  };
+
+  const agentVisionContent = {
+    ...defaultContent,
+    agentVisionTitle: content?.agentVisionTitle || defaultContent.agentVisionTitle,
+    agentVisionDescription: content?.agentVisionDescription || defaultContent.agentVisionDescription,
+    agentVisionVideoLabels: {
+      ...defaultContent.agentVisionVideoLabels,
+      ...content?.agentVisionVideoLabels
+    },
+    agentVisionStats: content?.agentVisionStats || defaultContent.agentVisionStats
+  };
+
+  console.log('agentVisionContent :', content)
 
   console.log('content?.videos :', content?.videos)
 
@@ -95,7 +158,7 @@ export default function AgentVisionDesktop({
                     color: "white"
                   }}
                 >
-                  Launch Videos
+                  {agentVisionContent.agentVisionVideoLabels?.launchVideos}
                 </h3>
               </div>
               <svg width="0" height="0">
@@ -156,7 +219,7 @@ export default function AgentVisionDesktop({
                     color: "white"
                   }}
                 >
-                  Production & films
+                  {agentVisionContent.agentVisionVideoLabels?.productionFilms}
                 </h3>
               </div>
             </div>
@@ -166,7 +229,7 @@ export default function AgentVisionDesktop({
               }}
             >
               <h1 className="text-[48px] md:text-[121px] m-[0] leading-tight petrovsans-semibold text-transparent bg-clip-text bg-gradient-to-r from-[#6210FF] to-[#BE2FF4]">
-                Agent
+                {agentVisionContent.agentVisionTitle?.split(' ')[0] || "Agent"}
               </h1>
               <h1
                 className="text-[48px] md:text-[121px]  m-[0] leading-tight petrovsans-semibold text-transparent bg-clip-text bg-gradient-to-r from-[#6210FF] to-[#BE2FF4]"
@@ -174,7 +237,7 @@ export default function AgentVisionDesktop({
                   transform: "translateX(20%)",
                 }}
               >
-                Vision
+                {agentVisionContent.agentVisionTitle?.split(' ')[1] || "Vision"}
               </h1>
 
               <p
@@ -184,7 +247,12 @@ export default function AgentVisionDesktop({
                 }}
                 className="text-[17px] md:text-[31px] text-[#BE2FF4] px-4 py-5 mb-12 outfit-light"
               >
-                Fast, affordable <br /> production quality films
+                {agentVisionContent.agentVisionDescription?.split(' ').map((word, index, array) => {
+                  if (index === Math.floor(array.length / 2)) {
+                    return <React.Fragment key={index}><br />{word} </React.Fragment>;
+                  }
+                  return word + ' ';
+                })}
               </p>
             </div>
           </div>
@@ -202,7 +270,7 @@ export default function AgentVisionDesktop({
               style={{
                 color: "white"
               }}
-            >Reel/content generation</h3>
+            >{agentVisionContent.agentVisionVideoLabels?.reelContent}</h3>
 
             <div
               ref={videoLeftThree}
@@ -238,42 +306,27 @@ export default function AgentVisionDesktop({
               style={{
                 color: "white"
               }}
-              className="text-[22px]">Project walkthroughs</h3>
+              className="text-[22px]">{agentVisionContent.agentVisionVideoLabels?.projectWalkthroughs}</h3>
           </div>
         </div>
 
         <div className="text-center">
           <div className="grid grid-cols-3 gap-3 text-center px-4 leading-none">
-            <div className="py-2">
-              <h1 className="text-[28px] md:text-[65px] petrovsans-semibold text-transparent bg-clip-text bg-gradient-to-r from-[#6210FF] to-[#BE2FF4] mb-4">
-                10%
-              </h1>
-              <p className="text-white text-[18px] md:text-[35.04px] outfit-light">
-                Production
-                <br />
-                Budget
-              </p>
-            </div>
-            <div className="py-2">
-              <h1 className="text-[28px] md:text-[65px] petrovsans-semibold text-transparent bg-clip-text bg-gradient-to-r from-[#6210FF] to-[#BE2FF4] mb-4">
-                50X
-              </h1>
-              <p className="text-white text-[18px] md:text-[35.04px] outfit-light">
-                Faster time
-                <br />
-                to market
-              </p>
-            </div>
-            <div className="py-2">
-              <h1 className="text-[28px] md:text-[65px] petrovsans-semibold text-transparent bg-clip-text bg-gradient-to-r from-[#6210FF] to-[#BE2FF4] mb-4">
-                100%
-              </h1>
-              <p className="text-white text-[18px] md:text-[35.04px] outfit-light">
-                Realistic
-                <br />
-                footage
-              </p>
-            </div>
+            {(agentVisionContent.agentVisionStats || []).map((stat, index) => (
+              <div key={index} className="py-2">
+                <h1 className="text-[28px] md:text-[65px] petrovsans-semibold text-transparent bg-clip-text bg-gradient-to-r from-[#6210FF] to-[#BE2FF4] mb-4">
+                  {stat.value}
+                </h1>
+                <p className="text-white text-[18px] md:text-[35.04px] outfit-light">
+                  {stat.description.split('\n').map((line, lineIndex) => (
+                    <React.Fragment key={lineIndex}>
+                      {line}
+                      {lineIndex < stat.description.split('\n').length - 1 && <br />}
+                    </React.Fragment>
+                  ))}
+                </p>
+              </div>
+            ))}
           </div>
         </div>
       </div>

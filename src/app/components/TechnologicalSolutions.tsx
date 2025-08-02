@@ -169,9 +169,9 @@ export default function TechnologicalSolutions({
             }}
           >
             { 
-              (content?.videos?.agentVisionVideoTwo || ["/agentVision/2.mp4", "/agentVision/3.mp4"]).map((iem) => (
+              (content?.videos?.agentVisionVideoTwo || ["/agentVision/2.mp4", "/agentVision/3.mp4"]).map((iem, index) => (
                 <video
-                  key={iem}
+                  key={`agentVisionVideoTwo-mobile-${index}-${iem}`}
                   className="absolute top-[0] left-[0]  w-full h-full object-cover rounded-lg"
                   autoPlay
                   muted
@@ -198,9 +198,9 @@ export default function TechnologicalSolutions({
             }}
           >
             {
-              (content?.videos?.agentVisionVideoThree || ["/agentVision/4.mp4", "/agentVision/6.mp4"]).map((iem) => (
+              (content?.videos?.agentVisionVideoThree || ["/agentVision/4.mp4", "/agentVision/6.mp4"]).map((iem, index) => (
                 <video
-                  key={iem}
+                  key={`agentVisionVideoThree-mobile-${index}-${iem}`}
                   className="absolute top-[0] left-[0]  w-full h-full object-cover rounded-lg"
                   autoPlay
                   muted
@@ -240,9 +240,9 @@ export default function TechnologicalSolutions({
             ref={agentVisionMobileVideoThree}
           >
             {
-              (content?.videos?.agentVisionVideoOne || ["/agentVision/1.mp4", "/agentVision/5.mp4"]).map((iem) => (
+              (content?.videos?.agentVisionVideoOne || ["/agentVision/1.mp4", "/agentVision/5.mp4"]).map((iem, index) => (
                 <video
-                  key={iem}
+                  key={`agentVisionVideoOne-mobile-${index}-${iem}`}
                   className="absolute top-[0] left-[0]  w-full h-full object-cover rounded-lg"
                   autoPlay
                   muted

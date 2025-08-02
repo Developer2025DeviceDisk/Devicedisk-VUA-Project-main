@@ -1,8 +1,112 @@
 'use client';
 
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
+
+interface ContactInfo {
+  title: string;
+  address: string;
+  email: string;
+}
+
+interface PrivacyPolicyContent {
+  pageTitle?: string;
+  preambleTitle?: string;
+  preambleContent?: string;
+  infoCollectionTitle?: string;
+  infoCollectionContent?: string[];
+  throughServicesTitle?: string;
+  throughServicesContent?: string;
+  useOfInfoTitle?: string;
+  useOfInfoIntro?: string;
+  useOfInfoList?: string[];
+  useOfInfoConclusion?: string;
+  disclosureTitle?: string;
+  disclosureContent?: string;
+  thirdPartyLinksTitle?: string;
+  thirdPartyLinksContent?: string;
+  limitingUseTitle?: string;
+  limitingUseContent?: string;
+  reviewingTitle?: string;
+  reviewingContent?: string;
+  contactInfo?: ContactInfo;
+  correctionTitle?: string;
+  correctionContent?: string;
+  deletionTitle?: string;
+  deletionContent?: string;
+  securityTitle?: string;
+  securityContent?: string[];
+  childrenPrivacyTitle?: string;
+  childrenPrivacyContent?: string[];
+  cookiesTitle?: string;
+  cookiesContent?: string[];
+  cookieBlockingLinks?: string[];
+  updatesTitle?: string;
+  updatesContent?: string;
+  updatesContact?: string;
+}
 
 export default function PrivacyPolicy() {
+  const [content, setContent] = useState<PrivacyPolicyContent | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchPrivacyPolicyContent = async () => {
+      try {
+        const response = await fetch('http://localhost:8000/api/privacy-policy/active');
+        const result = await response.json();
+        
+        if (result.success && result.data) {
+          setContent(result.data);
+        }
+      } catch (error) {
+        console.warn('Failed to load privacy policy content from API, using default:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPrivacyPolicyContent();
+  }, []);
+
+  // Default content fallback
+  const defaultContent: PrivacyPolicyContent = {
+    pageTitle: 'Privacy Policy',
+    preambleTitle: 'Preamble',
+    preambleContent: 'Voix & Vision Worx Pvt. Ltd. and its affiliated entities around the world (collectively "VVWorx", "we", or "us"), is committed to protecting the privacy of your personal information.',
+    infoCollectionTitle: 'Information Collection Through the Site:',
+    infoCollectionContent: [
+      'You can generally visit the Site without revealing any personal information about yourself.',
+      'We may track and store information such as the total number of visitors to our Site.'
+    ],
+    throughServicesTitle: 'Through the Services:',
+    throughServicesContent: 'When our clients use our Services, our clients may provide us with information about you.',
+    useOfInfoTitle: 'Use of Information',
+    useOfInfoIntro: 'We may use your personal information you submit to the Site to:',
+    useOfInfoList: [
+      'Contact you to deliver certain information you have requested',
+      'Verify your authority to enter our Site',
+      'Consider your eligibility for employment'
+    ],
+    contactInfo: {
+      title: 'General Counsel',
+      address: '1203, B-3, Rosa Oasis, G. B. Road, Kasarvadavali, Thane, Maharashtra, 400615',
+      email: 'reachus@vvworx.com'
+    }
+  };
+
+  const privacyContent = { ...defaultContent, ...content };
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-[#EEF0FF] flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#6210FF] mx-auto mb-4"></div>
+          <p className="text-gray-600">Loading privacy policy...</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-[#EEF0FF]">
       {/* Header spacing to account for fixed header */}
@@ -12,50 +116,45 @@ export default function PrivacyPolicy() {
 
         {/* Page Title */}
         <h1 className="text-[55px] md:text-[94.5px] petrovsans-book text-center bg-gradient-to-r from-[#6210FF] to-[#BE2FF4] text-transparent bg-clip-text mb-8">
-          Privacy Policy
+          {privacyContent.pageTitle}
         </h1>
 
         {/* Content */}
         <div className="prose prose-lg max-w-none text-black space-y-8">
           
           <section>
-            <h2 className="text-[15px] md:text-[20px] font-semibold text-[#6210FF] mb-4">Preamble</h2>
+            <h2 className="text-[15px] md:text-[20px] font-semibold text-[#6210FF] mb-4">{privacyContent.preambleTitle}</h2>
             <p className="text-justify leading-relaxed text-black outfit-light text-[15px] md:text-[20px]">
-              Voix & Vision Worx Pvt. Ltd. and its affiliated entities around the world (collectively "VVWorx", "we", or "us"), is committed to protecting the privacy of your personal information. This Privacy Policy details certain policies implemented throughout our company governing VVWorx's use of personal information about: visitors to our Internet website (the "Site") located at the URL: "https://www.vvworx.com/" and employees of our clients who use our services and/or products (collectively, services and products are: "Service" or "Services"). Where the Privacy Policy differs depending on whether you are using the Site or the Services, those distinctions will be noted in this Privacy Policy.
+              {privacyContent.preambleContent}
             </p>
           </section>
 
           <section>
-            <h2 className="text-[15px] md:text-[20px] font-semibold text-[#6210FF] mb-4">Information Collection Through the Site:</h2>
-            <p className="text-justify leading-relaxed mb-4 text-black outfit-light text-[15px] md:text-[20px]">
-              You can generally visit the Site without revealing any personal information about yourself. "Personal information" is any information that can be used to identify an individual, and may include name, address, email address, phone number, login information (account number, password), marketing preferences, or social media account information. However, in certain sections of the site we may invite you to contact us for information or questions, inquire about a job or apply for a job, or to obtain content we provide for informational and marketing purposes. In such situations, you may disclose to us your name, phone number, email address, title, company name, and certain employment-related information.
-            </p>
+            <h2 className="text-[15px] md:text-[20px] font-semibold text-[#6210FF] mb-4">{privacyContent.infoCollectionTitle}</h2>
+            {privacyContent.infoCollectionContent?.map((paragraph, index) => (
+              <p key={index} className="text-justify leading-relaxed mb-4 text-black outfit-light text-[15px] md:text-[20px]">
+                {paragraph}
+              </p>
+            ))}
+          </section>
+
+          <section>
+            <h2 className="text-[15px] md:text-[20px] font-semibold text-[#6210FF] mb-4">{privacyContent.throughServicesTitle}</h2>
             <p className="text-justify leading-relaxed text-black outfit-light text-[15px] md:text-[20px]">
-              We may track and store information such as the total number of visitors to our Site, the number of visitors to each page of our Site, your IP address, your browser type, the number of external web site (defined below) pages you have visited, and other browsing or computer data.
+              {privacyContent.throughServicesContent}
             </p>
           </section>
 
           <section>
-            <h2 className="text-[15px] md:text-[20px] font-semibold text-[#6210FF] mb-4">Through the Services:</h2>
-            <p className="text-justify leading-relaxed text-black outfit-light text-[15px] md:text-[20px]">
-              When our clients use our Services, our clients may provide us with information about you, including personal information such as your name, address, email, phone number and IP address
-            </p>
-          </section>
-
-          <section>
-            <h2 className="text-[15px] md:text-[20px] font-semibold text-[#6210FF] mb-4">Use of Information</h2>
-            <p className="text-justify leading-relaxed mb-4 text-black outfit-light text-[15px] md:text-[20px]">We may use your personal information you submit to the Site to:</p>
+            <h2 className="text-[15px] md:text-[20px] font-semibold text-[#6210FF] mb-4">{privacyContent.useOfInfoTitle}</h2>
+            <p className="text-justify leading-relaxed mb-4 text-black outfit-light text-[15px] md:text-[20px]">{privacyContent.useOfInfoIntro}</p>
             <ul className="list-disc list-inside space-y-2 ml-4 ">
-              <li className='text-black outfit-light text-[15px] md:text-[20px]'>Contact you to deliver certain information you have requested</li>
-              <li className='text-black outfit-light text-[15px] md:text-[20px]'>Verify your authority to enter our Site</li>
-              <li className='text-black outfit-light text-[15px] md:text-[20px]'>Consider your eligibility for employment</li>
-              <li className='text-black outfit-light text-[15px] md:text-[20px]'>Improve the content and general administration of the Site</li>
-              <li className='text-black outfit-light text-[15px] md:text-[20px]'>Address any queries or provide necessary information/resources</li>
-              <li className='text-black outfit-light text-[15px] md:text-[20px]'>Contact you in relation to your registration for an event/webinar</li>
-              <li className='text-black outfit-light text-[15px] md:text-[20px]'>Contact the users who have provided their information with respect to any service line</li>
+              {privacyContent.useOfInfoList?.map((item, index) => (
+                <li key={index} className='text-black outfit-light text-[15px] md:text-[20px]'>{item}</li>
+              ))}
             </ul>
             <p className="text-justify leading-relaxed mt-4 text-black outfit-light text-[15px] md:text-[20px]">
-              Voix & Vision Worx uses the information it receives through our clients' use of the Services to provide our Services to our clients under their direction and instruction.
+              {privacyContent.useOfInfoConclusion}
             </p>
           </section>
 
@@ -86,9 +185,9 @@ export default function PrivacyPolicy() {
               Voix & Vision Worx provides you with the ability to review, correct, and delete your personal information that we have received if it is inaccurate or you wish us to delete it; provided, however, that VVWorx will retain a copy in its files of all personal information, even if corrected, necessary to resolve disputes. VVWorx retains personal information you submit through our Site for up to 4 years in connection with regulatory, tax, insurance or other requirements in the places in which it operates. VVWorx thereafter deletes or anonymizes such information in accordance with applicable laws. You have the right to review or delete the foregoing information, by contacting VVWorx at:
             </p>
 
-            <p className=" text-black outfit-light text-[15px] md:text-[20px]"><strong>General Counsel</strong></p>
-            <p className="text-black outfit-light text-[15px] md:text-[20px]">1203, B-3, Rosa Oasis, G. B. Road, Kasarvadavali, Thane, Maharashtra, 400615</p>
-            <p className="text-black outfit-light text-[15px] md:text-[20px]">Email: <a href="mailto:reachus@vvworx.com" className="text-[#6210FF] hover:underline">reachus@vvworx.com</a></p>
+            <p className=" text-black outfit-light text-[15px] md:text-[20px]"><strong>{privacyContent.contactInfo?.title}</strong></p>
+            <p className="text-black outfit-light text-[15px] md:text-[20px]">{privacyContent.contactInfo?.address}</p>
+            <p className="text-black outfit-light text-[15px] md:text-[20px]">Email: <a href={`mailto:${privacyContent.contactInfo?.email}`} className="text-[#6210FF] hover:underline">{privacyContent.contactInfo?.email}</a></p>
 
           </section>
 

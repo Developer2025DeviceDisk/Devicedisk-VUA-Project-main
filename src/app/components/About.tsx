@@ -7,6 +7,104 @@ import { RingScene } from "../About/Scene";
 import * as THREE from "three";
 import Lenis from "@studio-freight/lenis";
 
+// Helper function to resolve image URLs
+const getImageUrl = (imagePath: string): string => {
+  if (!imagePath) return '';
+  
+  // If it's already a full URL, return as is
+  if (imagePath.startsWith('http')) return imagePath;
+  
+  // If it's an uploaded image (starts with /uploads), serve from backend
+  if (imagePath.startsWith('/uploads/')) {
+    return `http://localhost:8000${imagePath}`;
+  }
+  
+  // For default images in public folder, serve from frontend
+  return imagePath;
+};
+
+// Helper function to resolve video URLs
+const getVideoUrl = (videoPath: string): string => {
+  if (!videoPath) return '';
+  
+  // If it's already a full URL, return as is
+  if (videoPath.startsWith('http')) return videoPath;
+  
+  // If it's an uploaded video (starts with /uploads), serve from backend
+  if (videoPath.startsWith('/uploads/')) {
+    return `http://localhost:8000${videoPath}`;
+  }
+  
+  // For default videos in public folder, serve from frontend
+  return videoPath;
+};
+
+// TypeScript interfaces for About content
+interface HeroImages {
+  fullService: string;
+  ai: string;
+  tech: string;
+  creative: string;
+}
+
+interface HeroSection {
+  mainTitle: string;
+  rotatingTexts: string[];
+  backgroundVideo: string;
+  heroImages: HeroImages;
+}
+
+interface ParallaxSection {
+  title: string;
+  backgroundImage: string;
+}
+
+interface ServiceCard {
+  id: string;
+  title: string;
+  description: string;
+  image: string;
+  tags: string[];
+  imagePosition: "left" | "right";
+  order: number;
+  isActive: boolean;
+}
+
+interface ServicesSection {
+  title: string;
+  backgroundImage: string;
+  cards: ServiceCard[];
+}
+
+interface Foundation {
+  title: string;
+  description: string;
+  order: number;
+}
+
+interface FoundationSection {
+  title: string;
+  backgroundColor: string;
+  foundations: Foundation[];
+}
+
+interface VideoSection {
+  videoSrc: string;
+  backgroundColor: string;
+}
+
+interface AboutContent {
+  heroSection?: HeroSection;
+  parallaxSection?: ParallaxSection;
+  servicesSection?: ServicesSection;
+  foundationSection?: FoundationSection;
+  videoSection?: VideoSection;
+}
+
+interface AboutProps {
+  aboutContent?: AboutContent;
+}
+
 gsap.registerPlugin(ScrollTrigger);
 
 const mapProgress = (
@@ -22,7 +120,7 @@ const mapProgress = (
   return from + (to - from) * t;
 };
 
-export default function About() {
+export default function About({ aboutContent }: AboutProps) {
   // HeroSection refs
   const heroRef = useRef(null);
   const img1Ref = useRef(null);
@@ -33,7 +131,10 @@ export default function About() {
   const textRef2 = useRef(null);
   const textRef3 = useRef(null);
   const textRef4 = useRef(null);
-  const textRefs = useMemo(() => [textRef1, textRef2, textRef3, textRef4], [textRef1, textRef2, textRef3, textRef4]);
+  const textRefs = useMemo(
+    () => [textRef1, textRef2, textRef3, textRef4],
+    [textRef1, textRef2, textRef3, textRef4]
+  );
 
   // About section refs
   const sectionRef = useRef(null);
@@ -44,16 +145,93 @@ export default function About() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isVideoMuted, setIsVideoMuted] = useState(true);
 
+  // Extract content with fallbacks
+  const heroSection = aboutContent?.heroSection || {
+    mainTitle: "We are",
+    rotatingTexts: [
+      "Full-Service",
+      "AI Infused",
+      "Mar-Tech",
+      "Creative",
+      "Good Content",
+    ],
+    backgroundVideo: "/hero.mp4",
+    heroImages: {
+      fullService: "/fullservice.jpeg",
+      ai: "/ai.jpeg",
+      tech: "/tech.jpeg",
+      creative: "/creative.jpeg",
+    },
+  };
+
+  const parallaxSection = aboutContent?.parallaxSection || {
+    title: "Your Voice in the Future of Marketing.",
+    backgroundImage: "/voice.jpg",
+  };
+
+  const servicesSection = aboutContent?.servicesSection || {
+    title: "Our Services",
+    backgroundImage: "/serviceVector.png",
+    cards: [],
+  };
+
+
+  const foundationSection = aboutContent?.foundationSection || {
+    title: "Our Foundation",
+    backgroundColor: "#6310FF",
+    foundations: [
+      {
+        title: "Creativity",
+        description: "Creativity that inspires",
+        order: 1,
+      },
+      {
+        title: "Innovation",
+        description: "Technology that keeps You ahead",
+        order: 2,
+      },
+      {
+        title: "Strategic Thinking",
+        description: "Strategy that always makes you win",
+        order: 3,
+      },
+      {
+        title: "Customer Centricity",
+        description: 'Everything is about "You"',
+        order: 4,
+      },
+    ],
+  };
+
+    console.log('foundationSection :', foundationSection)
+
+  const videoSection = aboutContent?.videoSection || {
+    videoSrc: "/vua-intro.mp4",
+    backgroundColor: "#EEF0FF",
+  };
+
+  // Get sorted cards and foundations
+  const sortedCards = servicesSection.cards
+    .filter((card) => card.isActive)
+    .sort((a, b) => a.order - b.order);
+
+  const sortedFoundations = foundationSection.foundations.sort(
+    (a, b) => a.order - b.order
+  );
+
   const maskRef = useRef<SVGRectElement>(null);
   const titleRef = useRef(null);
 
-  const card1Ref = useRef(null);
-  const card2Ref = useRef(null);
-  const card3Ref = useRef(null);
-  const card4Ref = useRef(null);
-  const card5Ref = useRef(null);
-  const card6Ref = useRef(null);
-  const card7Ref = useRef(null);
+  // Dynamic card refs
+  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
+
+  // Initialize card refs based on sorted cards
+  useEffect(() => {
+    cardRefs.current = cardRefs.current.slice(0, sortedCards.length);
+    for (let i = cardRefs.current.length; i < sortedCards.length; i++) {
+      cardRefs.current[i] = null;
+    }
+  }, [sortedCards.length]);
   const scrollYProgress = useRef(0);
 
   // -------------- Foundation section refs --------------
@@ -75,16 +253,25 @@ export default function About() {
   const torus002 = useRef<THREE.Mesh>(null);
   const torus003 = useRef<THREE.Mesh>(null);
 
+  // Initialize Lenis smooth scrolling
   useEffect(() => {
-    const isMobile = window.innerWidth < 768;
-
     let lenis: any = null;
     lenis = new Lenis();
     lenis.on("scroll", ScrollTrigger.update);
     gsap.ticker.add((time) => lenis.raf(time * 1000));
     gsap.ticker.lagSmoothing(0);
 
-    // HeroSection animation - First in order
+    return () => {
+      if (lenis) {
+        lenis.destroy();
+      }
+    };
+  }, []);
+
+  // Hero Section Animation
+  useEffect(() => {
+    const isMobile = window.innerWidth < 768;
+
     const heroCtx = gsap.context(() => {
       const heroTl = gsap.timeline({
         scrollTrigger: {
@@ -106,56 +293,72 @@ export default function About() {
       const images = [img1Ref, img2Ref, img3Ref, img4Ref];
 
       for (let i = 0; i < 3; i++) {
-        heroTl.to(textRefs[i].current, {
-          y: '-100%',
-          opacity: 0,
-          duration: isMobile ? 0.4 : 0.6,
-          ease: 'power2.inOut',
-        })
+        heroTl
+          .to(textRefs[i].current, {
+            y: "-100%",
+            opacity: 0,
+            duration: isMobile ? 0.4 : 0.6,
+            ease: "power2.inOut",
+          })
           .to(
             images[i].current,
             {
               opacity: 0,
               duration: isMobile ? 0.4 : 0.6,
-              ease: 'power2.inOut',
+              ease: "power2.inOut",
             },
-            '<'
+            "<"
           )
           .to(
             textRefs[i + 1].current,
             {
-              y: '0%',
+              y: "0%",
               opacity: 1,
               duration: isMobile ? 0.4 : 0.6,
-              ease: 'power2.inOut',
+              ease: "power2.inOut",
             },
-            '<0.1'
+            "<0.1"
           )
           .to(
             images[i + 1].current,
             {
               opacity: 1,
               duration: isMobile ? 0.4 : 0.6,
-              ease: 'power2.inOut',
+              ease: "power2.inOut",
             },
-            '<'
+            "<"
           );
       }
     }, heroRef);
 
-    // About section animations - After HeroSection
-    gsap.to(imageRef.current, {
-      y: () => (window.innerWidth < 768 ? -80 : -150), // move upward in pixels
-      ease: "none",
-      scrollTrigger: {
-        trigger: parallaxContainerRef.current,
-        start: "top bottom",
-        end: "bottom top",
-        scrub: true,
-      },
-    });
+    return () => {
+      heroCtx.revert();
+    };
+  }, [textRefs]);
 
-    const ctx = gsap.context(() => {
+  // Parallax Section Animation
+  useEffect(() => {
+    const parallaxCtx = gsap.context(() => {
+      gsap.to(imageRef.current, {
+        y: () => (window.innerWidth < 768 ? -80 : -150),
+        ease: "none",
+        scrollTrigger: {
+          trigger: parallaxContainerRef.current,
+          start: "top bottom",
+          end: "bottom top",
+          scrub: true,
+        },
+      });
+    }, parallaxContainerRef);
+
+    return () => {
+      parallaxCtx.revert();
+    };
+  }, []);
+
+  // Services Section Animation
+  useEffect(() => {
+    const servicesCtx = gsap.context(() => {
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: sectionRef.current,
@@ -174,404 +377,359 @@ export default function About() {
         ease: "power3.out",
       });
 
-      // Cards animate in - adjusted for  00
-      tl.to(
-        card1Ref.current,
-        { top: window.innerWidth < 768 ? "10%" : "20%" },
-        "-=.9"
-      );
-      tl.to(card1Ref.current, { scale: 0.5, opacity: 0, duration: 1 });
-
-      tl.to(
-        card2Ref.current,
-        { top: window.innerWidth < 768 ? "10%" : "20%", duration: 1 },
-        "-=.9"
-      );
-      tl.to(card2Ref.current, { scale: 0.5, opacity: 0, duration: 1 });
-
-      tl.to(
-        card3Ref.current,
-        { top: window.innerWidth < 768 ? "10%" : "20%", duration: 1 },
-        "-=.9"
-      );
-      tl.to(card3Ref.current, { scale: 0.5, opacity: 0, duration: 1 });
-
-      tl.to(
-        card4Ref.current,
-        { top: window.innerWidth < 768 ? "10%" : "20%", duration: 1 },
-        "-=.9"
-      );
-      tl.to(card4Ref.current, { scale: 0.5, opacity: 0, duration: 1 });
-
-      tl.to(
-        card5Ref.current,
-        { top: window.innerWidth < 768 ? "10%" : "20%", duration: 1 },
-        "-=.9"
-      );
-      tl.to(card5Ref.current, { scale: 0.5, opacity: 0, duration: 1 });
-
-      tl.to(
-        card6Ref.current,
-        { top: window.innerWidth < 768 ? "10%" : "20%", duration: 1 },
-        "-=.9"
-      );
-      tl.to(card6Ref.current, { scale: 0.5, opacity: 0, duration: 1 });
-
-      tl.to(
-        card7Ref.current,
-        { top: window.innerWidth < 768 ? "10%" : "20%", duration: 1 },
-        "-=.9"
-      );
+      // Dynamic cards animation
+      cardRefs.current.forEach((cardRef, index) => {
+        if (cardRef) {
+          tl.to(
+            cardRef,
+            { top: window.innerWidth < 768 ? "10%" : "20%", duration: 1 },
+            index === 0 ? "-=.9" : "-=.9"
+          );
+          if (index < cardRefs.current.length - 1) {
+            tl.to(cardRef, { scale: 0.5, opacity: 0, duration: 1 });
+          }
+        }
+      });
     }, sectionRef);
 
-    /*
+    return () => {
+      servicesCtx.revert();
+    };
+  }, [sortedCards]);
 
-    gsap.fromTo(
-      maskRef.current,
-      { scale: 0.8, transformOrigin: "50% 50%" },
-      {
-        scale: 1,
-        duration: 1,
-        ease: "power2.out",
-        scrollTrigger: {
-          trigger: ".video-mask",
-          start: "top center",
-          end: "bottom bottom",
-          scrub: 1,
+  // Foundation Section Animation
+  useEffect(() => {
+    const foundationCtx = gsap.context(() => {
+      gsap.set(
+        [
+          foundationContent1Ref.current,
+          foundationContent2Ref.current,
+          foundationContent3Ref.current,
+          foundationContent4Ref.current,
+        ],
+        {
+          yPercent: 50,
+          opacity: 0,
+        }
+      );
+
+      if (foundationMobileTitle.current) {
+        gsap.set(foundationMobileTitle.current, {
+          xPercent: -50,
+          opacity: 0,
+        });
+      }
+
+      // First ScrollTrigger: Handle the pinning and positioning
+      ScrollTrigger.create({
+        trigger: foundationSectionRef.current,
+        start: "top 50%",
+        end: "top top",
+        scrub: true,
+        onUpdate: ({ progress }) => {
+          const animatedFramesParts = 1;
+
+          if (
+            torus001.current &&
+            modalGroupRef.current &&
+            torus002.current &&
+            modalGroupRe2.current
+          ) {
+            // Animated per frames
+            if (foundationTitleRef.current) {
+              const foundationTitlePorgess = mapProgress(
+                progress,
+                animatedFramesParts,
+                6,
+                5.0 // desktop
+              );
+              const foundationTitleOpacityPorgess = mapProgress(
+                progress,
+                animatedFramesParts,
+                0,
+                1
+              );
+
+              gsap.to(foundationTitleRef.current.position, {
+                z: foundationTitlePorgess,
+                duration: 0,
+              });
+
+              gsap.to(foundationTitleTopRef.current, {
+                opacity: foundationTitleOpacityPorgess,
+                duration: 0,
+              });
+              gsap.to(foundationTitleBottomRef.current, {
+                opacity: foundationTitleOpacityPorgess,
+                duration: 0,
+              });
+            }
+
+            if (foundationMobileTitle.current) {
+              const foundationTitleOpacityPorgess = mapProgress(
+                progress,
+                animatedFramesParts,
+                0,
+                1
+              );
+
+              gsap.to(foundationMobileTitle.current, {
+                xPercent: -50 + foundationTitleOpacityPorgess * 50,
+                opacity: foundationTitleOpacityPorgess,
+              });
+            }
+          }
         },
-      }
-    );
-
-    */
-
-    // foundation section gsap
-    // ---------- Foundation Section Animation ----------
-
-    gsap.set(
-      [
-        foundationContent1Ref.current,
-        foundationContent2Ref.current,
-        foundationContent3Ref.current,
-        foundationContent4Ref.current,
-      ],
-      {
-        yPercent: 50,
-        opacity: 0,
-      }
-    );
-
-    if (foundationMobileTitle.current) {
-      gsap.set(foundationMobileTitle.current, {
-        xPercent: -50,
-        opacity: 0,
       });
-    }
 
-    // First ScrollTrigger: Handle the pinning and positioning
-    ScrollTrigger.create({
-      trigger: foundationSectionRef.current,
-      start: "top 50%",
-      end: "top top",
-      scrub: true,
-      onUpdate: ({ progress }) => {
-        const animatedFramesParts = 1;
+      ScrollTrigger.create({
+        trigger: foundationSectionRef.current,
+        start: "top top",
+        end: `+=${window.innerHeight * 4}px`,
+        pin: true,
+        pinSpacing: true,
+        scrub: false,
+        onUpdate: ({ progress }) => {
+          const animatedFramesParts = 1 / 5;
 
-        if (
-          torus001.current &&
-          modalGroupRef.current &&
-          torus002.current &&
-          modalGroupRe2.current
-        ) {
-          // Animated per frames
-          if (foundationTitleRef.current) {
-            const foundationTitlePorgess = mapProgress(
-              progress,
-              animatedFramesParts,
-              6,
-              5.0 // desktop
+          if (
+            torus001.current &&
+            modalGroupRef.current &&
+            torus002.current &&
+            torus003.current &&
+            torus.current &&
+            modalGroupRe2.current
+          ) {
+            const groupRotationProgress = mapProgress(progress, 1, -180, 180);
+
+            gsap.to(modalGroupRef.current.rotation, {
+              y: THREE.MathUtils.degToRad(groupRotationProgress),
+              duration: 0,
+            });
+
+            // Foundation Content 1
+            const foundationContent1Y = mapProgress(
+              progress - animatedFramesParts * 0,
+              animatedFramesParts / 4,
+              50,
+              0
             );
-            const foundationTitleOpacityPorgess = mapProgress(
-              progress,
-              animatedFramesParts,
+            const foundationContent1Opacity = mapProgress(
+              progress - animatedFramesParts * 0,
+              animatedFramesParts / 4,
+              0,
+              1
+            );
+            gsap.to(foundationContent1Ref.current, {
+              yPercent: foundationContent1Y,
+              opacity: foundationContent1Opacity,
+              duration: 0,
+            });
+
+            const torus1Progress = mapProgress(
+              progress - animatedFramesParts * 0,
+              animatedFramesParts / 4,
+              -25,
+              0
+            );
+            gsap.to(torus001.current.position, {
+              y: torus1Progress,
+              duration: 0,
+            });
+
+            // Foundation Content 2
+            const foundationContent2Y = mapProgress(
+              progress - animatedFramesParts * 1,
+              animatedFramesParts / 4,
+              50,
+              0
+            );
+            const foundationContent2Opacity = mapProgress(
+              progress - animatedFramesParts * 1,
+              animatedFramesParts / 4,
               0,
               1
             );
 
-            gsap.to(foundationTitleRef.current.position, {
-              z: foundationTitlePorgess,
+            gsap.to(foundationContent2Ref.current, {
+              yPercent: foundationContent2Y,
+              opacity: foundationContent2Opacity,
               duration: 0,
             });
 
-            gsap.to(foundationTitleTopRef.current, {
-              opacity: foundationTitleOpacityPorgess,
+            const torus2Progress = mapProgress(
+              progress - animatedFramesParts * 1,
+              animatedFramesParts / 4,
+              -30,
+              0
+            );
+            gsap.to(torus002.current.position, {
+              z: torus2Progress,
               duration: 0,
             });
-            gsap.to(foundationTitleBottomRef.current, {
-              opacity: foundationTitleOpacityPorgess,
-              duration: 0,
-            });
-          }
 
-          if (foundationMobileTitle.current) {
-            const foundationTitleOpacityPorgess = mapProgress(
-              progress,
-              animatedFramesParts,
+            // Foundation Content 3
+            const foundationContent3Y = mapProgress(
+              progress - animatedFramesParts * 2,
+              animatedFramesParts / 4,
+              50,
+              0
+            );
+            const foundationContent3Opacity = mapProgress(
+              progress - animatedFramesParts * 2,
+              animatedFramesParts / 4,
               0,
               1
             );
-
-            gsap.to(foundationMobileTitle.current, {
-              xPercent: -50 + foundationTitleOpacityPorgess * 50,
-              opacity: foundationTitleOpacityPorgess,
+            gsap.to(foundationContent3Ref.current, {
+              yPercent: foundationContent3Y,
+              opacity: foundationContent3Opacity,
+              duration: 0,
             });
+            const torus3Progress = mapProgress(
+              progress - animatedFramesParts * 2,
+              animatedFramesParts / 4,
+              30,
+              0
+            );
+            gsap.to(torus003.current.position, {
+              y: torus3Progress,
+              duration: 0,
+            });
+
+            // Foundation Content 4
+            const foundationContent4Y = mapProgress(
+              progress - animatedFramesParts * 3,
+              animatedFramesParts / 4,
+              50,
+              0
+            );
+            const foundationContent4Opacity = mapProgress(
+              progress - animatedFramesParts * 3,
+              animatedFramesParts / 4,
+              0,
+              1
+            );
+            gsap.to(foundationContent4Ref.current, {
+              yPercent: foundationContent4Y,
+              opacity: foundationContent4Opacity,
+              duration: 0,
+            });
+            const torus4Progress = mapProgress(
+              progress - animatedFramesParts * 3,
+              animatedFramesParts / 4,
+              -30,
+              0
+            );
+
+            gsap.to(torus.current.position, {
+              y: torus4Progress,
+              duration: 0,
+            });
+
+            // Final Frame - All Torus Animation
+            const torusAllProgress = mapProgress(
+              progress - animatedFramesParts * 4,
+              animatedFramesParts / 4,
+              0,
+              1
+            );
+            gsap.to(torus001.current.position, {
+              x: -1 + torusAllProgress,
+              z: 1 - torusAllProgress,
+              duration: 0,
+            });
+
+            gsap.to(torus002.current.position, {
+              x: -1 + torusAllProgress,
+              duration: 0,
+            });
+
+            gsap.to(torus003.current.position, {
+              x: 1 - torusAllProgress,
+              z: -1 + torusAllProgress,
+              duration: 0,
+            });
+
+            gsap.to(torus.current.position, {
+              x: 1 - torusAllProgress,
+              z: 1 - torusAllProgress,
+              duration: 0,
+            });
+
+            if (progress < 0.8) {
+              modalGroupRef.current.visible = true;
+              modalGroupRe2.current.visible = false;
+            }
+            if (progress > 0.8) {
+              modalGroupRef.current.visible = false;
+              modalGroupRe2.current.visible = true;
+            }
           }
-        }
-      },
-    });
-
-    ScrollTrigger.create({
-      trigger: foundationSectionRef.current,
-      start: "top top",
-      end: `+=${window.innerHeight * 4}px`,
-      pin: true,
-      pinSpacing: true,
-      scrub: false,
-      onUpdate: ({ progress }) => {
-        const animatedFramesParts = 1 / 5;
-
-        if (
-          torus001.current &&
-          modalGroupRef.current &&
-          torus002.current &&
-          torus003.current &&
-          torus.current &&
-          modalGroupRe2.current
-        ) {
-          const groupRotationProgress = mapProgress(progress, 1, -180, 180);
-
-          gsap.to(modalGroupRef.current.rotation, {
-            y: THREE.MathUtils.degToRad(groupRotationProgress),
-            duration: 0,
-          });
-
-          // -------------------------- Frame 2 --------------------------
-          const foundationContent1Y = mapProgress(
-            progress - animatedFramesParts * 0,
-            animatedFramesParts / 4, // how long you want the animation to last
-            50,
-            0
-          );
-          const foundationContent1Opacity = mapProgress(
-            progress - animatedFramesParts * 0,
-            animatedFramesParts / 4, // how long you want the animation to last
-            0,
-            1
-          );
-          gsap.to(foundationContent1Ref.current, {
-            yPercent: foundationContent1Y,
-            opacity: foundationContent1Opacity,
-            duration: 0,
-          });
-
-          const torus1Progress = mapProgress(
-            progress - animatedFramesParts * 0,
-            animatedFramesParts / 4, // how long you want the animation to last
-            -25,
-            0
-          );
-          gsap.to(torus001.current.position, {
-            y: torus1Progress,
-            duration: 0,
-          });
-
-          // -------------------------- Frame 3 --------------------------
-
-          const foundationContent2Y = mapProgress(
-            progress - animatedFramesParts * 1,
-            animatedFramesParts / 4, // how long you want the animation to last
-            50,
-            0
-          );
-          const foundationContent2pacity = mapProgress(
-            progress - animatedFramesParts * 1,
-            animatedFramesParts / 4, // how long you want the animation to last
-            0,
-            1
-          );
-
-          gsap.to(foundationContent2Ref.current, {
-            yPercent: foundationContent2Y,
-            opacity: foundationContent2pacity,
-            duration: 0,
-          });
-
-          const torus2Progress = mapProgress(
-            progress - animatedFramesParts * 1,
-            animatedFramesParts / 4,
-            -30,
-            0
-          );
-          gsap.to(torus002.current.position, {
-            z: torus2Progress,
-            direction: 0,
-          });
-
-          // -------------------------- Frame 4 --------------------------
-
-          const foundationContent3Y = mapProgress(
-            progress - animatedFramesParts * 2,
-            animatedFramesParts / 4, // how long you want the animation to last
-            50,
-            0
-          );
-          const foundationContent3Opacity = mapProgress(
-            progress - animatedFramesParts * 2,
-            animatedFramesParts / 4, // how long you want the animation to last
-            0,
-            1
-          );
-          gsap.to(foundationContent3Ref.current, {
-            yPercent: foundationContent3Y,
-            opacity: foundationContent3Opacity,
-            duration: 0,
-          });
-          const torus3Progress = mapProgress(
-            progress - animatedFramesParts * 2,
-            animatedFramesParts / 4,
-            30,
-            0
-          );
-          gsap.to(torus003.current.position, {
-            y: torus3Progress,
-            direction: 0,
-          });
-
-          // -------------------------- Frame 5 --------------------------
-
-          const foundationContent4Y = mapProgress(
-            progress - animatedFramesParts * 3,
-            animatedFramesParts / 4, // how long you want the animation to last
-            50,
-            0
-          );
-          const foundationContent4Opacity = mapProgress(
-            progress - animatedFramesParts * 3,
-            animatedFramesParts / 4, // how long you want the animation to last
-            0,
-            1
-          );
-          gsap.to(foundationContent4Ref.current, {
-            yPercent: foundationContent4Y,
-            opacity: foundationContent4Opacity,
-            duration: 0,
-          });
-          const torus4Progress = mapProgress(
-            progress - animatedFramesParts * 3,
-            animatedFramesParts / 4,
-            -30,
-            0
-          );
-
-          gsap.to(torus.current.position, {
-            y: torus4Progress,
-            direction: 0,
-          });
-
-          // -------------------------- Frame 6 --------------------------
-          const torusAllProgress = mapProgress(
-            progress - animatedFramesParts * 4,
-            animatedFramesParts / 4,
-            0,
-            1
-          );
-          gsap.to(torus001.current.position, {
-            x: -1 + torusAllProgress,
-            z: 1 - torusAllProgress,
-            duration: 0,
-          });
-
-          gsap.to(torus002.current.position, {
-            x: -1 + torusAllProgress,
-            duration: 0,
-          });
-
-          gsap.to(torus003.current.position, {
-            x: 1 - torusAllProgress,
-            z: -1 + torusAllProgress,
-            duration: 0,
-          });
-
-          gsap.to(torus.current.position, {
-            x: 1 - torusAllProgress,
-            z: 1 - torusAllProgress,
-            duration: 0,
-          });
-
-          if (progress < 0.8) {
-            modalGroupRef.current.visible = true;
-            modalGroupRe2.current.visible = false;
-          }
-          if (progress > 0.8) {
-            modalGroupRef.current.visible = false;
-            modalGroupRe2.current.visible = true;
-          }
-        }
-      },
-    });
-    //end foundation section gsap
-
-    // Video scroll trigger
-    ScrollTrigger.create({
-      trigger: videoSectionRef.current,
-      start: "top 70%",
-      end: "bottom 30%",
-      onEnter: () => {
-        if (videoRef.current) {
-          videoRef.current.currentTime = 0;
-          videoRef.current
-            .play()
-            .catch((e) => console.log("Autoplay prevented:", e));
-        }
-      },
-      onEnterBack: () => {
-        if (videoRef.current) {
-          videoRef.current
-            .play()
-            .catch((e) => console.log("Autoplay prevented:", e));
-        }
-      },
-      onLeave: () => {
-        if (videoRef.current) {
-          videoRef.current.pause();
-        }
-      },
-      onLeaveBack: () => {
-        if (videoRef.current) {
-          videoRef.current.pause();
-        }
-      },
-    });
-
-    // Video scale animation
-    gsap.fromTo(
-      videoRef.current,
-      { scale: 0.9 },
-      {
-        scale: 1.1,
-        scrollTrigger: {
-          trigger: videoSectionRef.current,
-          start: "top bottom",
-          end: "bottom top",
-          scrub: 1,
         },
-      }
-    );
+      });
+    }, foundationSectionRef);
 
     return () => {
-      heroCtx.revert();
-      ctx.revert();
+      foundationCtx.revert();
     };
-  }, [textRefs]);
+  }, []);
+
+  // Video Section Animation
+  useEffect(() => {
+    const videoCtx = gsap.context(() => {
+      // Video scroll trigger
+      ScrollTrigger.create({
+        trigger: videoSectionRef.current,
+        start: "top 70%",
+        end: "bottom 30%",
+        onEnter: () => {
+          if (videoRef.current) {
+            videoRef.current.currentTime = 0;
+            videoRef.current
+              .play()
+              .catch((e) => console.log("Autoplay prevented:", e));
+          }
+        },
+        onEnterBack: () => {
+          if (videoRef.current) {
+            videoRef.current
+              .play()
+              .catch((e) => console.log("Autoplay prevented:", e));
+          }
+        },
+        onLeave: () => {
+          if (videoRef.current) {
+            videoRef.current.pause();
+          }
+        },
+        onLeaveBack: () => {
+          if (videoRef.current) {
+            videoRef.current.pause();
+          }
+        },
+      });
+
+      // Video scale animation
+      gsap.fromTo(
+        videoRef.current,
+        { scale: 0.9 },
+        {
+          scale: 1.1,
+          scrollTrigger: {
+            trigger: videoSectionRef.current,
+            start: "top bottom",
+            end: "bottom top",
+            scrub: 1,
+          },
+        }
+      );
+    }, videoSectionRef);
+
+    return () => {
+      videoCtx.revert();
+    };
+  }, []);
 
   const toggleVideoMute = () => {
     if (videoRef.current) {
@@ -581,116 +739,130 @@ export default function About() {
   };
 
   return (
-    <>
+    <section>
       {/* HeroSection */}
       <section
         ref={heroRef}
-        className='hero-section w-full h-auto min-h-screen relative overflow-hidden bg-black'>
+        className="hero-section w-full h-auto min-h-screen relative overflow-hidden bg-black"
+      >
         <video
-          className='absolute top-0 left-0 w-full h-full object-cover'
+          className="absolute top-0 left-0 w-full h-full object-cover"
           autoPlay
           muted
           loop
-          playsInline>
-          <source src='/hero.mp4' type='video/mp4' />
+          playsInline
+        >
+          <source src={getVideoUrl(heroSection.backgroundVideo)} type="video/mp4" />
         </video>
 
-        <div className='mx-auto h-full flex flex-col lg:flex-row md:items-center justify-center px-0 mt-[4rem] md:mt-0 items-end relative z-10'>
-          <div className='w-full lg:w-6/12 h-auto flex flex-col sm:mt-20 items-center lg:items-start justify-center py-8 md:pl-32 lg:py-0 pl-8'>
-            <h2 className='w-full text-[44px] xs:text-6xl sm:text-7xl lg:text-[50px] xl:text-[80px] 2xl:text-[114px] text-white leading-[1.1] font-medium'>
-              We are
+        <div className="mx-auto h-full flex flex-col lg:flex-row md:items-center justify-center px-0 mt-[4rem] md:mt-0 items-end relative z-10">
+          <div className="w-full lg:w-6/12 h-auto flex flex-col sm:mt-20 items-center lg:items-start justify-center py-8 md:pl-32 lg:py-0 pl-8">
+            <h2 className="w-full text-[44px] xs:text-6xl sm:text-7xl lg:text-[50px] xl:text-[80px] 2xl:text-[114px] text-white leading-[1.1] font-medium">
+              {heroSection.mainTitle}
             </h2>
 
-            <div className='martech-wrapper w-full relative overflow-hidden h-[72px] xs:h-[84px] sm:h-[102px] md:h-[180px]'>
-              {['Full-Service','AI Infused', 'Mar-Tech', 'Creative', 'Good Content'].map((text, idx) => (
+            <div className="martech-wrapper w-full relative overflow-hidden h-[72px] xs:h-[84px] sm:h-[102px] md:h-[180px]">
+              {heroSection.rotatingTexts.map((text, idx) => (
                 <span
                   key={idx}
                   ref={textRefs[idx]}
-                  className='absolute top-0 left-0 w-full font-extrabold bg-gradient-to-r from-[#BE2FF4] to-[#6210FF] text-transparent bg-clip-text text-[50px] xs:text-6xl sm:text-7xl md:text-8xl lg:text-[60px] xl:text-[90px] 2xl:text-[110px] leading-[1.2] inline-block'
+                  className="absolute top-0 left-0 w-full font-extrabold bg-gradient-to-r from-[#BE2FF4] to-[#6210FF] text-transparent bg-clip-text text-[50px] xs:text-6xl sm:text-7xl md:text-8xl lg:text-[60px] xl:text-[90px] 2xl:text-[110px] leading-[1.2] inline-block"
                   style={{
                     opacity: idx === 0 ? 1 : 0,
-                    transform: idx === 0 ? 'translateY(0)' : 'translateY(100%)',
-                  }}>
+                    transform: idx === 0 ? "translateY(0)" : "translateY(100%)",
+                  }}
+                >
                   {text}
                 </span>
               ))}
             </div>
           </div>
 
-          <div className='w-full lg:w-6/12 pl-4 sm:pl-0.5 md:pl-0 h-auto lg:h-full flex items-center justify-center relative'>
-            <div className='w-full h-[300px] sm:h-[400px] md:h-[500px] lg:h-full flex justify-center items-center lg:items-end relative'>
+          <div className="w-full lg:w-6/12 pl-4 sm:pl-0.5 md:pl-0 h-auto lg:h-full flex items-center justify-center relative">
+            <div className="w-full h-[300px] sm:h-[400px] md:h-[500px] lg:h-full flex justify-center items-center lg:items-end relative">
               <svg
-                width='100%'
-                height='100%'
-                viewBox='0 0 798 531'
-                fill='none'
-                xmlns='http://www.w3.org/2000/svg'
-                preserveAspectRatio='xMidYMid meet'
-                className='overflow-visible max-w-[600px] lg:max-w-none'>
+                width="100%"
+                height="100%"
+                viewBox="0 0 798 531"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                preserveAspectRatio="xMidYMid meet"
+                className="overflow-visible max-w-[600px] lg:max-w-none"
+              >
                 <defs>
-                  <clipPath id='image_clip_path'>
-                    <path d='M1375.24 0.0751953C1297.95 304.734 1019.35 530.063 687.749 530.063C356.147 530.063 77.2875 304.734 0.261719 0.0751953H283.56C350.664 155.118 506.282 263.906 687.749 263.906C869.217 263.906 1024.83 155.118 1091.94 0.0751953H1375.24Z' />
+                  <clipPath id="image_clip_path">
+                    <path d="M1375.24 0.0751953C1297.95 304.734 1019.35 530.063 687.749 530.063C356.147 530.063 77.2875 304.734 0.261719 0.0751953H283.56C350.664 155.118 506.282 263.906 687.749 263.906C869.217 263.906 1024.83 155.118 1091.94 0.0751953H1375.24Z" />
                   </clipPath>
 
-                  <linearGradient id='overlay_gradient' x1='0%' y1='0%' x2='100%' y2='100%'>
-                    <stop offset='0%' stopColor='#6210FF' stopOpacity='0.2' />
-                    <stop offset='100%' stopColor='#BE2FF4' stopOpacity='0.2' />
+                  <linearGradient
+                    id="overlay_gradient"
+                    x1="0%"
+                    y1="0%"
+                    x2="100%"
+                    y2="100%"
+                  >
+                    <stop offset="0%" stopColor="#6210FF" stopOpacity="0.2" />
+                    <stop offset="100%" stopColor="#BE2FF4" stopOpacity="0.2" />
                   </linearGradient>
 
-                  <filter id='grain' x='0' y='0' width='100%' height='100%'>
-                    <feTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='1' />
+                  <filter id="grain" x="0" y="0" width="100%" height="100%">
+                    <feTurbulence
+                      type="fractalNoise"
+                      baseFrequency="0.8"
+                      numOctaves="1"
+                    />
                     <feColorMatrix
-                      type='matrix'
-                      values='1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 0.1 0'
+                      type="matrix"
+                      values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 0.1 0"
                     />
                   </filter>
                 </defs>
 
                 <path
-                  d='M1375.24 0.0751953C1297.95 304.734 1019.35 530.063 687.749 530.063C356.147 530.063 77.2875 304.734 0.261719 0.0751953H283.56C350.664 155.118 506.282 263.906 687.749 263.906C869.217 263.906 1024.83 155.118 1091.94 0.0751953H1375.24Z'
-                  fill='url(#overlay_gradient)'
+                  d="M1375.24 0.0751953C1297.95 304.734 1019.35 530.063 687.749 530.063C356.147 530.063 77.2875 304.734 0.261719 0.0751953H283.56C350.664 155.118 506.282 263.906 687.749 263.906C869.217 263.906 1024.83 155.118 1091.94 0.0751953H1375.24Z"
+                  fill="url(#overlay_gradient)"
                 />
                 <rect
-                  width='100%'
-                  height='100%'
-                  fill='url(#overlay_gradient)'
-                  filter='url(#grain)'
-                  opacity='0.15'
+                  width="100%"
+                  height="100%"
+                  fill="url(#overlay_gradient)"
+                  filter="url(#grain)"
+                  opacity="0.15"
                 />
 
                 <image
                   ref={img1Ref}
-                  href='/fullservice.jpeg'
-                  width='120%'
-                  height='100%'
-                  clipPath='url(#image_clip_path)'
-                  preserveAspectRatio='xMidYMid slice'
+                  href={getImageUrl(heroSection.heroImages.fullService)}
+                  width="120%"
+                  height="100%"
+                  clipPath="url(#image_clip_path)"
+                  preserveAspectRatio="xMidYMid slice"
                 />
                 <image
                   ref={img2Ref}
-                  href='/ai.jpeg'
-                  width='120%'
-                  height='100%'
-                  clipPath='url(#image_clip_path)'
-                  preserveAspectRatio='xMidYMid slice'
+                  href={getImageUrl(heroSection.heroImages.ai)}
+                  width="120%"
+                  height="100%"
+                  clipPath="url(#image_clip_path)"
+                  preserveAspectRatio="xMidYMid slice"
                   style={{ opacity: 0 }}
                 />
                 <image
                   ref={img3Ref}
-                  href='/tech.jpeg'
-                  width='120%'
-                  height='100%'
-                  clipPath='url(#image_clip_path)'
-                  preserveAspectRatio='xMidYMid slice'
+                  href={getImageUrl(heroSection.heroImages.tech)}
+                  width="120%"
+                  height="100%"
+                  clipPath="url(#image_clip_path)"
+                  preserveAspectRatio="xMidYMid slice"
                   style={{ opacity: 0 }}
                 />
                 <image
                   ref={img4Ref}
-                    href='/creative.jpeg'
-                  width='120%'
-            height='100%'
-                  clipPath='url(#image_clip_path)'
-                  preserveAspectRatio='xMidYMid slice'
+                  href={getImageUrl(heroSection.heroImages.creative)}
+                  width="120%"
+                  height="100%"
+                  clipPath="url(#image_clip_path)"
+                  preserveAspectRatio="xMidYMid slice"
                   style={{ opacity: 0 }}
                 />
               </svg>
@@ -710,7 +882,7 @@ export default function About() {
             ref={imageRef}
             className="absolute top-0 left-0 w-full h-[120%] z-0"
             style={{
-              backgroundImage: "url('/voice.jpg')",
+              backgroundImage: `url('${getImageUrl(parallaxSection.backgroundImage)}')`,
               backgroundSize: "cover",
               backgroundPosition: "center",
               backgroundRepeat: "no-repeat",
@@ -720,12 +892,17 @@ export default function About() {
 
           {/* Content */}
           <h1 className="z-10 relative animate__animated animate__fadeInUp leading-snug text-white text-4xl md:text-8xl font-medium text-center px-4 rounded-lg">
-            Your Voice in the <br /> Future of Marketing.
+            {parallaxSection.title.split("\n").map((line, index) => (
+              <span key={index}>
+                {line}
+                {index < parallaxSection.title.split("\n").length - 1 && <br />}
+              </span>
+            ))}
           </h1>
         </div>
       </section>
 
-      <div
+      <section
         ref={sectionRef}
         className="flex min-h-screen overflow-hidden flex-col items-center justify-start bg-[#EEF0FF]"
       >
@@ -733,7 +910,7 @@ export default function About() {
           {/* Background Image */}
           <div className="absolute -top-44 -left-56 -right-56 flex items-center justify-center">
             <Image
-              src={"/serviceVector.png"}
+              src={getImageUrl(servicesSection.backgroundImage)}
               className="max-w-full h-auto"
               alt="Decorative background"
               width={1300}
@@ -744,459 +921,79 @@ export default function About() {
 
           {/* Text Content */}
           <h1 className="text-4xl md:text-9xl pt-[20px] md:pt-[40px] text-center font-[500] text-[#6210FF] animate__animated animate__fadeInUp relative z-10 px-4">
-            Our Services
+            {servicesSection.title}
           </h1>
         </div>
 
-        {/* Card 1 - Websites & Digital Platforms */}
-        <div
-          ref={card1Ref}
-          className="absolute top-[40%] z-0 mb-5 bg-white rounded-[10px] md:rounded-[30px] shadow-lg max-w-[90%] lg:max-w-[800px] xl:max-w-[1100px] 2xl:max-w-[70%] flex flex-col md:flex-row overflow-hidden mx-4 md:mx-0 h-[530px] md:h-[500px]"
-          style={{ boxShadow: "0 20px 50px -10px rgba(190, 47, 244, 0.3)" }}
-        >
-          <div className="w-full md:w-1/2 p-4 md:p-10 flex justify-center items-center">
-            <Image
-              width={800}
-              height={600}
-              src={"/strategy.jpeg"}
-              alt="Websites & Digital Platforms"
-              className="w-full h-full object-cover rounded-[10px] md:rounded-[30px]"
-              unoptimized={true}
-            />
-          </div>
-
+        {/* Dynamic Service Cards */}
+        {sortedCards.map((card, index) => (
           <div
-            className="w-full md:w-1/2 p-4 pt-0 md:pl-0 md:p-8 flex flex-col h-full"
-            style={{ fontFamily: "'Outfit', sans-serif" }}
+            key={card.id}
+            ref={(el) => {
+              cardRefs.current[index] = el;
+            }}
+            className={`absolute ${index === 0 ? "top-[40%]" : "top-[100%]"} z-${index * 10} mb-5 bg-white rounded-[10px] md:rounded-[30px] shadow-lg max-w-[90%] lg:max-w-[800px] xl:max-w-[1100px] 2xl:max-w-[70%] flex flex-col md:flex-row overflow-hidden mx-4 md:mx-0 h-[530px] md:h-[500px]`}
+            style={{ boxShadow: "0 20px 50px -10px rgba(190, 47, 244, 0.3)" }}
           >
-            <div className="flex-grow">
-              <h2 className="text-3xl md:text-[50px] font-outfit leading-tight text-gray-900 mb-4">
-                Strategy
-              </h2>
-              <p className="text-lg sm:text-xl md:text-xl xl:text-2xl leading-tight text-gray-900 mb-6 md:mb-8">
-                We translate your aspirations into a precise and actionable
-                blueprint for achieving your goals.
-              </p>
-              <div className="flex flex-wrap gap-2 xl:gap-3 mb-2 xl:mb-6">
-                {[
-                  "Brand Strategy",
-                  "Brand Voice",
-                  "GTM Strategy",
-                  "Campaign Strategy",
-                  "PR Strategy",
-                  "Social Media Strategy",
-                ].map((item) => (
-                  <span
-                    key={item}
-                    className="px-2 py-0 leading-normal xl:leading-relaxed md:px-4 md:py-2 border border-[#6210FF] text-gray-900 rounded-full text-xs xl:text-lg"
-                  >
-                    {item}
+            <div
+              className={`w-full md:w-1/2 p-4 md:p-10 flex justify-center items-center ${card.imagePosition === "right" ? "order-1" : ""}`}
+            >
+              <Image
+                width={800}
+                height={600}
+                src={getImageUrl(card.image)}
+                alt={card.title}
+                className="w-full h-full object-cover rounded-[10px] md:rounded-[30px]"
+                unoptimized={true}
+              />
+            </div>
+
+            <div
+              className={`w-full md:w-1/2 p-4 pt-0 ${card.imagePosition === "right" ? "md:pr-0 order-2 md:order-first" : "md:pl-0"} md:p-8 flex flex-col h-full`}
+              style={{ fontFamily: "'Outfit', sans-serif" }}
+            >
+              <div className="flex-grow">
+                <h2 className="text-3xl md:text-[50px] font-outfit leading-tight text-gray-900 mb-4">
+                  {card.title}
+                </h2>
+                <p className="text-lg sm:text-xl md:text-xl xl:text-2xl leading-tight text-gray-900 mb-6 md:mb-8">
+                  {card.description}
+                </p>
+                <div className="flex flex-wrap gap-2 xl:gap-3 mb-2 xl:mb-6">
+                  {card.tags.map((tag, tagIndex) => (
+                    <span
+                      key={`${card.id}-tag-${tagIndex}`}
+                      className="px-2 py-0 leading-normal xl:leading-relaxed md:px-4 md:py-2 border border-[#6210FF] text-gray-900 rounded-full text-xs xl:text-lg"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              <div className="mt-auto pt-4 md:pt-6 w-full flex md:justify-end justify-start opacity-0">
+                <button className="flex items-center gap-2 px-4 py-2 xl:px-6 xl:py-3 bg-white text-gray-900 border-2 border-[#6210FF] rounded-full hover:bg-gray-50 transition-all duration-200">
+                  <span className="text-xs md:text-sm xl:text-lg font-medium">
+                    EXPLORE MORE
                   </span>
-                ))}
+                  <Image
+                    src="/curve.png"
+                    alt="Arrow icon"
+                    className="w-4 h-4 xl:w-8 xl:h-8 object-contain"
+                    width={30}
+                    height={40}
+                  />
+                </button>
               </div>
             </div>
-
-            <div className="mt-auto pt-4 md:pt-6 w-full flex md:justify-end justify-start opacity-0">
-              <button className="flex items-center gap-2 px-4 py-2 xl:px-6 xl:py-3 bg-white text-gray-900 border-2 border-[#6210FF] rounded-full hover:bg-gray-50 transition-all duration-200">
-                <span className="text-xs md:text-sm xl:text-lg font-medium">
-                  EXPLORE MORE
-                </span>
-                <Image
-                  src="/curve.png"
-                  alt="Arrow icon"
-                  className="w-4 h-4 xl:w-8 xl:h-8 object-contain"
-                  width={30}
-                  height={40}
-                />
-              </button>
-            </div>
           </div>
-        </div>
-
-        {/* Card 2 - Performance Marketing */}
-        <div
-          ref={card2Ref}
-          className="absolute top-[100%] z-10 mb-5 bg-white rounded-[10px] md:rounded-[30px] shadow-lg max-w-[90%] lg:max-w-[800px] xl:max-w-[1100px] 2xl:max-w-[70%] flex flex-col md:flex-row overflow-hidden mx-4 md:mx-0 h-[530px] md:h-[500px]"
-          style={{ boxShadow: "0 20px 50px -10px rgba(190, 47, 244, 0.3)" }}
-        >
-          <div className="w-full md:w-1/2 p-4 md:p-10 flex justify-center items-center order-1">
-            <Image
-              width={800}
-              height={600}
-              src={"/brand.jpg"}
-              alt="Performance Marketing"
-              className="w-full h-full object-cover rounded-[10px] md:rounded-[30px] "
-              unoptimized={true}
-            />
-          </div>
-
-          <div
-            className="w-full md:w-1/2 p-4 pt-0 md:pr-0 md:p-8 flex flex-col h-full order-2 md:order-first"
-            style={{ fontFamily: "'Outfit', sans-serif" }}
-          >
-            <div className="flex-grow">
-              <h2 className="text-3xl md:text-[50px] font-outfit leading-tight text-gray-900 mb-4">
-                Branding & Design
-              </h2>
-              <p className="text-lg sm:text-xl md:text-xl xl:text-2xl leading-tight text-gray-900 mb-6 md:mb-8">
-                We transform your vision into a tangible and impactful brand
-                experience.
-              </p>
-              <div className="flex flex-wrap gap-2 xl:gap-3 mb-2 xl:mb-6">
-                {[
-                  "Brand Identity Design",
-                  "Office Branding",
-                  "Event Branding",
-                  "Print & Digital Creatives",
-                  "Website Design",
-                  "UI/UX Design",
-                ].map((item) => (
-                  <span
-                    key={item}
-                    className="px-2 py-0 leading-normal xl:leading-relaxed md:px-4 md:py-2 border border-[#6210FF] text-gray-900 rounded-full text-xs xl:text-lg"
-                  >
-                    {item}
-                  </span>
-                ))}
-              </div>
-            </div>
-
-            <div className="mt-auto pt-4 md:pt-6 w-full flex md:justify-end justify-start opacity-0">
-              <button className="flex items-center gap-2 px-4 py-2 xl:px-6 xl:py-3 bg-white text-gray-900 border-2 border-[#6210FF] rounded-full hover:bg-gray-50 transition-all duration-200">
-                <span className="text-xs md:text-sm xl:text-lg font-medium">
-                  EXPLORE MORE
-                </span>
-                <Image
-                  src="/curve.png"
-                  alt="Arrow icon"
-                  width={30}
-                  height={40}
-                  className="w-4 h-4 xl:w-8 xl:h-8 object-contain"
-                />
-              </button>
-            </div>
-          </div>
-        </div>
-
-        {/* Card 3 - Brand Strategy */}
-        <div
-          ref={card3Ref}
-          className="absolute top-[100%] z-20 mb-5 bg-white rounded-[10px] md:rounded-[30px] shadow-lg max-w-[90%] lg:max-w-[800px] xl:max-w-[1100px] 2xl:max-w-[70%] flex flex-col md:flex-row overflow-hidden mx-4 md:mx-0 h-[530px] md:h-[500px]"
-          style={{ boxShadow: "0 20px 50px -10px rgba(190, 47, 244, 0.3)" }}
-        >
-          <div className="w-full md:w-1/2 p-4 md:p-10 flex justify-center items-center">
-            <Image
-              width={800}
-              height={600}
-              src={"/content.jpeg"}
-              alt="Brand Strategy"
-              className="w-full h-full object-cover rounded-[10px] md:rounded-[30px]"
-              unoptimized={true}
-            />
-          </div>
-
-          <div
-            className="w-full md:w-1/2 p-4 pt-0 md:pl-0 md:p-8 flex flex-col h-full"
-            style={{ fontFamily: "'Outfit', sans-serif" }}
-          >
-            <div className="flex-grow">
-              <h2 className="text-3xl md:text-[50px] font-outfit leading-tight text-gray-900 mb-4">
-                Content &amp; Production
-              </h2>
-              <p className="text-lg sm:text-xl md:text-xl xl:text-2xl leading-tight text-gray-900 mb-6 md:mb-8">
-                We bring your story to life, crafting impactful content
-                experiences that resonate.
-              </p>
-              <div className="flex flex-wrap gap-2 xl:gap-3 mb-2 xl:mb-6">
-                {[
-                  "Influencer Marketing",
-                  "Conceptualization of Content",
-                  "High Quality Video Shoot & Production",
-                  "Reel Production",
-                  "Motion Graphics",
-                  "Creative Copywriting",
-                  " Blogs / Articles",
-                ].map((item) => (
-                  <span
-                    key={item}
-                    className="px-2 py-0 leading-normal xl:leading-relaxed md:px-4 md:py-2 border border-[#6210FF] text-gray-900 rounded-full text-xs xl:text-lg"
-                  >
-                    {item}
-                  </span>
-                ))}
-              </div>
-            </div>
-            <div className="mt-auto pt-2 md:pt-2 w-full flex md:justify-end justify-start opacity-0">
-              <button className="flex items-center gap-2 px-4 py-2 xl:px-6 xl:py-3 bg-white text-gray-900 border-2 border-[#6210FF] rounded-full hover:bg-gray-50 transition-all duration-200">
-                <span className="text-xs md:text-sm xl:text-lg font-medium">
-                  EXPLORE MORE
-                </span>
-                <Image
-                  src="/curve.png"
-                  alt="Arrow icon"
-                  className="w-4 h-4 xl:w-8 xl:h-8 object-contain"
-                  width={30}
-                  height={30}
-                />
-              </button>
-            </div>
-          </div>
-        </div>
-
-        {/* Card 4 - Content Creation */}
-        <div
-          ref={card4Ref}
-          className="absolute top-[100%] z-30 mb-5 bg-white rounded-[10px] md:rounded-[30px] shadow-lg max-w-[90%] lg:max-w-[800px] xl:max-w-[1100px] 2xl:max-w-[70%] flex flex-col md:flex-row overflow-hidden mx-4 md:mx-0 h-[530px] md:h-[500px]"
-          style={{ boxShadow: "0 20px 50px -10px rgba(190, 47, 244, 0.3)" }}
-        >
-          <div className="w-full md:w-1/2 p-4 md:p-10 flex justify-center items-center order-1">
-            <Image
-              width={800}
-              height={600}
-              src={"/digital.jpeg"}
-              alt="Content Creation"
-              className="w-full h-full object-cover rounded-[10px] md:rounded-[30px]"
-              unoptimized={true}
-            />
-          </div>
-
-          <div
-            className="w-full md:w-1/2 p-4 pt-0 md:pr-0 md:p-8 flex flex-col h-full order-2 md:order-first"
-            style={{ fontFamily: "'Outfit', sans-serif" }}
-          >
-            <div className="flex-grow">
-              <h2 className="text-3xl md:text-[50px] font-outfit leading-tight text-gray-900 mb-4">
-                Digital Marketing
-              </h2>
-              <p className="text-lg sm:text-xl md:text-xl xl:text-2xl leading-tight text-gray-900 mb-6 md:mb-8">
-                We convert digital footprints into tangible results, connecting
-                you with your audience and driving results.
-              </p>
-              <div className="flex flex-wrap gap-2 xl:gap-3 mb-2 xl:mb-6">
-                {[
-                  "Growth Marketing (Push & Pull Mediums)",
-                  "Social Media Management Packages",
-                  "SEO Optimization & Ranking",
-                ].map((item) => (
-                  <span
-                    key={item}
-                    className="px-2 py-0 leading-normal xl:leading-relaxed md:px-4 md:py-2 border border-[#6210FF] text-gray-900 rounded-full text-xs xl:text-lg"
-                  >
-                    {item}
-                  </span>
-                ))}
-              </div>
-            </div>
-
-            <div className="mt-auto pt-4 md:pt-6 w-full flex md:justify-end justify-start opacity-0">
-              <button className="flex items-center gap-2 px-4 py-2 xl:px-6 xl:py-3 bg-white text-gray-900 border-2 border-[#6210FF] rounded-full hover:bg-gray-50 transition-all duration-200">
-                <span className="text-xs md:text-sm xl:text-lg font-medium">
-                  EXPLORE MORE
-                </span>
-                <Image
-                  src="/curve.png"
-                  alt="Arrow icon"
-                  className="w-4 h-4 xl:w-8 xl:h-8 object-contain"
-                  width={30}
-                  height={30}
-                />
-              </button>
-            </div>
-          </div>
-        </div>
-
-        {/* Card 5 - Social Media Management */}
-        <div
-          ref={card5Ref}
-          className="absolute top-[100%] z-40 mb-5 bg-white rounded-[10px] md:rounded-[30px] shadow-lg max-w-[90%] lg:max-w-[800px] xl:max-w-[1100px] 2xl:max-w-[70%] flex flex-col md:flex-row overflow-hidden mx-4 md:mx-0 h-[530px] md:h-[500px]"
-          style={{ boxShadow: "0 20px 50px -10px rgba(190, 47, 244, 0.3)" }}
-        >
-          <div className="w-full md:w-1/2 p-4 md:p-10 flex justify-center items-center">
-            <Image
-              width={800}
-              height={600}
-              src={"/vua.jpeg"}
-              alt="Social Media Management"
-              className="w-full h-full object-cover rounded-[10px] md:rounded-[30px]"
-              unoptimized={true}
-            />
-          </div>
-
-          <div
-            className="w-full md:w-1/2 p-4 pt-0 md:pl-0 md:p-8 flex flex-col h-full"
-            style={{ fontFamily: "'Outfit', sans-serif" }}
-          >
-            <div className="flex-grow">
-              <h2 className="text-3xl md:text-[50px] font-outfit leading-tight text-gray-900 mb-4">
-                Agent Vua
-              </h2>
-              <p className="text-lg sm:text-xl md:text-xl xl:text-2xl leading-tight text-gray-900 mb-6 md:mb-8">
-                AI Powered Calling Agent for all your Pre-Sales / Post-Sales &
-                Customer Support Requirements
-              </p>
-              <div className="flex flex-wrap gap-2 xl:gap-3 mb-2 xl:mb-6">
-                {[
-                  "AI Powered, Human like conversations",
-                  "Real time objection handling",
-
-                  "CRM Integrated",
-                  "Available 24*7",
-                ].map((item) => (
-                  <span
-                    key={item}
-                    className="px-2 py-0 leading-normal xl:leading-relaxed md:px-4 md:py-2 border border-[#6210FF] text-gray-900 rounded-full text-xs xl:text-lg"
-                  >
-                    {item}
-                  </span>
-                ))}
-              </div>
-            </div>
-
-            <div className="mt-auto pt-4 md:pt-6 w-full flex md:justify-end justify-start opacity-0">
-              <button className="flex items-center gap-2 px-4 py-2 xl:px-6 xl:py-3 bg-white text-gray-900 border-2 border-[#6210FF] rounded-full hover:bg-gray-50 transition-all duration-200">
-                <span className="text-xs md:text-sm xl:text-lg font-medium">
-                  EXPLORE MORE
-                </span>
-                <Image
-                  src="/curve.png"
-                  alt="Arrow icon"
-                  className="w-4 h-4 xl:w-8 xl:h-8 object-contain"
-                  width={30}
-                  height={50}
-                />
-              </button>
-            </div>
-          </div>
-        </div>
-
-        {/* Card 6 - E-commerce Solutions */}
-        <div
-          ref={card6Ref}
-          className="absolute top-[100%] z-50 mb-5 bg-white rounded-[10px] md:rounded-[30px] shadow-lg max-w-[90%] lg:max-w-[800px] xl:max-w-[1100px] 2xl:max-w-[70%] flex flex-col md:flex-row overflow-hidden mx-4 md:mx-0 h-[530px] md:h-[500px]"
-          style={{ boxShadow: "0 20px 50px -10px rgba(190, 47, 244, 0.3)" }}
-        >
-          <div className="w-full md:w-1/2 p-4 md:p-10 flex justify-center items-center order-1">
-            <Image
-              width={800}
-              height={600}
-              src={"/vision.png"}
-              alt="E-commerce Solutions"
-              className="w-full h-full object-cover rounded-[10px] md:rounded-[30px] "
-              unoptimized={true}
-            />
-          </div>
-
-          <div
-            className="w-full md:w-1/2 p-4 pt-0 md:pr-0 md:p-8 flex flex-col h-full order-2  md:order-first"
-            style={{ fontFamily: "'Outfit', sans-serif" }}
-          >
-            <div className="flex-grow">
-              <h2 className="text-3xl md:text-[50px] font-outfit leading-tight text-gray-900 mb-4">
-                Agent Vision
-              </h2>
-              <p className="text-lg sm:text-xl md:text-xl xl:text-2xl leading-tight text-gray-900 mb-6 md:mb-8">
-                Fast, Affordable, Production Quality Films – Generated by AI
-              </p>
-              <div className="flex flex-wrap gap-2 xl:gap-3 mb-2 xl:mb-6">
-                {[
-                  "Project Walkthroughs",
-                  "Launch Videos",
-                  "Reel / Content Generation",
-                  "Production & Films",
-                ].map((item) => (
-                  <span
-                    key={item}
-                    className="px-2 py-0 leading-normal xl:leading-relaxed md:px-4 md:py-2 border border-[#6210FF] text-gray-900 rounded-full text-xs xl:text-lg"
-                  >
-                    {item}
-                  </span>
-                ))}
-              </div>
-            </div>
-            <div className="mt-auto pt-4 md:pt-6 w-full flex md:justify-end justify-start opacity-0">
-              <button className="flex items-center gap-2 px-4 py-2 xl:px-6 xl:py-3 bg-white text-gray-900 border-2 border-[#6210FF] rounded-full hover:bg-gray-50 transition-all duration-200">
-                <span className="text-xs md:text-sm xl:text-lg font-medium">
-                  EXPLORE MORE
-                </span>
-                <Image
-                  src="/curve.png"
-                  alt="Arrow icon"
-                  className="w-4 h-4 xl:w-8 xl:h-8 object-contain"
-                  width={30}
-                  height={40}
-                />
-              </button>
-            </div>
-          </div>
-        </div>
-
-        {/* Card 7 - Data Analytics */}
-        <div
-          ref={card7Ref}
-          className="absolute top-[100%] z-60 mb-5 bg-white rounded-[10px] md:rounded-[30px] shadow-lg max-w-[90%] lg:max-w-[800px] xl:max-w-[1100px] 2xl:max-w-[70%] flex flex-col md:flex-row overflow-hidden mx-4 md:mx-0 h-[530px] md:h-[500px]"
-          style={{ boxShadow: "0 20px 50px -10px rgba(190, 47, 244, 0.3)" }}
-        >
-          <div className="w-full md:w-1/2 p-4 md:p-10 flex justify-center items-center">
-            <Image
-              width={800}
-              height={600}
-              src={"/xr.jpeg"}
-              alt="Data Analytics"
-              className="w-full h-full object-cover rounded-[10px] md:rounded-[30px] "
-              unoptimized={true}
-            />
-          </div>
-
-          <div
-            className="w-full md:w-1/2 p-4 pt-0 md:pl-0 md:p-8 flex flex-col h-full"
-            style={{ fontFamily: "'Outfit', sans-serif" }}
-          >
-            <div className="flex-grow">
-              <h2 className="text-3xl md:text-[50px] font-outfit leading-tight text-gray-900 mb-4">
-                Agent XR
-              </h2>
-              <p className="text-lg sm:text-xl md:text-xl xl:text-2xl leading-tight text-gray-900 mb-6 md:mb-8">
-                Don’t leave it to their Imagination, Immerse them in the
-                Experience
-              </p>
-              <div className="flex flex-wrap gap-2 xl:gap-3 mb-2 xl:mb-6">
-                {[
-                  "Virtual Reality",
-                  "Digital Twins",
-                  "Mixed Reality",
-                  "Realistic Renderings",
-                ].map((item) => (
-                  <span
-                    key={item}
-                    className="px-2 py-0 leading-normal xl:leading-relaxed md:px-4 md:py-2 border border-[#6210FF] text-gray-900 rounded-full text-xs xl:text-lg"
-                  >
-                    {item}
-                  </span>
-                ))}
-              </div>
-            </div>
-
-            <div className="mt-auto pt-4 md:pt-6 w-full flex md:justify-end justify-start opacity-0">
-              <button className="flex items-center gap-2 px-4 py-2 xl:px-6 xl:py-3 bg-white text-gray-900 border-2 border-[#6210FF] rounded-full hover:bg-gray-50 transition-all duration-200">
-                <span className="text-xs md:text-sm xl:text-lg font-medium">
-                  EXPLORE MORE
-                </span>
-                <Image
-                  src="/curve.png"
-                  alt="Arrow icon"
-                  className="w-4 h-4 xl:w-8 xl:h-8 object-contain"
-                  width={30}
-                  height={40}
-                />
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
+        ))}
+      </section>
 
       <section
         ref={foundationSectionRef}
-        className="relative w-screen h-screen text-zinc-900 bg-[#6310FF] overflow-hidden"
+        className="relative w-screen h-screen text-zinc-900 overflow-hidden"
+        style={{ backgroundColor: foundationSection.backgroundColor }}
       >
         <section
           style={{
@@ -1211,6 +1008,7 @@ export default function About() {
           <RingScene
             modalGroupRef={modalGroupRef}
             modalGroupRe2={modalGroupRe2}
+            foundationSection={foundationSection} 
             torus={torus}
             torus001={torus001}
             torus002={torus002}
@@ -1233,12 +1031,14 @@ export default function About() {
             }}
           >
             <div ref={foundationMobileTitle}>
-              <h2 className="text-[50px] text-white font-[400] m-0 leading-[45px]        max-[350px]:text-[40px] lg:text-6xl">
-                Our
-              </h2>
-              <h2 className="text-[50px] text-white font-[400] m-0 leading-[45px]        max-[350px]:text-[40px] lg:text-6xl">
-                Foundation
-              </h2>
+              {foundationSection.title.split(" ").map((word, index) => (
+                <h2
+                  key={index}
+                  className="text-[50px] text-white font-[400] m-0 leading-[45px] max-[350px]:text-[40px] lg:text-6xl"
+                >
+                  {word}
+                </h2>
+              ))}
             </div>
           </div>
         </div>
@@ -1249,73 +1049,39 @@ export default function About() {
              lg:w-1/2  lg:gap-[5.5%] lg:bottom-0 lg:justify-center
             "
         >
-          <div
-            style={{
-              position: "relative",
-              overflow: "hidden",
-            }}
-          >
-            <div ref={foundationContent1Ref}>
-              <h2 className="text-[35px] text-white font-medium m-0  max-[350px]:text-[27px]  lg:text-[3rem]">
-                Creativity
-              </h2>
-              <p className="text-base text-white font-medium m-0">
-                Creativity that inspires
-              </p>
+          {sortedFoundations.map((foundation, index) => (
+            <div
+              key={foundation.title}
+              style={{
+                position: "relative",
+                overflow: "hidden",
+              }}
+            >
+              <div
+                ref={(el) => {
+                  if (index === 0) foundationContent1Ref.current = el;
+                  else if (index === 1) foundationContent2Ref.current = el;
+                  else if (index === 2) foundationContent3Ref.current = el;
+                  else if (index === 3) foundationContent4Ref.current = el;
+                }}
+              >
+                <h2 className="text-[35px] text-white font-medium m-0 max-[350px]:text-[27px] lg:text-[3rem]">
+                  {foundation.title}
+                </h2>
+                <p className="text-base text-white font-medium m-0">
+                  {foundation.description}
+                </p>
+              </div>
             </div>
-          </div>
-          <div
-            style={{
-              position: "relative",
-              overflow: "hidden",
-            }}
-          >
-            <div ref={foundationContent2Ref}>
-              <h2 className="text-[35px] text-white font-medium m-0 max-[350px]:text-[27px]  lg:text-[3rem]">
-                Innovation
-              </h2>
-              <p className="text-base text-white font-medium m-0">
-                Technology that keeps You ahead
-              </p>
-            </div>
-          </div>
-          <div
-            style={{
-              position: "relative",
-              overflow: "hidden",
-            }}
-          >
-            <div ref={foundationContent3Ref}>
-              <h2 className="text-[35px] text-white font-medium m-0 max-[350px]:text-[27px]  lg:text-[3rem]">
-                Strategic Thinking
-              </h2>
-              <p className="text-base text-white font-medium m-0">
-                Strategy that always makes you win
-              </p>
-            </div>
-          </div>
-          <div
-            style={{
-              position: "relative",
-              overflow: "hidden",
-            }}
-          >
-            <div ref={foundationContent4Ref}>
-              <h2 className="text-[35px] text-white font-medium m-0 max-[350px]:text-[27px]  lg:text-[3rem]">
-                Customer Centricity
-              </h2>
-              <p className="text-base text-white font-medium m-0">
-                Everything is about “You”
-              </p>
-            </div>
-          </div>
+          ))}
         </div>
       </section>
 
       {/* Video Section */}
       <section
         ref={videoSectionRef}
-        className="relative w-full h-auto md:h-screen bg-[#EEF0FF] flex items-center justify-center overflow-hidden p-0 m-0"
+        className="relative w-full h-auto md:h-screen flex items-center justify-center overflow-hidden p-0 m-0"
+        style={{ backgroundColor: videoSection.backgroundColor }}
       >
         <div className="relative w-full h-full">
           <video
@@ -1326,7 +1092,7 @@ export default function About() {
             muted
             autoPlay
             preload="auto"
-            src="/vua-intro.mp4"
+            src={getVideoUrl(videoSection.videoSrc)}
           />
 
           {/* Sound Toggle Button */}
@@ -1369,6 +1135,6 @@ export default function About() {
           </button>
         </div>
       </section>
-    </>
+    </section>
   );
 }

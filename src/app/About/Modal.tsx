@@ -47,6 +47,7 @@ export const GlassModel = ({
   foundationTitleRef,
   foundationTitleTopRef,
   foundationTitleBottomRef,
+  title
 }: any) => {
   const { nodes } = useGLTF("/3D/ring-s.glb");
   const { nodes: nodes2, scene } = useGLTF("/3D/ring-joint.glb");

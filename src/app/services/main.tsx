@@ -25,6 +25,15 @@ const mapProgress = (progress, completeAt = 0.1, from = 0.8, to = -0.5) => {
   return from + (to - from) * t;
 };
 
+// Utility function to get full video URL
+const getVideoUrl = (videoPath: string) => {
+  if (!videoPath) return '';
+  if (videoPath.startsWith('http')) return videoPath; // Already a full URL
+  // Clean up any whitespace and newlines from corrupted data
+  const cleanPath = videoPath.replace(/\s+/g, '').trim();
+  return `http://localhost:8000${cleanPath}`;
+};
+
 interface ServicesProps {
   content?: any;
 }
@@ -1721,7 +1730,7 @@ export default function Services({ content }: ServicesProps) {
                     loop
                     playsInline
                   >
-                    <source src={iem} type="video/mp4" />
+                    <source src={getVideoUrl(iem)} type="video/mp4" />
                     Your browser does not support the video tag.
                   </video>
                 ))}

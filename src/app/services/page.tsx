@@ -3,7 +3,7 @@ import { AppWithAssets, defaultContent } from "./sx";
 
 async function fetchServicesContent() {
   try {
-    const response = await fetch('http://15.206.84.81:8000/api/services-content/active', {
+    const response = await fetch('http://localhost:8000/api/services-content/active', {
       cache: 'no-store'
     });
     

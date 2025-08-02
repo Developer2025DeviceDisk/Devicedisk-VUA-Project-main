@@ -143,9 +143,9 @@ export default function AgentVisionDesktop({
                   }}
                 >
                             {(content?.videos?.agentVisionVideoThree || ["/agentVision/4.mp4", "/agentVision/6.mp4"]).map(
-                    (iem) => (
+                    (iem, index) => (
                       <video
-                        key={iem}
+                        key={`agentVisionVideoThree-${index}-${iem}`}
                         className="absolute top-[0] left-[0]  w-full h-full object-cover rounded-lg"
                         autoPlay
                         muted
@@ -203,10 +203,10 @@ export default function AgentVisionDesktop({
                   }}
                 >
                                    {(content?.videos?.agentVisionVideoTwo || ["/agentVision/2.mp4", "/agentVision/3.mp4"]).map(
-                    (item) => (
+                    (item, index) => (
                       <video
                         className="absolute top-[0] left-[0]  w-full h-full object-cover rounded-lg"
-                        key={item}
+                        key={`agentVisionVideoTwo-${index}-${item}`}
                         autoPlay
                         muted
                         loop
@@ -295,11 +295,11 @@ export default function AgentVisionDesktop({
               }}
             >
               {(content?.videos?.agentVisionVideoOne || ["/agentVision/1.mp4", "/agentVision/5.mp4"]).map(
-                (item) => (
+                (item, index) => (
                   <video
                     className="absolute top-[0] left-[0]  w-full h-full object-cover rounded-lg"
                     autoPlay
-                    key={item}
+                    key={`agentVisionVideoOne-${index}-${item}`}
                     muted
                     loop
                     playsInline

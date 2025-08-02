@@ -1,7 +1,4 @@
-'use client';
-
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
 
 interface ContactInfo {
   title: string;
@@ -46,28 +43,30 @@ interface PrivacyPolicyContent {
   updatesContact?: string;
 }
 
-export default function PrivacyPolicy() {
-  const [content, setContent] = useState<PrivacyPolicyContent | null>(null);
-  const [loading, setLoading] = useState(true);
+async function fetchPrivacyPolicyContent(): Promise<PrivacyPolicyContent | null> {
+  try {
+    const response = await fetch('http://15.206.84.81:8000/api/privacy-policy/active', {
+      cache: 'no-store'
+    });
+    
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    
+    const result = await response.json();
+    
+    if (result.success && result.data) {
+      return result.data;
+    }
+    return null;
+  } catch (error) {
+    console.warn('Failed to load privacy policy content from API, using default:', error);
+    return null;
+  }
+}
 
-  useEffect(() => {
-    const fetchPrivacyPolicyContent = async () => {
-      try {
-        const response = await fetch('http://15.206.84.81:8000/api/privacy-policy/active');
-        const result = await response.json();
-        
-        if (result.success && result.data) {
-          setContent(result.data);
-        }
-      } catch (error) {
-        console.warn('Failed to load privacy policy content from API, using default:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchPrivacyPolicyContent();
-  }, []);
+export default async function PrivacyPolicy() {
+  const content = await fetchPrivacyPolicyContent();
 
   // Default content fallback
   const defaultContent: PrivacyPolicyContent = {
@@ -96,16 +95,6 @@ export default function PrivacyPolicy() {
   };
 
   const privacyContent = { ...defaultContent, ...content };
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-[#EEF0FF] flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#6210FF] mx-auto mb-4"></div>
-          <p className="text-gray-600">Loading privacy policy...</p>
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div className="min-h-screen bg-[#EEF0FF]">

@@ -34,32 +34,15 @@ const defaultContent = {
   }
 };
 
-function AppWithAssets() {
+interface ServicesContentProps {
+  servicesContent: any;
+}
+
+function AppWithAssets({ servicesContent }: ServicesContentProps) {
   const [showOverlay, setShowOverlay] = useState(true);
   const [loadingAnimationData, setLoadingAnimationData] = useState(null);
-  const [servicesContent, setServicesContent] = useState(defaultContent);
   const { jigjawLoaded, springLoaded, cloudLoaded, vrLoaded, allAssetsLoaded } =
     useAssets();
-
-  // Fetch services content from API
-  useEffect(() => {
-    const fetchServicesContent = async () => {
-      try {
-        const response = await fetch('http://15.206.84.81:8000/api/services-content/active');
-        // http://15.206.84.81:8000
-        const result = await response.json();
-        
-        if (result.success && result.data) {
-          setServicesContent(result.data);
-        }
-      } catch (error) {
-        console.warn('Failed to load services content from API, using default:', error);
-        // Keep default content if API fails
-      }
-    };
-
-    fetchServicesContent();
-  }, []);
 
   useEffect(() => {
     fetch("/3D/LoadingAnimation2.json")
@@ -163,10 +146,34 @@ function AppWithAssets() {
   );
 }
 
-export default function MyApp() {
+async function fetchServicesContent() {
+  try {
+    const response = await fetch('http://15.206.84.81:8000/api/services-content/active', {
+      cache: 'no-store'
+    });
+    
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    
+    const result = await response.json();
+    
+    if (result.success && result.data) {
+      return result.data;
+    }
+    return defaultContent;
+  } catch (error) {
+    console.warn('Failed to load services content from API, using default:', error);
+    return defaultContent;
+  }
+}
+
+export default async function MyApp() {
+  const servicesContent = await fetchServicesContent();
+  
   return (
     <AssetProvider>
-      <AppWithAssets />
+      <AppWithAssets servicesContent={servicesContent} />
     </AssetProvider>
   );
 }

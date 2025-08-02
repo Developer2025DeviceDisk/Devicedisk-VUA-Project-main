@@ -2,6 +2,15 @@
 
 import React from 'react';
 
+// Utility function to get full video URL
+const getVideoUrl = (videoPath: string) => {
+  if (!videoPath) return '';
+  if (videoPath.startsWith('http')) return videoPath; // Already a full URL
+  // Clean up any whitespace and newlines from corrupted data
+  const cleanPath = videoPath.replace(/\s+/g, '').trim();
+  return `http://localhost:8000${cleanPath}`;
+};
+
 interface StatisticItem {
   value: string;
   description: string;
@@ -143,7 +152,7 @@ export default function AgentVisionDesktop({
                         loop
                         playsInline
                       >
-                        <source src={iem} type="video/mp4" />
+                        <source src={getVideoUrl(iem)} type="video/mp4" />
                         Your browser does not support the video tag.
                       </video>
                     )
@@ -203,7 +212,7 @@ export default function AgentVisionDesktop({
                         loop
                         playsInline
                       >
-                        <source src={item} type="video/mp4" />
+                        <source src={getVideoUrl(item)} type="video/mp4" />
                         Your browser does not support the video tag.
                       </video>
                     )
@@ -295,7 +304,7 @@ export default function AgentVisionDesktop({
                     loop
                     playsInline
                   >
-                    <source src={item} type="video/mp4" />
+                    <source src={getVideoUrl(item)} type="video/mp4" />
                     Your browser does not support the video tag.
                   </video>
                 )

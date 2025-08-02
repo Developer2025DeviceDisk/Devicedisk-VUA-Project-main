@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import Header from './components/Header';
-import Footer from './components/Footer';
+import FooterWrapper from './components/FooterWrapper';
 
 export const metadata: Metadata = {
   title: "VVWorx Future Forward Marketing",
@@ -21,7 +21,7 @@ export default function RootLayout({
       <body suppressHydrationWarning>
         <Header />
         <main>{children}</main>
-        <Footer />
+        <FooterWrapper />
       </body>
     </html>
   );

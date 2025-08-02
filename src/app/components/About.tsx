@@ -16,7 +16,7 @@ const getImageUrl = (imagePath: string): string => {
   
   // If it's an uploaded image (starts with /uploads), serve from backend
   if (imagePath.startsWith('/uploads/')) {
-    return `http://localhost:8000${imagePath}`;
+    return `http://15.206.84.81:8000${imagePath}`;
   }
   
   // For default images in public folder, serve from frontend
@@ -32,7 +32,7 @@ const getVideoUrl = (videoPath: string): string => {
   
   // If it's an uploaded video (starts with /uploads), serve from backend
   if (videoPath.startsWith('/uploads/')) {
-    return `http://localhost:8000${videoPath}`;
+    return `http://15.206.84.81:8000${videoPath}`;
   }
   
   // For default videos in public folder, serve from frontend
@@ -120,7 +120,7 @@ const mapProgress = (
   return from + (to - from) * t;
 };
 
-export default function About({ aboutContent }: AboutProps) {
+export default function About({ aboutContent }: any) {
   // HeroSection refs
   const heroRef = useRef(null);
   const img1Ref = useRef(null);
@@ -212,11 +212,11 @@ export default function About({ aboutContent }: AboutProps) {
 
   // Get sorted cards and foundations
   const sortedCards = servicesSection.cards
-    .filter((card) => card.isActive)
-    .sort((a, b) => a.order - b.order);
+    .filter((card:any) => card.isActive)
+    .sort((a:any, b:any) => a.order - b.order);
 
   const sortedFoundations = foundationSection.foundations.sort(
-    (a, b) => a.order - b.order
+    (a:any, b:any) => a.order - b.order
   );
 
   const maskRef = useRef<SVGRectElement>(null);
@@ -762,7 +762,7 @@ export default function About({ aboutContent }: AboutProps) {
             </h2>
 
             <div className="martech-wrapper w-full relative overflow-hidden h-[72px] xs:h-[84px] sm:h-[102px] md:h-[180px]">
-              {heroSection.rotatingTexts.map((text, idx) => (
+              {heroSection.rotatingTexts.map((text:any, idx:any) => (
                 <span
                   key={idx}
                   ref={textRefs[idx]}
@@ -892,7 +892,7 @@ export default function About({ aboutContent }: AboutProps) {
 
           {/* Content */}
           <h1 className="z-10 relative animate__animated animate__fadeInUp leading-snug text-white text-4xl md:text-8xl font-medium text-center px-4 rounded-lg">
-            {parallaxSection.title.split("\n").map((line, index) => (
+            {parallaxSection.title.split("\n").map((line:any, index:any) => (
               <span key={index}>
                 {line}
                 {index < parallaxSection.title.split("\n").length - 1 && <br />}
@@ -926,9 +926,9 @@ export default function About({ aboutContent }: AboutProps) {
         </div>
 
         {/* Dynamic Service Cards */}
-        {sortedCards.map((card, index) => (
+        {sortedCards.map((card:any, index:any) => (
           <div
-            key={card.id}
+            key={index}
             ref={(el) => {
               cardRefs.current[index] = el;
             }}
@@ -960,9 +960,9 @@ export default function About({ aboutContent }: AboutProps) {
                   {card.description}
                 </p>
                 <div className="flex flex-wrap gap-2 xl:gap-3 mb-2 xl:mb-6">
-                  {card.tags.map((tag, tagIndex) => (
+                  {card.tags.map((tag:any, tagIndex:any) => (
                     <span
-                      key={`${card.id}-tag-${tagIndex}`}
+                      key={tagIndex}
                       className="px-2 py-0 leading-normal xl:leading-relaxed md:px-4 md:py-2 border border-[#6210FF] text-gray-900 rounded-full text-xs xl:text-lg"
                     >
                       {tag}
@@ -1031,7 +1031,7 @@ export default function About({ aboutContent }: AboutProps) {
             }}
           >
             <div ref={foundationMobileTitle}>
-              {foundationSection.title.split(" ").map((word, index) => (
+              {foundationSection.title.split(" ").map((word:any, index:any) => (
                 <h2
                   key={index}
                   className="text-[50px] text-white font-[400] m-0 leading-[45px] max-[350px]:text-[40px] lg:text-6xl"
@@ -1049,9 +1049,9 @@ export default function About({ aboutContent }: AboutProps) {
              lg:w-1/2  lg:gap-[5.5%] lg:bottom-0 lg:justify-center
             "
         >
-          {sortedFoundations.map((foundation, index) => (
+          {sortedFoundations.map((foundation:any, index:any) => (
             <div
-              key={foundation.title}
+              key={index}
               style={{
                 position: "relative",
                 overflow: "hidden",

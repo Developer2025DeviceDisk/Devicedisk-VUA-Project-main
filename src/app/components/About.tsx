@@ -40,18 +40,11 @@ const getVideoUrl = (videoPath: string): string => {
 };
 
 // TypeScript interfaces for About content
-interface HeroImages {
-  fullService: string;
-  ai: string;
-  tech: string;
-  creative: string;
-}
-
 interface HeroSection {
   mainTitle: string;
   rotatingTexts: string[];
   backgroundVideo: string;
-  heroImages: HeroImages;
+  heroImages: string[]; // Changed from object to array
 }
 
 interface ParallaxSection {
@@ -123,18 +116,43 @@ const mapProgress = (
 export default function About({ aboutContent }: any) {
   // HeroSection refs
   const heroRef = useRef(null);
-  const img1Ref = useRef(null);
-  const img2Ref = useRef(null);
-  const img3Ref = useRef(null);
-  const img4Ref = useRef(null);
-  const textRef1 = useRef(null);
-  const textRef2 = useRef(null);
-  const textRef3 = useRef(null);
-  const textRef4 = useRef(null);
-  const textRefs = useMemo(
-    () => [textRef1, textRef2, textRef3, textRef4],
-    [textRef1, textRef2, textRef3, textRef4]
-  );
+  
+  // Extract content first to determine number of rotating texts and hero images
+  const rawHeroSection = aboutContent?.heroSection || {};
+  const rotatingTextsArray = rawHeroSection.rotatingTexts || [
+    "Full-Service",
+    "AI Infused", 
+    "Mar-Tech",
+    "Creative",
+  ];
+  
+  // Handle backwards compatibility for heroImages (object vs array)
+  let heroImagesArray: string[] = [];
+  if (rawHeroSection.heroImages) {
+    if (Array.isArray(rawHeroSection.heroImages)) {
+      heroImagesArray = rawHeroSection.heroImages;
+    } else if (typeof rawHeroSection.heroImages === 'object') {
+      const oldFormat = rawHeroSection.heroImages as any;
+      heroImagesArray = [
+        oldFormat.fullService || "/fullservice.jpeg",
+        oldFormat.ai || "/ai.jpeg",
+        oldFormat.tech || "/tech.jpeg", 
+        oldFormat.creative || "/creative.jpeg"
+      ];
+    }
+  } else {
+    heroImagesArray = ["/fullservice.jpeg", "/ai.jpeg", "/tech.jpeg", "/creative.jpeg"];
+  }
+  
+  // Create dynamic refs based on number of rotating texts
+  const textRefs = useMemo(() => {
+    return rotatingTextsArray.map(() => ({ current: null }));
+  }, [rotatingTextsArray.length]);
+  
+  // Create dynamic refs based on number of hero images
+  const imageRefs = useMemo(() => {
+    return heroImagesArray.map(() => ({ current: null }));
+  }, [heroImagesArray.length]);
 
   // About section refs
   const sectionRef = useRef(null);
@@ -145,23 +163,11 @@ export default function About({ aboutContent }: any) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isVideoMuted, setIsVideoMuted] = useState(true);
 
-  // Extract content with fallbacks
-  const heroSection = aboutContent?.heroSection || {
-    mainTitle: "We are",
-    rotatingTexts: [
-      "Full-Service",
-      "AI Infused",
-      "Mar-Tech",
-      "Creative",
-      "Good Content",
-    ],
-    backgroundVideo: "/hero.mp4",
-    heroImages: {
-      fullService: "/fullservice.jpeg",
-      ai: "/ai.jpeg",
-      tech: "/tech.jpeg",
-      creative: "/creative.jpeg",
-    },
+  const heroSection = {
+    mainTitle: rawHeroSection.mainTitle || "We are",
+    rotatingTexts: rotatingTextsArray,
+    backgroundVideo: rawHeroSection.backgroundVideo || "/hero.mp4",
+    heroImages: heroImagesArray,
   };
 
   const parallaxSection = aboutContent?.parallaxSection || {
@@ -285,32 +291,54 @@ export default function About({ aboutContent }: any) {
         },
       });
 
-      gsap.set([img2Ref.current, img3Ref.current, img4Ref.current], { opacity: 0 });
-      gsap.set(textRefs[1].current, { y: '100%', opacity: 0 });
-      gsap.set(textRefs[2].current, { y: '100%', opacity: 0 });
-      gsap.set(textRefs[3].current, { y: '100%', opacity: 0 });
+      // Set initial states for hero images (dynamic)
+      imageRefs.slice(1).forEach(imgRef => {
+        if (imgRef.current) {
+          gsap.set(imgRef.current, { opacity: 0 });
+        }
+      });
 
-      const images = [img1Ref, img2Ref, img3Ref, img4Ref];
+      // Set initial states for all texts except the first one
+      textRefs.forEach((ref:any, index:any) => {
+        if (index > 0 && ref.current) {
+          gsap.set(ref.current, { y: '100%', opacity: 0 });
+        }
+      });
 
-      for (let i = 0; i < 3; i++) {
-        heroTl
-          .to(textRefs[i].current, {
-            y: "-100%",
-            opacity: 0,
-            duration: isMobile ? 0.4 : 0.6,
-            ease: "power2.inOut",
-          })
-          .to(
-            images[i].current,
-            {
+      // Dynamic animation loop - works with any number of rotating texts and images
+      const maxAnimations = textRefs.length - 1; // Animate all texts except the first
+      
+      for (let i = 0; i < maxAnimations; i++) {
+        const currentTextRef = textRefs[i];
+        const nextTextRef = textRefs[i + 1];
+        // Cycle through available images if there are more texts than images
+        const currentImageRef = imageRefs[i % imageRefs.length];
+        const nextImageRef = imageRefs[(i + 1) % imageRefs.length];
+
+        if (currentTextRef?.current && nextTextRef?.current) {
+          heroTl
+            .to(currentTextRef.current, {
+              y: "-100%",
               opacity: 0,
               duration: isMobile ? 0.4 : 0.6,
               ease: "power2.inOut",
-            },
-            "<"
-          )
-          .to(
-            textRefs[i + 1].current,
+            });
+
+          // Animate current image if it exists
+          if (currentImageRef?.current) {
+            heroTl.to(
+              currentImageRef.current,
+              {
+                opacity: 0,
+                duration: isMobile ? 0.4 : 0.6,
+                ease: "power2.inOut",
+              },
+              "<"
+            );
+          }
+
+          heroTl.to(
+            nextTextRef.current,
             {
               y: "0%",
               opacity: 1,
@@ -318,23 +346,28 @@ export default function About({ aboutContent }: any) {
               ease: "power2.inOut",
             },
             "<0.1"
-          )
-          .to(
-            images[i + 1].current,
-            {
-              opacity: 1,
-              duration: isMobile ? 0.4 : 0.6,
-              ease: "power2.inOut",
-            },
-            "<"
           );
+
+          // Animate next image if it exists
+          if (nextImageRef?.current) {
+            heroTl.to(
+              nextImageRef.current,
+              {
+                opacity: 1,
+                duration: isMobile ? 0.4 : 0.6,
+                ease: "power2.inOut",
+              },
+              "<"
+            );
+          }
+        }
       }
     }, heroRef);
 
     return () => {
       heroCtx.revert();
     };
-  }, [textRefs]);
+  }, [textRefs, imageRefs]);
 
   // Parallax Section Animation
   useEffect(() => {
@@ -830,41 +863,18 @@ export default function About({ aboutContent }: any) {
                   opacity="0.15"
                 />
 
-                <image
-                  ref={img1Ref}
-                  href={getImageUrl(heroSection.heroImages.fullService)}
-                  width="120%"
-                  height="100%"
-                  clipPath="url(#image_clip_path)"
-                  preserveAspectRatio="xMidYMid slice"
-                />
-                <image
-                  ref={img2Ref}
-                  href={getImageUrl(heroSection.heroImages.ai)}
-                  width="120%"
-                  height="100%"
-                  clipPath="url(#image_clip_path)"
-                  preserveAspectRatio="xMidYMid slice"
-                  style={{ opacity: 0 }}
-                />
-                <image
-                  ref={img3Ref}
-                  href={getImageUrl(heroSection.heroImages.tech)}
-                  width="120%"
-                  height="100%"
-                  clipPath="url(#image_clip_path)"
-                  preserveAspectRatio="xMidYMid slice"
-                  style={{ opacity: 0 }}
-                />
-                <image
-                  ref={img4Ref}
-                  href={getImageUrl(heroSection.heroImages.creative)}
-                  width="120%"
-                  height="100%"
-                  clipPath="url(#image_clip_path)"
-                  preserveAspectRatio="xMidYMid slice"
-                  style={{ opacity: 0 }}
-                />
+                {heroSection.heroImages.map((imagePath, index) => (
+                  <image
+                    key={`hero-image-${index}`}
+                    ref={imageRefs[index]}
+                    href={getImageUrl(imagePath)}
+                    width="120%"
+                    height="100%"
+                    clipPath="url(#image_clip_path)"
+                    preserveAspectRatio="xMidYMid slice"
+                    style={{ opacity: index === 0 ? 1 : 0 }}
+                  />
+                ))}
               </svg>
             </div>
           </div>

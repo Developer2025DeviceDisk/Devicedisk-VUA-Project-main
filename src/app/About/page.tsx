@@ -47,6 +47,7 @@ interface Director {
   image: string;
   description: string;
   order: number;
+  isActive: boolean;
 }
 
 interface AboutPageContent {
@@ -145,14 +146,16 @@ const defaultContent: AboutPageContent = {
         role: "",
         image: "/Vishal-Sharma.png",
         description: "A seasoned leader with over 25 Years of diverse industry experience spanning Media, Telecom, Real Estate, Infrastructure, and Utilities, Vishal is recognized for his ability to develop and implement winning, comprehensive Marketing Communication and Branding Strategies in complex environments. His expertise as a brand marketing leader encompasses cross-functional knowledge of both Domestic and Global Markets.\n\nPrior to his entrepreneurial ventures, Vishal held Senior Managerial Positions leading Branding & Communications at prestigious organizations including Bharti Airtel, Vodafone, Reliance, Etisalat, Essel Group, Anarock, GreenCell Mobility, and PropertyPistol.",
-        order: 1
+        order: 1,
+        isActive: true
       },
       {
         name: "Shivendra Singh",
         role: "",
         image: "/Shivendra-Singh.png",
         description: "A seasoned business leader with over 17 Years of experience in the Real Estate Industry across India and international markets, including the GCC, Europe, and North America. He has held key positions in prestigious organizations such as AllCheckDeals (InfoEdge), Proptiger.com, JLL, ANAROCK, and PropertyPistol. He has been instrumental in successfully managing both Indian and international portfolios, showcasing a proven ability to navigate diverse market dynamics.",
-        order: 2
+        order: 2,
+        isActive: true
       }
     ]
   },
@@ -178,6 +181,11 @@ const getTeamSlice = (teamMembers: TeamMember[]) => {
     result.push(activeMembers[result.length % activeMembers.length]);
   }
   return result;
+};
+
+const getActiveDirectors = (directors: Director[]) => {
+  // Filter active directors and sort by order
+  return directors.filter(director => director.isActive).sort((a, b) => a.order - b.order);
 };
 
 export default function AboutPage() {
@@ -246,6 +254,12 @@ export default function AboutPage() {
   const isDesktop = useMediaQuery("min-width", 920) ?? false;
 
   const [loaderFinished, setLoaderFinished] = useState(false);
+  
+  // Get active directors for dynamic rendering
+  const activeDirectors = getActiveDirectors(aboutContent.directorSection?.directors || defaultContent.directorSection?.directors || []);
+  
+  // Get active team members for carousel animation
+  const team = aboutContent.teamSection?.teamMembers?.filter(member => member.isActive).sort((a, b) => a.order - b.order) || defaultContent.teamSection?.teamMembers?.filter(member => member.isActive).sort((a, b) => a.order - b.order) || [];
 
   // Fetch about page content
   useEffect(() => {
@@ -719,9 +733,10 @@ export default function AboutPage() {
       });
     }
 
-    // Configuration for director scroll timing
+    // Configuration for director scroll timing (dynamic based on director count)
+    const directorCount = Math.max(activeDirectors.length, 2); // Minimum 2 for animation compatibility
     const directorScrollConfig = {
-      totalScreens: 2, // Total number of screen heights to scroll through
+      totalScreens: directorCount, // Total number of screen heights to scroll through
       directorOneScreens: 1, // How many screen heights for director one
       directorTwoScreens: 1, // How many screen heights for director two
       transitionSpeed: 3, // Speed multiplier for transitions (higher = faster)
@@ -894,7 +909,7 @@ export default function AboutPage() {
               const roleP = container.querySelector(".team-role");
 
               let renderIndex =
-                team.length < 4 ? 2 : (carousalIndex + 3) % team.length;
+                team.length < 4 ? 2 : Math.max(0, (carousalIndex + 3) % team.length);
 
               if (nameP) nameP.textContent = team[renderIndex].name;
               if (roleP) roleP.textContent = team[renderIndex].role;
@@ -933,7 +948,7 @@ export default function AboutPage() {
               const roleP = container.querySelector(".team-role");
 
               let renderIndex =
-                team.length < 4 ? 0 : (carousalIndex + 3) % team.length;
+                team.length < 4 ? 0 : Math.max(0, (carousalIndex + 3) % team.length);
 
               if (nameP) nameP.textContent = team[renderIndex].name;
               if (roleP) roleP.textContent = team[renderIndex].role;
@@ -972,7 +987,7 @@ export default function AboutPage() {
               const roleP = container.querySelector(".team-role");
 
               let renderIndex =
-                team.length < 4 ? 1 : (carousalIndex + 3) % team.length;
+                team.length < 4 ? 1 : Math.max(0, (carousalIndex + 3) % team.length);
 
               // if(nameP.textContent === team[renderIndex].name){
               //   renderIndex = renderIndex - 1
@@ -1013,7 +1028,7 @@ export default function AboutPage() {
               const roleP = container.querySelector(".team-role");
 
               let renderIndex =
-                team.length < 4 ? 2 : (carousalIndex + 3) % team.length;
+                team.length < 4 ? 2 : Math.max(0, (carousalIndex + 3) % team.length);
 
               // if(nameP.textContent === team[renderIndex].name){
               //   renderIndex = renderIndex - 1
@@ -1544,8 +1559,8 @@ export default function AboutPage() {
                 >
                   <div className="relative h-[200px] w-[180px] sm:h-[235px] sm:w-[235px] lg:h-[375px] lg:w-[70%] overflow-hidden">
                     <Image
-                      src={aboutContent.directorSection?.directors?.[0]?.image || "/Vishal-Sharma.png"}
-                      alt={aboutContent.directorSection?.directors?.[0]?.name || "Director"}
+                      src={activeDirectors[0]?.image || "/Vishal-Sharma.png"}
+                      alt={activeDirectors[0]?.name || "Director"}
                       layout="fill"
                       objectFit="cover"
                       className="rounded-md"
@@ -1557,7 +1572,7 @@ export default function AboutPage() {
                         ref={directorOneNameRef}
                         className="relative text-[18px] sm:text-[20.5px] lg:text-[30.5px] font-[500] text-center text-[#6210FF] mb-0 mt-4"
                       >
-                        {aboutContent.directorSection?.directors?.[0]?.name || "Vishal Sharma"}
+                        {activeDirectors[0]?.name || "Vishal Sharma"}
                       </h2>
                     </div>
                     <div className="overflow-hidden height-[fit-content] ">
@@ -1565,7 +1580,7 @@ export default function AboutPage() {
                         ref={directorOneSubNameRef}
                         className="relative text-[14px] sm:text-[16.5px] lg:text-[25.5px] font-[500] text-center text-[#BE2FF4] mt-[-5px]"
                       >
-                        {aboutContent.directorSection?.directors?.[0]?.role || ""}
+                        {activeDirectors[0]?.role || ""}
                       </p>
                     </div>
                   </div>
@@ -1577,10 +1592,10 @@ export default function AboutPage() {
                   }}
                 >
                   <div ref={directorOneTextRef}>
-                    {aboutContent.directorSection?.directors?.[0]?.description?.split('\n').map((paragraph, index) => (
+                    {activeDirectors[0]?.description?.split('\n').map((paragraph, index) => (
                       <div key={index}>
                         <p className="text-[12px] sm:text-[14px] lg:text-[17px] text-justify" dangerouslySetInnerHTML={{ __html: paragraph }}></p>
-                        {index < (aboutContent.directorSection?.directors?.[0]?.description?.split('\n').length || 1) - 1 && <br />}
+                        {index < (activeDirectors[0]?.description?.split('\n').length || 1) - 1 && <br />}
                       </div>
                     )) || (
                       <>
@@ -1656,8 +1671,8 @@ export default function AboutPage() {
                 >
                   <div className="relative h-[220px] w-[200px] sm:h-[235px] sm:w-[235px] lg:h-[375px] lg:w-[70%] overflow-hidden">
                     <Image
-                      src={aboutContent.directorSection?.directors?.[1]?.image || "/Shivendra-Singh.png"}
-                      alt={aboutContent.directorSection?.directors?.[1]?.name || "Director"}
+                      src={activeDirectors[1]?.image || "/Shivendra-Singh.png"}
+                      alt={activeDirectors[1]?.name || "Director"}
                       layout="fill"
                       objectFit="cover"
                       className="rounded-md"
@@ -1669,7 +1684,7 @@ export default function AboutPage() {
                         ref={directorTwoNameRef}
                         className="relative text-[18px] sm:text-[20.5px] lg:text-[30.5px] font-[500] text-center text-[#6210FF] mb-0 mt-4"
                       >
-                        {aboutContent.directorSection?.directors?.[1]?.name || "Shivendra Singh"}
+                        {activeDirectors[1]?.name || "Shivendra Singh"}
                       </h2>
                     </div>
                     <div className="overflow-hidden height-[fit-content] ">
@@ -1677,7 +1692,7 @@ export default function AboutPage() {
                         ref={directorTwoSubNameRef}
                         className="relative text-[14px] sm:text-[16.5px] lg:text-[25.5px] font-[500] text-center text-[#BE2FF4] mt-[-5px]"
                       >
-                        {aboutContent.directorSection?.directors?.[1]?.role || ""}
+                        {activeDirectors[1]?.role || ""}
                       </p>
                     </div>
                   </div>
@@ -1689,10 +1704,10 @@ export default function AboutPage() {
                   }}
                 >
                   <div ref={directorTwoTextRef}>
-                    {aboutContent.directorSection?.directors?.[1]?.description?.split('\n').map((paragraph, index) => (
+                    {activeDirectors[1]?.description?.split('\n').map((paragraph, index) => (
                       <div key={index}>
                         <p className="text-[14px] lg:text-[17px] text-justify" dangerouslySetInnerHTML={{ __html: paragraph }}></p>
-                        {index < (aboutContent.directorSection?.directors?.[1]?.description?.split('\n').length || 1) - 1 && <br />}
+                        {index < (activeDirectors[1]?.description?.split('\n').length || 1) - 1 && <br />}
                       </div>
                     )) || (
                       <p className="text-[14px] lg:text-[17px] text-justify">

@@ -105,37 +105,57 @@ const defaultContent: AboutPageContent = {
     titleLine3: "Marketing.",
     backgroundGradient: "from-[#6210FF] to-[#BE2FF4]",
     heroImage: "/Marketingwoman.png",
-    decorativeImage: "/Markofinnovation.png"
+    decorativeImage: "/Markofinnovation.png",
   },
   aboutUsSection: {
     mainTextLine1: "'Vua' is the Voice that will lead the dialogue",
     mainTextLine2: "for a future-forward world of Marketing.",
     textColor: "#6210FF",
-    backgroundColor: "#EEF0FF"
+    backgroundColor: "#EEF0FF",
   },
   whoAreWeSection: {
     title: "Who Are We?",
     backgroundImage: "/Whoarewe.png",
     leftImages: {
       decorativeArc: "/Layer_1.png",
-      astronaut: "/astro.png"
+      astronaut: "/astro.png",
     },
     content: {
-      paragraph1: "We are a future-focused Marketing agency that aims to help brands leverage the latest in marketing creativity and technology to achieve their Growth KPIs.",
-      highlightText: "Our 360-degree service portfolio of creative, digital and Mar-Tech solutions",
-      paragraph1Continuation: "empowers brands to lead, not follow, in a world shaped by innovation.",
-      paragraph2: "VUA is more than a brand-it's a movement for those who seek to lead the next era of change."
-    }
+      paragraph1:
+        "We are a future-focused Marketing agency that aims to help brands leverage the latest in marketing creativity and technology to achieve their Growth KPIs.",
+      highlightText:
+        "Our 360-degree service portfolio of creative, digital and Mar-Tech solutions",
+      paragraph1Continuation:
+        "empowers brands to lead, not follow, in a world shaped by innovation.",
+      paragraph2:
+        "VUA is more than a brand-it's a movement for those who seek to lead the next era of change.",
+    },
   },
   foundationSection: {
     title: "Our Foundation",
     backgroundColor: "#6310FF",
     foundations: [
-      { title: "Creativity", description: "Creativity that inspires", order: 1 },
-      { title: "Innovation", description: "Technology that keeps You ahead", order: 2 },
-      { title: "Strategic Thinking", description: "Strategy that always makes you win", order: 3 },
-      { title: "Customer Centricity", description: 'Everything is about "You"', order: 4 }
-    ]
+      {
+        title: "Creativity",
+        description: "Creativity that inspires",
+        order: 1,
+      },
+      {
+        title: "Innovation",
+        description: "Technology that keeps You ahead",
+        order: 2,
+      },
+      {
+        title: "Strategic Thinking",
+        description: "Strategy that always makes you win",
+        order: 3,
+      },
+      {
+        title: "Customer Centricity",
+        description: 'Everything is about "You"',
+        order: 4,
+      },
+    ],
   },
   directorSection: {
     sectionTitle: "Director",
@@ -145,36 +165,64 @@ const defaultContent: AboutPageContent = {
         name: "Vishal Sharma",
         role: "",
         image: "/Vishal-Sharma.png",
-        description: "A seasoned leader with over 25 Years of diverse industry experience spanning Media, Telecom, Real Estate, Infrastructure, and Utilities, Vishal is recognized for his ability to develop and implement winning, comprehensive Marketing Communication and Branding Strategies in complex environments. His expertise as a brand marketing leader encompasses cross-functional knowledge of both Domestic and Global Markets.\n\nPrior to his entrepreneurial ventures, Vishal held Senior Managerial Positions leading Branding & Communications at prestigious organizations including Bharti Airtel, Vodafone, Reliance, Etisalat, Essel Group, Anarock, GreenCell Mobility, and PropertyPistol.",
+        description:
+          "A seasoned leader with over 25 Years of diverse industry experience spanning Media, Telecom, Real Estate, Infrastructure, and Utilities, Vishal is recognized for his ability to develop and implement winning, comprehensive Marketing Communication and Branding Strategies in complex environments. His expertise as a brand marketing leader encompasses cross-functional knowledge of both Domestic and Global Markets.\n\nPrior to his entrepreneurial ventures, Vishal held Senior Managerial Positions leading Branding & Communications at prestigious organizations including Bharti Airtel, Vodafone, Reliance, Etisalat, Essel Group, Anarock, GreenCell Mobility, and PropertyPistol.",
         order: 1,
-        isActive: true
+        isActive: true,
       },
       {
         name: "Shivendra Singh",
         role: "",
         image: "/Shivendra-Singh.png",
-        description: "A seasoned business leader with over 17 Years of experience in the Real Estate Industry across India and international markets, including the GCC, Europe, and North America. He has held key positions in prestigious organizations such as AllCheckDeals (InfoEdge), Proptiger.com, JLL, ANAROCK, and PropertyPistol. He has been instrumental in successfully managing both Indian and international portfolios, showcasing a proven ability to navigate diverse market dynamics.",
+        description:
+          "A seasoned business leader with over 17 Years of experience in the Real Estate Industry across India and international markets, including the GCC, Europe, and North America. He has held key positions in prestigious organizations such as AllCheckDeals (InfoEdge), Proptiger.com, JLL, ANAROCK, and PropertyPistol. He has been instrumental in successfully managing both Indian and international portfolios, showcasing a proven ability to navigate diverse market dynamics.",
         order: 2,
-        isActive: true
-      }
-    ]
+        isActive: true,
+      },
+    ],
   },
   teamSection: {
     sectionTitle: "Our Team",
     backgroundColor: "black",
     titleGradient: "from-[#6210FF] to-[#BE2FF4]",
     teamMembers: [
-      { name: "Gourav Bhatt", role: "Digital Marketing", image: "/Group 30.png", order: 1, isActive: true },
-      { name: "Dishank Shah", role: "Chief Business Officer", image: "/Group 32.png", order: 2, isActive: true },
-      { name: "Heramb Gharat", role: "Creative Head", image: "/Group 33.png", order: 3, isActive: true },
-      { name: "Dishank Shah", role: "Chief Business Officer", image: "/Group 32.png", order: 4, isActive: true }
-    ]
-  }
+      {
+        name: "Gourav Bhatt",
+        role: "Digital Marketing",
+        image: "/Group 30.png",
+        order: 1,
+        isActive: true,
+      },
+      {
+        name: "Dishank Shah",
+        role: "Chief Business Officer",
+        image: "/Group 32.png",
+        order: 2,
+        isActive: true,
+      },
+      {
+        name: "Heramb Gharat",
+        role: "Creative Head",
+        image: "/Group 33.png",
+        order: 3,
+        isActive: true,
+      },
+      {
+        name: "Dishank Shah",
+        role: "Chief Business Officer",
+        image: "/Group 32.png",
+        order: 4,
+        isActive: true,
+      },
+    ],
+  },
 };
 const getTeamSlice = (teamMembers: TeamMember[]) => {
   // Filter active team members and sort by order
-  const activeMembers = teamMembers.filter(member => member.isActive).sort((a, b) => a.order - b.order);
-  
+  const activeMembers = teamMembers
+    .filter((member) => member.isActive)
+    .sort((a, b) => a.order - b.order);
+
   if (activeMembers.length >= 4) return activeMembers.slice(0, 4);
   const result = [...activeMembers];
   while (result.length < 4 && activeMembers.length > 0) {
@@ -184,13 +232,21 @@ const getTeamSlice = (teamMembers: TeamMember[]) => {
 };
 
 const getActiveDirectors = (directors: Director[]) => {
-  // Filter active directors and sort by order
-  return directors.filter(director => director.isActive).sort((a, b) => a.order - b.order);
+  // Filter active directors and sort by order - similar to sortedCards pattern
+  return directors
+    .filter((director) => director.isActive)
+    .sort((a, b) => a.order - b.order);
+};
+
+// Create sorted directors array similar to sortedCards pattern
+const getSortedDirectors = (directors: Director[]) => {
+  return getActiveDirectors(directors || []);
 };
 
 export default function AboutPage() {
   const rootRef = useRef<HTMLElement>(null);
-  const [aboutContent, setAboutContent] = useState<AboutPageContent>(defaultContent);
+  const [aboutContent, setAboutContent] =
+    useState<AboutPageContent>(defaultContent);
   const [loading, setLoading] = useState(true);
   // navigationRef is now handled in layout - removed from here
 
@@ -231,18 +287,6 @@ export default function AboutPage() {
   const antronutImageElementRef = useRef<HTMLImageElement>(null);
 
   const directorContainerRef = useRef<HTMLDivElement>(null);
-  const directionCarousalOne = useRef<HTMLElement>(null);
-  const directionCarousalTwo = useRef<HTMLElement>(null);
-
-  const directorOneImageRef = useRef<HTMLDivElement>(null);
-  const directorOneNameRef = useRef<HTMLHeadingElement>(null);
-  const directorOneSubNameRef = useRef<HTMLParagraphElement>(null);
-  const directorOneTextRef = useRef<HTMLDivElement>(null);
-
-  const directorTwoImageRef = useRef<HTMLDivElement>(null);
-  const directorTwoNameRef = useRef<HTMLHeadingElement>(null);
-  const directorTwoSubNameRef = useRef<HTMLParagraphElement>(null);
-  const directorTwoTextRef = useRef<HTMLDivElement>(null);
 
   // ---------- Team section ref --------------
   const teamSectionContainerRef = useRef<HTMLDivElement>(null);
@@ -254,28 +298,41 @@ export default function AboutPage() {
   const isDesktop = useMediaQuery("min-width", 920) ?? false;
 
   const [loaderFinished, setLoaderFinished] = useState(false);
-  
-  // Get active directors for dynamic rendering
-  const activeDirectors = getActiveDirectors(aboutContent.directorSection?.directors || defaultContent.directorSection?.directors || []);
-  
+
+  // Get sorted directors for dynamic rendering - similar to sortedCards pattern
+  const sortedDirectors = getSortedDirectors(
+    aboutContent.directorSection?.directors ||
+      defaultContent.directorSection?.directors ||
+      []
+  );
+
   // Get active team members for carousel animation
-  const team = aboutContent.teamSection?.teamMembers?.filter(member => member.isActive).sort((a, b) => a.order - b.order) || defaultContent.teamSection?.teamMembers?.filter(member => member.isActive).sort((a, b) => a.order - b.order) || [];
+  const team =
+    aboutContent.teamSection?.teamMembers
+      ?.filter((member) => member.isActive)
+      .sort((a, b) => a.order - b.order) ||
+    defaultContent.teamSection?.teamMembers
+      ?.filter((member) => member.isActive)
+      .sort((a, b) => a.order - b.order) ||
+    [];
 
   // Fetch about page content
   useEffect(() => {
     const fetchContent = async () => {
       try {
-        const response = await fetch('http://localhost:8000/api/about-page-content/active');
+        const response = await fetch(
+          "http://localhost:8000/api/about-page-content/active"
+        );
         const result = await response.json();
-        
+
         if (result.success && result.data) {
           setAboutContent(result.data);
         } else {
-          console.log('Using default about content');
+          console.log("Using default about content");
         }
       } catch (error) {
-        console.error('Error fetching about content:', error);
-        console.log('Using default about content');
+        console.error("Error fetching about content:", error);
+        console.log("Using default about content");
       } finally {
         setLoading(false);
       }
@@ -717,108 +774,73 @@ export default function AboutPage() {
       },
     });
 
-    // ---------- Director Section Animation ----------
-    if (directionCarousalTwo.current) {
-      gsap.set(directionCarousalTwo.current, {
-        xPercent: -50,
-        top: "100%",
-        opacity: 1,
-      });
-    }
-    if (directionCarousalOne.current) {
-      gsap.set(directionCarousalOne.current, {
-        xPercent: -50,
-        top: "20%",
-        opacity: 1,
-      });
-    }
-
-    // Configuration for director scroll timing (dynamic based on director count)
-    const directorCount = Math.max(activeDirectors.length, 2); // Minimum 2 for animation compatibility
-    const directorScrollConfig = {
-      totalScreens: directorCount, // Total number of screen heights to scroll through
-      directorOneScreens: 1, // How many screen heights for director one
-      directorTwoScreens: 1, // How many screen heights for director two
-      transitionSpeed: 3, // Speed multiplier for transitions (higher = faster)
-    };
-
-    ScrollTrigger.create({
-      trigger: directorContainerRef.current,
-      start: "top top",
-      end: `+=${window.innerHeight * directorScrollConfig.totalScreens}px`,
-      pin: true,
-      pinSpacing: true,
-      scrub: 1,
-      onUpdate: ({ progress }) => {
-        // Calculate normalized progress points
-        const directorOneEndPoint =
-          directorScrollConfig.directorOneScreens /
-          directorScrollConfig.totalScreens;
-        const directorTwoStartPoint =
-          (directorScrollConfig.totalScreens -
-            directorScrollConfig.directorTwoScreens) /
-          directorScrollConfig.totalScreens;
-
-        // Director One
-        if (progress <= directorOneEndPoint) {
-          gsap.to(directionCarousalOne.current, {
-            top: window.innerWidth < 768 ? "20%" : "20%",
-            scale: 1,
-            opacity: 1,
-            duration: 0,
+    // ---------- Dynamic Director Section Animation (Stacking Effect) ----------
+    if (sortedDirectors.length > 0) {
+      // Wait for DOM to be ready
+      setTimeout(() => {
+        const directorElements = directorContainerRef.current?.querySelectorAll('.director-card');
+        
+        if (directorElements && directorElements.length > 0) {
+          // Initialize all directors: first one at y=0%, rest at y=100%
+          Array.from(directorElements).forEach((element, index) => {
+            gsap.set(element, {
+              position: 'absolute',
+              left: '50%',
+              width: '100%',
+              minHeight: '100vh',
+              top: index === 0 ? "0%" : "100%",
+              transform: 'translateX(-50%)',
+              opacity: 1,
+              zIndex: directorElements.length - index, // Higher z-index for later cards
+            });
           });
-        } else {
-          // Director one transitions out
-          const exitProgress = Math.min(
-            (progress - directorOneEndPoint) *
-              directorScrollConfig.transitionSpeed,
-            1
-          );
 
-          const directorOneTop = gsap.utils.interpolate(
-            window.innerWidth < 768 ? "20%" : "20%",
-            window.innerWidth < 768 ? "5%" : "20%",
-            exitProgress
-          );
+          // Configuration for director scroll timing
+          const directorCount = sortedDirectors.length;
 
-          const directorOneScale = gsap.utils.interpolate(1, 0.5, exitProgress);
-          const directorOneOpacity = gsap.utils.interpolate(1, 0, exitProgress);
-
-          gsap.to(directionCarousalOne.current, {
-            top: directorOneTop,
-            scale: directorOneScale,
-            opacity: directorOneOpacity,
-            duration: 0,
+          ScrollTrigger.create({
+            trigger: directorContainerRef.current,
+            start: "top top",
+            end: `+=${window.innerHeight * directorCount}px`,
+            pin: true,
+            pinSpacing: true,
+            scrub: 1,
+            onUpdate: ({ progress }) => {
+              // Each director gets equal scroll time
+              const segmentLength = 1 / directorCount;
+              
+              Array.from(directorElements).forEach((element, index) => {
+                // Calculate when this director should start animating
+                const animationStart = index * segmentLength;
+                
+                if (progress >= animationStart) {
+                  // This director should animate up (from 100% to 0%)
+                  // Calculate how much it should move based on progress
+                  const localProgress = Math.min(
+                    (progress - animationStart) / segmentLength,
+                    1
+                  );
+                  
+                  // Animate from 100% to 0% (bottom to top)
+                  const yPosition = gsap.utils.interpolate(100, 0, localProgress);
+                  
+                  gsap.to(element, {
+                    top: `${yPosition}%`,
+                    duration: 0,
+                  });
+                } else {
+                  // Keep this director at 100% (off-screen below)
+                  gsap.to(element, {
+                    top: "100%",
+                    duration: 0,
+                  });
+                }
+              });
+            },
           });
         }
-
-        // Director Two
-        if (progress >= directorTwoStartPoint) {
-          const enterProgress = Math.min(
-            (progress - directorTwoStartPoint) *
-              directorScrollConfig.transitionSpeed,
-            1
-          );
-
-          const directorTwoTop = gsap.utils.interpolate(
-            "100%",
-            window.innerWidth < 768 ? "5%" : "20%",
-            enterProgress
-          );
-
-          gsap.to(directionCarousalTwo.current, {
-            top: directorTwoTop,
-            duration: 0,
-          });
-        } else {
-          // Keep director two off-screen
-          gsap.to(directionCarousalTwo.current, {
-            top: "100%",
-            duration: 0,
-          });
-        }
-      },
-    });
+      }, 100);
+    }
     // ---------- Team Section Carousal Animation ----------
     if (
       teamRefStateOneRef.current &&
@@ -909,7 +931,9 @@ export default function AboutPage() {
               const roleP = container.querySelector(".team-role");
 
               let renderIndex =
-                team.length < 4 ? 2 : Math.max(0, (carousalIndex + 3) % team.length);
+                team.length < 4
+                  ? 2
+                  : Math.max(0, (carousalIndex + 3) % team.length);
 
               if (nameP) nameP.textContent = team[renderIndex].name;
               if (roleP) roleP.textContent = team[renderIndex].role;
@@ -948,7 +972,9 @@ export default function AboutPage() {
               const roleP = container.querySelector(".team-role");
 
               let renderIndex =
-                team.length < 4 ? 0 : Math.max(0, (carousalIndex + 3) % team.length);
+                team.length < 4
+                  ? 0
+                  : Math.max(0, (carousalIndex + 3) % team.length);
 
               if (nameP) nameP.textContent = team[renderIndex].name;
               if (roleP) roleP.textContent = team[renderIndex].role;
@@ -987,7 +1013,9 @@ export default function AboutPage() {
               const roleP = container.querySelector(".team-role");
 
               let renderIndex =
-                team.length < 4 ? 1 : Math.max(0, (carousalIndex + 3) % team.length);
+                team.length < 4
+                  ? 1
+                  : Math.max(0, (carousalIndex + 3) % team.length);
 
               // if(nameP.textContent === team[renderIndex].name){
               //   renderIndex = renderIndex - 1
@@ -1028,7 +1056,9 @@ export default function AboutPage() {
               const roleP = container.querySelector(".team-role");
 
               let renderIndex =
-                team.length < 4 ? 2 : Math.max(0, (carousalIndex + 3) % team.length);
+                team.length < 4
+                  ? 2
+                  : Math.max(0, (carousalIndex + 3) % team.length);
 
               // if(nameP.textContent === team[renderIndex].name){
               //   renderIndex = renderIndex - 1
@@ -1104,7 +1134,7 @@ export default function AboutPage() {
         {/* Header is already included in layout.tsx */}
         <section
           ref={headerRef}
-          className={`relative flex flex-col md:flex-row md:gap-20 items-end justify-between px-4 sm:px-8 lg:px-20 bg-gradient-to-tr ${aboutContent.headerSection?.backgroundGradient || 'from-[#6210FF] to-[#BE2FF4]'} text-white overflow-hidden`}
+          className={`relative flex flex-col md:flex-row md:gap-20 items-end justify-between px-4 sm:px-8 lg:px-20 bg-gradient-to-tr ${aboutContent.headerSection?.backgroundGradient || "from-[#6210FF] to-[#BE2FF4]"} text-white overflow-hidden`}
         >
           <div className="lg:pb-[300px] pt-[100px] w-full pl-[28px] lg:pl-[0] px-auto ">
             <div>
@@ -1146,7 +1176,10 @@ export default function AboutPage() {
           >
             <div>
               <Image
-                src={aboutContent.headerSection?.decorativeImage || "/Markofinnovation.png"}
+                src={
+                  aboutContent.headerSection?.decorativeImage ||
+                  "/Markofinnovation.png"
+                }
                 alt="Arc"
                 width={610}
                 height={400}
@@ -1155,7 +1188,9 @@ export default function AboutPage() {
 
               <Image
                 ref={headerImageElementRef}
-                src={aboutContent.headerSection?.heroImage || "/Marketingwoman.png"}
+                src={
+                  aboutContent.headerSection?.heroImage || "/Marketingwoman.png"
+                }
                 alt="Marketing Woman"
                 width={570}
                 height={600}
@@ -1165,11 +1200,19 @@ export default function AboutPage() {
           </div>
         </section>
 
-        <section style={{backgroundColor: aboutContent.aboutUsSection?.backgroundColor || '#EEF0FF'}}>
+        <section
+          style={{
+            backgroundColor:
+              aboutContent.aboutUsSection?.backgroundColor || "#EEF0FF",
+          }}
+        >
           <section
             ref={aboutSectionRef}
             className="lg:min-h-[60vh] flex flex-col items-center justify-start px-4 lg:py-16 z-120"
-            style={{backgroundColor: aboutContent.aboutUsSection?.backgroundColor || '#EEF0FF'}}
+            style={{
+              backgroundColor:
+                aboutContent.aboutUsSection?.backgroundColor || "#EEF0FF",
+            }}
           >
             <div ref={aboutSectionSvgRef}>
               <div className="relative left-[2%] lg:left-[4%] scale-[0.32] lg:scale-[0.82] xl:scale-[0.82] w-full top-[-30px] lg:top-[100px]">
@@ -1300,20 +1343,32 @@ export default function AboutPage() {
               </div>
 
               <div className="mt-[-15%] lg:mt-[60px] mb-[20px]  ">
-                <p className="text-[18px] lg:text-4xl font-[500] text-center mt-[0px] mb-[20px]  leading-[120%] tracking-[2%] relative overflow-hidden" style={{color: aboutContent.aboutUsSection?.textColor || '#6210FF'}}>
+                <p
+                  className="text-[18px] lg:text-4xl font-[500] text-center mt-[0px] mb-[20px]  leading-[120%] tracking-[2%] relative overflow-hidden"
+                  style={{
+                    color: aboutContent.aboutUsSection?.textColor || "#6210FF",
+                  }}
+                >
                   <span
                     ref={aboutSectionTitleRefOne}
                     className={"relative block"}
                   >
-                    {aboutContent.aboutUsSection?.mainTextLine1 || "'Vua' is the Voice that will lead the dialogue"}{" "}
+                    {aboutContent.aboutUsSection?.mainTextLine1 ||
+                      "'Vua' is the Voice that will lead the dialogue"}{" "}
                   </span>
                 </p>
-                <p className="text-[18px] lg:text-4xl font-[500] text-center mt-[0px]  leading-[120%] tracking-[2%] relative overflow-hidden" style={{color: aboutContent.aboutUsSection?.textColor || '#6210FF'}}>
+                <p
+                  className="text-[18px] lg:text-4xl font-[500] text-center mt-[0px]  leading-[120%] tracking-[2%] relative overflow-hidden"
+                  style={{
+                    color: aboutContent.aboutUsSection?.textColor || "#6210FF",
+                  }}
+                >
                   <span
                     ref={aboutSectionTitleRefTwo}
                     className={"relative block"}
                   >
-                    {aboutContent.aboutUsSection?.mainTextLine2 || "for a future-forward world of Marketing."}
+                    {aboutContent.aboutUsSection?.mainTextLine2 ||
+                      "for a future-forward world of Marketing."}
                   </span>
                 </p>
               </div>
@@ -1324,7 +1379,9 @@ export default function AboutPage() {
         <section
           ref={antronutSectionRef}
           className="relative min-h-screen w-full bg-cover bg-center text-white px-6 py-16 lg:py-28"
-          style={{backgroundImage: `url('${aboutContent.whoAreWeSection?.backgroundImage || '/Whoarewe.png'}')`}}
+          style={{
+            backgroundImage: `url('${aboutContent.whoAreWeSection?.backgroundImage || "/Whoarewe.png"}')`,
+          }}
         >
           <div className="relative z-10 max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-12  ">
             {/* Left Side: */}
@@ -1339,7 +1396,10 @@ export default function AboutPage() {
               }
             >
               <Image
-                src={aboutContent.whoAreWeSection?.leftImages?.decorativeArc || "/Layer_1.png"}
+                src={
+                  aboutContent.whoAreWeSection?.leftImages?.decorativeArc ||
+                  "/Layer_1.png"
+                }
                 alt="Decorative Arc"
                 width={1200}
                 height={800}
@@ -1349,7 +1409,10 @@ export default function AboutPage() {
 
               <Image
                 ref={antronutImageElementRef}
-                src={aboutContent.whoAreWeSection?.leftImages?.astronaut || "/astro.png"}
+                src={
+                  aboutContent.whoAreWeSection?.leftImages?.astronaut ||
+                  "/astro.png"
+                }
                 alt="Astronaut"
                 width={519}
                 height={1000}
@@ -1370,23 +1433,39 @@ export default function AboutPage() {
                 {aboutContent.whoAreWeSection?.title || "Who Are We?"}
               </h2>
               <h2 className="text-[50px] lg:text-[67px] font-thin mb-[30px] outfit-light leading-[58px] lg:hidden ">
-                {aboutContent.whoAreWeSection?.title?.includes(" ") 
-                  ? aboutContent.whoAreWeSection.title.split(" ").map((word, index) => (
-                      <span key={index}>{word}{index < aboutContent.whoAreWeSection!.title.split(" ").length - 1 ? <br /> : ""}</span>
-                    ))
-                  : (aboutContent.whoAreWeSection?.title || "Who Are We?")
-                }
+                {aboutContent.whoAreWeSection?.title?.includes(" ")
+                  ? aboutContent.whoAreWeSection.title
+                      .split(" ")
+                      .map((word, index) => (
+                        <span key={index}>
+                          {word}
+                          {index <
+                          aboutContent.whoAreWeSection!.title.split(" ")
+                            .length -
+                            1 ? (
+                            <br />
+                          ) : (
+                            ""
+                          )}
+                        </span>
+                      ))
+                  : aboutContent.whoAreWeSection?.title || "Who Are We?"}
               </h2>
               <p className="text-lg lg:text-[19.69px] font-[400] leading-relaxed mb-4 lg:font-[300]">
-                {aboutContent.whoAreWeSection?.content?.paragraph1 || "We are a future-focused Marketing agency that aims to help brands leverage the latest in marketing creativity and technology to achieve their Growth KPIs."}
+                {aboutContent.whoAreWeSection?.content?.paragraph1 ||
+                  "We are a future-focused Marketing agency that aims to help brands leverage the latest in marketing creativity and technology to achieve their Growth KPIs."}
                 <span className="font-[500] lg:font-[500] text-white">
                   {" "}
-                  {aboutContent.whoAreWeSection?.content?.highlightText || "Our 360-degree service portfolio of creative, digital and Mar-Tech solutions"}{" "}
+                  {aboutContent.whoAreWeSection?.content?.highlightText ||
+                    "Our 360-degree service portfolio of creative, digital and Mar-Tech solutions"}{" "}
                 </span>
-                {aboutContent.whoAreWeSection?.content?.paragraph1Continuation || "empowers brands to lead, not follow, in a world shaped by innovation."}
+                {aboutContent.whoAreWeSection?.content
+                  ?.paragraph1Continuation ||
+                  "empowers brands to lead, not follow, in a world shaped by innovation."}
               </p>
               <p className="text-lg lg:text-[19.69px] font-[400] leading-relaxed mb-4 lg:font-[300]">
-                {aboutContent.whoAreWeSection?.content?.paragraph2 || "VUA is more than a brand-it's a movement for those who seek to lead the next era of change."}
+                {aboutContent.whoAreWeSection?.content?.paragraph2 ||
+                  "VUA is more than a brand-it's a movement for those who seek to lead the next era of change."}
               </p>
             </div>
           </div>
@@ -1395,7 +1474,10 @@ export default function AboutPage() {
         <section
           ref={foundationSectionRef}
           className="relative w-screen h-screen text-zinc-900 overflow-hidden"
-          style={{backgroundColor: aboutContent.foundationSection?.backgroundColor || '#6310FF'}}
+          style={{
+            backgroundColor:
+              aboutContent.foundationSection?.backgroundColor || "#6310FF",
+          }}
         >
           <section
             style={{
@@ -1433,11 +1515,16 @@ export default function AboutPage() {
             >
               <div ref={foundationMobileTitle}>
                 {aboutContent.foundationSection?.title?.includes(" ") ? (
-                  aboutContent.foundationSection.title.split(" ").map((word, index) => (
-                    <h2 key={index} className="text-[50px] text-white font-[400] m-0 leading-[45px] max-[350px]:text-[40px] lg:text-6xl">
-                      {word}
-                    </h2>
-                  ))
+                  aboutContent.foundationSection.title
+                    .split(" ")
+                    .map((word, index) => (
+                      <h2
+                        key={index}
+                        className="text-[50px] text-white font-[400] m-0 leading-[45px] max-[350px]:text-[40px] lg:text-6xl"
+                      >
+                        {word}
+                      </h2>
+                    ))
                 ) : (
                   <h2 className="text-[50px] text-white font-[400] m-0 leading-[45px] max-[350px]:text-[40px] lg:text-6xl">
                     {aboutContent.foundationSection?.title || "Our Foundation"}
@@ -1453,60 +1540,88 @@ export default function AboutPage() {
              lg:w-1/2  lg:gap-[5.5%] lg:bottom-0 lg:justify-center
             "
           >
-            {aboutContent.foundationSection?.foundations?.slice(0, 4).map((foundation, index) => {
-              const refs = [foundationContent1Ref, foundationContent2Ref, foundationContent3Ref, foundationContent4Ref];
-              return (
-                <div
-                  key={index}
-                  style={{
-                    position: "relative",
-                    overflow: "hidden",
-                  }}
-                >
-                  <div ref={refs[index]}>
-                    <h2 className="text-[35px] text-white font-medium m-0  max-[350px]:text-[27px]  lg:text-[3rem]">
-                      {foundation.title}
-                    </h2>
-                    <p className="text-base text-white font-medium m-0">
-                      {foundation.description}
-                    </p>
+            {aboutContent.foundationSection?.foundations
+              ?.slice(0, 4)
+              .map((foundation, index) => {
+                const refs = [
+                  foundationContent1Ref,
+                  foundationContent2Ref,
+                  foundationContent3Ref,
+                  foundationContent4Ref,
+                ];
+                return (
+                  <div
+                    key={index}
+                    style={{
+                      position: "relative",
+                      overflow: "hidden",
+                    }}
+                  >
+                    <div ref={refs[index]}>
+                      <h2 className="text-[35px] text-white font-medium m-0  max-[350px]:text-[27px]  lg:text-[3rem]">
+                        {foundation.title}
+                      </h2>
+                      <p className="text-base text-white font-medium m-0">
+                        {foundation.description}
+                      </p>
+                    </div>
                   </div>
-                </div>
-              );
-            }) || [
-              // Fallback to default foundations if no data
-              { title: "Creativity", description: "Creativity that inspires" },
-              { title: "Innovation", description: "Technology that keeps You ahead" },
-              { title: "Strategic Thinking", description: "Strategy that always makes you win" },
-              { title: "Customer Centricity", description: 'Everything is about "You"' }
-            ].map((foundation, index) => {
-              const refs = [foundationContent1Ref, foundationContent2Ref, foundationContent3Ref, foundationContent4Ref];
-              return (
-                <div
-                  key={index}
-                  style={{
-                    position: "relative",
-                    overflow: "hidden",
-                  }}
-                >
-                  <div ref={refs[index]}>
-                    <h2 className="text-[35px] text-white font-medium m-0  max-[350px]:text-[27px]  lg:text-[3rem]">
-                      {foundation.title}
-                    </h2>
-                    <p className="text-base text-white font-medium m-0">
-                      {foundation.description}
-                    </p>
+                );
+              }) ||
+              [
+                // Fallback to default foundations if no data
+                {
+                  title: "Creativity",
+                  description: "Creativity that inspires",
+                },
+                {
+                  title: "Innovation",
+                  description: "Technology that keeps You ahead",
+                },
+                {
+                  title: "Strategic Thinking",
+                  description: "Strategy that always makes you win",
+                },
+                {
+                  title: "Customer Centricity",
+                  description: 'Everything is about "You"',
+                },
+              ].map((foundation, index) => {
+                const refs = [
+                  foundationContent1Ref,
+                  foundationContent2Ref,
+                  foundationContent3Ref,
+                  foundationContent4Ref,
+                ];
+                return (
+                  <div
+                    key={index}
+                    style={{
+                      position: "relative",
+                      overflow: "hidden",
+                    }}
+                  >
+                    <div ref={refs[index]}>
+                      <h2 className="text-[35px] text-white font-medium m-0  max-[350px]:text-[27px]  lg:text-[3rem]">
+                        {foundation.title}
+                      </h2>
+                      <p className="text-base text-white font-medium m-0">
+                        {foundation.description}
+                      </p>
+                    </div>
                   </div>
-                </div>
-              );
-            })}
+                );
+              })}
           </div>
         </section>
 
         <section
           ref={directorContainerRef}
           className="relative w-screen min-h-screen text-zinc-900 overflow-hidden"
-          style={{backgroundColor: aboutContent.directorSection?.backgroundColor || '#EEF0FF'}}
+          style={{
+            backgroundColor:
+              aboutContent.directorSection?.backgroundColor || "#EEF0FF",
+          }}
         >
           <h2
             className="text-[48px] sm:text-[54.5px] lg:text-[94.5px] font-[500] text-center text-[#6210FF] mb-4"
@@ -1523,214 +1638,73 @@ export default function AboutPage() {
             {aboutContent.directorSection?.sectionTitle || "Director"}
           </h2>
 
-          <section
-            className="bg-[transparent] py-[0] px-4 sm:px-6 md:px-20"
-            ref={directionCarousalOne}
-            style={{
-              position: "absolute",
-              // transform: "translateX(-50%)",
-              left: "50%",
-              width: "100%",
-              minHeight: "100vh",
-              top: "0%",
-              zIndex: 1,
-            }}
-          >
-            <div
-              className="pt-[10px] sm:pt-[140px] lg:pt-16 pb-5"
-              style={{
-                minHeight: "100%",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "flex-start",
-                flexDirection: "column",
-                gap: "5%",
-              }}
+          {/* Dynamic Director Cards */}
+          {sortedDirectors.map((director, index) => (
+            <section
+              key={director.name + director.order}
+              className="director-card bg-[transparent] py-[0] px-4 sm:px-6 md:px-20"
             >
-              <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-[12px] sm:gap-[20px] lg:gap-12 items-start">
-                <div
-                  ref={directorOneImageRef}
-                  className="col-span-1 md:col-span-5 flex justify-center mb-4 md:mb-0"
-                  style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                  }}
-                >
-                  <div className="relative h-[200px] w-[180px] sm:h-[235px] sm:w-[235px] lg:h-[375px] lg:w-[70%] overflow-hidden">
-                    <Image
-                      src={activeDirectors[0]?.image || "/Vishal-Sharma.png"}
-                      alt={activeDirectors[0]?.name || "Director"}
-                      layout="fill"
-                      objectFit="cover"
-                      className="rounded-md"
-                    />
-                  </div>
-                  <div>
-                    <div className="overflow-hidden height-[fit-content] ">
-                      <h2
-                        ref={directorOneNameRef}
-                        className="relative text-[18px] sm:text-[20.5px] lg:text-[30.5px] font-[500] text-center text-[#6210FF] mb-0 mt-4"
-                      >
-                        {activeDirectors[0]?.name || "Vishal Sharma"}
-                      </h2>
+              <div
+                className="pt-[10px] sm:pt-[140px] lg:pt-16 pb-5"
+                style={{
+                  minHeight: "100vh",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "flex-start",
+                  flexDirection: "column",
+                  gap: "5%",
+                }}
+              >
+                <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-[12px] sm:gap-[20px] lg:gap-12 items-start">
+                  <div
+                    className="col-span-1 md:col-span-5 flex justify-center mb-4 md:mb-0"
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "center",
+                    }}
+                  >
+                    <div className="relative h-[200px] w-[180px] sm:h-[235px] sm:w-[235px] lg:h-[375px] lg:w-[70%] overflow-hidden">
+                      <Image
+                        src={director.image}
+                        alt={director.name}
+                        layout="fill"
+                        objectFit="cover"
+                        className="rounded-md"
+                      />
                     </div>
-                    <div className="overflow-hidden height-[fit-content] ">
-                      <p
-                        ref={directorOneSubNameRef}
-                        className="relative text-[14px] sm:text-[16.5px] lg:text-[25.5px] font-[500] text-center text-[#BE2FF4] mt-[-5px]"
-                      >
-                        {activeDirectors[0]?.role || ""}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                <div
-                  className="col-span-1 md:col-span-7 text-[#6210FF] leading-[1.4] sm:leading-relaxed tracking-[0.08em] space-y-4 relative lg:h-[100%] px-2 sm:px-0"
-                  style={{
-                    fontFamily: "'Outfit', sans-serif",
-                  }}
-                >
-                  <div ref={directorOneTextRef}>
-                    {activeDirectors[0]?.description?.split('\n').map((paragraph, index) => (
-                      <div key={index}>
-                        <p className="text-[12px] sm:text-[14px] lg:text-[17px] text-justify" dangerouslySetInnerHTML={{ __html: paragraph }}></p>
-                        {index < (activeDirectors[0]?.description?.split('\n').length || 1) - 1 && <br />}
+                    <div>
+                      <div className="overflow-hidden height-[fit-content]">
+                        <h2 className="relative text-[18px] sm:text-[20.5px] lg:text-[30.5px] font-[500] text-center text-[#6210FF] mb-0 mt-4">
+                          {director.name}
+                        </h2>
                       </div>
-                    )) || (
-                      <>
-                        <p className="text-[12px] sm:text-[14px] lg:text-[17px] text-justify">
-                          A seasoned leader with over <strong>25 Years</strong> of
-                          diverse industry experience spanning{" "}
-                          <strong>
-                            {" "}
-                            Media, Telecom, Real Estate, Infrastructure, and
-                            Utilities,
-                          </strong>{" "}
-                          Vishal is recognized for his ability to develop and
-                          implement winning, comprehensive{" "}
-                          <strong> Marketing Communication</strong> and{" "}
-                          <strong>Branding Strategies </strong> in complex
-                          environments. His expertise as a brand marketing leader
-                          encompasses cross-functional knowledge of both{" "}
-                          <strong> Domestic and Global Markets.</strong>
+                      <div className="overflow-hidden height-[fit-content]">
+                        <p className="relative text-[14px] sm:text-[16.5px] lg:text-[25.5px] font-[500] text-center text-[#BE2FF4] mt-[-5px]">
+                          {director.role}
                         </p>
-                        <br />
-                        <p className="text-[12px] sm:text-[14px] lg:text-[17px] text-justify">
-                          Prior to his entrepreneurial ventures, Vishal held{" "}
-                          <strong> Senior Managerial Positions </strong> leading{" "}
-                          <strong> Branding & Communications </strong> at
-                          prestigious organizations including{" "}
-                          <strong>
-                            {" "}
-                            Bharti Airtel, Vodafone, Reliance, Etisalat, Essel
-                            Group, Anarock, GreenCell Mobility, and PropertyPistol.
-                          </strong>
-                        </p>
-                      </>
-                    )}
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    className="col-span-1 md:col-span-7 text-[#6210FF] leading-[1.4] sm:leading-relaxed tracking-[0.08em] space-y-4 relative lg:h-[100%] px-2 sm:px-0"
+                    style={{
+                      fontFamily: "'Outfit', sans-serif",
+                    }}
+                  >
+                    <div>
+                      {director.description?.split('\n').map((paragraph, paragraphIndex) => (
+                        <div key={paragraphIndex}>
+                          <p className="text-[12px] sm:text-[14px] lg:text-[17px] text-justify" dangerouslySetInnerHTML={{ __html: paragraph }}></p>
+                          {paragraphIndex < (director.description?.split('\n').length || 1) - 1 && <br />}
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </section>
-
-          <section
-            className="bg-[transparent] py-[0] px-4 sm:px-6 md:px-20"
-            ref={directionCarousalTwo}
-            style={{
-              position: "absolute",
-              // transform: "translateX(-50%)",
-              left: "50%",
-              width: "100%",
-              minHeight: "100vh",
-              top: "0%",
-              zIndex: 1,
-            }}
-          >
-            <div
-              className="pt-[120px] sm:pt-[140px] lg:pt-16 pb-5"
-              style={{
-                minHeight: "100%",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                flexDirection: "column",
-                gap: "5%",
-              }}
-            >
-              <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-[12px] sm:gap-[20px] lg:gap-12 items-center md:items-start">
-                <div
-                  ref={directorTwoImageRef}
-                  className="col-span-1 md:col-span-5 flex justify-center mb-4 md:mb-0"
-                  style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                  }}
-                >
-                  <div className="relative h-[220px] w-[200px] sm:h-[235px] sm:w-[235px] lg:h-[375px] lg:w-[70%] overflow-hidden">
-                    <Image
-                      src={activeDirectors[1]?.image || "/Shivendra-Singh.png"}
-                      alt={activeDirectors[1]?.name || "Director"}
-                      layout="fill"
-                      objectFit="cover"
-                      className="rounded-md"
-                    />
-                  </div>
-                  <div>
-                    <div className="overflow-hidden height-[fit-content] ">
-                      <h2
-                        ref={directorTwoNameRef}
-                        className="relative text-[18px] sm:text-[20.5px] lg:text-[30.5px] font-[500] text-center text-[#6210FF] mb-0 mt-4"
-                      >
-                        {activeDirectors[1]?.name || "Shivendra Singh"}
-                      </h2>
-                    </div>
-                    <div className="overflow-hidden height-[fit-content] ">
-                      <p
-                        ref={directorTwoSubNameRef}
-                        className="relative text-[14px] sm:text-[16.5px] lg:text-[25.5px] font-[500] text-center text-[#BE2FF4] mt-[-5px]"
-                      >
-                        {activeDirectors[1]?.role || ""}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                <div
-                  className="col-span-1 md:col-span-7 text-[#6210FF] leading-[1.4] sm:leading-relaxed tracking-[0.08em] space-y-4 relative overflow-hidden lg:h-[100%] px-2 sm:px-0 flex flex-col justify-center md:justify-start"
-                  style={{
-                    fontFamily: "'Outfit', sans-serif",
-                  }}
-                >
-                  <div ref={directorTwoTextRef}>
-                    {activeDirectors[1]?.description?.split('\n').map((paragraph, index) => (
-                      <div key={index}>
-                        <p className="text-[14px] lg:text-[17px] text-justify" dangerouslySetInnerHTML={{ __html: paragraph }}></p>
-                        {index < (activeDirectors[1]?.description?.split('\n').length || 1) - 1 && <br />}
-                      </div>
-                    )) || (
-                      <p className="text-[14px] lg:text-[17px] text-justify">
-                        A seasoned business leader with over{" "}
-                        <strong>17 Years</strong> of experience in the{" "}
-                        <strong>Real Estate Industry </strong> across India and
-                        international markets, including the GCC, Europe, and
-                        North America. He has held key positions in prestigious
-                        organizations such as{" "}
-                        <strong>
-                          AllCheckDeals (InfoEdge), Proptiger.com, JLL, ANAROCK,
-                          and PropertyPistol.
-                        </strong>{" "}
-                        He has been instrumental in successfully managing both
-                        Indian and international portfolios, showcasing a proven
-                        ability to navigate diverse market dynamics.
-                      </p>
-                    )}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </section>
+            </section>
+          ))}
         </section>
 
         <section
@@ -1742,10 +1716,13 @@ export default function AboutPage() {
             flexDirection: "column",
             overflowX: "hidden",
             width: "100vw",
-            backgroundColor: aboutContent.teamSection?.backgroundColor || "black"
+            backgroundColor:
+              aboutContent.teamSection?.backgroundColor || "black",
           }}
         >
-          <h2 className={`text-[54.5px] lg:text-[94.5px] font-[500] bg-gradient-to-r ${aboutContent.teamSection?.titleGradient || 'from-[#6210FF] to-[#BE2FF4]'} bg-clip-text text-transparent block mb-[60px]`}>
+          <h2
+            className={`text-[54.5px] lg:text-[94.5px] font-[500] bg-gradient-to-r ${aboutContent.teamSection?.titleGradient || "from-[#6210FF] to-[#BE2FF4]"} bg-clip-text text-transparent block mb-[60px]`}
+          >
             {aboutContent.teamSection?.sectionTitle || "Our Team"}
           </h2>
 
@@ -1759,7 +1736,11 @@ export default function AboutPage() {
               overflowX: "hidden",
             }}
           >
-            {getTeamSlice(aboutContent.teamSection?.teamMembers || defaultContent.teamSection?.teamMembers || []).map((member, index) => {
+            {getTeamSlice(
+              aboutContent.teamSection?.teamMembers ||
+                defaultContent.teamSection?.teamMembers ||
+                []
+            ).map((member, index) => {
               return (
                 <div
                   ref={

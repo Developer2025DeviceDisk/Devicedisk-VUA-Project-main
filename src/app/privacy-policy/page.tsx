@@ -1,4 +1,5 @@
 import Link from 'next/link';
+export const dynamic = 'force-dynamic';
 
 interface ContactInfo {
   title: string;
@@ -45,7 +46,7 @@ interface PrivacyPolicyContent {
 
 async function fetchPrivacyPolicyContent(): Promise<PrivacyPolicyContent | null> {
   try {
-    const response = await fetch('http://localhost:8000/api/privacy-policy/active', {
+    const response = await fetch('http://15.206.84.81:8000/api/privacy-policy/active', {
       cache: 'no-store'
     });
     

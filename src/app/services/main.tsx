@@ -31,7 +31,7 @@ const getVideoUrl = (videoPath: string) => {
   if (videoPath.startsWith('http')) return videoPath; // Already a full URL
   // Clean up any whitespace and newlines from corrupted data
   const cleanPath = videoPath.replace(/\s+/g, '').trim();
-  return `http://localhost:8000${cleanPath}`;
+  return `http://15.206.84.81:8000${cleanPath}`;
 };
 
 interface ServicesProps {

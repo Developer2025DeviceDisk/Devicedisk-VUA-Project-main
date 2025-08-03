@@ -1,4 +1,5 @@
 import Footer from './Footer';
+export const dynamic = 'force-dynamic';
 
 // TypeScript interfaces (duplicated for clarity)
 interface SocialLink {
@@ -127,9 +128,9 @@ async function getFooterContent(): Promise<FooterContent> {
   });
 
   try {
-    const response = await fetch('http://localhost:8000/api/footer-content/active', {
+    const response = await fetch('http://15.206.84.81:8000/api/footer-content/active', {
       next: { revalidate: 60 }, // Revalidate every 60 seconds
-      cache: 'no-store' // For development, remove in production
+      // cache: 'no-store' // For development, remove in production
     });
     const result = await response.json();
     

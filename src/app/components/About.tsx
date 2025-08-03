@@ -16,7 +16,7 @@ const getImageUrl = (imagePath: string): string => {
   
   // If it's an uploaded image (starts with /uploads), serve from backend
   if (imagePath.startsWith('/uploads/')) {
-    return `http://localhost:8000${imagePath}`;
+    return `http://15.206.84.81:8000${imagePath}`;
   }
   
   // For default images in public folder, serve from frontend
@@ -32,7 +32,7 @@ const getVideoUrl = (videoPath: string): string => {
   
   // If it's an uploaded video (starts with /uploads), serve from backend
   if (videoPath.startsWith('/uploads/')) {
-    return `http://localhost:8000${videoPath}`;
+    return `http://15.206.84.81:8000${videoPath}`;
   }
   
   // For default videos in public folder, serve from frontend

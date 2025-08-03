@@ -300,7 +300,7 @@ export default function AboutPage() {
   const [loaderFinished, setLoaderFinished] = useState(false);
 
   // Get sorted directors for dynamic rendering - similar to sortedCards pattern
-  const sortedDirectors = getSortedDirectors(
+  const sortedCards = getSortedDirectors(
     aboutContent.directorSection?.directors ||
       defaultContent.directorSection?.directors ||
       []
@@ -315,6 +315,17 @@ export default function AboutPage() {
       ?.filter((member) => member.isActive)
       .sort((a, b) => a.order - b.order) ||
     [];
+
+  // Dynamic card refs
+  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
+
+  // Initialize card refs based on sorted cards
+  useEffect(() => {
+    cardRefs.current = cardRefs.current.slice(0, sortedCards.length);
+    for (let i = cardRefs.current.length; i < sortedCards.length; i++) {
+      cardRefs.current[i] = null;
+    }
+  }, [sortedCards.length]);
 
   // Fetch about page content
   useEffect(() => {
@@ -775,72 +786,61 @@ export default function AboutPage() {
     });
 
     // ---------- Dynamic Director Section Animation (Stacking Effect) ----------
-    if (sortedDirectors.length > 0) {
-      // Wait for DOM to be ready
-      setTimeout(() => {
-        const directorElements = directorContainerRef.current?.querySelectorAll('.director-card');
-        
-        if (directorElements && directorElements.length > 0) {
-          // Initialize all directors: first one at y=0%, rest at y=100%
-          Array.from(directorElements).forEach((element, index) => {
-            gsap.set(element, {
-              position: 'absolute',
-              left: '50%',
-              width: '100%',
-              minHeight: '100vh',
-              top: index === 0 ? "0%" : "100%",
-              transform: 'translateX(-50%)',
-              opacity: 1,
-              zIndex: directorElements.length - index, // Higher z-index for later cards
-            });
-          });
+    // if (sortedDirectors.length > 0) {
+    //   // Wait for DOM to be ready
+    //   setTimeout(() => {
+    //     const directorElements = directorContainerRef.current?.querySelectorAll('.director-card');
 
-          // Configuration for director scroll timing
-          const directorCount = sortedDirectors.length;
+    //     if (directorElements && directorElements.length > 0) {
+    //       // Initialize all directors: first one at y=0%, rest at y=100%
+    //       Array.from(directorElements).forEach((element, index) => {
+    //         gsap.set(element, {
+    //           position: 'absolute',
+    //           left: '50%',
+    //           width: '100%',
+    //           minHeight: '100vh',
+    //           top: index === 0 ? "0%" : "100%",
+    //           transform: 'translateX(-50%)',
+    //           opacity: 1,
+    //           zIndex: directorElements.length - index, // Higher z-index for later cards
+    //         });
+    //       });
 
-          ScrollTrigger.create({
-            trigger: directorContainerRef.current,
-            start: "top top",
-            end: `+=${window.innerHeight * directorCount}px`,
-            pin: true,
-            pinSpacing: true,
-            scrub: 1,
-            onUpdate: ({ progress }) => {
-              // Each director gets equal scroll time
-              const segmentLength = 1 / directorCount;
-              
-              Array.from(directorElements).forEach((element, index) => {
-                // Calculate when this director should start animating
-                const animationStart = index * segmentLength;
-                
-                if (progress >= animationStart) {
-                  // This director should animate up (from 100% to 0%)
-                  // Calculate how much it should move based on progress
-                  const localProgress = Math.min(
-                    (progress - animationStart) / segmentLength,
-                    1
-                  );
-                  
-                  // Animate from 100% to 0% (bottom to top)
-                  const yPosition = gsap.utils.interpolate(100, 0, localProgress);
-                  
-                  gsap.to(element, {
-                    top: `${yPosition}%`,
-                    duration: 0,
-                  });
-                } else {
-                  // Keep this director at 100% (off-screen below)
-                  gsap.to(element, {
-                    top: "100%",
-                    duration: 0,
-                  });
-                }
-              });
-            },
-          });
-        }
-      }, 100);
-    }
+    //       // Configuration for director scroll timing
+    //       const directorCount = sortedDirectors.length;
+
+    //       // Copy Dynamic Service Cards animation pattern - use timeline instead of onUpdate
+    //       const tl = gsap.timeline({
+    //         scrollTrigger: {
+    //           trigger: directorContainerRef.current,
+    //           start: "top top",
+    //           end: "500%",
+    //           pin: true,
+    //           scrub: 1,
+    //         },
+    //       });
+
+    //       // Dynamic directors animation - exactly like service cards
+    //       Array.from(directorElements).forEach((directorElement, index) => {
+    //         if (directorElement) {
+    //           tl.to(
+    //             directorElement,
+    //             { top: window.innerWidth < 768 ? "10%" : "20%", duration: 1 },
+    //             index === 0 ? "-=.9" : "-=.9"
+    //           );
+    //           // Scale down and fade all directors except the last one - like service cards
+    //           if (index < directorElements.length - 1) {
+    //             tl.to(directorElement, {
+    //               transform: 'translateX(-50%) scale(0.5)',
+    //               opacity: 0,
+    //               duration: 1
+    //             });
+    //           }
+    //         }
+    //       });
+    //     }
+    //   }, 100);
+    // }
     // ---------- Team Section Carousal Animation ----------
     if (
       teamRefStateOneRef.current &&
@@ -1104,6 +1104,42 @@ export default function AboutPage() {
       clearTimeout(resizeTimeout);
     };
   }, []);
+
+    // Services Section Animation
+  useEffect(() => {
+    const servicesCtx = gsap.context(() => {
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: directorContainerRef.current,
+          start: "top top",
+          end: "300%",
+          pin: true,
+          scrub: 1,
+        },
+      });
+
+    
+
+      // Dynamic cards animation
+      cardRefs.current.forEach((cardRef, index) => {
+        if (cardRef) {
+          tl.to(
+            cardRef,
+            { top: window.innerWidth < 768 ? "10%" : "30%", duration: 1 },
+           "-=.9"
+          );
+          if (index < cardRefs.current.length - 1) {
+            tl.to(cardRef, { scale: 0.5, opacity: 0, duration: 1 });
+          }
+        }
+      });
+    }, directorContainerRef);
+
+    return () => {
+      servicesCtx.revert();
+    };
+  }, [sortedCards]);
+
 
   useParallax([
     { wrapper: headerRef, image: headerImageElementRef } as any,
@@ -1639,7 +1675,90 @@ export default function AboutPage() {
           </h2>
 
           {/* Dynamic Director Cards */}
-          {sortedDirectors.map((director, index) => (
+          {sortedCards.map((director: any, index: any) => (
+            <div
+              key={index}
+              ref={(el) => {
+                cardRefs.current[index] = el;
+              }}
+              className={`absolute ${index === 0 ? "top-[30%]" : "top-[100%]"} z-${index * 10} w-full`}
+              // style={{ boxShadow: "0 20px 50px -10px rgba(190, 47, 244, 0.3)" }}
+            >
+              <section
+                key={director.name + director.order}
+                className="director-card bg-[transparent] py-[0] px-4 sm:px-6 md:px-20"
+              >
+                <div
+                  className="pt-[10px] sm:pt-[140px] lg:pt-16 pb-5"
+                  style={{
+                    minHeight: "100vh",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "flex-start",
+                    flexDirection: "column",
+                    gap: "5%",
+                  }}
+                >
+                  <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-[12px] sm:gap-[20px] lg:gap-12 items-start">
+                    <div
+                      className="col-span-1 md:col-span-5 flex justify-center mb-4 md:mb-0"
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                      }}
+                    >
+                      <div className="relative h-[200px] w-[180px] sm:h-[235px] sm:w-[235px] lg:h-[375px] lg:w-[70%] overflow-hidden">
+                        <Image
+                          src={director.image}
+                          alt={director.name}
+                          layout="fill"
+                          objectFit="cover"
+                          className="rounded-md"
+                        />
+                      </div>
+                      <div>
+                        <div className="overflow-hidden height-[fit-content]">
+                          <h2 className="relative text-[18px] sm:text-[20.5px] lg:text-[30.5px] font-[500] text-center text-[#6210FF] mb-0 mt-4">
+                            {director.name}
+                          </h2>
+                        </div>
+                        <div className="overflow-hidden height-[fit-content]">
+                          <p className="relative text-[14px] sm:text-[16.5px] lg:text-[25.5px] font-[500] text-center text-[#BE2FF4] mt-[-5px]">
+                            {director.role}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      className="col-span-1 md:col-span-7 text-[#6210FF] leading-[1.4] sm:leading-relaxed tracking-[0.08em] space-y-4 relative lg:h-[100%] px-2 sm:px-0"
+                      style={{
+                        fontFamily: "'Outfit', sans-serif",
+                      }}
+                    >
+                      <div>
+                        {director.description
+                          ?.split("\n")
+                          .map((paragraph:any, paragraphIndex:any) => (
+                            <div key={paragraphIndex}>
+                              <p
+                                className="text-[12px] sm:text-[14px] lg:text-[17px] text-justify"
+                                dangerouslySetInnerHTML={{ __html: paragraph }}
+                              ></p>
+                              {paragraphIndex <
+                                (director.description?.split("\n").length ||
+                                  1) -
+                                  1 && <br />}
+                            </div>
+                          ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </section>
+            </div>
+          ))}
+          {/* {sortedDirectors.map((director, index) => (
             <section
               key={director.name + director.order}
               className="director-card bg-[transparent] py-[0] px-4 sm:px-6 md:px-20"
@@ -1704,7 +1823,7 @@ export default function AboutPage() {
                 </div>
               </div>
             </section>
-          ))}
+          ))} */}
         </section>
 
         <section

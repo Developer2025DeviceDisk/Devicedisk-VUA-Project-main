@@ -1,10 +1,12 @@
 import { AboutPageClient, AboutPageContent, defaultContent } from "./main";
+export const dynamic = 'force-dynamic';
+
 
 // Fetch about page content server-side
 async function getAboutContent(): Promise<AboutPageContent> {
   try {
     const response = await fetch(
-      "http://localhost:8000/api/about-page-content/active"
+      "http://15.206.84.81:8000/api/about-page-content/active"
     );
     const result = await response.json();
 

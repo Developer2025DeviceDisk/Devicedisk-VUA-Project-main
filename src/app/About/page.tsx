@@ -26,41 +26,164 @@ const mapProgress = (
   return from + (to - from) * t;
 };
 
-const team = [
-  {
-    name: "Gourav Bhatt",
-    role: "Digital Marketing",
-    image: "/Group 30.png",
+// TypeScript interfaces for About Page content
+interface TeamMember {
+  name: string;
+  role: string;
+  image: string;
+  order: number;
+  isActive: boolean;
+}
+
+interface Foundation {
+  title: string;
+  description: string;
+  order: number;
+}
+
+interface Director {
+  name: string;
+  role: string;
+  image: string;
+  description: string;
+  order: number;
+}
+
+interface AboutPageContent {
+  headerSection?: {
+    titleLine1: string;
+    titleLine2: string;
+    titleLine3: string;
+    backgroundGradient: string;
+    heroImage: string;
+    decorativeImage: string;
+  };
+  aboutUsSection?: {
+    mainTextLine1: string;
+    mainTextLine2: string;
+    textColor: string;
+    backgroundColor: string;
+  };
+  whoAreWeSection?: {
+    title: string;
+    backgroundImage: string;
+    leftImages: {
+      decorativeArc: string;
+      astronaut: string;
+    };
+    content: {
+      paragraph1: string;
+      highlightText: string;
+      paragraph1Continuation: string;
+      paragraph2: string;
+    };
+  };
+  foundationSection?: {
+    title: string;
+    backgroundColor: string;
+    foundations: Foundation[];
+  };
+  directorSection?: {
+    sectionTitle: string;
+    backgroundColor: string;
+    directors: Director[];
+  };
+  teamSection?: {
+    sectionTitle: string;
+    backgroundColor: string;
+    titleGradient: string;
+    teamMembers: TeamMember[];
+  };
+}
+
+// Default fallback content
+const defaultContent: AboutPageContent = {
+  headerSection: {
+    titleLine1: "Your Voice In",
+    titleLine2: "The Future Of",
+    titleLine3: "Marketing.",
+    backgroundGradient: "from-[#6210FF] to-[#BE2FF4]",
+    heroImage: "/Marketingwoman.png",
+    decorativeImage: "/Markofinnovation.png"
   },
-  {
-    name: "Dishank Shah",
-    role: "Chief Business Officer",
-    image: "/Group 32.png",
+  aboutUsSection: {
+    mainTextLine1: "'Vua' is the Voice that will lead the dialogue",
+    mainTextLine2: "for a future-forward world of Marketing.",
+    textColor: "#6210FF",
+    backgroundColor: "#EEF0FF"
   },
-  {
-    name: "Heramb Gharat",
-    role: "Creative Head",
-    image: "/Group 33.png",
+  whoAreWeSection: {
+    title: "Who Are We?",
+    backgroundImage: "/Whoarewe.png",
+    leftImages: {
+      decorativeArc: "/Layer_1.png",
+      astronaut: "/astro.png"
+    },
+    content: {
+      paragraph1: "We are a future-focused Marketing agency that aims to help brands leverage the latest in marketing creativity and technology to achieve their Growth KPIs.",
+      highlightText: "Our 360-degree service portfolio of creative, digital and Mar-Tech solutions",
+      paragraph1Continuation: "empowers brands to lead, not follow, in a world shaped by innovation.",
+      paragraph2: "VUA is more than a brand-it's a movement for those who seek to lead the next era of change."
+    }
   },
-  {
-    name: "Dishank Shah",
-    role: "Chief Business Officer",
-    image: "/Group 32.png",
+  foundationSection: {
+    title: "Our Foundation",
+    backgroundColor: "#6310FF",
+    foundations: [
+      { title: "Creativity", description: "Creativity that inspires", order: 1 },
+      { title: "Innovation", description: "Technology that keeps You ahead", order: 2 },
+      { title: "Strategic Thinking", description: "Strategy that always makes you win", order: 3 },
+      { title: "Customer Centricity", description: 'Everything is about "You"', order: 4 }
+    ]
   },
-];
-const getTeamSlice = (
-  team: Array<{ name: string; role: string; image: string }>
-) => {
-  if (team.length >= 4) return team.slice(0, 4);
-  const result = [...team];
-  while (result.length < 4) {
-    result.push(team[result.length - 1]);
+  directorSection: {
+    sectionTitle: "Director",
+    backgroundColor: "#EEF0FF",
+    directors: [
+      {
+        name: "Vishal Sharma",
+        role: "",
+        image: "/Vishal-Sharma.png",
+        description: "A seasoned leader with over 25 Years of diverse industry experience spanning Media, Telecom, Real Estate, Infrastructure, and Utilities, Vishal is recognized for his ability to develop and implement winning, comprehensive Marketing Communication and Branding Strategies in complex environments. His expertise as a brand marketing leader encompasses cross-functional knowledge of both Domestic and Global Markets.\n\nPrior to his entrepreneurial ventures, Vishal held Senior Managerial Positions leading Branding & Communications at prestigious organizations including Bharti Airtel, Vodafone, Reliance, Etisalat, Essel Group, Anarock, GreenCell Mobility, and PropertyPistol.",
+        order: 1
+      },
+      {
+        name: "Shivendra Singh",
+        role: "",
+        image: "/Shivendra-Singh.png",
+        description: "A seasoned business leader with over 17 Years of experience in the Real Estate Industry across India and international markets, including the GCC, Europe, and North America. He has held key positions in prestigious organizations such as AllCheckDeals (InfoEdge), Proptiger.com, JLL, ANAROCK, and PropertyPistol. He has been instrumental in successfully managing both Indian and international portfolios, showcasing a proven ability to navigate diverse market dynamics.",
+        order: 2
+      }
+    ]
+  },
+  teamSection: {
+    sectionTitle: "Our Team",
+    backgroundColor: "black",
+    titleGradient: "from-[#6210FF] to-[#BE2FF4]",
+    teamMembers: [
+      { name: "Gourav Bhatt", role: "Digital Marketing", image: "/Group 30.png", order: 1, isActive: true },
+      { name: "Dishank Shah", role: "Chief Business Officer", image: "/Group 32.png", order: 2, isActive: true },
+      { name: "Heramb Gharat", role: "Creative Head", image: "/Group 33.png", order: 3, isActive: true },
+      { name: "Dishank Shah", role: "Chief Business Officer", image: "/Group 32.png", order: 4, isActive: true }
+    ]
+  }
+};
+const getTeamSlice = (teamMembers: TeamMember[]) => {
+  // Filter active team members and sort by order
+  const activeMembers = teamMembers.filter(member => member.isActive).sort((a, b) => a.order - b.order);
+  
+  if (activeMembers.length >= 4) return activeMembers.slice(0, 4);
+  const result = [...activeMembers];
+  while (result.length < 4 && activeMembers.length > 0) {
+    result.push(activeMembers[result.length % activeMembers.length]);
   }
   return result;
 };
 
 export default function AboutPage() {
   const rootRef = useRef<HTMLElement>(null);
+  const [aboutContent, setAboutContent] = useState<AboutPageContent>(defaultContent);
+  const [loading, setLoading] = useState(true);
   // navigationRef is now handled in layout - removed from here
 
   const headerRef = useRef<HTMLElement>(null);
@@ -123,6 +246,29 @@ export default function AboutPage() {
   const isDesktop = useMediaQuery("min-width", 920) ?? false;
 
   const [loaderFinished, setLoaderFinished] = useState(false);
+
+  // Fetch about page content
+  useEffect(() => {
+    const fetchContent = async () => {
+      try {
+        const response = await fetch('http://localhost:8000/api/about-page-content/active');
+        const result = await response.json();
+        
+        if (result.success && result.data) {
+          setAboutContent(result.data);
+        } else {
+          console.log('Using default about content');
+        }
+      } catch (error) {
+        console.error('Error fetching about content:', error);
+        console.log('Using default about content');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchContent();
+  }, []);
 
   useEffect(() => {
     const timer = setTimeout(() => setLoaderFinished(true), 150);
@@ -943,7 +1089,7 @@ export default function AboutPage() {
         {/* Header is already included in layout.tsx */}
         <section
           ref={headerRef}
-          className="relative flex flex-col md:flex-row md:gap-20 items-end justify-between px-4 sm:px-8 lg:px-20 bg-gradient-to-tr from-[#6210FF] to-[#BE2FF4] text-white overflow-hidden"
+          className={`relative flex flex-col md:flex-row md:gap-20 items-end justify-between px-4 sm:px-8 lg:px-20 bg-gradient-to-tr ${aboutContent.headerSection?.backgroundGradient || 'from-[#6210FF] to-[#BE2FF4]'} text-white overflow-hidden`}
         >
           <div className="lg:pb-[300px] pt-[100px] w-full pl-[28px] lg:pl-[0] px-auto ">
             <div>
@@ -951,7 +1097,7 @@ export default function AboutPage() {
                 ref={headerTitleOneRef}
                 className="font-[400] lg:font-[500] text-[45px]  lg:text-[80px] leading-[55px] lg:leading-[95px]"
               >
-                Your Voice In{" "}
+                {aboutContent.headerSection?.titleLine1 || "Your Voice In"}{" "}
               </h1>
             </div>
             <h1
@@ -959,7 +1105,7 @@ export default function AboutPage() {
               className="font-[400] lg:font-[500] text-[45px]  lg:text-[80px] leading-[55px] lg:leading-[95px]"
             >
               {" "}
-              The Future Of
+              {aboutContent.headerSection?.titleLine2 || "The Future Of"}
             </h1>
 
             <h1
@@ -967,7 +1113,7 @@ export default function AboutPage() {
               className="font-[400] lg:font-[500] text-[45px]  lg:text-[80px] leading-[55px] lg:leading-[95px]"
             >
               {" "}
-              Marketing.
+              {aboutContent.headerSection?.titleLine3 || "Marketing."}
             </h1>
           </div>
 
@@ -985,7 +1131,7 @@ export default function AboutPage() {
           >
             <div>
               <Image
-                src="/Markofinnovation.png"
+                src={aboutContent.headerSection?.decorativeImage || "/Markofinnovation.png"}
                 alt="Arc"
                 width={610}
                 height={400}
@@ -994,7 +1140,7 @@ export default function AboutPage() {
 
               <Image
                 ref={headerImageElementRef}
-                src="/Marketingwoman.png"
+                src={aboutContent.headerSection?.heroImage || "/Marketingwoman.png"}
                 alt="Marketing Woman"
                 width={570}
                 height={600}
@@ -1004,10 +1150,11 @@ export default function AboutPage() {
           </div>
         </section>
 
-        <section className="bg-[#EEF0FF]">
+        <section style={{backgroundColor: aboutContent.aboutUsSection?.backgroundColor || '#EEF0FF'}}>
           <section
             ref={aboutSectionRef}
-            className="lg:min-h-[60vh] flex flex-col items-center justify-start bg-[#EEF0FF] px-4 lg:py-16 z-120"
+            className="lg:min-h-[60vh] flex flex-col items-center justify-start px-4 lg:py-16 z-120"
+            style={{backgroundColor: aboutContent.aboutUsSection?.backgroundColor || '#EEF0FF'}}
           >
             <div ref={aboutSectionSvgRef}>
               <div className="relative left-[2%] lg:left-[4%] scale-[0.32] lg:scale-[0.82] xl:scale-[0.82] w-full top-[-30px] lg:top-[100px]">
@@ -1138,20 +1285,20 @@ export default function AboutPage() {
               </div>
 
               <div className="mt-[-15%] lg:mt-[60px] mb-[20px]  ">
-                <p className="text-[#6210FF] text-[18px] lg:text-4xl font-[500] text-center mt-[0px] mb-[20px]  leading-[120%] tracking-[2%] relative overflow-hidden">
+                <p className="text-[18px] lg:text-4xl font-[500] text-center mt-[0px] mb-[20px]  leading-[120%] tracking-[2%] relative overflow-hidden" style={{color: aboutContent.aboutUsSection?.textColor || '#6210FF'}}>
                   <span
                     ref={aboutSectionTitleRefOne}
                     className={"relative block"}
                   >
-                    ‘Vua’ is the Voice that will lead the dialogue{" "}
+                    {aboutContent.aboutUsSection?.mainTextLine1 || "'Vua' is the Voice that will lead the dialogue"}{" "}
                   </span>
                 </p>
-                <p className="text-[#6210FF] text-[18px] lg:text-4xl font-[500] text-center mt-[0px]  leading-[120%] tracking-[2%] relative overflow-hidden">
+                <p className="text-[18px] lg:text-4xl font-[500] text-center mt-[0px]  leading-[120%] tracking-[2%] relative overflow-hidden" style={{color: aboutContent.aboutUsSection?.textColor || '#6210FF'}}>
                   <span
                     ref={aboutSectionTitleRefTwo}
                     className={"relative block"}
                   >
-                    for a future-forward world of Marketing.
+                    {aboutContent.aboutUsSection?.mainTextLine2 || "for a future-forward world of Marketing."}
                   </span>
                 </p>
               </div>
@@ -1161,7 +1308,8 @@ export default function AboutPage() {
 
         <section
           ref={antronutSectionRef}
-          className="relative min-h-screen w-full bg-[url('/Whoarewe.png')] bg-cover bg-center text-white px-6 py-16 lg:py-28"
+          className="relative min-h-screen w-full bg-cover bg-center text-white px-6 py-16 lg:py-28"
+          style={{backgroundImage: `url('${aboutContent.whoAreWeSection?.backgroundImage || '/Whoarewe.png'}')`}}
         >
           <div className="relative z-10 max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-12  ">
             {/* Left Side: */}
@@ -1176,7 +1324,7 @@ export default function AboutPage() {
               }
             >
               <Image
-                src="/Layer_1.png"
+                src={aboutContent.whoAreWeSection?.leftImages?.decorativeArc || "/Layer_1.png"}
                 alt="Decorative Arc"
                 width={1200}
                 height={800}
@@ -1186,7 +1334,7 @@ export default function AboutPage() {
 
               <Image
                 ref={antronutImageElementRef}
-                src="/astro.png"
+                src={aboutContent.whoAreWeSection?.leftImages?.astronaut || "/astro.png"}
                 alt="Astronaut"
                 width={519}
                 height={1000}
@@ -1204,26 +1352,26 @@ export default function AboutPage() {
               ref={antronutSectionTextRef}
             >
               <h2 className="text-4xl sm:text-5xl lg:text-[67px] font-thin mb-[77px] petrovsans-regular hidden lg:block ">
-                Who Are We?
+                {aboutContent.whoAreWeSection?.title || "Who Are We?"}
               </h2>
               <h2 className="text-[50px] lg:text-[67px] font-thin mb-[30px] outfit-light leading-[58px] lg:hidden ">
-                Who <br /> Are We?
+                {aboutContent.whoAreWeSection?.title?.includes(" ") 
+                  ? aboutContent.whoAreWeSection.title.split(" ").map((word, index) => (
+                      <span key={index}>{word}{index < aboutContent.whoAreWeSection!.title.split(" ").length - 1 ? <br /> : ""}</span>
+                    ))
+                  : (aboutContent.whoAreWeSection?.title || "Who Are We?")
+                }
               </h2>
               <p className="text-lg lg:text-[19.69px] font-[400] leading-relaxed mb-4 lg:font-[300]">
-                We are a future-focused Marketing agency that aims to help
-                brands leverage the latest in marketing creativity and
-                technology to achieve their Growth KPIs.
+                {aboutContent.whoAreWeSection?.content?.paragraph1 || "We are a future-focused Marketing agency that aims to help brands leverage the latest in marketing creativity and technology to achieve their Growth KPIs."}
                 <span className="font-[500] lg:font-[500] text-white">
                   {" "}
-                  Our 360-degree service portfolio of creative, digital and
-                  Mar-Tech solutions{" "}
+                  {aboutContent.whoAreWeSection?.content?.highlightText || "Our 360-degree service portfolio of creative, digital and Mar-Tech solutions"}{" "}
                 </span>
-                empowers brands to lead, not follow, in a world shaped by
-                innovation.
+                {aboutContent.whoAreWeSection?.content?.paragraph1Continuation || "empowers brands to lead, not follow, in a world shaped by innovation."}
               </p>
               <p className="text-lg lg:text-[19.69px] font-[400] leading-relaxed mb-4 lg:font-[300]">
-                VUA is more than a brand-it’s a movement for those who seek to
-                lead the next era of change.
+                {aboutContent.whoAreWeSection?.content?.paragraph2 || "VUA is more than a brand-it's a movement for those who seek to lead the next era of change."}
               </p>
             </div>
           </div>
@@ -1231,7 +1379,8 @@ export default function AboutPage() {
 
         <section
           ref={foundationSectionRef}
-          className="relative w-screen h-screen text-zinc-900 bg-[#6310FF] overflow-hidden"
+          className="relative w-screen h-screen text-zinc-900 overflow-hidden"
+          style={{backgroundColor: aboutContent.foundationSection?.backgroundColor || '#6310FF'}}
         >
           <section
             style={{
@@ -1268,12 +1417,17 @@ export default function AboutPage() {
               }}
             >
               <div ref={foundationMobileTitle}>
-                <h2 className="text-[50px] text-white font-[400] m-0 leading-[45px]        max-[350px]:text-[40px] lg:text-6xl">
-                  Our
-                </h2>
-                <h2 className="text-[50px] text-white font-[400] m-0 leading-[45px]        max-[350px]:text-[40px] lg:text-6xl">
-                  Foundation
-                </h2>
+                {aboutContent.foundationSection?.title?.includes(" ") ? (
+                  aboutContent.foundationSection.title.split(" ").map((word, index) => (
+                    <h2 key={index} className="text-[50px] text-white font-[400] m-0 leading-[45px] max-[350px]:text-[40px] lg:text-6xl">
+                      {word}
+                    </h2>
+                  ))
+                ) : (
+                  <h2 className="text-[50px] text-white font-[400] m-0 leading-[45px] max-[350px]:text-[40px] lg:text-6xl">
+                    {aboutContent.foundationSection?.title || "Our Foundation"}
+                  </h2>
+                )}
               </div>
             </div>
           </div>
@@ -1284,72 +1438,60 @@ export default function AboutPage() {
              lg:w-1/2  lg:gap-[5.5%] lg:bottom-0 lg:justify-center
             "
           >
-            <div
-              style={{
-                position: "relative",
-                overflow: "hidden",
-              }}
-            >
-              <div ref={foundationContent1Ref}>
-                <h2 className="text-[35px] text-white font-medium m-0  max-[350px]:text-[27px]  lg:text-[3rem]">
-                  Creativity
-                </h2>
-                <p className="text-base text-white font-medium m-0">
-                  Creativity that inspires
-                </p>
-              </div>
-            </div>
-            <div
-              style={{
-                position: "relative",
-                overflow: "hidden",
-              }}
-            >
-              <div ref={foundationContent2Ref}>
-                <h2 className="text-[35px] text-white font-medium m-0 max-[350px]:text-[27px]  lg:text-[3rem]">
-                  Innovation
-                </h2>
-                <p className="text-base text-white font-medium m-0">
-                  Technology that keeps You ahead
-                </p>
-              </div>
-            </div>
-            <div
-              style={{
-                position: "relative",
-                overflow: "hidden",
-              }}
-            >
-              <div ref={foundationContent3Ref}>
-                <h2 className="text-[35px] text-white font-medium m-0 max-[350px]:text-[27px]  lg:text-[3rem]">
-                  Strategic Thinking
-                </h2>
-                <p className="text-base text-white font-medium m-0">
-                  Strategy that always makes you win
-                </p>
-              </div>
-            </div>
-            <div
-              style={{
-                position: "relative",
-                overflow: "hidden",
-              }}
-            >
-              <div ref={foundationContent4Ref}>
-                <h2 className="text-[35px] text-white font-medium m-0 max-[350px]:text-[27px]  lg:text-[3rem]">
-                  Customer Centricity
-                </h2>
-                <p className="text-base text-white font-medium m-0">
-                  Everything is about “You”
-                </p>
-              </div>
-            </div>
+            {aboutContent.foundationSection?.foundations?.slice(0, 4).map((foundation, index) => {
+              const refs = [foundationContent1Ref, foundationContent2Ref, foundationContent3Ref, foundationContent4Ref];
+              return (
+                <div
+                  key={index}
+                  style={{
+                    position: "relative",
+                    overflow: "hidden",
+                  }}
+                >
+                  <div ref={refs[index]}>
+                    <h2 className="text-[35px] text-white font-medium m-0  max-[350px]:text-[27px]  lg:text-[3rem]">
+                      {foundation.title}
+                    </h2>
+                    <p className="text-base text-white font-medium m-0">
+                      {foundation.description}
+                    </p>
+                  </div>
+                </div>
+              );
+            }) || [
+              // Fallback to default foundations if no data
+              { title: "Creativity", description: "Creativity that inspires" },
+              { title: "Innovation", description: "Technology that keeps You ahead" },
+              { title: "Strategic Thinking", description: "Strategy that always makes you win" },
+              { title: "Customer Centricity", description: 'Everything is about "You"' }
+            ].map((foundation, index) => {
+              const refs = [foundationContent1Ref, foundationContent2Ref, foundationContent3Ref, foundationContent4Ref];
+              return (
+                <div
+                  key={index}
+                  style={{
+                    position: "relative",
+                    overflow: "hidden",
+                  }}
+                >
+                  <div ref={refs[index]}>
+                    <h2 className="text-[35px] text-white font-medium m-0  max-[350px]:text-[27px]  lg:text-[3rem]">
+                      {foundation.title}
+                    </h2>
+                    <p className="text-base text-white font-medium m-0">
+                      {foundation.description}
+                    </p>
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </section>
 
         <section
           ref={directorContainerRef}
-          className="relative w-screen min-h-screen text-zinc-900 bg-[#EEF0FF] overflow-hidden"
+          className="relative w-screen min-h-screen text-zinc-900 overflow-hidden"
+          style={{backgroundColor: aboutContent.directorSection?.backgroundColor || '#EEF0FF'}}
         >
           <h2
             className="text-[48px] sm:text-[54.5px] lg:text-[94.5px] font-[500] text-center text-[#6210FF] mb-4"
@@ -1363,7 +1505,7 @@ export default function AboutPage() {
               transform: "translateX(-50%)",
             }}
           >
-            Director
+            {aboutContent.directorSection?.sectionTitle || "Director"}
           </h2>
 
           <section
@@ -1402,8 +1544,8 @@ export default function AboutPage() {
                 >
                   <div className="relative h-[200px] w-[180px] sm:h-[235px] sm:w-[235px] lg:h-[375px] lg:w-[70%] overflow-hidden">
                     <Image
-                      src="/Vishal-Sharma.png"
-                      alt="Vishal Sharma"
+                      src={aboutContent.directorSection?.directors?.[0]?.image || "/Vishal-Sharma.png"}
+                      alt={aboutContent.directorSection?.directors?.[0]?.name || "Director"}
                       layout="fill"
                       objectFit="cover"
                       className="rounded-md"
@@ -1415,7 +1557,7 @@ export default function AboutPage() {
                         ref={directorOneNameRef}
                         className="relative text-[18px] sm:text-[20.5px] lg:text-[30.5px] font-[500] text-center text-[#6210FF] mb-0 mt-4"
                       >
-                        Vishal Sharma
+                        {aboutContent.directorSection?.directors?.[0]?.name || "Vishal Sharma"}
                       </h2>
                     </div>
                     <div className="overflow-hidden height-[fit-content] ">
@@ -1423,7 +1565,7 @@ export default function AboutPage() {
                         ref={directorOneSubNameRef}
                         className="relative text-[14px] sm:text-[16.5px] lg:text-[25.5px] font-[500] text-center text-[#BE2FF4] mt-[-5px]"
                       >
-                        {/* co-Founder */}
+                        {aboutContent.directorSection?.directors?.[0]?.role || ""}
                       </p>
                     </div>
                   </div>
@@ -1435,34 +1577,43 @@ export default function AboutPage() {
                   }}
                 >
                   <div ref={directorOneTextRef}>
-                    <p className="text-[12px] sm:text-[14px] lg:text-[17px] text-justify">
-                      A seasoned leader with over <strong>25 Years</strong> of
-                      diverse industry experience spanning{" "}
-                      <strong>
-                        {" "}
-                        Media, Telecom, Real Estate, Infrastructure, and
-                        Utilities,
-                      </strong>{" "}
-                      Vishal is recognized for his ability to develop and
-                      implement winning, comprehensive{" "}
-                      <strong> Marketing Communication</strong> and{" "}
-                      <strong>Branding Strategies </strong> in complex
-                      environments. His expertise as a brand marketing leader
-                      encompasses cross-functional knowledge of both{" "}
-                      <strong> Domestic and Global Markets.</strong>
-                    </p>
-                    <br />
-                    <p className="text-[12px] sm:text-[14px] lg:text-[17px] text-justify">
-                      Prior to his entrepreneurial ventures, Vishal held{" "}
-                      <strong> Senior Managerial Positions </strong> leading{" "}
-                      <strong> Branding & Communications </strong> at
-                      prestigious organizations including{" "}
-                      <strong>
-                        {" "}
-                        Bharti Airtel, Vodafone, Reliance, Etisalat, Essel
-                        Group, Anarock, GreenCell Mobility, and PropertyPistol.
-                      </strong>
-                    </p>
+                    {aboutContent.directorSection?.directors?.[0]?.description?.split('\n').map((paragraph, index) => (
+                      <div key={index}>
+                        <p className="text-[12px] sm:text-[14px] lg:text-[17px] text-justify" dangerouslySetInnerHTML={{ __html: paragraph }}></p>
+                        {index < (aboutContent.directorSection?.directors?.[0]?.description?.split('\n').length || 1) - 1 && <br />}
+                      </div>
+                    )) || (
+                      <>
+                        <p className="text-[12px] sm:text-[14px] lg:text-[17px] text-justify">
+                          A seasoned leader with over <strong>25 Years</strong> of
+                          diverse industry experience spanning{" "}
+                          <strong>
+                            {" "}
+                            Media, Telecom, Real Estate, Infrastructure, and
+                            Utilities,
+                          </strong>{" "}
+                          Vishal is recognized for his ability to develop and
+                          implement winning, comprehensive{" "}
+                          <strong> Marketing Communication</strong> and{" "}
+                          <strong>Branding Strategies </strong> in complex
+                          environments. His expertise as a brand marketing leader
+                          encompasses cross-functional knowledge of both{" "}
+                          <strong> Domestic and Global Markets.</strong>
+                        </p>
+                        <br />
+                        <p className="text-[12px] sm:text-[14px] lg:text-[17px] text-justify">
+                          Prior to his entrepreneurial ventures, Vishal held{" "}
+                          <strong> Senior Managerial Positions </strong> leading{" "}
+                          <strong> Branding & Communications </strong> at
+                          prestigious organizations including{" "}
+                          <strong>
+                            {" "}
+                            Bharti Airtel, Vodafone, Reliance, Etisalat, Essel
+                            Group, Anarock, GreenCell Mobility, and PropertyPistol.
+                          </strong>
+                        </p>
+                      </>
+                    )}
                   </div>
                 </div>
               </div>
@@ -1505,8 +1656,8 @@ export default function AboutPage() {
                 >
                   <div className="relative h-[220px] w-[200px] sm:h-[235px] sm:w-[235px] lg:h-[375px] lg:w-[70%] overflow-hidden">
                     <Image
-                      src="/Shivendra-Singh.png"
-                      alt="Shivendra Singh"
+                      src={aboutContent.directorSection?.directors?.[1]?.image || "/Shivendra-Singh.png"}
+                      alt={aboutContent.directorSection?.directors?.[1]?.name || "Director"}
                       layout="fill"
                       objectFit="cover"
                       className="rounded-md"
@@ -1518,7 +1669,7 @@ export default function AboutPage() {
                         ref={directorTwoNameRef}
                         className="relative text-[18px] sm:text-[20.5px] lg:text-[30.5px] font-[500] text-center text-[#6210FF] mb-0 mt-4"
                       >
-                        Shivendra Singh
+                        {aboutContent.directorSection?.directors?.[1]?.name || "Shivendra Singh"}
                       </h2>
                     </div>
                     <div className="overflow-hidden height-[fit-content] ">
@@ -1526,7 +1677,7 @@ export default function AboutPage() {
                         ref={directorTwoSubNameRef}
                         className="relative text-[14px] sm:text-[16.5px] lg:text-[25.5px] font-[500] text-center text-[#BE2FF4] mt-[-5px]"
                       >
-                        {/* co-Founder */}
+                        {aboutContent.directorSection?.directors?.[1]?.role || ""}
                       </p>
                     </div>
                   </div>
@@ -1538,21 +1689,28 @@ export default function AboutPage() {
                   }}
                 >
                   <div ref={directorTwoTextRef}>
-                    <p className="text-[14px] lg:text-[17px] text-justify">
-                      A seasoned business leader with over{" "}
-                      <strong>17 Years</strong> of experience in the{" "}
-                      <strong>Real Estate Industry </strong> across India and
-                      international markets, including the GCC, Europe, and
-                      North America. He has held key positions in prestigious
-                      organizations such as{" "}
-                      <strong>
-                        AllCheckDeals (InfoEdge), Proptiger.com, JLL, ANAROCK,
-                        and PropertyPistol.
-                      </strong>{" "}
-                      He has been instrumental in successfully managing both
-                      Indian and international portfolios, showcasing a proven
-                      ability to navigate diverse market dynamics.
-                    </p>
+                    {aboutContent.directorSection?.directors?.[1]?.description?.split('\n').map((paragraph, index) => (
+                      <div key={index}>
+                        <p className="text-[14px] lg:text-[17px] text-justify" dangerouslySetInnerHTML={{ __html: paragraph }}></p>
+                        {index < (aboutContent.directorSection?.directors?.[1]?.description?.split('\n').length || 1) - 1 && <br />}
+                      </div>
+                    )) || (
+                      <p className="text-[14px] lg:text-[17px] text-justify">
+                        A seasoned business leader with over{" "}
+                        <strong>17 Years</strong> of experience in the{" "}
+                        <strong>Real Estate Industry </strong> across India and
+                        international markets, including the GCC, Europe, and
+                        North America. He has held key positions in prestigious
+                        organizations such as{" "}
+                        <strong>
+                          AllCheckDeals (InfoEdge), Proptiger.com, JLL, ANAROCK,
+                          and PropertyPistol.
+                        </strong>{" "}
+                        He has been instrumental in successfully managing both
+                        Indian and international portfolios, showcasing a proven
+                        ability to navigate diverse market dynamics.
+                      </p>
+                    )}
                   </div>
                 </div>
               </div>
@@ -1561,7 +1719,7 @@ export default function AboutPage() {
         </section>
 
         <section
-          className="relative max-sm:pt-[50px] bg-black text-white px-4 sm:px-6 md:px-8 text-center h-[100vh] w-[100vw] "
+          className="relative max-sm:pt-[50px] text-white px-4 sm:px-6 md:px-8 text-center h-[100vh] w-[100vw]"
           style={{
             display: "flex",
             alignItems: "center",
@@ -1569,10 +1727,11 @@ export default function AboutPage() {
             flexDirection: "column",
             overflowX: "hidden",
             width: "100vw",
+            backgroundColor: aboutContent.teamSection?.backgroundColor || "black"
           }}
         >
-          <h2 className="text-[54.5px] lg:text-[94.5px] font-[500] bg-gradient-to-r from-[#6210FF] to-[#BE2FF4] bg-clip-text text-transparent block mb-[60px]">
-            Our Team
+          <h2 className={`text-[54.5px] lg:text-[94.5px] font-[500] bg-gradient-to-r ${aboutContent.teamSection?.titleGradient || 'from-[#6210FF] to-[#BE2FF4]'} bg-clip-text text-transparent block mb-[60px]`}>
+            {aboutContent.teamSection?.sectionTitle || "Our Team"}
           </h2>
 
           <div
@@ -1585,7 +1744,7 @@ export default function AboutPage() {
               overflowX: "hidden",
             }}
           >
-            {getTeamSlice(team).map((member, index) => {
+            {getTeamSlice(aboutContent.teamSection?.teamMembers || defaultContent.teamSection?.teamMembers || []).map((member, index) => {
               return (
                 <div
                   ref={

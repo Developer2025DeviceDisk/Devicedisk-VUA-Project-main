@@ -243,6 +243,14 @@ const getSortedDirectors = (directors: Director[]) => {
   return getActiveDirectors(directors || []);
 };
 
+// Utility function to handle backend image URLs
+const getImageUrl = (imagePath: string | undefined): string => {
+  if (!imagePath) return '';
+  if (imagePath.startsWith('http')) return imagePath;
+  if (imagePath.startsWith('/uploads/')) return `http://localhost:8000${imagePath}`;
+  return imagePath;
+};
+
 
 
 export function AboutPageClient({ aboutContent }: { aboutContent: AboutPageContent }) {
@@ -916,7 +924,7 @@ export function AboutPageClient({ aboutContent }: { aboutContent: AboutPageConte
               const img = container.querySelector(".team-image") as any;
 
               if (img) {
-                img.src = team[renderIndex].image;
+                img.src = getImageUrl(team[renderIndex].image);
                 img.alt = "New Name";
               }
 
@@ -957,7 +965,7 @@ export function AboutPageClient({ aboutContent }: { aboutContent: AboutPageConte
               const img = container.querySelector(".team-image") as any;
 
               if (img) {
-                img.src = team[renderIndex].image;
+                img.src = getImageUrl(team[renderIndex].image);
                 img.alt = "New Name";
               }
 
@@ -1002,7 +1010,7 @@ export function AboutPageClient({ aboutContent }: { aboutContent: AboutPageConte
               const img = container.querySelector(".team-image") as any;
 
               if (img) {
-                img.src = team[renderIndex].image;
+                img.src = getImageUrl(team[renderIndex].image);
                 img.alt = "New Name";
               }
 
@@ -1045,7 +1053,7 @@ export function AboutPageClient({ aboutContent }: { aboutContent: AboutPageConte
               const img = container.querySelector(".team-image") as any;
 
               if (img) {
-                img.src = team[renderIndex].image;
+                img.src = getImageUrl(team[renderIndex].image);
                 img.alt = "New Name";
               }
 
@@ -1187,10 +1195,10 @@ export function AboutPageClient({ aboutContent }: { aboutContent: AboutPageConte
           >
             <div>
               <Image
-                src={
+                src={getImageUrl(
                   aboutContent.headerSection?.decorativeImage ||
                   "/Markofinnovation.png"
-                }
+                )}
                 alt="Arc"
                 width={610}
                 height={400}
@@ -1199,9 +1207,9 @@ export function AboutPageClient({ aboutContent }: { aboutContent: AboutPageConte
 
               <Image
                 ref={headerImageElementRef}
-                src={
+                src={getImageUrl(
                   aboutContent.headerSection?.heroImage || "/Marketingwoman.png"
-                }
+                )}
                 alt="Marketing Woman"
                 width={570}
                 height={600}
@@ -1391,7 +1399,7 @@ export function AboutPageClient({ aboutContent }: { aboutContent: AboutPageConte
           ref={antronutSectionRef}
           className="relative min-h-screen w-full bg-cover bg-center text-white px-6 py-16 lg:py-28"
           style={{
-            backgroundImage: `url('${aboutContent.whoAreWeSection?.backgroundImage || "/Whoarewe.png"}')`,
+            backgroundImage: `url('${getImageUrl(aboutContent.whoAreWeSection?.backgroundImage || "/Whoarewe.png")}')`,
           }}
         >
           <div className="relative z-10 max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-12  ">
@@ -1407,10 +1415,10 @@ export function AboutPageClient({ aboutContent }: { aboutContent: AboutPageConte
               }
             >
               <Image
-                src={
+                src={getImageUrl(
                   aboutContent.whoAreWeSection?.leftImages?.decorativeArc ||
                   "/Layer_1.png"
-                }
+                )}
                 alt="Decorative Arc"
                 width={1200}
                 height={800}
@@ -1420,10 +1428,10 @@ export function AboutPageClient({ aboutContent }: { aboutContent: AboutPageConte
 
               <Image
                 ref={antronutImageElementRef}
-                src={
+                src={getImageUrl(
                   aboutContent.whoAreWeSection?.leftImages?.astronaut ||
                   "/astro.png"
-                }
+                )}
                 alt="Astronaut"
                 width={519}
                 height={1000}
@@ -1685,7 +1693,7 @@ export function AboutPageClient({ aboutContent }: { aboutContent: AboutPageConte
                     >
                       <div className="relative h-[200px] w-[180px] sm:h-[235px] sm:w-[235px] lg:h-[375px] lg:w-[70%] overflow-hidden">
                         <Image
-                          src={director.image}
+                          src={getImageUrl(director.image)}
                           alt={director.name}
                           layout="fill"
                           objectFit="cover"
@@ -1853,7 +1861,7 @@ export function AboutPageClient({ aboutContent }: { aboutContent: AboutPageConte
                   <div className="relative w-[280px] h-[340px] sm:w-[300px] sm:h-[360px] md:w-[280px] md:h-[340px] lg:w-[260px] lg:h-[320px] xl:w-[300px] xl:h-[360px] mb-3 z-20">
                     <Image
                       className="team-image w-full h-full object-cover"
-                      src={member.image}
+                      src={getImageUrl(member.image)}
                       alt={member.name}
                       width={300}
                       height={360}

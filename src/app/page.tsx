@@ -58,7 +58,7 @@ interface AboutContent {
 
 async function fetchAboutContent(): Promise<AboutContent | null> {
   try {
-    const response = await fetch('http://localhost:8000/api/about-content/active', {
+    const response = await fetch('http://15.206.84.81:8000/api/about-content/active', {
       cache: 'no-store' // Disable caching for dynamic content
     });
     

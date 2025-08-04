@@ -189,7 +189,7 @@ export default function Footer({ content }: FooterProps) {
               <Link href='/'>
                 {footerContent.companyInfo?.logo ? (
                   <img 
-                    src={`http://localhost:8000${footerContent.companyInfo.logo}`}
+                    src={`http://15.206.84.81:8000${footerContent.companyInfo.logo}`}
                     alt={footerContent.companyInfo?.name || 'Company Logo'}
                     className='h-20 w-auto object-contain'
                   />

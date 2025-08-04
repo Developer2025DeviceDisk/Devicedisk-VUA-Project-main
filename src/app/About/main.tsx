@@ -247,7 +247,7 @@ const getSortedDirectors = (directors: Director[]) => {
 const getImageUrl = (imagePath: string | undefined): string => {
   if (!imagePath) return '';
   if (imagePath.startsWith('http')) return imagePath;
-  if (imagePath.startsWith('/uploads/')) return `http://localhost:8000${imagePath}`;
+  if (imagePath.startsWith('/uploads/')) return `http://15.206.84.81:8000${imagePath}`;
   return imagePath;
 };
 

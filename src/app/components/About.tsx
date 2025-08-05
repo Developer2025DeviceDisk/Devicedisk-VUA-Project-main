@@ -11,12 +11,18 @@ import Lenis from "@studio-freight/lenis";
 const getImageUrl = (imagePath: string): string => {
   if (!imagePath) return '';
   
-  // If it's already a full URL, return as is
-  if (imagePath.startsWith('http')) return imagePath;
+  // If it's already a full URL from backend, use proxy
+  if (imagePath.startsWith('http://15.206.84.81:8000/')) {
+    return `/api/proxy?url=${encodeURIComponent(imagePath)}`;
+  }
   
-  // If it's an uploaded image (starts with /uploads), serve from backend
+  // If it's already an HTTPS URL, return as is
+  if (imagePath.startsWith('https://')) return imagePath;
+  
+  // If it's an uploaded image (starts with /uploads), serve from backend via proxy
   if (imagePath.startsWith('/uploads/')) {
-    return `http://15.206.84.81:8000${imagePath}`;
+    const fullUrl = `http://15.206.84.81:8000${imagePath}`;
+    return `/api/proxy?url=${encodeURIComponent(fullUrl)}`;
   }
   
   // For default images in public folder, serve from frontend
@@ -27,12 +33,18 @@ const getImageUrl = (imagePath: string): string => {
 const getVideoUrl = (videoPath: string): string => {
   if (!videoPath) return '';
   
-  // If it's already a full URL, return as is
-  if (videoPath.startsWith('http')) return videoPath;
+  // If it's already a full URL from backend, use proxy
+  if (videoPath.startsWith('http://15.206.84.81:8000/')) {
+    return `/api/proxy?url=${encodeURIComponent(videoPath)}`;
+  }
   
-  // If it's an uploaded video (starts with /uploads), serve from backend
+  // If it's already an HTTPS URL, return as is
+  if (videoPath.startsWith('https://')) return videoPath;
+  
+  // If it's an uploaded video (starts with /uploads), serve from backend via proxy
   if (videoPath.startsWith('/uploads/')) {
-    return `http://15.206.84.81:8000${videoPath}`;
+    const fullUrl = `http://15.206.84.81:8000${videoPath}`;
+    return `/api/proxy?url=${encodeURIComponent(fullUrl)}`;
   }
   
   // For default videos in public folder, serve from frontend

@@ -246,8 +246,14 @@ const getSortedDirectors = (directors: Director[]) => {
 // Utility function to handle backend image URLs
 const getImageUrl = (imagePath: string | undefined): string => {
   if (!imagePath) return '';
-  if (imagePath.startsWith('http')) return imagePath;
-  if (imagePath.startsWith('/uploads/')) return `http://15.206.84.81:8000${imagePath}`;
+  if (imagePath.startsWith('http://15.206.84.81:8000/')) {
+    return `/api/proxy?url=${encodeURIComponent(imagePath)}`;
+  }
+  if (imagePath.startsWith('https://')) return imagePath;
+  if (imagePath.startsWith('/uploads/')) {
+    const fullUrl = `http://15.206.84.81:8000${imagePath}`;
+    return `/api/proxy?url=${encodeURIComponent(fullUrl)}`;
+  }
   return imagePath;
 };
 

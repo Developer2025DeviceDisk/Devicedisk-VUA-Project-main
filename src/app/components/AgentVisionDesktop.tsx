@@ -5,10 +5,17 @@ import React from 'react';
 // Utility function to get full video URL
 const getVideoUrl = (videoPath: string) => {
   if (!videoPath) return '';
-  if (videoPath.startsWith('http')) return videoPath; // Already a full URL
+  if (videoPath.startsWith('http')) {
+    // Use proxy for HTTP URLs from backend
+    if (videoPath.startsWith('http://15.206.84.81:8000/')) {
+      return `/api/proxy?url=${encodeURIComponent(videoPath)}`;
+    }
+    return videoPath; // Other HTTP/HTTPS URLs remain unchanged
+  }
   // Clean up any whitespace and newlines from corrupted data
   const cleanPath = videoPath.replace(/\s+/g, '').trim();
-  return `http://15.206.84.81:8000${cleanPath}`;
+  const fullUrl = `http://15.206.84.81:8000${cleanPath}`;
+  return `/api/proxy?url=${encodeURIComponent(fullUrl)}`;
 };
 
 interface StatisticItem {

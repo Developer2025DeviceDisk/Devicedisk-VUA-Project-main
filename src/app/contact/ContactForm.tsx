@@ -138,7 +138,7 @@ const ContactForm = React.memo(function ContactForm({
 
       console.log('Submitting payload:', payload);
 
-      const response = await fetch('http://15.206.84.81:8000/api/contact', {
+      const response = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
@@ -242,15 +242,27 @@ const ContactForm = React.memo(function ContactForm({
         <button
           type='submit'
           disabled={isLoading}
-          className='mt-4 cursor-pointer relative inline-flex items-center text-[24px] md:text-[35.81px] petrovsans-semibold gap-7 text-[#6210FF] px-6 tracking-[0.05em] font-semibold rounded-full'
+          className='mt-4 cursor-pointer relative inline-flex items-center text-[24px] md:text-[35.81px] petrovsans-semibold gap-7 text-[#6210FF] px-6 tracking-[0.05em] font-semibold rounded-full disabled:opacity-70 disabled:cursor-not-allowed'
           style={{
             background:
               'linear-gradient(to right, #6210FF, #BE2FF4) border-box',
             padding: '2px',
           }}>
           <span className='bg-[#EEF0FF] rounded-full px-7 flex items-center gap-7'>
-            Submit
-            <span className='text-[35.81px]'>→</span>
+            {isLoading ? (
+              <>
+                <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-[#6210FF]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                Submitting...
+              </>
+            ) : (
+              <>
+                Submit
+                <span className='text-[35.81px]'>→</span>
+              </>
+            )}
           </span>
         </button>
 

@@ -9,7 +9,7 @@ export async function GET(request: NextRequest) {
   }
 
   // Validate that the URL is from your backend server
-  if (!url.startsWith('http://15.206.84.81:8000/')) {
+  if (!url.startsWith('https://admin.vvworx.com/')) {
     return NextResponse.json({ error: 'Unauthorized URL' }, { status: 403 });
   }
 

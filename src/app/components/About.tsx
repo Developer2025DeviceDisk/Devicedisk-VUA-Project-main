@@ -12,7 +12,7 @@ const getImageUrl = (imagePath: string): string => {
   if (!imagePath) return '';
   
   // If it's already a full URL from backend, use proxy
-  if (imagePath.startsWith('http://15.206.84.81:8000/')) {
+  if (imagePath.startsWith('https://admin.vvworx.com/')) {
     return `/api/proxy?url=${encodeURIComponent(imagePath)}`;
   }
   
@@ -21,7 +21,7 @@ const getImageUrl = (imagePath: string): string => {
   
   // If it's an uploaded image (starts with /uploads), serve from backend via proxy
   if (imagePath.startsWith('/uploads/')) {
-    const fullUrl = `http://15.206.84.81:8000${imagePath}`;
+    const fullUrl = `https://admin.vvworx.com${imagePath}`;
     return `/api/proxy?url=${encodeURIComponent(fullUrl)}`;
   }
   
@@ -34,7 +34,7 @@ const getVideoUrl = (videoPath: string): string => {
   if (!videoPath) return '';
   
   // If it's already a full URL from backend, use proxy
-  if (videoPath.startsWith('http://15.206.84.81:8000/')) {
+  if (videoPath.startsWith('https://admin.vvworx.com/')) {
     return `/api/proxy?url=${encodeURIComponent(videoPath)}`;
   }
   
@@ -43,7 +43,7 @@ const getVideoUrl = (videoPath: string): string => {
   
   // If it's an uploaded video (starts with /uploads), serve from backend via proxy
   if (videoPath.startsWith('/uploads/')) {
-    const fullUrl = `http://15.206.84.81:8000${videoPath}`;
+    const fullUrl = `https://admin.vvworx.com${videoPath}`;
     return `/api/proxy?url=${encodeURIComponent(fullUrl)}`;
   }
   

@@ -58,15 +58,18 @@ interface AboutContent {
 
 async function fetchAboutContent(): Promise<AboutContent | null> {
   try {
-    const response = await fetch('http://15.206.84.81:8000/api/about-content/active', {
+    const response = await fetch('https://admin.vvworx.com/api/about-content/active', {
       cache: 'no-store' // Disable caching for dynamic content
     });
+
     
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
     
     const result = await response.json();
+
+        console.log('response :', result)
     
     if (result.success) {
       return result.data;

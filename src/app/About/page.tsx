@@ -6,7 +6,7 @@ export const dynamic = 'force-dynamic';
 async function getAboutContent(): Promise<AboutPageContent> {
   try {
     const response = await fetch(
-      "http://15.206.84.81:8000/api/about-page-content/active"
+      "https://admin.vvworx.com/api/about-page-content/active"
     );
     const result = await response.json();
 

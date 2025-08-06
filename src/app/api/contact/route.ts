@@ -13,7 +13,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Forward the request to the backend server
-    const backendUrl = 'http://15.206.84.81:8000/api/contact';
+    const backendUrl = 'https://admin.vvworx.com/api/contact';
     
     const response = await fetch(backendUrl, {
       method: 'POST',

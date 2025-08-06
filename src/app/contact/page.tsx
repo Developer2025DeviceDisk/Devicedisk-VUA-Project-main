@@ -44,7 +44,7 @@ interface ContactContent {
 // Fetch content at build time (SSR)
 async function getContactContent(): Promise<ContactContent> {
   try {
-    const response = await fetch('http://15.206.84.81:8000/api/contact-content/active', {
+    const response = await fetch('https://admin.vvworx.com/api/contact-content/active', {
       // Add cache revalidation for ISR (Incremental Static Regeneration)
      cache: 'no-store'
     });

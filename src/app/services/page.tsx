@@ -5,7 +5,7 @@ export const dynamic = 'force-dynamic';
 
 async function fetchServicesContent() {
   try {
-    const response = await fetch('http://15.206.84.81:8000/api/services-content/active', {
+    const response = await fetch('https://admin.vvworx.com/api/services-content/active', {
       cache: 'no-store'
     });
     

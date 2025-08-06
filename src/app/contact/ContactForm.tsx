@@ -75,20 +75,46 @@ const ContactForm = React.memo(function ContactForm({
     // Reset error states
     setShowServicesError(false);
 
-    // Validate required fields
+    // Comprehensive validation
     let isValid = true;
+    let errorMessage = '';
 
-    if (!formData.fullName || !formData.phone) {
+    // Validate required fields
+    if (!formData.fullName.trim()) {
       isValid = false;
+      errorMessage = 'Full name is required';
+    } else if (!formData.phone.trim()) {
+      isValid = false;
+      errorMessage = 'Phone number is required';
+    } else if (formData.phone.length < 8) {
+      isValid = false;
+      errorMessage = 'Phone number must be at least 8 digits';
+    } else if (selected.length === 0) {
+      isValid = false;
+      errorMessage = 'Please select at least one service';
+      setShowServicesError(true);
     }
 
-    // Validate phone number length
-    if (formData.phone.length < 8) {
+    // Validate full name (only letters and spaces)
+    if (formData.fullName.trim() && !/^[a-zA-Z\s]+$/.test(formData.fullName.trim())) {
       isValid = false;
+      errorMessage = 'Full name should only contain letters and spaces';
+    }
+
+    // Validate phone number (only digits)
+    if (formData.phone.trim() && !/^\d+$/.test(formData.phone.trim())) {
+      isValid = false;
+      errorMessage = 'Phone number should only contain digits';
+    }
+
+    // Validate company name if provided (letters, numbers, spaces, and common punctuation)
+    if (formData.companyName.trim() && !/^[a-zA-Z0-9\s\-&.,()]+$/.test(formData.companyName.trim())) {
+      isValid = false;
+      errorMessage = 'Company name contains invalid characters';
     }
 
     if (!isValid) {
-      // Scroll to the first error
+      alert(errorMessage);
       window.scrollTo({
         top: 0,
         behavior: 'smooth',
@@ -100,12 +126,17 @@ const ContactForm = React.memo(function ContactForm({
 
     try {
       const currentServicesList = content.servicesList || [];
-      const selectedServices = selected.map((idx) => currentServicesList[idx]);
+      const selectedServices = selected.map((idx) => currentServicesList[idx]).filter(Boolean);
+      
       const payload = {
-        ...formData,
-        phone: selectedCountry.dialCode + formData.phone,
+        fullName: formData.fullName.trim(),
+        companyName: formData.companyName.trim(),
+        phone: selectedCountry.dialCode + formData.phone.trim(),
         services: selectedServices,
+        message: formData.message.trim(),
       };
+
+      console.log('Submitting payload:', payload);
 
       const response = await fetch('http://15.206.84.81:8000/api/contact', {
         method: 'POST',
@@ -113,14 +144,19 @@ const ContactForm = React.memo(function ContactForm({
         body: JSON.stringify(payload),
       });
 
-      if (!response.ok) throw new Error('Failed to submit form');
+      const result = await response.json();
 
+      if (!response.ok) {
+        throw new Error(result.message || 'Failed to submit form');
+      }
+
+      console.log('Form submitted successfully:', result);
       setShowSuccessModal(true);
       setFormData({ fullName: '', companyName: '', phone: '', message: '' });
       setSelected([]);
     } catch (err) {
       console.error('Submission error:', err);
-      alert('Error submitting form. Please try again.');
+      alert(`Error submitting form: ${err instanceof Error ? err.message : 'Please try again.'}`);
     } finally {
       setIsLoading(false);
     }

@@ -9,14 +9,20 @@ interface CircleData {
   address: string[];
   phone: string;
   id: string;
+  order?: number;
+  isActive?: boolean;
 }
 
-export default function Map() {
+interface MapProps {
+  locations?: CircleData[];
+}
+
+export default function Map({ locations }: MapProps) {
     const scrollContainerRef = useRef<HTMLDivElement>(null);
     
     
-    // Location data with coordinates
-    const circleData: CircleData[] = [
+    // Default location data with coordinates (fallback)
+    const defaultLocations: CircleData[] = [
         { 
             cx: 1087.93, 
             cy: 361.869,
@@ -55,6 +61,12 @@ export default function Map() {
             id: "pune" 
         }
     ];
+
+    // Use locations prop or fallback to default locations, filter active ones and sort by order
+    const circleData: CircleData[] = (locations && locations.length > 0 
+        ? locations.filter(loc => loc.isActive !== false)
+        : defaultLocations
+    ).sort((a, b) => (a.order || 0) - (b.order || 0));
 
 
     // To center India on mobile

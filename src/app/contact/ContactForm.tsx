@@ -107,7 +107,7 @@ const ContactForm = React.memo(function ContactForm({
         services: selectedServices,
       };
 
-      const response = await fetch('https://admin.vvworx.com/api/contact', {
+      const response = await fetch('http://15.206.84.81:8000/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),

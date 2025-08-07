@@ -217,7 +217,7 @@ export default function Footer({ content }: FooterProps) {
               </Link>
             </div>
             <p className='uppercase text-sm tracking-widest'>
-              {footerContent.companyInfo?.name || 'Voix & Vision Worx'}
+              {footerContent.companyInfo?.name}
             </p>
             {footerContent.companyInfo?.description && (
               <p className='mt-2 text-sm opacity-90'>

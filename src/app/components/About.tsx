@@ -1113,7 +1113,7 @@ export default function About({ aboutContent }: any) {
             loop
             muted
             autoPlay
-            preload="auto"
+            preload="none"
             src={getVideoUrl(videoSection.videoSrc)}
           />
 

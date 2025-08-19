@@ -138,7 +138,7 @@ const ContactForm = React.memo(function ContactForm({
 
       console.log('Submitting payload:', payload);
 
-      const response = await fetch('/api/contact', {
+      const response = await fetch('https://admin.vvworx.com/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),

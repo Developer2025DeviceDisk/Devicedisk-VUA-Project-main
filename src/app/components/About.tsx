@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import { useEffect, useRef, useState, useMemo } from "react";
+import { useEffect, useRef, useState, useMemo, useCallback } from "react";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import { RingScene } from "../About/Scene";
@@ -174,6 +174,7 @@ export default function About({ aboutContent }: any) {
   const videoSectionRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isVideoMuted, setIsVideoMuted] = useState(true);
+  const muteButtonRef = useRef<HTMLButtonElement>(null);
 
   const heroSection = {
     mainTitle: rawHeroSection.mainTitle || "We are",
@@ -722,6 +723,8 @@ export default function About({ aboutContent }: any) {
 
   // Video Section Animation
   useEffect(() => {
+    if (!videoSection?.videoSrc || !videoRef.current || !videoSectionRef.current) return;
+
     const videoCtx = gsap.context(() => {
       // Video scroll trigger
       ScrollTrigger.create({
@@ -774,14 +777,51 @@ export default function About({ aboutContent }: any) {
     return () => {
       videoCtx.revert();
     };
-  }, []);
+  }, [videoSection?.videoSrc]);
 
-  const toggleVideoMute = () => {
-    if (videoRef.current) {
-      videoRef.current.muted = !videoRef.current.muted;
-      setIsVideoMuted(videoRef.current.muted);
+  const toggleVideoMute = useCallback(() => {
+    if (videoRef.current && muteButtonRef.current) {
+      const video = videoRef.current;
+      const button = muteButtonRef.current;
+      const newMutedState = !video.muted;
+      
+      video.muted = newMutedState;
+      
+      // Update button content directly without React state
+      button.innerHTML = newMutedState ? `
+        <svg
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          class="w-5 h-5 md:w-6 md:h-6 text-white"
+        >
+          <path
+            d="M16.5 12C16.5 10.23 15.5 8.71 14 7.97V9.18L16.45 11.63C16.48 11.86 16.5 12.08 16.5 12ZM19 12C19 12.94 18.8 13.82 18.46 14.64L19.97 16.15C20.63 14.91 21 13.5 21 12C21 7.72 18 4.14 14 3.23V5.29C16.89 6.15 19 8.83 19 12ZM4.27 3L3 4.27L7.73 9H3V15H7L12 20V13.27L16.25 17.53C15.58 18.04 14.83 18.46 14 18.7V20.77C15.38 20.45 16.63 19.82 17.68 18.96L19.73 21L21 19.73L12 10.73L4.27 3ZM12 4L9.91 6.09L12 8.18V4Z"
+            fill="currentColor"
+          />
+        </svg>
+      ` : `
+        <svg
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          class="w-5 h-5 md:w-6 md:h-6 text-white"
+        >
+          <path
+            d="M3 9V15H7L12 20V4L7 9H3ZM16.5 12C16.5 10.23 15.5 8.71 14 7.97V16.02C15.5 15.29 16.5 13.77 16.5 12ZM14 3.23V5.29C16.89 6.15 19 8.83 19 12S16.89 17.85 14 18.71V20.77C18.01 19.86 21 16.28 21 12S18.01 4.14 14 3.23Z"
+            fill="currentColor"
+          />
+        </svg>
+      `;
+      
+      // Update aria-label
+      button.setAttribute('aria-label', newMutedState ? 'Unmute video' : 'Mute video');
     }
-  };
+  }, []);
 
   return (
     <section>
@@ -1100,31 +1140,33 @@ export default function About({ aboutContent }: any) {
       </section>
 
       {/* Video Section */}
-      <section
-        ref={videoSectionRef}
-        className="relative w-full h-auto md:h-screen flex items-center justify-center overflow-hidden p-0 m-0"
-        style={{ backgroundColor: videoSection.backgroundColor }}
-      >
-        <div className="relative w-full h-full">
-          <video
-            ref={videoRef}
-            className="w-full h-auto md:absolute md:inset-0 md:w-full md:h-full md:object-cover md:scale-[0.9]"
-            playsInline
-            loop
-            muted
-            autoPlay
-            preload="none"
-            src={getVideoUrl(videoSection.videoSrc)}
-          />
+      {(videoSection?.videoSrc || videoSection.videoSrc) && (
+        <section
+          ref={videoSectionRef}
+          className="relative w-full h-auto md:h-screen flex items-center justify-center overflow-hidden p-0 m-0"
+          style={{ backgroundColor: videoSection.backgroundColor }}
+        >
+          <div className="relative w-full h-full">
+            <video
+              ref={videoRef}
+              key={`video-${getVideoUrl(videoSection.videoSrc)}`}
+              className="w-full h-auto md:absolute md:inset-0 md:w-full md:h-full md:object-cover md:scale-[0.9]"
+              playsInline
+              loop
+              muted
+              autoPlay
+              preload="metadata"
+              src={getVideoUrl(videoSection.videoSrc)}
+            />
 
-          {/* Sound Toggle Button */}
-          <button
-            onClick={toggleVideoMute}
-            className="absolute top-4 right-4 md:top-8 md:right-8 z-10 bg-black bg-opacity-30 hover:bg-opacity-50 rounded-full p-3 md:p-4 transition-all duration-300 backdrop-blur-sm opacity-70 hover:opacity-90"
-            aria-label={isVideoMuted ? "Unmute video" : "Mute video"}
-          >
-            {isVideoMuted ? (
-              // Muted icon
+            {/* Sound Toggle Button */}
+            <button
+              ref={muteButtonRef}
+              onClick={toggleVideoMute}
+              className="absolute top-4 right-4 md:top-8 md:right-8 z-10 bg-black bg-opacity-30 hover:bg-opacity-50 rounded-full p-3 md:p-4 transition-all duration-300 backdrop-blur-sm opacity-70 hover:opacity-90"
+              aria-label="Unmute video"
+            >
+              {/* Initial muted icon */}
               <svg
                 width="24"
                 height="24"
@@ -1138,25 +1180,10 @@ export default function About({ aboutContent }: any) {
                   fill="currentColor"
                 />
               </svg>
-            ) : (
-              // Unmuted icon
-              <svg
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                className="w-5 h-5 md:w-6 md:h-6 text-white"
-              >
-                <path
-                  d="M3 9V15H7L12 20V4L7 9H3ZM16.5 12C16.5 10.23 15.5 8.71 14 7.97V16.02C15.5 15.29 16.5 13.77 16.5 12ZM14 3.23V5.29C16.89 6.15 19 8.83 19 12S16.89 17.85 14 18.71V20.77C18.01 19.86 21 16.28 21 12S18.01 4.14 14 3.23Z"
-                  fill="currentColor"
-                />
-              </svg>
-            )}
-          </button>
-        </div>
-      </section>
+            </button>
+          </div>
+        </section>
+      )}
     </section>
   );
 }

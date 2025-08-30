@@ -902,11 +902,6 @@ export default function Services({ content }: ServicesProps) {
 
   return (
     <>
-      <head>
-        <title>AI Calling Agent & AI Film Production Services | VVWorx Dubai, Mumbai, Pune</title>
-        <meta name="description" content="VVWorx offers AI calling agent services to automate customer engagement and AI film production services for high-quality branded content. Serving Dubai, Mumbai & Pune." />
-        <meta name="keywords" content="AI Calling Agent Mumbai, AI Calling Services Dubai, AI Customer Engagement Solutions India, AI Film Production Service Mumbai, AI Video Production Company Dubai, AI-Generated Film Production, Creative AI Video Services, AI Content Production Agency" />
-          </head>
           <section>
             <section className="z-10 bg-[black]">
               <section className="max-sm:px-[22px] relative flex flex-col items-center justify-center text-center overflow-hidden bg-[#6210ff] ">

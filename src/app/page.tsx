@@ -1,6 +1,15 @@
 import About from "./components/About";
+import type { Metadata } from "next";
 import { WithGenericLoader } from "./components/Loader";
 export const dynamic = 'force-dynamic';
+
+export const metadata: Metadata = {
+  title: "AI Digital Marketing, Branding and MarTech Solutions",
+  description: "VVWorx is a future-forward AI-driven marketing agency offering branding, content creation, digital marketing, VR/AR solutions, and AI calling agents. Serving Dubai, Mumbai & Pune.",
+  other: {
+    keywords: "ai digital marketing company, ai branding agency, martech solutions dubai, martech solutions mumbai, martech solutions pune, ai-powered marketing services, vr and ar marketing solutions, ai calling agent services",
+  },
+};
 // TypeScript interfaces for About content
 interface HeroSection {
   mainTitle: string;

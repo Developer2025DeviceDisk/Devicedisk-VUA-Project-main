@@ -1,13 +1,10 @@
-import type { Metadata } from "next";
-import Script from "next/script"; // ✅ import next/script
+
+import Script from "next/script";
 import "./globals.css";
 import Header from "./components/Header";
 import FooterWrapper from "./components/FooterWrapper";
 
-export const metadata: Metadata = {
-  title: "VVWorx Future Forward Marketing",
-  description: "VVWorx Future Forward Marketing",
-};
+
 
 export default function RootLayout({
   children,
@@ -20,15 +17,15 @@ export default function RootLayout({
         <link rel="icon" type="image/png" href="/favicon.png" />
       </head>
       <body suppressHydrationWarning>
-        {/* ✅ Google Analytics Scripts */}
+         {/* Google Analytics */}
         <Script
-          async
           src="https://www.googletagmanager.com/gtag/js?id=G-0LW2ES5PCM"
+          strategy="afterInteractive"
         />
         <Script id="google-analytics" strategy="afterInteractive">
           {`
             window.dataLayer = window.dataLayer || [];
-            function gtag(){window.dataLayer.push(arguments);}
+            function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
             gtag('config', 'G-0LW2ES5PCM');
           `}

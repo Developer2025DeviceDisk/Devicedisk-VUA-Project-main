@@ -85,11 +85,7 @@ export default function HeroSection() {
   return (
 
     <>
-      <head>
-        <title>AI Digital Marketing, Branding and MarTech Solutions | VVWorx</title>
-        <meta name="description" content="VVWorx is a future-forward AI-driven marketing agency offering branding, content creation, digital marketing, VR/AR solutions, and AI calling agents. Serving Dubai, Mumbai & Pune." />
-        <meta name="keywords" content="AI Digital Marketing Company, AI Branding Agency, MarTech Solutions Dubai, MarTech Solutions Mumbai, MarTech Solutions Pune, AI-Powered Marketing Services, VR and AR Marketing Solutions, AI Calling Agent Services" />
-      </head>
+      
       <section
         ref={heroRef}
         className='hero-section w-full h-auto min-h-screen relative overflow-hidden bg-black'>

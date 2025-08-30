@@ -1,7 +1,15 @@
 import { AssetProvider } from "@/contexts/AssetProvider";
+import type { Metadata } from "next";
 import { AppWithAssets, defaultContent } from "./sx";
 export const dynamic = 'force-dynamic';
 
+export const metadata: Metadata = {
+  title: "AI Calling Agent and AI Film Production Services, VVWorx Dubai, Mumbai, Pune",
+  description: "VVWorx offers ai calling agent services to automate customer engagement and ai film production services for high-quality branded content. Serving Dubai, Mumbai & Pune.",
+  other: {
+    keywords: "ai calling agent mumbai, ai calling services dubai, ai customer engagement solutions india, ai film production service mumbai, ai video production company dubai, ai-generated film production, creative ai video services, ai content production agency",
+  },
+};
 
 async function fetchServicesContent() {
   try {

@@ -5,6 +5,7 @@ import ServicesSection from "./ServicesSection";
 import FoundationSection from "./FoundationSection";
 import VideoSection from "./VideoSection";
 
+
 export default function LandingPage() {
   return (
     <div>

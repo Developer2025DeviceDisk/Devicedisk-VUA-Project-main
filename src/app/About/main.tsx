@@ -1136,6 +1136,14 @@ export function AboutPageClient({ aboutContent }: { aboutContent: AboutPageConte
   ]);
 
   return (
+
+    <>
+    <head>
+<title>AI Branding & Design Services Agency | VVWorx Dubai, Mumbai, Pune</title>
+<meta name="description" content="VVWorx is a creative AI branding agency offering AI branding & design, AI logo design services, and AI graphic design solutions. We build AI-powered brand identity with a strong AI brand strategy, helping businesses achieve future-ready branding with AI."/>
+<meta name="keywords" content="AI Branding & Design, AI Branding Agency, AI Brand Strategy, AI Logo Design Services, AI Graphic Design Solutions, Creative AI Branding Company, AI-Powered Brand Identity, Future-Ready Branding with AI"/>
+
+</head>
     <section ref={rootRef}>
       <section
         className="z-10 bg-[black]"
@@ -1889,5 +1897,6 @@ export function AboutPageClient({ aboutContent }: { aboutContent: AboutPageConte
         </section>
       </section>
     </section>
+    </>
   );
 }

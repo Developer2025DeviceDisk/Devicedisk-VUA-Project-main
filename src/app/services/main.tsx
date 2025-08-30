@@ -901,15 +901,21 @@ export default function Services({ content }: ServicesProps) {
   }, [isDesktop]);
 
   return (
-    <section>
-      <section className="z-10 bg-[black]">
-        <section className="max-sm:px-[22px] relative flex flex-col items-center justify-center text-center overflow-hidden bg-[#6210ff] ">
-          <div
-            ref={headerRef}
-            className="h-[100vh] flex items-center justify-center"
-          >
-            <style>
-              {`
+    <>
+      <head>
+        <title>AI Calling Agent & AI Film Production Services | VVWorx Dubai, Mumbai, Pune</title>
+        <meta name="description" content="VVWorx offers AI calling agent services to automate customer engagement and AI film production services for high-quality branded content. Serving Dubai, Mumbai & Pune." />
+        <meta name="keywords" content="AI Calling Agent Mumbai, AI Calling Services Dubai, AI Customer Engagement Solutions India, AI Film Production Service Mumbai, AI Video Production Company Dubai, AI-Generated Film Production, Creative AI Video Services, AI Content Production Agency" />
+          </head>
+          <section>
+            <section className="z-10 bg-[black]">
+              <section className="max-sm:px-[22px] relative flex flex-col items-center justify-center text-center overflow-hidden bg-[#6210ff] ">
+                <div
+                  ref={headerRef}
+                  className="h-[100vh] flex items-center justify-center"
+                >
+                  <style>
+                    {`
 
               
           @keyframes float {
@@ -976,541 +982,541 @@ export default function Services({ content }: ServicesProps) {
             }
           }
           `}
-            </style>
+                  </style>
 
-            <div>
-              <h1
-                ref={headerTitleRef}
-                className="text-white petrovsans-book max-sm:text-[45px] md:text-[94px] max-sm:mb-[100px] md:mb-[60px] z-10 max-sm:leading-[55px] md:leading-[122.8px] "
-              >
-                {content?.headerTitle || "Your 360° Growth Engine"}
-              </h1>
+                  <div>
+                    <h1
+                      ref={headerTitleRef}
+                      className="text-white petrovsans-book max-sm:text-[45px] md:text-[94px] max-sm:mb-[100px] md:mb-[60px] z-10 max-sm:leading-[55px] md:leading-[122.8px] "
+                    >
+                      {content?.headerTitle || "Your 360° Growth Engine"}
+                    </h1>
 
-              <p
-                ref={headerSubTitleRef}
-                className="text-white justify-center mx-[10px] max-w-6xl z-10 max-sm:text-[16px] md:text-[19.69px] leading-[1.49] text-justify outfit-light"
-                style={{ letterSpacing: "0.08em", lineHeight: "1.49" }}
-              >
-                {content?.headerDescription ||
-                  "We are India-UAE focused Tech-infused brand marketing agency offering an exhaustive services portfolio in Go-To-Market Strategy Development, Branding & Creative Solutions, AI-backed Performance & Social Media Marketing, and MarTech Automation. Founded by industry veterans, we are a passionate team offering scalable marketing solutions with a data-driven approach with presence in Mumbai, Pune and Dubai."}
-              </p>
-            </div>
-          </div>
-
-          <section
-            className="relative w-screen h-screen text-zinc-900 bg-[#BE2FF4] overflow-hidden"
-            ref={jagjawContainer}
-          >
-            <div
-              style={{
-                position: "absolute",
-                left: "0%",
-                width: "100%",
-                height: "100vh",
-                bottom: "0%",
-                zIndex: 1,
-              }}
-            >
-              <SceneJigJaw
-                jagjawgroupRef={jagjawgroupRef}
-                jagjawOne={jagjawOne}
-                jagjawTwo={jagjawTwo}
-                jagjawThree={jagjawThree}
-                jagjawFour={jagjawFour}
-              />
-            </div>
-
-            <div className="absolute bottom-[0%] left-[0%] w-full h-full px-[40px] flex items-center justify-center">
-              {/* Heading */}
-
-              <div className="flex flex-col items-center justify-center">
-                <h1 className="text-white text-[45px] leading-[50px] lg:leading-[135px] mb-[10px] petrovsans-semibold md:text-[131.5px] z-10">
-                  {content?.strategyTitle || "Strategy"}
-                </h1>
-
-                {/* Paragraph */}
-                <p
-                  className="text-white max-sm:[11.74px] md:text-[31.5px] mb-[60px] z-10 outfit-light"
-                  style={{ letterSpacing: "0.08em", lineHeight: "1.49" }}
-                >
-                  {content?.strategyDescription ||
-                    "We translate your aspirations into a precise and actionable blueprint for achieving your goals."}
-                </p>
-
-                {/* Mobile: Structured layout, Desktop: Flex wrap */}
-                <div className="mb-10 z-10 outfit-light">
-                  {/* Mobile Layout */}
-                  <div className="block md:hidden">
-                    {/* First Row */}
-                    <div className="flex justify-center gap-x-[8px] mb-[16px]">
-                      {(
-                        content?.strategyServices?.slice(0, 3) || [
-                          "GTM Strategy",
-                          "Brand Strategy",
-                          "Brand Voice",
-                        ]
-                      ).map((tag:any, idx:any) => (
-                        <button
-                          key={idx}
-                          className="inline-flex items-center justify-center h-[26px] px-[8px] py-[2px]
-                     text-[12px] font-light border border-[#F52FFF] rounded-full
-                     text-center whitespace-nowrap leading-none text-white"
-                        >
-                          {tag}
-                        </button>
-                      ))}
-                    </div>
-
-                    {/* Second Row */}
-                    <div className="flex justify-center gap-x-[8px]">
-                      {(
-                        content?.strategyServices?.slice(3, 6) || [
-                          "Campaign Strategy",
-                          "PR Strategy",
-                          "Social Media Strategy",
-                        ]
-                      ).map((tag:any, idx:any) => (
-                        <button
-                          key={idx}
-                          className="inline-flex items-center justify-center h-[26px] px-[8px] py-[2px]
-                     text-[12px] font-light border border-[#F52FFF] rounded-full
-                     text-center whitespace-nowrap leading-none text-white"
-                        >
-                          {tag}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Desktop Layout */}
-                  <div className="hidden md:block">
-                    <div className="flex flex-wrap justify-center gap-x-[8px] gap-y-[20px] mb-6">
-                      {(
-                        content?.strategyServices?.slice(0, 3) || [
-                          "GTM Strategy",
-                          "Brand Strategy",
-                          "Brand Voice",
-                        ]
-                      ).map((tag:any, idx:any) => (
-                        <button
-                          key={idx}
-                          className="inline-flex items-center justify-center h-[36px] px-[12px] py-[6px]
-                     text-[20.56px] font-light border border-[#F52FFF] rounded-full
-                     text-center whitespace-nowrap leading-none text-white"
-                        >
-                          {tag}
-                        </button>
-                      ))}
-                    </div>
-
-                    <div className="flex flex-wrap justify-center gap-x-[8px] gap-y-[16px]">
-                      {(
-                        content?.strategyServices?.slice(3, 6) || [
-                          "Campaign Strategy",
-                          "PR Strategy",
-                          "Social Media Strategy",
-                        ]
-                      ).map((tag:any, idx:any) => (
-                        <button
-                          key={idx}
-                          className="inline-flex items-center justify-center h-[36px] px-[12px] py-[6px]
-                     text-[20.56px] font-light border border-[#F52FFF] rounded-full
-                     text-center whitespace-nowrap leading-none text-white"
-                        >
-                          {tag}
-                        </button>
-                      ))}
-                    </div>
+                    <p
+                      ref={headerSubTitleRef}
+                      className="text-white justify-center mx-[10px] max-w-6xl z-10 max-sm:text-[16px] md:text-[19.69px] leading-[1.49] text-justify outfit-light"
+                      style={{ letterSpacing: "0.08em", lineHeight: "1.49" }}
+                    >
+                      {content?.headerDescription ||
+                        "We are India-UAE focused Tech-infused brand marketing agency offering an exhaustive services portfolio in Go-To-Market Strategy Development, Branding & Creative Solutions, AI-backed Performance & Social Media Marketing, and MarTech Automation. Founded by industry veterans, we are a passionate team offering scalable marketing solutions with a data-driven approach with presence in Mumbai, Pune and Dubai."}
+                    </p>
                   </div>
                 </div>
 
-                {/* Explore More Button */}
-              </div>
-            </div>
-          </section>
-
-          {/* ----------------------- Spring Section ---------------------- */}
-          <section
-            className="relative w-screen h-screen text-zinc-900 bg-[#BE2FF4] overflow-hidden"
-            ref={springContainer}
-          >
-            <div
-              style={{
-                position: "absolute",
-                left: "0%",
-                width: "100%",
-                height: "100vh",
-                bottom: "0%",
-                zIndex: 1,
-              }}
-            >
-              <SceneSpring
-                jagjawgroupRef={springgroupRef}
-                jagjawOne={springOne}
-                jagjawTwo={springTwo}
-                jagjawThree={springThree}
-                jagjawFour={springFour}
-              />
-            </div>
-
-            <div className="absolute bottom-[0] h-full flex items-center justify-center  left-[0] w-full px-[40px]">
-              {/* Heading */}
-
-              <div className="flex flex-col items-center justify-center">
-                <h1 className="text-white text-[45px] leading-[50px] mb-[10px] petrovsans-semibold md:text-[126.5px] z-10 lg:leading-[126px] ">
-                  {content?.brandingTitle || "Branding & Design"}
-                </h1>
-
-                {/* Paragraph */}
-                <p
-                  className="text-white max-sm:[11.74px] md:text-[31.5px] mt-[10px] lg:mt-[0] mb-[60px] z-10 outfit-light"
-                  style={{ letterSpacing: "0.08em", lineHeight: "1.49" }}
+                <section
+                  className="relative w-screen h-screen text-zinc-900 bg-[#BE2FF4] overflow-hidden"
+                  ref={jagjawContainer}
                 >
-                  {content?.brandingDescription ||
-                    "We transform your vision into a tangible and impactful brand experience."}
-                </p>
-
-                {/* Mobile: Structured layout, Desktop: Flex wrap */}
-                <div className="mb-10 z-10 outfit-light">
-                  {/* Mobile Layout */}
-                  <div className="block md:hidden">
-                    {/* First Row */}
-                    <div className="flex justify-center gap-x-[8px] mb-[16px]">
-                      {(
-                        content?.brandingServices?.slice(0, 3) || [
-                          "Brand Identity Design",
-                          "Website Design",
-                          "UI/UX Design",
-                        ]
-                      ).map((tag:any, idx:any) => (
-                        <button
-                          key={idx}
-                          className="inline-flex items-center justify-center h-[26px] px-[8px] py-[2px]
-                     text-[12px] font-light border border-[#F52FFF] rounded-full
-                     text-center whitespace-nowrap leading-none text-white"
-                        >
-                          {tag}
-                        </button>
-                      ))}
-                    </div>
-
-                    {/* Second Row */}
-                    <div className="flex justify-center gap-x-[8px]">
-                      {(
-                        content?.brandingServices?.slice(3, 6) || [
-                          "Event Branding",
-                          "Office Branding",
-                          "Print & Digital Creatives",
-                        ]
-                      ).map((tag:any, idx:any) => (
-                        <button
-                          key={idx}
-                          className="inline-flex items-center justify-center h-[26px] px-[8px] py-[2px]
-                     text-[12px] font-light border border-[#F52FFF] rounded-full
-                     text-center whitespace-nowrap leading-none text-white"
-                        >
-                          {tag}
-                        </button>
-                      ))}
-                    </div>
+                  <div
+                    style={{
+                      position: "absolute",
+                      left: "0%",
+                      width: "100%",
+                      height: "100vh",
+                      bottom: "0%",
+                      zIndex: 1,
+                    }}
+                  >
+                    <SceneJigJaw
+                      jagjawgroupRef={jagjawgroupRef}
+                      jagjawOne={jagjawOne}
+                      jagjawTwo={jagjawTwo}
+                      jagjawThree={jagjawThree}
+                      jagjawFour={jagjawFour}
+                    />
                   </div>
 
-                  {/* Desktop Layout */}
-                  <div className="hidden md:block">
-                    <div className="flex flex-wrap justify-center gap-x-[8px] gap-y-[20px] mb-6">
-                      {(
-                        content?.brandingServices?.slice(0, 3) || [
-                          "Brand Identity Design",
-                          "Website Design",
-                          "UI/UX Design",
-                        ]
-                      ).map((tag:any, idx:any) => (
-                        <button
-                          key={idx}
-                          className="inline-flex items-center justify-center h-[36px] px-[12px] py-[6px]
-                     text-[20.56px] font-light border border-[#F52FFF] rounded-full
-                     text-center whitespace-nowrap leading-none text-white"
-                        >
-                          {tag}
-                        </button>
-                      ))}
-                    </div>
+                  <div className="absolute bottom-[0%] left-[0%] w-full h-full px-[40px] flex items-center justify-center">
+                    {/* Heading */}
 
-                    <div className="flex flex-wrap justify-center gap-x-[8px] gap-y-[16px]">
-                      {(
-                        content?.brandingServices?.slice(3, 6) || [
-                          "Event Branding",
-                          "Office Branding",
-                          "Print & Digital Creatives",
-                        ]
-                      ).map((tag:any, idx:any) => (
-                        <button
-                          key={idx}
-                          className="inline-flex items-center justify-center h-[36px] px-[12px] py-[6px]
-                     text-[20.56px] font-light border border-[#F52FFF] rounded-full
-                     text-center whitespace-nowrap leading-none text-white"
-                        >
-                          {tag}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-                </div>
+                    <div className="flex flex-col items-center justify-center">
+                      <h1 className="text-white text-[45px] leading-[50px] lg:leading-[135px] mb-[10px] petrovsans-semibold md:text-[131.5px] z-10">
+                        {content?.strategyTitle || "Strategy"}
+                      </h1>
 
-                {/* Explore More Button */}
-              </div>
-            </div>
-          </section>
+                      {/* Paragraph */}
+                      <p
+                        className="text-white max-sm:[11.74px] md:text-[31.5px] mb-[60px] z-10 outfit-light"
+                        style={{ letterSpacing: "0.08em", lineHeight: "1.49" }}
+                      >
+                        {content?.strategyDescription ||
+                          "We translate your aspirations into a precise and actionable blueprint for achieving your goals."}
+                      </p>
 
-          {/* ----------------------- Cube Section ---------------------- */}
-          <section
-            className="relative w-screen h-[100lvh] text-zinc-900 bg-[none] overflow-hidden"
-            ref={cubeContainer}
-          >
-            <div className="floating  w-full h-full scale-[0.44] lg:scale-[0.75]">
-              <img
-                ref={cubeOne}
-                src={"/3D/cubeTop.png"}
-                className="absolute right-[-20%] top-[-20%] w-[250px] -translate-y-1/2  lg:top-[25%] lg:right-[-7%]"
-                width={650} // higher width to control scale animation
-                height={650}
-                alt={""}
-              />
-              <img
-                ref={cubeTwo}
-                className="absolute left-[-50%] top-[135%] w-[250px] -translate-y-1/2 opacity-50 lg:top-[65%] lg:left-[-8%]"
-                src={"/3D/cubeTop.png"}
-                width={650}
-                height={650}
-                alt={""}
-              />
-            </div>
-
-            <div className="absolute flex items-center h-full justify-center bottom-[5%] left-[0%] w-full px-[40px]">
-              {/* Heading */}
-
-              <div className="flex flex-col items-center justify-center mt-[50px] lg:mt-[0]">
-                <h1 className="text-white text-[45px] leading-[50px] lg:leading-[131.5px] petrovsans-semibold md:text-[131.5px] z-10 m-[0]">
-                  {content?.contentTitle || "Content & Production"}
-                </h1>
-
-                {/* Paragraph */}
-                <p
-                  className="text-white max-sm:[11.74px] md:text-[31.5px] mt-2 mb-[60px] z-10 outfit-light"
-                  style={{ letterSpacing: "0.08em", lineHeight: "1.49" }}
-                >
-                  {content?.contentDescription ||
-                    "We bring your story to life, crafting impactful content experiences that resonate."}
-                </p>
-
-                {/* Mobile: Structured layout, Desktop: Flex wrap */}
-                <div className="mb-10 z-10 outfit-light">
-                  {/* Mobile Layout */}
-                  <div className="block md:hidden">
-                    {/* First Row */}
-                    <div className="flex justify-center gap-x-[8px] mb-[16px]">
-                      {(
-                        content?.contentServices?.slice(0, 2) || [
-                          "Influencer Marketing",
-                          "Blogs / Articles",
-                        ]
-                      ).map((tag:any, idx:any) => (
-                        <button
-                          key={idx}
-                          className="inline-flex items-center justify-center h-[26px] px-[8px] py-[2px]
+                      {/* Mobile: Structured layout, Desktop: Flex wrap */}
+                      <div className="mb-10 z-10 outfit-light">
+                        {/* Mobile Layout */}
+                        <div className="block md:hidden">
+                          {/* First Row */}
+                          <div className="flex justify-center gap-x-[8px] mb-[16px]">
+                            {(
+                              content?.strategyServices?.slice(0, 3) || [
+                                "GTM Strategy",
+                                "Brand Strategy",
+                                "Brand Voice",
+                              ]
+                            ).map((tag: any, idx: any) => (
+                              <button
+                                key={idx}
+                                className="inline-flex items-center justify-center h-[26px] px-[8px] py-[2px]
                      text-[12px] font-light border border-[#F52FFF] rounded-full
                      text-center whitespace-nowrap leading-none text-white"
-                        >
-                          {tag}
-                        </button>
-                      ))}
-                    </div>
+                              >
+                                {tag}
+                              </button>
+                            ))}
+                          </div>
 
-                    {/* Second Row */}
-                    <div className="flex justify-center gap-x-[8px] mb-[16px]">
-                      {(
-                        content?.contentServices?.slice(2, 4) || [
-                          "Conceptualization of Content",
-                          "Motion Graphics",
-                        ]
-                      ).map((tag:any, idx:any) => (
-                        <button
-                          key={idx}
-                          className="inline-flex items-center justify-center h-[26px] px-[8px] py-[2px]
+                          {/* Second Row */}
+                          <div className="flex justify-center gap-x-[8px]">
+                            {(
+                              content?.strategyServices?.slice(3, 6) || [
+                                "Campaign Strategy",
+                                "PR Strategy",
+                                "Social Media Strategy",
+                              ]
+                            ).map((tag: any, idx: any) => (
+                              <button
+                                key={idx}
+                                className="inline-flex items-center justify-center h-[26px] px-[8px] py-[2px]
+                     text-[12px] font-light border border-[#F52FFF] rounded-full
+                     text-center whitespace-nowrap leading-none text-white"
+                              >
+                                {tag}
+                              </button>
+                            ))}
+                          </div>
+                        </div>
+
+                        {/* Desktop Layout */}
+                        <div className="hidden md:block">
+                          <div className="flex flex-wrap justify-center gap-x-[8px] gap-y-[20px] mb-6">
+                            {(
+                              content?.strategyServices?.slice(0, 3) || [
+                                "GTM Strategy",
+                                "Brand Strategy",
+                                "Brand Voice",
+                              ]
+                            ).map((tag: any, idx: any) => (
+                              <button
+                                key={idx}
+                                className="inline-flex items-center justify-center h-[36px] px-[12px] py-[6px]
+                     text-[20.56px] font-light border border-[#F52FFF] rounded-full
+                     text-center whitespace-nowrap leading-none text-white"
+                              >
+                                {tag}
+                              </button>
+                            ))}
+                          </div>
+
+                          <div className="flex flex-wrap justify-center gap-x-[8px] gap-y-[16px]">
+                            {(
+                              content?.strategyServices?.slice(3, 6) || [
+                                "Campaign Strategy",
+                                "PR Strategy",
+                                "Social Media Strategy",
+                              ]
+                            ).map((tag: any, idx: any) => (
+                              <button
+                                key={idx}
+                                className="inline-flex items-center justify-center h-[36px] px-[12px] py-[6px]
+                     text-[20.56px] font-light border border-[#F52FFF] rounded-full
+                     text-center whitespace-nowrap leading-none text-white"
+                              >
+                                {tag}
+                              </button>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Explore More Button */}
+                    </div>
+                  </div>
+                </section>
+
+                {/* ----------------------- Spring Section ---------------------- */}
+                <section
+                  className="relative w-screen h-screen text-zinc-900 bg-[#BE2FF4] overflow-hidden"
+                  ref={springContainer}
+                >
+                  <div
+                    style={{
+                      position: "absolute",
+                      left: "0%",
+                      width: "100%",
+                      height: "100vh",
+                      bottom: "0%",
+                      zIndex: 1,
+                    }}
+                  >
+                    <SceneSpring
+                      jagjawgroupRef={springgroupRef}
+                      jagjawOne={springOne}
+                      jagjawTwo={springTwo}
+                      jagjawThree={springThree}
+                      jagjawFour={springFour}
+                    />
+                  </div>
+
+                  <div className="absolute bottom-[0] h-full flex items-center justify-center  left-[0] w-full px-[40px]">
+                    {/* Heading */}
+
+                    <div className="flex flex-col items-center justify-center">
+                      <h1 className="text-white text-[45px] leading-[50px] mb-[10px] petrovsans-semibold md:text-[126.5px] z-10 lg:leading-[126px] ">
+                        {content?.brandingTitle || "Branding & Design"}
+                      </h1>
+
+                      {/* Paragraph */}
+                      <p
+                        className="text-white max-sm:[11.74px] md:text-[31.5px] mt-[10px] lg:mt-[0] mb-[60px] z-10 outfit-light"
+                        style={{ letterSpacing: "0.08em", lineHeight: "1.49" }}
+                      >
+                        {content?.brandingDescription ||
+                          "We transform your vision into a tangible and impactful brand experience."}
+                      </p>
+
+                      {/* Mobile: Structured layout, Desktop: Flex wrap */}
+                      <div className="mb-10 z-10 outfit-light">
+                        {/* Mobile Layout */}
+                        <div className="block md:hidden">
+                          {/* First Row */}
+                          <div className="flex justify-center gap-x-[8px] mb-[16px]">
+                            {(
+                              content?.brandingServices?.slice(0, 3) || [
+                                "Brand Identity Design",
+                                "Website Design",
+                                "UI/UX Design",
+                              ]
+                            ).map((tag: any, idx: any) => (
+                              <button
+                                key={idx}
+                                className="inline-flex items-center justify-center h-[26px] px-[8px] py-[2px]
+                     text-[12px] font-light border border-[#F52FFF] rounded-full
+                     text-center whitespace-nowrap leading-none text-white"
+                              >
+                                {tag}
+                              </button>
+                            ))}
+                          </div>
+
+                          {/* Second Row */}
+                          <div className="flex justify-center gap-x-[8px]">
+                            {(
+                              content?.brandingServices?.slice(3, 6) || [
+                                "Event Branding",
+                                "Office Branding",
+                                "Print & Digital Creatives",
+                              ]
+                            ).map((tag: any, idx: any) => (
+                              <button
+                                key={idx}
+                                className="inline-flex items-center justify-center h-[26px] px-[8px] py-[2px]
+                     text-[12px] font-light border border-[#F52FFF] rounded-full
+                     text-center whitespace-nowrap leading-none text-white"
+                              >
+                                {tag}
+                              </button>
+                            ))}
+                          </div>
+                        </div>
+
+                        {/* Desktop Layout */}
+                        <div className="hidden md:block">
+                          <div className="flex flex-wrap justify-center gap-x-[8px] gap-y-[20px] mb-6">
+                            {(
+                              content?.brandingServices?.slice(0, 3) || [
+                                "Brand Identity Design",
+                                "Website Design",
+                                "UI/UX Design",
+                              ]
+                            ).map((tag: any, idx: any) => (
+                              <button
+                                key={idx}
+                                className="inline-flex items-center justify-center h-[36px] px-[12px] py-[6px]
+                     text-[20.56px] font-light border border-[#F52FFF] rounded-full
+                     text-center whitespace-nowrap leading-none text-white"
+                              >
+                                {tag}
+                              </button>
+                            ))}
+                          </div>
+
+                          <div className="flex flex-wrap justify-center gap-x-[8px] gap-y-[16px]">
+                            {(
+                              content?.brandingServices?.slice(3, 6) || [
+                                "Event Branding",
+                                "Office Branding",
+                                "Print & Digital Creatives",
+                              ]
+                            ).map((tag: any, idx: any) => (
+                              <button
+                                key={idx}
+                                className="inline-flex items-center justify-center h-[36px] px-[12px] py-[6px]
+                     text-[20.56px] font-light border border-[#F52FFF] rounded-full
+                     text-center whitespace-nowrap leading-none text-white"
+                              >
+                                {tag}
+                              </button>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Explore More Button */}
+                    </div>
+                  </div>
+                </section>
+
+                {/* ----------------------- Cube Section ---------------------- */}
+                <section
+                  className="relative w-screen h-[100lvh] text-zinc-900 bg-[none] overflow-hidden"
+                  ref={cubeContainer}
+                >
+                  <div className="floating  w-full h-full scale-[0.44] lg:scale-[0.75]">
+                    <img
+                      ref={cubeOne}
+                      src={"/3D/cubeTop.png"}
+                      className="absolute right-[-20%] top-[-20%] w-[250px] -translate-y-1/2  lg:top-[25%] lg:right-[-7%]"
+                      width={650} // higher width to control scale animation
+                      height={650}
+                      alt={""}
+                    />
+                    <img
+                      ref={cubeTwo}
+                      className="absolute left-[-50%] top-[135%] w-[250px] -translate-y-1/2 opacity-50 lg:top-[65%] lg:left-[-8%]"
+                      src={"/3D/cubeTop.png"}
+                      width={650}
+                      height={650}
+                      alt={""}
+                    />
+                  </div>
+
+                  <div className="absolute flex items-center h-full justify-center bottom-[5%] left-[0%] w-full px-[40px]">
+                    {/* Heading */}
+
+                    <div className="flex flex-col items-center justify-center mt-[50px] lg:mt-[0]">
+                      <h1 className="text-white text-[45px] leading-[50px] lg:leading-[131.5px] petrovsans-semibold md:text-[131.5px] z-10 m-[0]">
+                        {content?.contentTitle || "Content & Production"}
+                      </h1>
+
+                      {/* Paragraph */}
+                      <p
+                        className="text-white max-sm:[11.74px] md:text-[31.5px] mt-2 mb-[60px] z-10 outfit-light"
+                        style={{ letterSpacing: "0.08em", lineHeight: "1.49" }}
+                      >
+                        {content?.contentDescription ||
+                          "We bring your story to life, crafting impactful content experiences that resonate."}
+                      </p>
+
+                      {/* Mobile: Structured layout, Desktop: Flex wrap */}
+                      <div className="mb-10 z-10 outfit-light">
+                        {/* Mobile Layout */}
+                        <div className="block md:hidden">
+                          {/* First Row */}
+                          <div className="flex justify-center gap-x-[8px] mb-[16px]">
+                            {(
+                              content?.contentServices?.slice(0, 2) || [
+                                "Influencer Marketing",
+                                "Blogs / Articles",
+                              ]
+                            ).map((tag: any, idx: any) => (
+                              <button
+                                key={idx}
+                                className="inline-flex items-center justify-center h-[26px] px-[8px] py-[2px]
+                     text-[12px] font-light border border-[#F52FFF] rounded-full
+                     text-center whitespace-nowrap leading-none text-white"
+                              >
+                                {tag}
+                              </button>
+                            ))}
+                          </div>
+
+                          {/* Second Row */}
+                          <div className="flex justify-center gap-x-[8px] mb-[16px]">
+                            {(
+                              content?.contentServices?.slice(2, 4) || [
+                                "Conceptualization of Content",
+                                "Motion Graphics",
+                              ]
+                            ).map((tag: any, idx: any) => (
+                              <button
+                                key={idx}
+                                className="inline-flex items-center justify-center h-[26px] px-[8px] py-[2px]
                      text-[11px] font-light border border-[#F52FFF] rounded-full
                      text-center whitespace-nowrap leading-none text-white"
-                        >
-                          {tag}
-                        </button>
-                      ))}
-                    </div>
+                              >
+                                {tag}
+                              </button>
+                            ))}
+                          </div>
 
-                    {/* Third Row */}
-                    <div className="flex justify-center gap-x-[8px]">
-                      {(
-                        content?.contentServices?.slice(4, 7) || [
-                          "Creative Copywriting",
-                          "Reel Production",
-                          "Video Production",
-                        ]
-                      ).map((tag:any, idx:any) => (
-                        <button
-                          key={idx}
-                          className="inline-flex items-center justify-center h-[26px] px-[6px] py-[2px]
+                          {/* Third Row */}
+                          <div className="flex justify-center gap-x-[8px]">
+                            {(
+                              content?.contentServices?.slice(4, 7) || [
+                                "Creative Copywriting",
+                                "Reel Production",
+                                "Video Production",
+                              ]
+                            ).map((tag: any, idx: any) => (
+                              <button
+                                key={idx}
+                                className="inline-flex items-center justify-center h-[26px] px-[6px] py-[2px]
                      text-[10px] font-light border border-[#F52FFF] rounded-full
                      text-center whitespace-nowrap leading-none text-white"
-                        >
-                          {tag.includes("Video Production") ? tag : tag}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
+                              >
+                                {tag.includes("Video Production") ? tag : tag}
+                              </button>
+                            ))}
+                          </div>
+                        </div>
 
-                  {/* Desktop Layout */}
-                  <div className="hidden md:block">
-                    <div className="flex flex-wrap justify-center gap-x-[8px] gap-y-[20px] mb-6">
-                      {(
-                        content?.contentServices?.slice(0, 4) || [
-                          "Influencer Marketing",
-                          "Blogs / Articles",
-                          "Conceptualization of Content",
-                          "Motion Graphics",
-                        ]
-                      ).map((tag:any, idx:any) => (
-                        <button
-                          key={idx}
-                          className="inline-flex items-center justify-center h-[36px] px-[12px] py-[6px]
+                        {/* Desktop Layout */}
+                        <div className="hidden md:block">
+                          <div className="flex flex-wrap justify-center gap-x-[8px] gap-y-[20px] mb-6">
+                            {(
+                              content?.contentServices?.slice(0, 4) || [
+                                "Influencer Marketing",
+                                "Blogs / Articles",
+                                "Conceptualization of Content",
+                                "Motion Graphics",
+                              ]
+                            ).map((tag: any, idx: any) => (
+                              <button
+                                key={idx}
+                                className="inline-flex items-center justify-center h-[36px] px-[12px] py-[6px]
                      text-[20.56px] font-light border border-[#F52FFF] rounded-full
                      text-center whitespace-nowrap leading-none text-white"
-                        >
-                          {tag}
-                        </button>
-                      ))}
-                    </div>
+                              >
+                                {tag}
+                              </button>
+                            ))}
+                          </div>
 
-                    <div className="flex flex-wrap justify-center gap-x-[8px] gap-y-[16px]">
-                      {(
-                        content?.contentServices?.slice(4, 7) || [
-                          "Creative Copywriting",
-                          "High Quality Video Production",
-                          "Reel Production",
-                        ]
-                      ).map((tag:any, idx:any) => (
-                        <button
-                          key={idx}
-                          className="inline-flex items-center justify-center h-[36px] px-[12px] py-[6px]
+                          <div className="flex flex-wrap justify-center gap-x-[8px] gap-y-[16px]">
+                            {(
+                              content?.contentServices?.slice(4, 7) || [
+                                "Creative Copywriting",
+                                "High Quality Video Production",
+                                "Reel Production",
+                              ]
+                            ).map((tag: any, idx: any) => (
+                              <button
+                                key={idx}
+                                className="inline-flex items-center justify-center h-[36px] px-[12px] py-[6px]
                      text-[20.56px] font-light border border-[#F52FFF] rounded-full
                      text-center whitespace-nowrap leading-none text-white"
-                        >
-                          {tag}
-                        </button>
-                      ))}
+                              >
+                                {tag}
+                              </button>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Explore More Button */}
                     </div>
                   </div>
+                </section>
+
+                {/* Group Circle Image */}
+              </section>
+
+              {/* ------------------------------------- Cloud Section ------------------------------------- */}
+
+              <section
+                className="relative w-screen h-screen text-zinc-900 bg-[#BE2FF4] overflow-hidden"
+                ref={containerRef}
+              >
+                <div
+                  style={{
+                    position: "absolute",
+                    left: "0%",
+                    width: "100%",
+                    height: "100vh",
+                    bottom: "0%",
+                    zIndex: 1,
+                  }}
+                  ref={canvasContainerRef}
+                >
+                  <SceneCloud modalRef={modalRef} envRotation={envRotation} />
                 </div>
 
-                {/* Explore More Button */}
-              </div>
-            </div>
-          </section>
+                <div className="absolute bottom-[0%] h-full flex items-center justify-center left-[0%] w-full px-[40px]">
+                  {/* Heading */}
 
-          {/* Group Circle Image */}
-        </section>
+                  <div className=" flex flex-col items-center justify-center">
+                    <h1 className="text-white text-[45px] petrovsans-semibold lg:leading-[131.5px] md:text-[131.5px] z-10 hidden lg:block">
+                      {content?.digitalTitle || "Digital Marketing"}
+                    </h1>
 
-        {/* ------------------------------------- Cloud Section ------------------------------------- */}
+                    <h1 className="text-white text-center leading-[55px] text-[45px] lg:mb-[10px] petrovsans-semibold md:text-[131.5px] z-10 lg:hidden ">
+                      {content?.digitalTitle
+                        ? content.digitalTitle.replace(" ", " \n ")
+                        : "Digital \n Marketing"}
+                    </h1>
 
-        <section
-          className="relative w-screen h-screen text-zinc-900 bg-[#BE2FF4] overflow-hidden"
-          ref={containerRef}
-        >
-          <div
-            style={{
-              position: "absolute",
-              left: "0%",
-              width: "100%",
-              height: "100vh",
-              bottom: "0%",
-              zIndex: 1,
-            }}
-            ref={canvasContainerRef}
-          >
-            <SceneCloud modalRef={modalRef} envRotation={envRotation} />
-          </div>
+                    {/* Paragraph */}
+                    <p
+                      className="text-white max-sm:[11.74px] md:text-[31.5px] mt-2 mb-[60px] z-10 outfit-light"
+                      style={{
+                        letterSpacing: "0.08em",
+                        lineHeight: "1.49",
+                        textAlign: "center",
+                      }}
+                    >
+                      {content?.digitalDescription ||
+                        "We convert digital footprints into tangible results, connecting you with your audience and driving results."}
+                    </p>
 
-          <div className="absolute bottom-[0%] h-full flex items-center justify-center left-[0%] w-full px-[40px]">
-            {/* Heading */}
-
-            <div className=" flex flex-col items-center justify-center">
-              <h1 className="text-white text-[45px] petrovsans-semibold lg:leading-[131.5px] md:text-[131.5px] z-10 hidden lg:block">
-                {content?.digitalTitle || "Digital Marketing"}
-              </h1>
-
-              <h1 className="text-white text-center leading-[55px] text-[45px] lg:mb-[10px] petrovsans-semibold md:text-[131.5px] z-10 lg:hidden ">
-                {content?.digitalTitle
-                  ? content.digitalTitle.replace(" ", " \n ")
-                  : "Digital \n Marketing"}
-              </h1>
-
-              {/* Paragraph */}
-              <p
-                className="text-white max-sm:[11.74px] md:text-[31.5px] mt-2 mb-[60px] z-10 outfit-light"
-                style={{
-                  letterSpacing: "0.08em",
-                  lineHeight: "1.49",
-                  textAlign: "center",
-                }}
-              >
-                {content?.digitalDescription ||
-                  "We convert digital footprints into tangible results, connecting you with your audience and driving results."}
-              </p>
-
-              {/* Mobile: 1 row, Desktop: Flex wrap */}
-              <div className="mb-2 z-10 outfit-light">
-                {/* Mobile Layout - Single Row */}
-                <div className="block md:hidden">
-                  <div className="flex justify-center gap-x-[6px]">
-                    {(
-                      content?.digitalServices || [
-                        "Growth Marketing",
-                        "Social Media Management",
-                        "SEO Optimization",
-                      ]
-                    ).map((tag:any, idx:any) => (
-                      <button
-                        key={idx}
-                        className="inline-flex items-center justify-center h-[26px] px-[6px] py-[2px]
+                    {/* Mobile: 1 row, Desktop: Flex wrap */}
+                    <div className="mb-2 z-10 outfit-light">
+                      {/* Mobile Layout - Single Row */}
+                      <div className="block md:hidden">
+                        <div className="flex justify-center gap-x-[6px]">
+                          {(
+                            content?.digitalServices || [
+                              "Growth Marketing",
+                              "Social Media Management",
+                              "SEO Optimization",
+                            ]
+                          ).map((tag: any, idx: any) => (
+                            <button
+                              key={idx}
+                              className="inline-flex items-center justify-center h-[26px] px-[6px] py-[2px]
                    text-[10px] font-light border border-[#F52FFF] rounded-full
                    text-center whitespace-nowrap leading-none text-white"
-                      >
-                        {tag}
-                      </button>
-                    ))}
-                  </div>
-                </div>
+                            >
+                              {tag}
+                            </button>
+                          ))}
+                        </div>
+                      </div>
 
-                {/* Desktop Layout */}
-                <div className="hidden md:flex flex-wrap justify-center gap-x-[8px] gap-y-[20px]">
-                  {(
-                    content?.digitalServices || [
-                      "Growth Marketing",
-                      "Social Media Management Packages",
-                      "SEO Optimization & Ranking",
-                    ]
-                  ).map((tag:any, idx:any) => (
-                    <button
-                      key={idx}
-                      className="inline-flex items-center justify-center h-[36px] px-[12px] py-[6px]
+                      {/* Desktop Layout */}
+                      <div className="hidden md:flex flex-wrap justify-center gap-x-[8px] gap-y-[20px]">
+                        {(
+                          content?.digitalServices || [
+                            "Growth Marketing",
+                            "Social Media Management Packages",
+                            "SEO Optimization & Ranking",
+                          ]
+                        ).map((tag: any, idx: any) => (
+                          <button
+                            key={idx}
+                            className="inline-flex items-center justify-center h-[36px] px-[12px] py-[6px]
                  text-[20.56px] font-light border border-[#F52FFF] rounded-full
                  text-center whitespace-nowrap leading-none text-white"
-                    >
-                      {tag}
-                    </button>
-                  ))}
-                </div>
-              </div>
+                          >
+                            {tag}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
 
-              {/* Explore More Button */}
-              {/* <button
+                    {/* Explore More Button */}
+                    {/* <button
                 className="mt-4 mb-[200px] px-6 py-2 text-white border border-white rounded-full flex items-center gap-2 z-10 text-[18.36px] outfit-light"
                 style={{
                   letterSpacing: "0.08em",
@@ -1527,316 +1533,317 @@ export default function Services({ content }: ServicesProps) {
                   className="w-8 h-3"
                 />
               </button> */}
-            </div>
-          </div>
-        </section>
-
-        <section
-          style={{ backgroundColor: "rgba(0, 0, 0, 0.5)" }}
-          className=" relative py-[40px] lg:py-20 lg:px-[0] px-[0] z-[10]"
-        >
-          {/*---------------- Agent Vua Section ---------------------- */}
-          <div>
-            <div className="h-[50vh] md:h-[30vh] lg:h-[100vh] flex flex-col items-center justify-center px-4 md:px-0">
-              <div className="flex items-center justify-center text-center mb-[20px] md:mb-[10px] lg:mb-[40px]">
-                <h1 className=" text-[95px] leading-tight petrovsans-light z-50 ">
-                  <span
-                    className="hidden lg:block"
-                    style={{
-                      color: "transparent",
-                      WebkitTextStroke: "2px #6210FF",
-                      textShadow: "0 0 0 #6210FF",
-                    }}
-                  >
-                    {content?.techSolutionsTitle || "Technological Solution"}
-                  </span>
-                </h1>
-
-                <h1 className=" text-[50px] leading-tight petrovsans-book z-50">
-                  <span
-                    className="block lg:hidden"
-                    style={{
-                      color: "transparent",
-                      WebkitTextStroke: "1.5px #6210FF",
-                    }}
-                  >
-                    {content?.techSolutionsTitle
-                      ? content.techSolutionsTitle.replace(" ", "\n")
-                      : "Technological\nSolution"}
-                  </span>
-                </h1>
-              </div>
-              <p
-                className="text-[#9259FF] text-[16px] md:text-[19.6px] text-center px-4 md:px-0 mb-4 md:mb-0"
-                style={{
-                  maxWidth: "1176.53px",
-                  margin: "0 auto",
-                }}
-              >
-                {content?.techSolutionsDescription ||
-                  "Your story deserves more than a slow, costly production cycle. With our AI video engine, you can turn sparks of inspiration into cinematic content-on demand. Whether you're crafting personalized ads or big brand moments, we help you scale creativity without compromise."}
-              </p>
-
-              <div className="text-center mt-4 md:mt-6">
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#6210FF] to-[#BE2FF4] text-[18px] md:text-[24px] petrovsans-semibold tracking-wider">
-                  {content?.techSolutionsTagline || "Less waiting. More wow."}
-                </span>
-              </div>
-            </div>
-
-            <div className="relative flex flex-col items-center  max-w-[1272px]  mx-auto mb-32 lg:mt-[-200px]">
-              <div className="top-[-60%] left-[50%]  lg:top-[-10%] lg:left-[50%] z-[2] translate-x-[0%] lg:translate-x-[0%] lg:translate-y-[20%]">
-                <div
-                  className="w-[180px] h-[180px] absolute top-[50%] left-[50%]"
-                  style={{
-                    transform: "translateX(-50%) translateY(-50%)",
-                  }}
-                >
-                  <Image
-                    fill
-                    alt="s"
-                    objectFit="cover"
-                    src={"/agentVision/agent.png"}
-                  />
+                  </div>
                 </div>
-                <SVGComponent svgRef={svgRef} />
-              </div>
-              <div className="text-center lg:bottom-[0]">
-                <h1 className="text-[58.94px] md:text-[131px] md:leading-[150px] petrovsans-semibold text-transparent bg-clip-text bg-gradient-to-r from-[#6210FF] to-[#BE2FF4] mb-6 lg:mb-8">
-                  {content?.agentVUATitle || "Agent VUA"}
-                </h1>
+              </section>
 
-                <p className="text-[17px] md:text-[31px] text-[#BE2FF4] outfit-light px-4 py-2 lg:py-0 mb-14">
-                  {content?.agentVUADescription ||
-                    "AI Powered Calling Agent for all your Pre-Sales / Post-Sales & Customer Support Requirements"}
-                </p>
+              <section
+                style={{ backgroundColor: "rgba(0, 0, 0, 0.5)" }}
+                className=" relative py-[40px] lg:py-20 lg:px-[0] px-[0] z-[10]"
+              >
+                {/*---------------- Agent Vua Section ---------------------- */}
+                <div>
+                  <div className="h-[50vh] md:h-[30vh] lg:h-[100vh] flex flex-col items-center justify-center px-4 md:px-0">
+                    <div className="flex items-center justify-center text-center mb-[20px] md:mb-[10px] lg:mb-[40px]">
+                      <h1 className=" text-[95px] leading-tight petrovsans-light z-50 ">
+                        <span
+                          className="hidden lg:block"
+                          style={{
+                            color: "transparent",
+                            WebkitTextStroke: "2px #6210FF",
+                            textShadow: "0 0 0 #6210FF",
+                          }}
+                        >
+                          {content?.techSolutionsTitle || "Technological Solution"}
+                        </span>
+                      </h1>
 
-                <div className=" lg:h-[unset] bg-[#6210FF7A] p-- md:p-8 rounded-3xl">
-                  <h1
-                    className="text-[24px] md:text-[45px] text-white mb-8 md:mb-12 pt-[20px] lg:pt-[0px]"
-                    style={{ fontFamily: "Outfit" }}
-                  >
-                    {content?.agentVUAImpactTitle || "The Impact of Agent Vua"}
-                  </h1>
+                      <h1 className=" text-[50px] leading-tight petrovsans-book z-50">
+                        <span
+                          className="block lg:hidden"
+                          style={{
+                            color: "transparent",
+                            WebkitTextStroke: "1.5px #6210FF",
+                          }}
+                        >
+                          {content?.techSolutionsTitle
+                            ? content.techSolutionsTitle.replace(" ", "\n")
+                            : "Technological\nSolution"}
+                        </span>
+                      </h1>
+                    </div>
+                    <p
+                      className="text-[#9259FF] text-[16px] md:text-[19.6px] text-center px-4 md:px-0 mb-4 md:mb-0"
+                      style={{
+                        maxWidth: "1176.53px",
+                        margin: "0 auto",
+                      }}
+                    >
+                      {content?.techSolutionsDescription ||
+                        "Your story deserves more than a slow, costly production cycle. With our AI video engine, you can turn sparks of inspiration into cinematic content-on demand. Whether you're crafting personalized ads or big brand moments, we help you scale creativity without compromise."}
+                    </p>
 
-                  <div className="lg:grid lg:grid-cols-4 text-white gap-2 md:gap-7 text-center">
-                    {(
-                      content?.agentVUAFeatures || [
-                        "AI Powered, Human like conversations",
-                        "Real time objection handling",
-                        "CRM Integrated",
-                        "Available 24*7",
-                      ]
-                    ).map((feature:any, idx:any) => (
+                    <div className="text-center mt-4 md:mt-6">
+                      <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#6210FF] to-[#BE2FF4] text-[18px] md:text-[24px] petrovsans-semibold tracking-wider">
+                        {content?.techSolutionsTagline || "Less waiting. More wow."}
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="relative flex flex-col items-center  max-w-[1272px]  mx-auto mb-32 lg:mt-[-200px]">
+                    <div className="top-[-60%] left-[50%]  lg:top-[-10%] lg:left-[50%] z-[2] translate-x-[0%] lg:translate-x-[0%] lg:translate-y-[20%]">
                       <div
-                        key={idx}
-                        className="py-[20px] px-1 md:px-2 border-b border-white-500 lg:border-0"
+                        className="w-[180px] h-[180px] absolute top-[50%] left-[50%]"
+                        style={{
+                          transform: "translateX(-50%) translateY(-50%)",
+                        }}
                       >
-                        <h3 className="text-[19px] md:text-[35.04px] outfit-light leading-tight">
-                          {feature}
-                        </h3>
+                        <Image
+                          fill
+                          alt="s"
+                          objectFit="cover"
+                          src={"/agentVision/agent.png"}
+                        />
+                      </div>
+                      <SVGComponent svgRef={svgRef} />
+                    </div>
+                    <div className="text-center lg:bottom-[0]">
+                      <h1 className="text-[58.94px] md:text-[131px] md:leading-[150px] petrovsans-semibold text-transparent bg-clip-text bg-gradient-to-r from-[#6210FF] to-[#BE2FF4] mb-6 lg:mb-8">
+                        {content?.agentVUATitle || "Agent VUA"}
+                      </h1>
+
+                      <p className="text-[17px] md:text-[31px] text-[#BE2FF4] outfit-light px-4 py-2 lg:py-0 mb-14">
+                        {content?.agentVUADescription ||
+                          "AI Powered Calling Agent for all your Pre-Sales / Post-Sales & Customer Support Requirements"}
+                      </p>
+
+                      <div className=" lg:h-[unset] bg-[#6210FF7A] p-- md:p-8 rounded-3xl">
+                        <h1
+                          className="text-[24px] md:text-[45px] text-white mb-8 md:mb-12 pt-[20px] lg:pt-[0px]"
+                          style={{ fontFamily: "Outfit" }}
+                        >
+                          {content?.agentVUAImpactTitle || "The Impact of Agent Vua"}
+                        </h1>
+
+                        <div className="lg:grid lg:grid-cols-4 text-white gap-2 md:gap-7 text-center">
+                          {(
+                            content?.agentVUAFeatures || [
+                              "AI Powered, Human like conversations",
+                              "Real time objection handling",
+                              "CRM Integrated",
+                              "Available 24*7",
+                            ]
+                          ).map((feature: any, idx: any) => (
+                            <div
+                              key={idx}
+                              className="py-[20px] px-1 md:px-2 border-b border-white-500 lg:border-0"
+                            >
+                              <h3 className="text-[19px] md:text-[35.04px] outfit-light leading-tight">
+                                {feature}
+                              </h3>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+
+                      <p className="text-[17px] md:text-[31px] text-[#BE2FF4] outfit-light text-center mt-8 md:mt-12">
+                        {content?.agentVUATagline ||
+                          "Agent Vua can breakeven at the cost of just 5 Agents"}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* ------------------------------------- Technological Solutions Section ------------------------------------- */}
+                {isDesktop === false && isDesktop !== undefined && (
+                  <TechnologicalSolutions
+                    agentVisionMobileOneContainer={agentVisionMobileOneContainer}
+                    agentVisionMobileVideoOne={agentVisionMobileVideoOne}
+                    agentVisionMobileVideoTwo={agentVisionMobileVideoTwo}
+                    agentVisionMobileTwoContainer={agentVisionMobileTwoContainer}
+                    agentVisionMobileVideoThree={agentVisionMobileVideoThree}
+                    content={content}
+                  />
+                )}
+
+                {/* ------------------------------ Desktop version ------------------------------ */}
+                {isDesktop === true && isDesktop !== undefined && (
+                  <AgentVisionDesktop
+                    agentVisionRef={agentVisionRef}
+                    videoLeftOne={videoLeftOne}
+                    videoLeftTwo={videoLeftTwo}
+                    videoLeftThree={videoLeftThree}
+                    content={content}
+                  />
+                )}
+
+                {/* ------------------ Vr Section ------------------ */}
+
+                <section
+                  ref={vrContainer}
+                  className="relative h-[100lvh] flex items-center justify-center text-center pt-[0px] lg:mt-[160px]"
+                >
+                  <div
+                    ref={vrContainerBackdrop}
+                    style={{
+                      position: "absolute",
+                      height: "100svh",
+                      width: "100vw",
+                      background: "rgba(0, 0, 0, 0.8)",
+                      zIndex: 1,
+                    }}
+                  />
+                  <div
+                    style={{
+                      position: "absolute",
+                      left: "0%",
+                      width: "100%",
+                      height: "100lvh",
+                      bottom: "0%",
+                      zIndex: 1,
+                    }}
+                  >
+                    <VRScene
+                      vrModalContainer={vrModalContainer}
+                      vrGroupRef={vrGroupRef}
+                      vrOneRef={vrOneRef}
+                    />
+                  </div>
+
+                  <div
+                    ref={vrVideoContainerRef}
+                    style={{
+                      position: "absolute",
+                      width: "100%",
+                      height: "100%",
+
+                      zIndex: 3,
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                    className="top-[22%] left-[-8vw] lg:left-[6.5%]"
+                  >
+                    {/* SVG clip path definition */}
+                    <div
+                      style={{
+                        background: "grey",
+                        borderRadius: 300,
+                        overflow: "hidden",
+                      }}
+                      className="w-[120vw]  lg:h-[58%]  lg:w-[82%]"
+                    >
+                      {[
+                        content?.videos?.vrVideo ? content?.videos?.vrVideo : "/agentVision/2.mp4",
+                      ].map((iem) => (
+                        <video
+                          key={iem}
+                          className=" w-full h-full object-cover rounded-lg"
+                          autoPlay
+                          muted
+                          loop
+                          playsInline
+                        >
+                          <source src={getVideoUrl(iem)} type="video/mp4" />
+                          Your browser does not support the video tag.
+                        </video>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div
+                    style={{
+                      willChange: "opacity",
+                      height: "100lvh",
+                      display: "flex",
+                      flexDirection: "column",
+                      justifyContent: "space-between",
+                      top: 0,
+                    }}
+                    ref={vrSectionContent}
+                  >
+                    <div>
+                      <h1 className="text-[48px] sm:text-[131px] leading-tight mt-[20px] lg:mt-[-20px] petrovsans-semibold text-transparent bg-clip-text bg-gradient-to-r from-[#6210FF] to-[#BE2FF4]">
+                        {content?.agentXRTitle || "Agent XR"}
+                      </h1>
+                      <p className="text-[17px] sm:text-[31px] text-[#BE2FF4] leading-none outfit-light mx-2 px-2 mt-[10px] text-center">
+                        {content?.agentXRDescription ||
+                          "Don't leave it to their imagination, immerse them in the experience"}
+                      </p>
+                    </div>
+
+                    <div className="lg:hidden">
+                      <div className="hidden lg:block lg:grid grid-cols-4 gap-3 text-white outfit-light text-center text-[14px] md:text-[35.04px]">
+                        {(
+                          content?.agentXRServices || [
+                            "Virtual Reality",
+                            "Digital twins",
+                            "Mixed reality",
+                            "Realistic renderings",
+                          ]
+                        ).map((service: any, idx: any) => (
+                          <div key={idx} className="py-4">
+                            {service}
+                          </div>
+                        ))}
+                      </div>
+
+                      <div className=" lg:grid grid-cols-3 gap-3 text-center mb-[25px] lg:mb-[10px]">
+                        {(content?.agentXRStats || [
+                          { value: '90%', label: 'Cost Saving' },
+                          { value: '50X', label: 'Faster time to market' },
+                          { value: '400%', label: 'Increased Engagement' }
+                        ]).map((stat: any, index: any) => (
+                          <div key={index} className="py-2">
+                            <h1 className="text-[48px] md:text-[65px] leading-tight petrovsans-semibold text-transparent bg-clip-text bg-gradient-to-r from-[#6210FF] to-[#BE2FF4] mb-4">
+                              {stat.value}
+                            </h1>
+                            <p className="text-white text-[18px] md:text-[35.04px] outfit-light leading-none">
+                              {stat.label}
+                            </p>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </section>
+
+                {/* ----------------- i2 --------------- */}
+                <div className="hidden lg:block  pt-[150px] pb-[100px]">
+                  <div className="lg:grid grid-cols-4 gap-3 text-white outfit-light text-center text-[14px] md:text-[35.04px] lg:mb-[70px]">
+                    {(
+                      content?.agentXRServices || [
+                        "Virtual Reality",
+                        "Digital twins",
+                        "Mixed reality",
+                        "Realistic renderings",
+                      ]
+                    ).map((service: any, idx: any) => (
+                      <div key={idx} className="py-4">
+                        {service}
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className=" lg:grid grid-cols-3 gap-3 text-center mb-[25px] lg:mb-[10px]">
+                    {(content?.agentXRStats || [
+                      { value: '90%', label: 'Cost Saving' },
+                      { value: '50X', label: 'Faster time to market' },
+                      { value: '400%', label: 'Increased Engagement' }
+                    ]).map((stat: any, index: any) => (
+                      <div key={index} className="py-2">
+                        <h1 className="text-[48px] md:text-[65px] leading-tight petrovsans-semibold text-transparent bg-clip-text bg-gradient-to-r from-[#6210FF] to-[#BE2FF4] mb-4">
+                          {stat.value}
+                        </h1>
+                        <p className="text-white text-[18px] md:text-[35.04px] outfit-light leading-none">
+                          {stat.label}
+                        </p>
                       </div>
                     ))}
                   </div>
                 </div>
-
-                <p className="text-[17px] md:text-[31px] text-[#BE2FF4] outfit-light text-center mt-8 md:mt-12">
-                  {content?.agentVUATagline ||
-                    "Agent Vua can breakeven at the cost of just 5 Agents"}
-                </p>
-              </div>
-            </div>
-          </div>
-
-          {/* ------------------------------------- Technological Solutions Section ------------------------------------- */}
-          {isDesktop === false && isDesktop !== undefined && (
-            <TechnologicalSolutions
-              agentVisionMobileOneContainer={agentVisionMobileOneContainer}
-              agentVisionMobileVideoOne={agentVisionMobileVideoOne}
-              agentVisionMobileVideoTwo={agentVisionMobileVideoTwo}
-              agentVisionMobileTwoContainer={agentVisionMobileTwoContainer}
-              agentVisionMobileVideoThree={agentVisionMobileVideoThree}
-              content={content}
-            />
-          )}
-
-          {/* ------------------------------ Desktop version ------------------------------ */}
-          {isDesktop === true && isDesktop !== undefined && (
-            <AgentVisionDesktop
-              agentVisionRef={agentVisionRef}
-              videoLeftOne={videoLeftOne}
-              videoLeftTwo={videoLeftTwo}
-              videoLeftThree={videoLeftThree}
-              content={content}
-            />
-          )}
-
-          {/* ------------------ Vr Section ------------------ */}
-
-          <section
-            ref={vrContainer}
-            className="relative h-[100lvh] flex items-center justify-center text-center pt-[0px] lg:mt-[160px]"
-          >
-            <div
-              ref={vrContainerBackdrop}
-              style={{
-                position: "absolute",
-                height: "100svh",
-                width: "100vw",
-                background: "rgba(0, 0, 0, 0.8)",
-                zIndex: 1,
-              }}
-            />
-            <div
-              style={{
-                position: "absolute",
-                left: "0%",
-                width: "100%",
-                height: "100lvh",
-                bottom: "0%",
-                zIndex: 1,
-              }}
-            >
-              <VRScene
-                vrModalContainer={vrModalContainer}
-                vrGroupRef={vrGroupRef}
-                vrOneRef={vrOneRef}
-              />
-            </div>
-
-            <div
-              ref={vrVideoContainerRef}
-              style={{
-                position: "absolute",
-                width: "100%",
-                height: "100%",
-
-                zIndex: 3,
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-              className="top-[22%] left-[-8vw] lg:left-[6.5%]"
-            >
-              {/* SVG clip path definition */}
-              <div
-                style={{
-                  background: "grey",
-                  borderRadius: 300,
-                  overflow: "hidden",
-                }}
-                className="w-[120vw]  lg:h-[58%]  lg:w-[82%]"
-              >
-                {[
-                  content?.videos?.vrVideo ? content?.videos?.vrVideo : "/agentVision/2.mp4",
-                ].map((iem) => (
-                  <video
-                    key={iem}
-                    className=" w-full h-full object-cover rounded-lg"
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
-                  >
-                    <source src={getVideoUrl(iem)} type="video/mp4" />
-                    Your browser does not support the video tag.
-                  </video>
-                ))}
-              </div>
-            </div>
-
-            <div
-              style={{
-                willChange: "opacity",
-                height: "100lvh",
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "space-between",
-                top: 0,
-              }}
-              ref={vrSectionContent}
-            >
-              <div>
-                <h1 className="text-[48px] sm:text-[131px] leading-tight mt-[20px] lg:mt-[-20px] petrovsans-semibold text-transparent bg-clip-text bg-gradient-to-r from-[#6210FF] to-[#BE2FF4]">
-                  {content?.agentXRTitle || "Agent XR"}
-                </h1>
-                <p className="text-[17px] sm:text-[31px] text-[#BE2FF4] leading-none outfit-light mx-2 px-2 mt-[10px] text-center">
-                  {content?.agentXRDescription ||
-                    "Don't leave it to their imagination, immerse them in the experience"}
-                </p>
-              </div>
-
-              <div className="lg:hidden">
-                <div className="hidden lg:block lg:grid grid-cols-4 gap-3 text-white outfit-light text-center text-[14px] md:text-[35.04px]">
-                  {(
-                    content?.agentXRServices || [
-                      "Virtual Reality",
-                      "Digital twins",
-                      "Mixed reality",
-                      "Realistic renderings",
-                    ]
-                  ).map((service:any, idx:any) => (
-                    <div key={idx} className="py-4">
-                      {service}
-                    </div>
-                  ))}
-                </div>
-
-                <div className=" lg:grid grid-cols-3 gap-3 text-center mb-[25px] lg:mb-[10px]">
-                  {(content?.agentXRStats || [
-                    { value: '90%', label: 'Cost Saving' },
-                    { value: '50X', label: 'Faster time to market' },
-                    { value: '400%', label: 'Increased Engagement' }
-                  ]).map((stat:any, index:any) => (
-                    <div key={index} className="py-2">
-                      <h1 className="text-[48px] md:text-[65px] leading-tight petrovsans-semibold text-transparent bg-clip-text bg-gradient-to-r from-[#6210FF] to-[#BE2FF4] mb-4">
-                        {stat.value}
-                      </h1>
-                      <p className="text-white text-[18px] md:text-[35.04px] outfit-light leading-none">
-                        {stat.label}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
+              </section>
+            </section>
           </section>
-
-          {/* ----------------- i2 --------------- */}
-          <div className="hidden lg:block  pt-[150px] pb-[100px]">
-            <div className="lg:grid grid-cols-4 gap-3 text-white outfit-light text-center text-[14px] md:text-[35.04px] lg:mb-[70px]">
-              {(
-                content?.agentXRServices || [
-                  "Virtual Reality",
-                  "Digital twins",
-                  "Mixed reality",
-                  "Realistic renderings",
-                ]
-              ).map((service:any, idx:any) => (
-                <div key={idx} className="py-4">
-                  {service}
-                </div>
-              ))}
-            </div>
-
-            <div className=" lg:grid grid-cols-3 gap-3 text-center mb-[25px] lg:mb-[10px]">
-              {(content?.agentXRStats || [
-                { value: '90%', label: 'Cost Saving' },
-                { value: '50X', label: 'Faster time to market' },
-                { value: '400%', label: 'Increased Engagement' }
-              ]).map((stat:any, index:any) => (
-                <div key={index} className="py-2">
-                  <h1 className="text-[48px] md:text-[65px] leading-tight petrovsans-semibold text-transparent bg-clip-text bg-gradient-to-r from-[#6210FF] to-[#BE2FF4] mb-4">
-                    {stat.value}
-                  </h1>
-                  <p className="text-white text-[18px] md:text-[35.04px] outfit-light leading-none">
-                    {stat.label}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-      </section>
-    </section>
-  );
+        </>
+        );
 }

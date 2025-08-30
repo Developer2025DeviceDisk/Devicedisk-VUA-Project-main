@@ -89,8 +89,8 @@ interface VideoSection {
 }
 
 interface AboutContent {
-  heroSection?: HeroSection;
-  parallaxSection?: ParallaxSection;
+  heroSection?: typeof HeroSection;
+  parallaxSection?: typeof ParallaxSection;
   servicesSection?: ServicesSection;
   foundationSection?: FoundationSection;
   videoSection?: VideoSection;

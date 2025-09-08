@@ -252,7 +252,7 @@ const ContactForm = React.memo(function ContactForm({
 
     // Call both APIs in parallel
     const [res1, res2] = await Promise.all([
-      fetch('https://admin.vvworx.com/api/admin/contact', {
+      fetch('https://admin.vvworx.com/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload1),

@@ -1,5 +1,5 @@
 "use client";
-
+import Script from "next/script";
 import { useState, useEffect, useRef } from "react";
 import { X } from "lucide-react";
 import Link from "next/link";
@@ -111,6 +111,18 @@ export default function Header() {
 
   return (
     <>
+     <Script
+        src="https://www.googletagmanager.com/gtag/js?id=G-0LW2ES5PCM"
+        strategy="afterInteractive"
+      />
+      <Script id="google-analytics" strategy="afterInteractive">
+        {`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-0LW2ES5PCM');
+        `}
+      </Script>
       <header
       ref={headerRef}
         className={`fixed top-0 left-0 w-full z-50 mx-auto flex justify-between items-center px-4 sm:px-6 py-3 sm:py-4 ${

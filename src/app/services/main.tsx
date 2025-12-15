@@ -3,7 +3,7 @@ import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
-import Observer from "gsap/Observer";
+import Observer from "gsap/dist/Observer";
 import SplitText from "gsap/SplitText";
 import Lenis from "@studio-freight/lenis";
 import * as THREE from "three";
@@ -1049,7 +1049,7 @@ export default function Services({ content }: ServicesProps) {
                           "Brand Strategy",
                           "Brand Voice",
                         ]
-                      ).map((tag:any, idx:any) => (
+                      ).map((tag: any, idx: any) => (
                         <button
                           key={idx}
                           className="inline-flex items-center justify-center h-[26px] px-[8px] py-[2px]
@@ -1069,7 +1069,7 @@ export default function Services({ content }: ServicesProps) {
                           "PR Strategy",
                           "Social Media Strategy",
                         ]
-                      ).map((tag:any, idx:any) => (
+                      ).map((tag: any, idx: any) => (
                         <button
                           key={idx}
                           className="inline-flex items-center justify-center h-[26px] px-[8px] py-[2px]
@@ -1091,7 +1091,7 @@ export default function Services({ content }: ServicesProps) {
                           "Brand Strategy",
                           "Brand Voice",
                         ]
-                      ).map((tag:any, idx:any) => (
+                      ).map((tag: any, idx: any) => (
                         <button
                           key={idx}
                           className="inline-flex items-center justify-center h-[36px] px-[12px] py-[6px]
@@ -1110,7 +1110,7 @@ export default function Services({ content }: ServicesProps) {
                           "PR Strategy",
                           "Social Media Strategy",
                         ]
-                      ).map((tag:any, idx:any) => (
+                      ).map((tag: any, idx: any) => (
                         <button
                           key={idx}
                           className="inline-flex items-center justify-center h-[36px] px-[12px] py-[6px]
@@ -1182,7 +1182,7 @@ export default function Services({ content }: ServicesProps) {
                           "Website Design",
                           "UI/UX Design",
                         ]
-                      ).map((tag:any, idx:any) => (
+                      ).map((tag: any, idx: any) => (
                         <button
                           key={idx}
                           className="inline-flex items-center justify-center h-[26px] px-[8px] py-[2px]
@@ -1202,7 +1202,7 @@ export default function Services({ content }: ServicesProps) {
                           "Office Branding",
                           "Print & Digital Creatives",
                         ]
-                      ).map((tag:any, idx:any) => (
+                      ).map((tag: any, idx: any) => (
                         <button
                           key={idx}
                           className="inline-flex items-center justify-center h-[26px] px-[8px] py-[2px]
@@ -1224,7 +1224,7 @@ export default function Services({ content }: ServicesProps) {
                           "Website Design",
                           "UI/UX Design",
                         ]
-                      ).map((tag:any, idx:any) => (
+                      ).map((tag: any, idx: any) => (
                         <button
                           key={idx}
                           className="inline-flex items-center justify-center h-[36px] px-[12px] py-[6px]
@@ -1243,7 +1243,7 @@ export default function Services({ content }: ServicesProps) {
                           "Office Branding",
                           "Print & Digital Creatives",
                         ]
-                      ).map((tag:any, idx:any) => (
+                      ).map((tag: any, idx: any) => (
                         <button
                           key={idx}
                           className="inline-flex items-center justify-center h-[36px] px-[12px] py-[6px]
@@ -1314,7 +1314,7 @@ export default function Services({ content }: ServicesProps) {
                           "Influencer Marketing",
                           "Blogs / Articles",
                         ]
-                      ).map((tag:any, idx:any) => (
+                      ).map((tag: any, idx: any) => (
                         <button
                           key={idx}
                           className="inline-flex items-center justify-center h-[26px] px-[8px] py-[2px]
@@ -1333,7 +1333,7 @@ export default function Services({ content }: ServicesProps) {
                           "Conceptualization of Content",
                           "Motion Graphics",
                         ]
-                      ).map((tag:any, idx:any) => (
+                      ).map((tag: any, idx: any) => (
                         <button
                           key={idx}
                           className="inline-flex items-center justify-center h-[26px] px-[8px] py-[2px]
@@ -1353,7 +1353,7 @@ export default function Services({ content }: ServicesProps) {
                           "Reel Production",
                           "Video Production",
                         ]
-                      ).map((tag:any, idx:any) => (
+                      ).map((tag: any, idx: any) => (
                         <button
                           key={idx}
                           className="inline-flex items-center justify-center h-[26px] px-[6px] py-[2px]
@@ -1376,7 +1376,7 @@ export default function Services({ content }: ServicesProps) {
                           "Conceptualization of Content",
                           "Motion Graphics",
                         ]
-                      ).map((tag:any, idx:any) => (
+                      ).map((tag: any, idx: any) => (
                         <button
                           key={idx}
                           className="inline-flex items-center justify-center h-[36px] px-[12px] py-[6px]
@@ -1395,7 +1395,7 @@ export default function Services({ content }: ServicesProps) {
                           "High Quality Video Production",
                           "Reel Production",
                         ]
-                      ).map((tag:any, idx:any) => (
+                      ).map((tag: any, idx: any) => (
                         <button
                           key={idx}
                           className="inline-flex items-center justify-center h-[36px] px-[12px] py-[6px]
@@ -1475,7 +1475,7 @@ export default function Services({ content }: ServicesProps) {
                         "Social Media Management",
                         "SEO Optimization",
                       ]
-                    ).map((tag:any, idx:any) => (
+                    ).map((tag: any, idx: any) => (
                       <button
                         key={idx}
                         className="inline-flex items-center justify-center h-[26px] px-[6px] py-[2px]
@@ -1496,7 +1496,7 @@ export default function Services({ content }: ServicesProps) {
                       "Social Media Management Packages",
                       "SEO Optimization & Ranking",
                     ]
-                  ).map((tag:any, idx:any) => (
+                  ).map((tag: any, idx: any) => (
                     <button
                       key={idx}
                       className="inline-flex items-center justify-center h-[36px] px-[12px] py-[6px]
@@ -1627,7 +1627,7 @@ export default function Services({ content }: ServicesProps) {
                         "CRM Integrated",
                         "Available 24*7",
                       ]
-                    ).map((feature:any, idx:any) => (
+                    ).map((feature: any, idx: any) => (
                       <div
                         key={idx}
                         className="py-[20px] px-1 md:px-2 border-b border-white-500 lg:border-0"
@@ -1774,7 +1774,7 @@ export default function Services({ content }: ServicesProps) {
                       "Mixed reality",
                       "Realistic renderings",
                     ]
-                  ).map((service:any, idx:any) => (
+                  ).map((service: any, idx: any) => (
                     <div key={idx} className="py-4">
                       {service}
                     </div>
@@ -1786,7 +1786,7 @@ export default function Services({ content }: ServicesProps) {
                     { value: '90%', label: 'Cost Saving' },
                     { value: '50X', label: 'Faster time to market' },
                     { value: '400%', label: 'Increased Engagement' }
-                  ]).map((stat:any, index:any) => (
+                  ]).map((stat: any, index: any) => (
                     <div key={index} className="py-2">
                       <h1 className="text-[48px] md:text-[65px] leading-tight petrovsans-semibold text-transparent bg-clip-text bg-gradient-to-r from-[#6210FF] to-[#BE2FF4] mb-4">
                         {stat.value}
@@ -1811,7 +1811,7 @@ export default function Services({ content }: ServicesProps) {
                   "Mixed reality",
                   "Realistic renderings",
                 ]
-              ).map((service:any, idx:any) => (
+              ).map((service: any, idx: any) => (
                 <div key={idx} className="py-4">
                   {service}
                 </div>
@@ -1823,7 +1823,7 @@ export default function Services({ content }: ServicesProps) {
                 { value: '90%', label: 'Cost Saving' },
                 { value: '50X', label: 'Faster time to market' },
                 { value: '400%', label: 'Increased Engagement' }
-              ]).map((stat:any, index:any) => (
+              ]).map((stat: any, index: any) => (
                 <div key={index} className="py-2">
                   <h1 className="text-[48px] md:text-[65px] leading-tight petrovsans-semibold text-transparent bg-clip-text bg-gradient-to-r from-[#6210FF] to-[#BE2FF4] mb-4">
                     {stat.value}

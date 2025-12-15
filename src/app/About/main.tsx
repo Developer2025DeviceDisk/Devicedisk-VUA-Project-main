@@ -3,7 +3,7 @@ import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
-import Observer from "gsap/Observer";
+import Observer from "gsap/dist/Observer";
 import SplitText from "gsap/SplitText";
 import Lenis from "@studio-freight/lenis";
 import { useParallax } from "@/hooks/useParrallax";
@@ -315,8 +315,8 @@ export function AboutPageClient({ aboutContent }: { aboutContent: AboutPageConte
   // Get sorted directors for dynamic rendering - similar to sortedCards pattern
   const sortedCards = getSortedDirectors(
     aboutContent.directorSection?.directors ||
-      defaultContent.directorSection?.directors ||
-      []
+    defaultContent.directorSection?.directors ||
+    []
   );
 
   // Get active team members for carousel animation
@@ -388,14 +388,14 @@ export function AboutPageClient({ aboutContent }: { aboutContent: AboutPageConte
     const animateAboutSection = () => {
       const allImages = aboutSectionSvgTextBoxRef.current
         ? gsap.utils.toArray(
-            aboutSectionSvgTextBoxRef.current.querySelectorAll("img")
-          )
+          aboutSectionSvgTextBoxRef.current.querySelectorAll("img")
+        )
         : [];
 
       const allImages2 = aboutSectionSvgTextBoxRef2.current
         ? gsap.utils.toArray(
-            aboutSectionSvgTextBoxRef2.current.querySelectorAll("img")
-          )
+          aboutSectionSvgTextBoxRef2.current.querySelectorAll("img")
+        )
         : [];
 
       gsap.to(allImages2, {
@@ -427,14 +427,14 @@ export function AboutPageClient({ aboutContent }: { aboutContent: AboutPageConte
       ) {
         const allImages = aboutSectionSvgTextBoxRef.current
           ? gsap.utils.toArray(
-              aboutSectionSvgTextBoxRef.current.querySelectorAll("img")
-            )
+            aboutSectionSvgTextBoxRef.current.querySelectorAll("img")
+          )
           : [];
 
         const allImages2 = aboutSectionSvgTextBoxRef2.current
           ? gsap.utils.toArray(
-              aboutSectionSvgTextBoxRef2.current.querySelectorAll("img")
-            )
+            aboutSectionSvgTextBoxRef2.current.querySelectorAll("img")
+          )
           : [];
 
         gsap.set(
@@ -1094,7 +1094,7 @@ export function AboutPageClient({ aboutContent }: { aboutContent: AboutPageConte
     };
   }, []);
 
-    // Services Section Animation
+  // Services Section Animation
   useEffect(() => {
     const servicesCtx = gsap.context(() => {
       const tl = gsap.timeline({
@@ -1107,7 +1107,7 @@ export function AboutPageClient({ aboutContent }: { aboutContent: AboutPageConte
         },
       });
 
-    
+
 
       // Dynamic cards animation
       cardRefs.current.forEach((cardRef, index) => {
@@ -1115,7 +1115,7 @@ export function AboutPageClient({ aboutContent }: { aboutContent: AboutPageConte
           tl.to(
             cardRef,
             { top: window.innerWidth < 768 ? "10%" : "20%", duration: 1 },
-           "-=.9"
+            "-=.9"
           );
           if (index < cardRefs.current.length - 1) {
             tl.to(cardRef, { scale: 0.5, opacity: 0, duration: 1 });
@@ -1142,18 +1142,18 @@ export function AboutPageClient({ aboutContent }: { aboutContent: AboutPageConte
         style={
           isDesktop
             ? {
-                overflowY: loaderFinished ? "visible" : "hidden",
-                height: loaderFinished ? "auto" : "100vh",
-                position: loaderFinished ? "static" : "fixed",
+              overflowY: loaderFinished ? "visible" : "hidden",
+              height: loaderFinished ? "auto" : "100vh",
+              position: loaderFinished ? "static" : "fixed",
 
-                overflowX: "hidden",
-              }
+              overflowX: "hidden",
+            }
             : {
-                overflowY: "visible",
-                height: "auto",
-                position: "static",
-                overflowX: "hidden",
-              }
+              overflowY: "visible",
+              height: "auto",
+              position: "static",
+              overflowX: "hidden",
+            }
         }
       >
         {/* Header is already included in layout.tsx */}
@@ -1460,20 +1460,20 @@ export function AboutPageClient({ aboutContent }: { aboutContent: AboutPageConte
               <h2 className="text-[50px] lg:text-[67px] font-thin mb-[30px] outfit-light leading-[58px] lg:hidden ">
                 {aboutContent.whoAreWeSection?.title?.includes(" ")
                   ? aboutContent.whoAreWeSection.title
-                      .split(" ")
-                      .map((word, index) => (
-                        <span key={index}>
-                          {word}
-                          {index <
+                    .split(" ")
+                    .map((word, index) => (
+                      <span key={index}>
+                        {word}
+                        {index <
                           aboutContent.whoAreWeSection!.title.split(" ")
                             .length -
-                            1 ? (
-                            <br />
-                          ) : (
-                            ""
-                          )}
-                        </span>
-                      ))
+                          1 ? (
+                          <br />
+                        ) : (
+                          ""
+                        )}
+                      </span>
+                    ))
                   : aboutContent.whoAreWeSection?.title || "Who Are We?"}
               </h2>
               <p className="text-lg lg:text-[19.69px] font-[400] leading-relaxed mb-4 lg:font-[300]">
@@ -1671,7 +1671,7 @@ export function AboutPageClient({ aboutContent }: { aboutContent: AboutPageConte
                 cardRefs.current[index] = el;
               }}
               className={`absolute ${index === 0 ? "top-[20%]" : "top-[100%]"} z-${index * 10} w-full`}
-              // style={{ boxShadow: "0 20px 50px -10px rgba(190, 47, 244, 0.3)" }}
+            // style={{ boxShadow: "0 20px 50px -10px rgba(190, 47, 244, 0.3)" }}
             >
               <section
                 key={director.name + director.order}
@@ -1728,7 +1728,7 @@ export function AboutPageClient({ aboutContent }: { aboutContent: AboutPageConte
                       <div>
                         {director.description
                           ?.split("\n")
-                          .map((paragraph:any, paragraphIndex:any) => (
+                          .map((paragraph: any, paragraphIndex: any) => (
                             <div key={paragraphIndex}>
                               <p
                                 className="text-[12px] sm:text-[14px] lg:text-[17px] text-justify"
@@ -1737,7 +1737,7 @@ export function AboutPageClient({ aboutContent }: { aboutContent: AboutPageConte
                               {paragraphIndex <
                                 (director.description?.split("\n").length ||
                                   1) -
-                                  1 && <br />}
+                                1 && <br />}
                             </div>
                           ))}
                       </div>
@@ -1846,8 +1846,8 @@ export function AboutPageClient({ aboutContent }: { aboutContent: AboutPageConte
           >
             {getTeamSlice(
               aboutContent.teamSection?.teamMembers ||
-                defaultContent.teamSection?.teamMembers ||
-                []
+              defaultContent.teamSection?.teamMembers ||
+              []
             ).map((member, index) => {
               return (
                 <div

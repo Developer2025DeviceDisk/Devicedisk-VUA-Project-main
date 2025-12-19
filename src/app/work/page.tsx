@@ -7,11 +7,12 @@ export const metadata: Metadata = {
 };
 
 // Helper function to resolve image URLs (copied from About.tsx for consistency)
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://admin.vvworx.com';
+
 const getImageUrl = (imagePath: string): string => {
     if (!imagePath) return "";
 
     // If it's already a full URL from backend, use proxy
-    const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://admin.vvworx.com';
     if (imagePath.startsWith(API_URL)) {
         return `/api/proxy?url=${encodeURIComponent(imagePath)}`;
     }
@@ -21,7 +22,6 @@ const getImageUrl = (imagePath: string): string => {
 
     // If it's an uploaded image (starts with /uploads), serve from backend via proxy
     if (imagePath.startsWith("/uploads/")) {
-        const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://admin.vvworx.com';
         const fullUrl = `${API_URL}${imagePath}`;
         return `/api/proxy?url=${encodeURIComponent(fullUrl)}`;
     }
@@ -59,7 +59,6 @@ interface OurWorkContent {
 
 async function fetchOurWorkContent(): Promise<OurWorkContent | null> {
     try {
-        const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://admin.vvworx.com';
         const response = await fetch(`${API_URL}/api/our-work-content/active`, {
             cache: 'no-store'
         });

@@ -7,7 +7,7 @@
   src: url("/fonts/PetrovSans-Book.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
-  font-display:  swap;
+  font-display: swap;
 }
 
 .petrovsans-book {
@@ -27,13 +27,13 @@
 .petrovsans-semibold {
   font-family: "PetrovSans";
   font-weight: 600;
-  font-style:  normal;
+  font-style: normal;
 }
 
 .outfit-light {
   font-family: "Outfit", sans-serif;
   font-weight: 300;
-  font-style:  normal;
+  font-style: normal;
 }
 
 @font-face {
@@ -129,19 +129,24 @@ body {
 }
 
 main {
-    overflow-x: hidden !important;
+  overflow-x: hidden !important;
 }
 
 body {
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
+  -ms-overflow-style: none;
+  /* IE and Edge */
 }
+
 body::-webkit-scrollbar {
-  display: none; /* Chrome, Safari, Opera */
+  display: none;
+  /* Chrome, Safari, Opera */
 }
 
 .stroke-purple-500 {
-  -webkit-text-stroke: 1px #6210ff; /* or your desired neon color */
+  -webkit-text-stroke: 1px #6210ff;
+  /* or your desired neon color */
   color: transparent;
 }
 
@@ -151,7 +156,7 @@ body::-webkit-scrollbar {
   /* background-color: blue; */
 }
 
-.title-char > span {
+.title-char>span {
   position: relative;
   display: block;
   transform: translateY(100%);
@@ -171,13 +176,13 @@ body::-webkit-scrollbar {
 }
 
 html {
-  -ms-overflow-style: none;  
-  scrollbar-width: none; 
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 body {
-  -ms-overflow-style: none;  
-  scrollbar-width: none; 
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 body::-webkit-scrollbar {
@@ -186,9 +191,27 @@ body::-webkit-scrollbar {
 
 * {
   scrollbar-width: none;
-  -ms-overflow-style: none; 
+  -ms-overflow-style: none;
 }
 
 *::-webkit-scrollbar {
-  display: none; 
+  display: none;
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  animation: marquee 10s linear infinite;
+}
+
+.hover\:pause-marquee:hover {
+  animation-play-state: paused;
 }

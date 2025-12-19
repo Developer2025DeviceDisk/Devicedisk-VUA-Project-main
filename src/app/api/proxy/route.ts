@@ -9,13 +9,14 @@ export async function GET(request: NextRequest) {
   }
 
   // Validate that the URL is from your backend server
-  if (!url.startsWith('https://admin.vvworx.com/')) {
+  const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://admin.vvworx.com/';
+  if (!url.startsWith('https://admin.vvworx.com/') && !url.startsWith(API_URL)) {
     return NextResponse.json({ error: 'Unauthorized URL' }, { status: 403 });
   }
 
   try {
     const response = await fetch(url);
-    
+
     if (!response.ok) {
       return NextResponse.json({ error: 'Failed to fetch resource' }, { status: response.status });
     }

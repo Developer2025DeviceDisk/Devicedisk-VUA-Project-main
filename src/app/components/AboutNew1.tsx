@@ -7,6 +7,9 @@ import Lenis from "@studio-freight/lenis";
 import Image from "next/image";
 import Link from "next/link";
 
+// const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://admin.vvworx.com/';
+
 interface PortfolioItem {
     name: string;
     category: string;
@@ -44,7 +47,6 @@ const getImageUrl = (imagePath: string): string => {
     if (!imagePath) return "";
 
     // If it's already a full URL from backend, use proxy
-    const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://admin.vvworx.com';
     if (imagePath.startsWith(API_URL)) {
         return `/api/proxy?url=${encodeURIComponent(imagePath)}`;
     }
@@ -54,7 +56,6 @@ const getImageUrl = (imagePath: string): string => {
 
     // If it's an uploaded image (starts with /uploads), serve from backend via proxy
     if (imagePath.startsWith("/uploads/")) {
-        const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://admin.vvworx.com';
         const fullUrl = `${API_URL}${imagePath}`;
         return `/api/proxy?url=${encodeURIComponent(fullUrl)}`;
     }
@@ -68,7 +69,6 @@ const getVideoUrl = (videoPath: string): string => {
     if (!videoPath) return "";
 
     // If it's already a full URL from backend, use proxy
-    const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://admin.vvworx.com';
     if (videoPath.startsWith(API_URL)) {
         return `/api/proxy?url=${encodeURIComponent(videoPath)}`;
     }
@@ -78,7 +78,6 @@ const getVideoUrl = (videoPath: string): string => {
 
     // If it's an uploaded video (starts with /uploads), serve from backend via proxy
     if (videoPath.startsWith("/uploads/")) {
-        const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://admin.vvworx.com';
         const fullUrl = `${API_URL}${videoPath}`;
         return `/api/proxy?url=${encodeURIComponent(fullUrl)}`;
     }
@@ -238,7 +237,6 @@ export default function About({ aboutContent }: any) {
     useEffect(() => {
         const fetchAboutPageContent = async () => {
             try {
-                const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://admin.vvworx.com';
                 const response = await fetch(`${API_URL}/api/about-page-content/active`);
                 const result = await response.json();
                 if (result.success && result.data) {
@@ -326,7 +324,6 @@ export default function About({ aboutContent }: any) {
     useEffect(() => {
         const fetchOurWorkContent = async () => {
             try {
-                const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://admin.vvworx.com';
                 const response = await fetch(`${API_URL}/api/our-work-content/active`);
                 const result = await response.json();
                 if (result.success && result.data) {
@@ -351,7 +348,6 @@ export default function About({ aboutContent }: any) {
     useEffect(() => {
         const fetchClientContent = async () => {
             try {
-                const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://admin.vvworx.com';
                 const response = await fetch(`${API_URL}/api/client-content/active`);
                 const result = await response.json();
                 if (result.success && result.data) {
@@ -782,20 +778,26 @@ export default function About({ aboutContent }: any) {
         const ourWorkCtx = gsap.context(() => {
             if (!horizontalScrollRef.current || !ourWorkSectionRef.current) return;
 
-            const scrollWidth = horizontalScrollRef.current.scrollWidth;
-            const viewportWidth = window.innerWidth;
+            // Use matchMedia for responsive animation
+            const mm = gsap.matchMedia();
 
-            gsap.to(horizontalScrollRef.current, {
-                x: () => -(scrollWidth - viewportWidth),
-                ease: "none",
-                scrollTrigger: {
-                    trigger: ourWorkSectionRef.current,
-                    pin: true,
-                    scrub: 1,
-                    end: () => `+=${horizontalScrollRef.current ? horizontalScrollRef.current.scrollWidth - window.innerWidth : 0}`,
-                    anticipatePin: 1,
-                    invalidateOnRefresh: true,
-                },
+            mm.add("(min-width: 768px)", () => {
+                // Desktop Only Animation
+                const scrollWidth = horizontalScrollRef.current!.scrollWidth;
+                const viewportWidth = window.innerWidth;
+
+                gsap.to(horizontalScrollRef.current, {
+                    x: () => -(scrollWidth - viewportWidth),
+                    ease: "none",
+                    scrollTrigger: {
+                        trigger: ourWorkSectionRef.current,
+                        pin: true,
+                        scrub: 1,
+                        end: () => `+=${horizontalScrollRef.current ? horizontalScrollRef.current.scrollWidth - window.innerWidth : 0}`,
+                        anticipatePin: 1,
+                        invalidateOnRefresh: true,
+                    },
+                });
             });
 
             // Force refresh to handle dynamic content retrieval
@@ -1039,20 +1041,20 @@ export default function About({ aboutContent }: any) {
                 </p>
             </div>
 
-            {/* Our Work - Immersive Horizontal Scroll Section */}
+            {/* Our Work - Responsive Section */}
             <section
                 ref={ourWorkSectionRef}
-                className="relative w-full h-screen bg-black overflow-hidden"
+                className="relative w-full min-h-screen bg-[#F5F5F7] md:bg-black overflow-hidden"
             >
-                {/* Horizontal Scroll Container */}
+                {/* Horizontal Scroll Container (Desktop) */}
                 <div
                     ref={horizontalScrollRef}
-                    className="flex h-full"
+                    className="hidden md:flex h-screen"
                     style={{ width: `${sortedPortfolioItems.length * 100}vw` }}
                 >
                     {sortedPortfolioItems.map((item: PortfolioItem, index: number) => (
                         <div
-                            key={index}
+                            key={`desktop-${index}`}
                             className="relative w-screen h-screen flex-shrink-0"
                         >
                             {/* Image */}
@@ -1069,11 +1071,11 @@ export default function About({ aboutContent }: any) {
                             <div className="absolute inset-0 bg-black/20" />
 
                             {/* View More Circle - Centered */}
-                            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 group cursor-pointer">
+                            {/* <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 group cursor-pointer">
                                 <div className="w-24 h-24 md:w-32 md:h-32 rounded-full border border-white/30 backdrop-blur-sm flex items-center justify-center transition-all duration-300 group-hover:scale-110 group-hover:bg-white/10">
                                     <span className="text-white text-sm md:text-base font-medium">View More</span>
                                 </div>
-                            </div>
+                            </div> */}
 
                             {/* Content Overlay */}
                             <div className="absolute inset-0 p-8 md:p-16 flex flex-col justify-end">
@@ -1097,10 +1099,73 @@ export default function About({ aboutContent }: any) {
                         </div>
                     ))}
                 </div>
+
+                {/* Vertical Stack Container (Mobile) */}
+                <div className="flex md:hidden flex-col w-full h-auto px-4 py-8 gap-8 bg-[#EEF0FF]">
+                    {sortedPortfolioItems.map((item: PortfolioItem, index: number) => (
+                        <div key={`mobile-${index}`} className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden shadow-lg">
+                            <Image
+                                src={getImageUrl(item.image)}
+                                alt={item.name}
+                                fill
+                                className="object-cover"
+                                unoptimized={true}
+                            />
+                            {/* Gradient Overlay */}
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+
+                            {/* Content */}
+                            <div className="absolute inset-0 p-6 flex flex-col justify-between">
+                                <div className="flex justify-between items-start">
+                                    <span className="inline-block px-3 py-1 bg-white/20 backdrop-blur-md rounded-full text-white text-xs font-medium border border-white/10">
+                                        {item.name}
+                                    </span>
+                                    <span className="text-white text-xs font-light opacity-80">{item.year}</span>
+                                </div>
+
+                                <div>
+                                    {/* Center Image/Logo if available or Title */}
+                                    {/* Assuming title for now as per design intention */}
+                                    {/* <h3 className="text-white text-3xl font-bold text-center drop-shadow-lg">{item.name}</h3> */}
+
+                                    <div className="flex justify-center items-center w-full mt-4">
+                                        <button className="flex items-center gap-1 text-white text-xs opacity-90 border border-white/30 px-3 py-1.5 rounded-full backdrop-blur-sm">
+                                            Learn more
+                                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M6 9l6 6 6-6" /></svg>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    ))}
+
+                    {/* Unique "See All Work" Button for Mobile */}
+                    <div className="relative z-50 flex justify-center mt-4 pb-8">
+                        <Link href="/work" className="flex items-center gap-2 px-6 py-3 bg-white text-[#6210FF] rounded-full shadow-md border border-[#6210FF]/20 cursor-pointer">
+                            <span className="text-sm font-bold uppercase tracking-wide">SEE ALL WORK</span>
+                            <svg
+                                width="20"
+                                height="20"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                                className="transform rotate-90"
+                            >
+                                <path
+                                    d="M13.5 4.5L21 12M21 12L13.5 19.5M21 12H3"
+                                    stroke="currentColor"
+                                    strokeWidth="2"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                />
+                            </svg>
+                        </Link>
+                    </div>
+                </div>
             </section>
 
             {/* See All Work Footer */}
-            <div className="w-full py-20 bg-[#F5F5F7] flex justify-center items-center">
+            <div className="w-full py-20 bg-[#F5F5F7] hidden md:flex justify-center items-center">
                 <Link href="/work" className="group flex items-center gap-3 px-8 py-4 bg-transparent text-[#6210FF] border-2 border-[#6210FF] rounded-full hover:bg-[#6210FF] hover:text-white transition-all duration-300">
                     <span className="text-lg font-medium tracking-wide uppercase">{ourWorkContent.footerSection.buttonText}</span>
                     <svg

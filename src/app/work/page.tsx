@@ -7,7 +7,7 @@ export const metadata: Metadata = {
 };
 
 // Helper function to resolve image URLs (copied from About.tsx for consistency)
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://admin.vvworx.com';
+const API_URL = (process.env.NEXT_PUBLIC_API_URL || 'https://admin.vvworx.com').replace(/\/$/, '');
 
 const getImageUrl = (imagePath: string): string => {
     if (!imagePath) return "";

@@ -61,7 +61,7 @@ interface AboutContent {
 async function fetchAboutContent(): Promise<AboutContent | null> {
     try {
         // const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
-        const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://admin.vvworx.com';
+        const API_URL = (process.env.NEXT_PUBLIC_API_URL || 'https://admin.vvworx.com').replace(/\/$/, '');
         const response = await fetch(`${API_URL}/api/about-content/active`, {
             cache: 'no-store' // Disable caching for dynamic content
         });

@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import { Metadata } from 'next';
+import WorkPortfolio from './WorkPortfolio';
 
 export const metadata: Metadata = {
     title: 'Our Work | VVWorx',
@@ -127,95 +128,12 @@ export default async function WorkPage() {
                 </div>
             </section>
 
-            {/* Filters Section */}
-            <section className="py-10 px-4 flex justify-center flex-wrap gap-3 md:gap-4 max-w-6xl mx-auto">
-                {filters.map((filter, index) => (
-                    <button
-                        key={index}
-                        className={`px-5 py-2 md:px-6 md:py-2.5 rounded-full border text-xs md:text-sm font-medium transition-all duration-300 ${index === 0
-                            ? 'bg-[#E0DAFF] border-[#6210FF] text-[#6210FF] shadow-sm'
-                            : 'bg-transparent border-[#6210FF] text-[#6210FF] hover:bg-[#E0DAFF] hover:border-[#6210FF]'
-                            }`}
-                    >
-                        {filter}
-                    </button>
-                ))}
-            </section>
-
-            {/* Description Text */}
-            <section className="pb-16 px-4 text-center max-w-4xl mx-auto">
-                <p className="text-[#6210FF] text-[10px] md:text-xs leading-relaxed tracking-widest opacity-70 uppercase font-medium whitespace-pre-line">
-                    {workPageData.description}
-                </p>
-            </section>
-
-
-            {/* Portfolio Grid */}
-            <section className="px-4 md:px-8 pb-32 max-w-[1200px] mx-auto">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-16 md:gap-y-24">
-                    {portfolioItems.map((item, index) => {
-                        // Determine layout pattern matching the visual:
-                        // 0 -> Full Width (Landscape)
-                        // 1, 2 -> Half Width (Portrait/Square)
-                        // Repeat
-
-                        const isFullWidth = index % 3 === 0;
-
-                        return (
-                            <div
-                                key={index}
-                                className={`flex flex-col items-center ${isFullWidth ? 'md:col-span-2' : 'md:col-span-1'
-                                    }`}
-                            >
-                                {/* Image Container */}
-                                <div className={`relative w-full overflow-hidden rounded-[20px] md:rounded-[40px] shadow-sm mb-6 ${isFullWidth ? 'aspect-[2/1] md:aspect-[2.2/1]' : 'aspect-[4/3] md:aspect-[1.5/1]'
-                                    }`}>
-                                    <Image
-                                        src={getImageUrl(item.image)}
-                                        alt={item.name}
-                                        fill
-                                        className="object-cover transition-transform duration-700 hover:scale-105"
-                                        unoptimized={true}
-                                    />
-                                </div>
-
-                                {/* Text Content - Below Image */}
-                                <div className="text-center space-y-2">
-                                    <h3 className="text-[#6210FF] font-bold text-xs md:text-sm tracking-[0.2em] uppercase">
-                                        {item.name}
-                                    </h3>
-                                    <p className="text-[#6210FF] text-[10px] md:text-xs font-light opacity-70 tracking-wide max-w-md mx-auto">
-                                        {/* Simulating description using category/year available data */}
-                                        Is a New-Age {item.category} Firm That Specializes in Sales & Marketing
-                                    </p>
-                                </div>
-                            </div>
-                        );
-                    })}
-                </div>
-            </section>
-
-            {/* Gallery Section */}
-            {workPageData.galleryImages && workPageData.galleryImages.length > 0 && (
-                <section className="px-4 md:px-8 pb-32 max-w-[1200px] mx-auto">
-                    <h2 className="text-3xl md:text-5xl font-bold text-[#6210FF] text-center mb-16 tracking-tight">
-                        Our Gallery
-                    </h2>
-                    <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-8">
-                        {workPageData.galleryImages.map((img, index) => (
-                            <div key={index} className="relative w-full aspect-square rounded-[20px] overflow-hidden shadow-sm hover:shadow-md transition-shadow">
-                                <Image
-                                    src={getImageUrl(img)}
-                                    alt={`Gallery Image ${index + 1}`}
-                                    fill
-                                    className="object-cover transition-transform duration-700 hover:scale-105"
-                                    unoptimized
-                                />
-                            </div>
-                        ))}
-                    </div>
-                </section>
-            )}
+            {/* Client Side Portfolio (Filters + Grid + Gallery) */}
+            <WorkPortfolio
+                workPageData={workPageData}
+                portfolioItems={portfolioItems}
+                defaultFilters={defaultFilters}
+            />
 
             {/* Contact CTA is handled by FooterWrapper globally */}
         </div>

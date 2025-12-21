@@ -16,6 +16,7 @@ interface PortfolioItem {
     year: string;
     image: string;
     order: number;
+    _id?: string;
 }
 
 interface OurWorkContent {
@@ -139,7 +140,10 @@ interface AboutContent {
     servicesSection?: ServicesSection;
     foundationSection?: FoundationSection;
     videoSection?: VideoSection;
+    aboutTitle?: string;
+    aboutTextLines?: string[];
 }
+
 
 interface AboutProps {
     aboutContent?: AboutContent;
@@ -217,7 +221,7 @@ export default function About({ aboutContent }: any) {
     const aboutLine3Ref = useRef<HTMLParagraphElement>(null);
     const aboutLine4Ref = useRef<HTMLParagraphElement>(null);
     const aboutLine5Ref = useRef<HTMLParagraphElement>(null);
-    const aboutButtonRef = useRef<HTMLButtonElement>(null);
+    const aboutButtonRef = useRef<HTMLAnchorElement>(null);
 
     // Foundation scroll section refs
     const foundationTitleRef = useRef<HTMLHeadingElement>(null);
@@ -230,25 +234,7 @@ export default function About({ aboutContent }: any) {
     const ourWorkSectionRef = useRef<HTMLDivElement>(null);
     const horizontalScrollRef = useRef<HTMLDivElement>(null);
 
-    // About Page Content State (for Foundation Section)
-    const [aboutPageData, setAboutPageData] = useState<any>(null);
 
-    // Fetch About Page content from API
-    useEffect(() => {
-        const fetchAboutPageContent = async () => {
-            try {
-                const response = await fetch(`${API_URL}/api/about-page-content/active`);
-                const result = await response.json();
-                if (result.success && result.data) {
-                    console.log("Fetched About Page Data:", result.data);
-                    setAboutPageData(result.data);
-                }
-            } catch (error) {
-                console.error('Error fetching About Page content:', error);
-            }
-        };
-        fetchAboutPageContent();
-    }, []);
 
     const heroSection = {
         mainTitle: rawHeroSection.mainTitle || "We are",
@@ -268,7 +254,7 @@ export default function About({ aboutContent }: any) {
         cards: [],
     };
 
-    const foundationSection = aboutPageData?.foundationSection || aboutContent?.foundationSection || {
+    const foundationSection = aboutContent?.foundationSection || {
         title: "Our Foundation",
         backgroundColor: "#6310FF",
         foundations: [
@@ -905,46 +891,36 @@ export default function About({ aboutContent }: any) {
                         >
                             {/* Title */}
                             <h2 className="text-4xl md:text-5xl lg:text-6xl font-semibold text-white mb-8 md:mb-12 text-center">
-                                About Us
+                                {aboutContent?.aboutTitle || "About Us"}
                             </h2>
 
                             {/* Text Lines Container */}
                             <div className="space-y-3 md:space-y-4 mb-10 md:mb-12 text-center md:text-left">
-                                <p
-                                    ref={aboutLine1Ref}
-                                    className="text-base md:text-lg lg:text-xl text-gray-300 leading-relaxed"
-                                >
-                                    Lorem Ipsum Dolor Sit Amet, Consectetuer Adipiscing Elit, Sed
-                                </p>
-                                <p
-                                    ref={aboutLine2Ref}
-                                    className="text-base md:text-lg lg:text-xl text-gray-300 leading-relaxed"
-                                >
-                                    Diam Nonummy Nibh Euismod Tincidunt Ut Laoreet Dolore Magna
-                                </p>
-                                <p
-                                    ref={aboutLine3Ref}
-                                    className="text-base md:text-lg lg:text-xl text-gray-300 leading-relaxed"
-                                >
-                                    Aliquam Erat Volutpat. Ut Wisi Enim Ad Minim Veniam, Quis Nostrud
-                                </p>
-                                <p
-                                    ref={aboutLine4Ref}
-                                    className="text-base md:text-lg lg:text-xl text-gray-300 leading-relaxed"
-                                >
-                                    Exerci Tation Ullamcorper Suscipit Lobortis Nisl Ut Aliquip Ex Ea
-                                </p>
-                                <p
-                                    ref={aboutLine5Ref}
-                                    className="text-base md:text-lg lg:text-xl text-gray-300 leading-relaxed"
-                                >
-                                    Commodo Consequat.
-                                </p>
+                                {(aboutContent?.aboutTextLines || [
+                                    "Lorem Ipsum Dolor Sit Amet, Consectetuer Adipiscing Elit, Sed",
+                                    "Diam Nonummy Nibh Euismod Tincidunt Ut Laoreet Dolore Magna",
+                                    "Aliquam Erat Volutpat. Ut Wisi Enim Ad Minim Veniam, Quis Nostrud",
+                                    "Exerci Tation Ullamcorper Suscipit Lobortis Nisl Ut Aliquip Ex Ea",
+                                    "Commodo Consequat."
+                                ]).slice(0, 5).map((line: string, index: number) => {
+                                    const refs = [aboutLine1Ref, aboutLine2Ref, aboutLine3Ref, aboutLine4Ref, aboutLine5Ref];
+                                    return (
+                                        <p
+                                            key={index}
+                                            ref={refs[index]}
+                                            className="text-base md:text-lg lg:text-xl text-gray-300 leading-relaxed"
+                                        >
+                                            {line}
+                                        </p>
+                                    );
+                                })}
+
                             </div>
 
                             {/* Know More Button */}
                             <div className="flex justify-center md:justify-start">
-                                <button
+                                <Link
+                                    href="/About"
                                     ref={aboutButtonRef}
                                     className="flex items-center gap-2 px-6 py-3 md:px-8 md:py-4 bg-transparent text-white border-2 border-white rounded-full hover:bg-white hover:text-black transition-all duration-300"
                                 >
@@ -967,7 +943,7 @@ export default function About({ aboutContent }: any) {
                                             strokeLinejoin="round"
                                         />
                                     </svg>
-                                </button>
+                                </Link>
                             </div>
                         </div>
                     </div>
@@ -978,51 +954,32 @@ export default function About({ aboutContent }: any) {
                             ref={foundationTitleRef}
                             className="font-semibold text-[40px] md:text-[60px] lg:text-[80px] leading-[1.1] text-[#6210FF]"
                         >
-                            Our
-                            <br />
-                            Foundation
+                            {foundationSection.title}
                         </h2>
 
                         <div className="flex flex-col gap-8 md:gap-10">
-                            {/* Item 1 */}
-                            <div ref={foundationItem1Ref} className="foundation-item">
-                                <h3 className="text-[28px] md:text-[40px] font-semibold text-gray-500 mb-1">
-                                    Creativity
-                                </h3>
-                                <p className="text-[16px] md:text-[18px] text-gray-400 font-light">
-                                    Creativity That Inspires
-                                </p>
-                            </div>
-
-                            {/* Item 2 */}
-                            <div ref={foundationItem2Ref} className="foundation-item">
-                                <h3 className="text-[28px] md:text-[40px] font-semibold text-gray-500 mb-1">
-                                    Innovation
-                                </h3>
-                                <p className="text-[16px] md:text-[18px] text-gray-400 font-light">
-                                    Technology That Keeps You Ahead
-                                </p>
-                            </div>
-
-                            {/* Item 3 */}
-                            <div ref={foundationItem3Ref} className="foundation-item">
-                                <h3 className="text-[28px] md:text-[40px] font-semibold text-gray-500 mb-1">
-                                    Strategic Thinking
-                                </h3>
-                                <p className="text-[16px] md:text-[18px] text-gray-400 font-light">
-                                    Strategy That Always Makes You Win
-                                </p>
-                            </div>
-
-                            {/* Item 4 */}
-                            <div ref={foundationItem4Ref} className="foundation-item">
-                                <h3 className="text-[28px] md:text-[40px] font-semibold text-gray-500 mb-1">
-                                    Customer Centricity
-                                </h3>
-                                <p className="text-[16px] md:text-[18px] text-gray-400 font-light">
-                                    Everything Is About "You"
-                                </p>
-                            </div>
+                            {foundationSection.foundations.slice(0, 4).map((foundation: any, index: number) => {
+                                const refs = [
+                                    foundationItem1Ref,
+                                    foundationItem2Ref,
+                                    foundationItem3Ref,
+                                    foundationItem4Ref
+                                ];
+                                return (
+                                    <div
+                                        key={index}
+                                        ref={refs[index]}
+                                        className="foundation-item"
+                                    >
+                                        <h3 className="text-[28px] md:text-[40px] font-semibold text-gray-500 mb-1">
+                                            {foundation.title}
+                                        </h3>
+                                        <p className="text-[16px] md:text-[18px] text-gray-400 font-light">
+                                            {foundation.description}
+                                        </p>
+                                    </div>
+                                );
+                            })}
                         </div>
                     </div>
                 </div>
@@ -1071,11 +1028,13 @@ export default function About({ aboutContent }: any) {
                             <div className="absolute inset-0 bg-black/20" />
 
                             {/* View More Circle - Centered */}
-                            {/* <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 group cursor-pointer">
-                                <div className="w-24 h-24 md:w-32 md:h-32 rounded-full border border-white/30 backdrop-blur-sm flex items-center justify-center transition-all duration-300 group-hover:scale-110 group-hover:bg-white/10">
-                                    <span className="text-white text-sm md:text-base font-medium">View More</span>
-                                </div>
-                            </div> */}
+                            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 group cursor-pointer">
+                                <Link href={item._id ? `/work-detail/${item._id}` : '#'}>
+                                    <div className="w-24 h-24 md:w-32 md:h-32 rounded-full border border-white/30 backdrop-blur-sm flex items-center justify-center transition-all duration-300 group-hover:scale-110 group-hover:bg-white/10">
+                                        <span className="text-white text-sm md:text-base font-medium">View More</span>
+                                    </div>
+                                </Link>
+                            </div>
 
                             {/* Content Overlay */}
                             <div className="absolute inset-0 p-8 md:p-16 flex flex-col justify-end">

@@ -49,8 +49,9 @@ async function getWorkItem(id: string): Promise<PortfolioItem | null> {
     }
 }
 
-export default async function WorkDetailPage({ params }: { params: { id: string } }) {
-    const item = await getWorkItem(params.id);
+export default async function WorkDetailPage({ params }: { params: Promise<{ id: string }> }) {
+    const { id } = await params;
+    const item = await getWorkItem(id);
 
     if (!item) {
         notFound();

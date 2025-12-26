@@ -37,6 +37,7 @@ interface PortfolioItem {
     year: string;
     image: string;
     order: number;
+    _id?: string;
 }
 
 interface OurWorkContent {
@@ -102,9 +103,9 @@ export default async function WorkPage() {
     const filters = workPageData.filters && workPageData.filters.length > 0 ? workPageData.filters : defaultFilters;
 
     return (
-        <div className="min-h-screen bg-[#EEF0FF]">
-            {/* Header Section */}
-            <section className="relative w-full h-[350px] md:h-[450px] bg-gradient-to-br from-[#6210FF] to-[#3B00D9] overflow-hidden flex items-center justify-center text-center px-4">
+        <div className="flex flex-col min-h-screen">
+            {/* Header Section - Dark Background */}
+            <section className="relative w-full h-[350px] md:h-[450px] bg-gradient-to-br from-[#6210FF] to-[#3B00D9] overflow-hidden flex items-center justify-center text-center px-4 shrink-0">
                 {/* Abstract Background pattern */}
                 <div className="absolute inset-0 opacity-20 transform scale-110">
                     <Image
@@ -128,12 +129,15 @@ export default async function WorkPage() {
                 </div>
             </section>
 
-            {/* Client Side Portfolio (Filters + Grid + Gallery) */}
-            <WorkPortfolio
-                workPageData={workPageData}
-                portfolioItems={portfolioItems}
-                defaultFilters={defaultFilters}
-            />
+            {/* Content Section - Light Background */}
+            <div className="bg-[#EEF0FF] flex-1 w-full">
+                {/* Client Side Portfolio (Filters + Grid + Gallery) */}
+                <WorkPortfolio
+                    workPageData={workPageData}
+                    portfolioItems={portfolioItems}
+                    defaultFilters={defaultFilters}
+                />
+            </div>
 
             {/* Contact CTA is handled by FooterWrapper globally */}
         </div>

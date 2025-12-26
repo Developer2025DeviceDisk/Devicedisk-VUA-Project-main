@@ -165,6 +165,7 @@ export default function About({ aboutContent }: any) {
     const [showIntro, setShowIntro] = useState(true);
     const introRef = useRef<HTMLDivElement>(null);
     const introTextRef = useRef(null);
+    const introCompleteRef = useRef(false);
 
 
 
@@ -367,25 +368,38 @@ export default function About({ aboutContent }: any) {
 
         // Wait for some time before starting disappearance animation
         const tl = gsap.timeline({
-            delay: 2, // wait 2 seconds before animation starts
-            onComplete: () => setShowIntro(false),
+            delay: 4.5, // wait 4.5 seconds before animation starts (increased for visibility)
+            onComplete: () => {
+                setShowIntro(false);
+                introCompleteRef.current = true;
+                if (videoRef.current) {
+                    videoRef.current.play().catch((e) => console.log("Post-intro autoplay prevented:", e));
+                }
+            },
         });
+
+        // Fade out text first
+        if (introTextRef.current) {
+            tl.to(introTextRef.current, { opacity: 0, duration: 0.5 });
+        }
+
+        const blockStartDelay = 0.45; // 0.5s text fade - 0.05s overlap (0.1s earlier)
 
         blocks.forEach((block, i) => {
             if (i === 0) {
-                tl.to(block, { y: "100%", duration: 1.6, ease: "power4.inOut" }, i * 0.12);
+                tl.to(block, { y: "100%", duration: 1.6, ease: "power4.inOut" }, blockStartDelay + i * 0.12);
             }
             if (i === 1) {
-                tl.to(block, { scaleY: 0, duration: 1.6, ease: "power4.inOut" }, i * 0.12);
+                tl.to(block, { scaleY: 0, duration: 1.6, ease: "power4.inOut" }, blockStartDelay + i * 0.12);
             }
             if (i === 2) {
-                tl.to(block, { y: "-100%", duration: 1.6, ease: "power4.inOut" }, i * 0.12);
+                tl.to(block, { y: "-100%", duration: 1.6, ease: "power4.inOut" }, blockStartDelay + i * 0.12);
             }
             if (i === 3) {
-                tl.to(block, { scaleY: 0, duration: 1.6, ease: "power4.inOut" }, i * 0.12);
+                tl.to(block, { scaleY: 0, duration: 1.6, ease: "power4.inOut" }, blockStartDelay + i * 0.12);
             }
             if (i === 4) {
-                tl.to(block, { y: "100%", duration: 1.6, ease: "power4.inOut" }, i * 0.12);
+                tl.to(block, { y: "100%", duration: 1.6, ease: "power4.inOut" }, blockStartDelay + i * 0.12);
             }
         });
 
@@ -558,6 +572,7 @@ export default function About({ aboutContent }: any) {
                     end: "500%",
                     pin: true,
                     scrub: 1,
+
                 },
             });
 
@@ -606,13 +621,13 @@ export default function About({ aboutContent }: any) {
                 start: "top 70%",
                 end: "bottom 30%",
                 onEnter: () => {
-                    if (videoRef.current) {
+                    if (videoRef.current && introCompleteRef.current) {
                         videoRef.current.currentTime = 0;
                         videoRef.current.play().catch((e) => console.log("Autoplay prevented:", e));
                     }
                 },
                 onEnterBack: () => {
-                    if (videoRef.current) {
+                    if (videoRef.current && introCompleteRef.current) {
                         videoRef.current.play().catch((e) => console.log("Autoplay prevented:", e));
                     }
                 },
@@ -658,7 +673,10 @@ export default function About({ aboutContent }: any) {
 
     // About Scroll Section Animation
     useEffect(() => {
-        const aboutCtx = gsap.context(() => {
+        const mm = gsap.matchMedia();
+
+        // Use matchMedia to ensure correct context handling across breakpoints and orientation changes
+        mm.add("(min-width: 0px)", () => {
             const lineRefs = [
                 aboutLine1Ref,
                 aboutLine2Ref,
@@ -698,12 +716,8 @@ export default function About({ aboutContent }: any) {
             const tl = gsap.timeline({
                 scrollTrigger: {
                     trigger: aboutScrollSectionRef.current,
-                    start: "top top",
-                    end: "+=3000",
-                    pin: true,
-                    scrub: 1,
-                    anticipatePin: 1,
-                    markers: false,
+                    start: "top 75%",
+                    toggleActions: "play none none reverse",
                 },
             });
 
@@ -716,10 +730,10 @@ export default function About({ aboutContent }: any) {
                         {
                             y: 0,
                             opacity: 1,
-                            duration: 0.5,
+                            duration: 0.8,
                             ease: "power2.out",
                         },
-                        index * 0.15
+                        index * 1
                     );
                 }
 
@@ -731,10 +745,10 @@ export default function About({ aboutContent }: any) {
                         {
                             y: 0,
                             opacity: 1,
-                            duration: 0.5,
+                            duration: 0.8,
                             ease: "power2.out",
                         },
-                        index * 0.15 // Same start time as the corresponding about line
+                        index * 1 // Same start time as the corresponding about line
                     );
                 }
             });
@@ -746,16 +760,16 @@ export default function About({ aboutContent }: any) {
                     {
                         y: 0,
                         opacity: 1,
-                        duration: 0.5,
+                        duration: 0.8,
                         ease: "power2.out",
                     },
-                    "+=0.1"
+                    (lineRefs.length) * 1
                 );
             }
-        }, aboutScrollSectionRef);
+        });
 
         return () => {
-            aboutCtx.revert();
+            mm.revert();
         };
     }, []);
 
@@ -829,7 +843,6 @@ export default function About({ aboutContent }: any) {
                         playsInline
                         loop
                         muted
-                        autoPlay
                         preload="auto"
                         src={getVideoUrl(videoSection.videoSrc)}
                     />
@@ -837,7 +850,7 @@ export default function About({ aboutContent }: any) {
                     {/* Sound Toggle Button */}
                     <button
                         onClick={toggleVideoMute}
-                        className="absolute top-4 right-4 md:top-8 md:right-8 z-10 bg-black bg-opacity-30 hover:bg-opacity-50 rounded-full p-3 md:p-4 transition-all duration-300 backdrop-blur-sm opacity-70 hover:opacity-90"
+                        className="absolute bottom-4 right-4 md:bottom-8 md:right-8 z-10 bg-black bg-opacity-30 hover:bg-opacity-50 rounded-full p-3 md:p-4 transition-all duration-300 backdrop-blur-sm opacity-70 hover:opacity-90"
                         aria-label={isVideoMuted ? "Unmute video" : "Mute video"}
                     >
                         {isVideoMuted ? (
@@ -878,7 +891,7 @@ export default function About({ aboutContent }: any) {
             {/* About & Foundation Scroll Section - Pinned with Two-Column Reveal */}
             <section
                 ref={aboutScrollSectionRef}
-                className="relative w-full min-h-screen flex items-center justify-center overflow-hidden bg-[#EEF0FF]"
+                className="relative w-full min-h-screen flex items-center justify-center overflow-hidden bg-[#EEF0FF] py-20 md:py-0"
             >
                 <div className="relative w-full max-w-[1400px] mx-auto px-4 md:px-8 flex flex-col md:flex-row items-center justify-center gap-8 md:gap-16 lg:gap-24">
                     {/* Left Column: Dark About Card */}
@@ -1145,39 +1158,6 @@ export default function About({ aboutContent }: any) {
                     </svg>
                 </Link>
             </div>
-
-
-
-            {/* Parallax Section */}
-            <section
-                ref={parallaxContainerRef}
-                className="parallax relative w-full h-screen flex flex-col justify-center items-center text-center overflow-hidden"
-            >
-                <div className="relative h-screen w-full flex flex-col justify-center items-center">
-                    {/* Parallax Background Image */}
-                    <div
-                        ref={imageRef}
-                        className="absolute top-0 left-0 w-full h-[120%] z-0"
-                        style={{
-                            backgroundImage: `url('${getImageUrl(parallaxSection.backgroundImage)}')`,
-                            backgroundSize: "cover",
-                            backgroundPosition: "center",
-                            backgroundRepeat: "no-repeat",
-                            willChange: "transform",
-                        }}
-                    ></div>
-
-                    {/* Content */}
-                    <h1 className="z-10 relative animate__animated animate__fadeInUp leading-snug text-white text-4xl md:text-8xl font-medium text-center px-4 rounded-lg">
-                        {parallaxSection.title.split("\n").map((line: any, index: any) => (
-                            <span key={index}>
-                                {line}
-                                {index < parallaxSection.title.split("\n").length - 1 && <br />}
-                            </span>
-                        ))}
-                    </h1>
-                </div>
-            </section>
 
             {/* service section */}
             <section

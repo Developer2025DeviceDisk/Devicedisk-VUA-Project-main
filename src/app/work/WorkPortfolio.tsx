@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from 'react';
+import Link from 'next/link';
 import Image from 'next/image';
 
 // Helper function to resolve image URLs
@@ -33,6 +34,7 @@ interface PortfolioItem {
     year: string;
     image: string;
     order: number;
+    _id?: string;
 }
 
 interface WorkPageData {
@@ -108,15 +110,25 @@ export default function WorkPortfolio({ workPageData, portfolioItems, defaultFil
                                     }`}
                             >
                                 {/* Image Container */}
-                                <div className={`relative w-full overflow-hidden rounded-[20px] md:rounded-[40px] shadow-sm mb-6 ${isFullWidth ? 'aspect-[2/1] md:aspect-[2.2/1]' : 'aspect-[4/3] md:aspect-[1.5/1]'
+                                <div className={`relative w-full overflow-hidden rounded-[20px] md:rounded-[40px] shadow-sm mb-6 group ${isFullWidth ? 'aspect-[2/1] md:aspect-[2.2/1]' : 'aspect-[4/3] md:aspect-[1.5/1]'
                                     }`}>
                                     <Image
                                         src={getImageUrl(item.image)}
                                         alt={item.name}
                                         fill
-                                        className="object-cover transition-transform duration-700 hover:scale-105"
+                                        className="object-cover transition-transform duration-700 group-hover:scale-105"
                                         unoptimized={true}
                                     />
+
+                                    {/* Hover Overlay with View More Button */}
+                                    <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center z-10">
+                                        <Link
+                                            href={item._id ? `/work-detail/${item._id}` : "#"}
+                                            className="px-6 py-3 bg-white text-[#6210FF] rounded-full font-bold text-sm transform translate-y-4 group-hover:translate-y-0 transition-all duration-300 hover:bg-[#6210FF] hover:text-white"
+                                        >
+                                            VIEW MORE
+                                        </Link>
+                                    </div>
                                 </div>
 
                                 {/* Text Content - Below Image */}

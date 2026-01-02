@@ -167,8 +167,6 @@ export default function About({ aboutContent }: any) {
     const introTextRef = useRef(null);
     const introCompleteRef = useRef(false);
 
-
-
     // Extract content first to determine number of rotating texts and hero images
     const rawHeroSection = aboutContent?.heroSection || {};
     const rotatingTextsArray = rawHeroSection.rotatingTexts || [
@@ -445,14 +443,15 @@ export default function About({ aboutContent }: any) {
 
         const heroCtx = gsap.context(() => {
             const heroTl = gsap.timeline({
+                // The animation will start 10 seconds AFTER the ScrollTrigger action fires (enters view)
+                delay: 10,
+                repeat: -1, // Loop infinitely
+                paused: true, // Start paused, let ScrollTrigger control playback
                 scrollTrigger: {
-                    // pin the wrapper (see DOM wrapper with id="heroPin")
                     trigger: "#heroPin",
-                    start: "top top",
-                    end: "+=4000", // Reduced from +=30000 for better UX
-                    scrub: 1, // Reduced from 3 for more responsive feel
-                    pin: true,
-                    anticipatePin: 1,
+                    // Trigger when the top of the section is 80% down the viewport (visible)
+                    start: "top 80%",
+                    toggleActions: "play none none none", // Play once when entered
                     markers: false,
                 },
             });
@@ -471,68 +470,102 @@ export default function About({ aboutContent }: any) {
                 }
             });
 
-            // Dynamic animation loop - works with any number of rotating texts and images
-            const maxAnimations = textRefs.length - 1; // Animate all texts except the first
+            // Dynamic animation loop - animate through ALL items to create a full cycle
+            const maxAnimations = textRefs.length;
 
             for (let i = 0; i < maxAnimations; i++) {
                 const currentTextRef = textRefs[i];
-                const nextTextRef = textRefs[i + 1];
-                // Cycle through available images if there are more texts than images
+                // Wrap around to 0 for the last item
+                const nextTextRef = textRefs[(i + 1) % textRefs.length];
+
+                // Cycle through available images
                 const currentImageRef = imageRefs[i % imageRefs.length];
                 const nextImageRef = imageRefs[(i + 1) % imageRefs.length];
 
                 if (currentTextRef?.current && nextTextRef?.current) {
                     // Hold phase - keep current text visible for a bit
-                    heroTl.to({}, { duration: 0.5 });
+                    heroTl.to({}, { duration: 2.0 });
 
+                    // Animate current OUT
                     heroTl.to(currentTextRef.current, {
                         y: "-100%",
                         opacity: 0,
-                        duration: isMobile ? 0.4 : 0.6,
+                        duration: 1.0,
                         ease: "power2.inOut",
                     });
 
-                    // Animate current image if it exists
+                    // Animate current image OUT if it exists
                     if (currentImageRef?.current) {
                         heroTl.to(
                             currentImageRef.current,
                             {
                                 opacity: 0,
-                                duration: isMobile ? 0.4 : 0.6,
+                                duration: 1.0,
                                 ease: "power2.inOut",
                             },
                             "<"
                         );
                     }
+
+                    // Animate next IN
+                    // For the loop to be smooth, we must ensure the 'next' item (which might be index 0)
+                    // is reset to start position if it was moved previously. 
+                    // However, in a timeline loop, simpler is to just animate it in.
+                    // But wait: if we animate 0->1, 1->2, 2->3, 3->0.
+                    // At 3->0, 0 comes from "100%" (bottom).
+                    // In the initial state, 0 is at 0%.
+                    // If we just animate 3->0, 0 will come from bottom.
+                    // When the timeline repeats, 0 is ALREADY at 0%.
+                    // So step 1 (Hold 0) is fine.
+                    // Step 1 end (0 -> -100%).
+                    // So we need to make sure 0 is reset to bottom before 3->0 starts?
+                    // Actually, for a seamless `repeat: -1`, the end state of the timeline 
+                    // must perfectly match the start state OR the start of the timeline must reset properties.
+                    // Start state: 0 is at 0%, others at 100%.
+                    // End of 3->0: 0 is at 0%, 3 is at -100%.
+                    // Timeline restarts: 0 is held at 0%. Then 0 animates to -100%.
+                    // But wait, what about 3? 3 is at -100% (top) at end of timeline.
+                    // If we restart, 3 (nextTextRef for i=2) needs to be at 100% (bottom) before it comes in.
+                    // Currently, 3 goes 3->0 (OUT). 3 ends at -100%.
+                    // When does 3 go back to 100%?
+                    // WE need to reset the "outgoing" item to the bottom AFTER it goes out?
+                    // Or use `.set` within the timeline.
 
                     heroTl.to(
                         nextTextRef.current,
                         {
                             y: "0%",
                             opacity: 1,
-                            duration: isMobile ? 0.4 : 0.6,
+                            duration: 1.0,
                             ease: "power2.inOut",
                         },
                         "<0.1"
                     );
 
-                    // Animate next image if it exists
+                    // Animate next image IN
                     if (nextImageRef?.current) {
                         heroTl.to(
                             nextImageRef.current,
                             {
                                 opacity: 1,
-                                duration: isMobile ? 0.4 : 0.6,
+                                duration: 1.0,
                                 ease: "power2.inOut",
                             },
                             "<"
                         );
                     }
+
+                    // RESET logic: After an item has animated out (currentTextRef), move it back to start position (100%)
+                    // so it's ready to come in again later.
+                    // We can do this immediately after it finishes animating out.
+                    heroTl.set(currentTextRef.current, { y: "100%" });
+                    // Also reset opacity if needed, though we animate opacity to 1 on IN.
+                    // Keeping opacity 0 is fine.
                 }
             }
 
-            // Final hold phase - keep the last text visible for a bit
-            heroTl.to({}, { duration: 0.5 });
+            // Final hold phase
+            heroTl.to({}, { duration: 1 });
         }, heroRef);
 
         return () => {

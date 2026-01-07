@@ -221,6 +221,7 @@ export default function About({ aboutContent }: any) {
     const aboutLine4Ref = useRef<HTMLParagraphElement>(null);
     const aboutLine5Ref = useRef<HTMLParagraphElement>(null);
     const aboutButtonRef = useRef<HTMLAnchorElement>(null);
+    const aboutHeadingRef = useRef<HTMLHeadingElement>(null);
 
     // Foundation scroll section refs
     const foundationTitleRef = useRef<HTMLHeadingElement>(null);
@@ -347,7 +348,11 @@ export default function About({ aboutContent }: any) {
 
 
 
-    const sortedPortfolioItems = ourWorkContent.portfolioItems.sort((a, b) => a.order - b.order);
+    const sortedPortfolioItems = useMemo(() => {
+        return [...ourWorkContent.portfolioItems]
+            .sort((a, b) => a.order - b.order)
+            .filter((_, index) => index < 3);
+    }, [ourWorkContent.portfolioItems]);
 
     const maskRef = useRef<SVGRectElement>(null);
     const titleRef = useRef(null);
@@ -734,6 +739,10 @@ export default function About({ aboutContent }: any) {
                 }
             });
 
+            if (aboutHeadingRef.current) {
+                gsap.set(aboutHeadingRef.current, { y: 100, opacity: 0 });
+            }
+
             if (aboutButtonRef.current) {
                 gsap.set(aboutButtonRef.current, { y: 100, opacity: 0 });
             }
@@ -754,51 +763,30 @@ export default function About({ aboutContent }: any) {
                 },
             });
 
-            // Animate each line progressively (syncing About and Foundation)
-            lineRefs.forEach((ref, index) => {
-                // Animate About Line
-                if (ref.current) {
-                    tl.to(
-                        ref.current,
-                        {
-                            y: 0,
-                            opacity: 1,
-                            duration: 0.8,
-                            ease: "power2.out",
-                        },
-                        index * 1
-                    );
-                }
-
-                // Animate Foundation Item (Sync with About lines)
-                // We have 5 foundation refs (Title + 4 items) and 5 about lines. Perfect match.
-                if (foundationRefs[index]?.current) {
-                    tl.to(
-                        foundationRefs[index].current,
-                        {
-                            y: 0,
-                            opacity: 1,
-                            duration: 0.8,
-                            ease: "power2.out",
-                        },
-                        index * 1 // Same start time as the corresponding about line
-                    );
-                }
-            });
-
-            // Animate button last
-            if (aboutButtonRef.current) {
-                tl.to(
-                    aboutButtonRef.current,
-                    {
-                        y: 0,
-                        opacity: 1,
-                        duration: 0.8,
-                        ease: "power2.out",
-                    },
-                    (lineRefs.length) * 1
-                );
+            // 1. Animate Heading First
+            if (aboutHeadingRef.current) {
+                tl.to(aboutHeadingRef.current, {
+                    y: 0,
+                    opacity: 1,
+                    duration: 0.8,
+                    ease: "power2.out",
+                });
             }
+
+            // 2. Animate Everything Else Together (Lines, Button, Foundation Items)
+            const contentElements = [
+                ...lineRefs.map(r => r.current),
+                aboutButtonRef.current,
+                ...foundationRefs.map(r => r.current)
+            ].filter(Boolean); // Filter out nulls
+
+            tl.to(contentElements, {
+                y: 0,
+                opacity: 1,
+                duration: 0.8,
+                ease: "power2.out",
+                stagger: 0 // Simultaneous as requested
+            }, "-=0.2"); // Start slightly before heading finishes for smoothness, or remove "-=0.2" for strict sequence
         });
 
         return () => {
@@ -936,7 +924,10 @@ export default function About({ aboutContent }: any) {
                             }}
                         >
                             {/* Title */}
-                            <h2 className="text-4xl md:text-5xl lg:text-6xl font-semibold text-white mb-8 md:mb-12 text-center">
+                            <h2
+                                ref={aboutHeadingRef}
+                                className="text-4xl md:text-5xl lg:text-6xl font-semibold text-white mb-8 md:mb-12 text-center"
+                            >
                                 {aboutContent?.aboutTitle || "About Us"}
                             </h2>
 
@@ -1034,15 +1025,15 @@ export default function About({ aboutContent }: any) {
             {/* Our Work Header */}
             <div className="w-full py-20 md:py-32 bg-[#F5F5F7] flex flex-col items-center justify-center text-center px-4">
                 <div className="relative mb-8">
-                    <h2 className="text-6xl md:text-8xl font-light text-[#6210FF] tracking-tight">
+                    <h2 className="text-5xl md:text-7xl font-light text-[#6210FF] tracking-tight">
                         {ourWorkContent.headerSection.title}
                     </h2>
-                    <div className="absolute -bottom-2 left-0 w-full h-1 bg-[#007BFF] rounded-full transform scale-x-100 transition-transform duration-500" />
                 </div>
                 <p className="text-gray-600 max-w-2xl text-lg md:text-xl leading-relaxed font-light">
                     {ourWorkContent.headerSection.description}
                 </p>
             </div>
+
 
             {/* Our Work - Responsive Section */}
             <section
@@ -1195,7 +1186,8 @@ export default function About({ aboutContent }: any) {
             {/* service section */}
             <section
                 ref={sectionRef}
-                className="flex min-h-screen overflow-hidden flex-col items-center justify-start bg-[#EEF0FF]"
+                className="flex min-h-screen overflow-hidden flex-col items-center justify-start"
+                style={{ background: "linear-gradient(227.56deg, #BE2FF4 -3.49%, #6210FF 87.5%)" }}
             >
                 <div className="relative" ref={titleRef}>
                     {/* Background Image */}

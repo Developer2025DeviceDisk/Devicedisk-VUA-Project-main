@@ -273,7 +273,7 @@ export default function About({ aboutContent, servicesData }: any) {
             agentXR: "/xr.jpeg"
         };
 
-        const newCards = [];
+        const newCards: ServiceCard[] = [];
         let orderCounter = 1;
 
         // Helper to add card

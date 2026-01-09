@@ -6,6 +6,7 @@ import ScrollTrigger from "gsap/ScrollTrigger";
 import Lenis from "@studio-freight/lenis";
 import Image from "next/image";
 import Link from "next/link";
+import InstagramFeed from "./InstagramFeed";
 
 // const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
 const API_URL = (process.env.NEXT_PUBLIC_API_URL || 'https://admin.vvworx.com').replace(/\/$/, '');
@@ -159,7 +160,7 @@ const mapProgress = (progress: number, completeAt = 0.1, from = 0.8, to = -0.5) 
     return from + (to - from) * t;
 };
 
-export default function About({ aboutContent }: any) {
+export default function About({ aboutContent, servicesData }: any) {
     // HeroSection refs
     const heroRef = useRef(null);
     const [showIntro, setShowIntro] = useState(true);
@@ -209,6 +210,9 @@ export default function About({ aboutContent }: any) {
     const sectionRef = useRef(null);
     const imageRef = useRef(null);
     const parallaxContainerRef = useRef(null);
+    // const titleRef = useRef(null); // Duplicated at line 407
+    // const cardRefs = useRef<Array<HTMLDivElement | null>>([]); // Duplicated at line 410
+
 
     const videoSectionRef = useRef<HTMLDivElement>(null);
     const videoRef = useRef<HTMLVideoElement>(null);
@@ -235,8 +239,6 @@ export default function About({ aboutContent }: any) {
     const ourWorkSectionRef = useRef<HTMLDivElement>(null);
     const horizontalScrollRef = useRef<HTMLDivElement>(null);
 
-
-
     const heroSection = {
         mainTitle: rawHeroSection.mainTitle || "We are",
         rotatingTexts: rotatingTextsArray,
@@ -254,6 +256,53 @@ export default function About({ aboutContent }: any) {
         backgroundImage: "/serviceVector.png",
         cards: [],
     };
+
+    // Override services section if servicesData is available
+    if (servicesData) {
+        servicesSection.title = servicesData.headerTitle || servicesSection.title;
+
+        // Define default images for each section
+        const serviceImages: { [key: string]: string } = {
+            strategy: "/strategy.jpeg",
+            branding: "/brand.jpg",
+            content: "/content.jpeg",
+            digital: "/digital.jpeg",
+            agentVUA: "/vua.jpeg",
+            techSolutions: "/tech.jpeg",
+            agentVision: "/vision.png",
+            agentXR: "/xr.jpeg"
+        };
+
+        const newCards = [];
+        let orderCounter = 1;
+
+        // Helper to add card
+        const addCard = (key: string, title: string, description: string, tags: string[], imageKey: string) => {
+            if (title) { // Only add if title exists
+                newCards.push({
+                    id: key,
+                    title,
+                    description,
+                    image: serviceImages[imageKey] || "/serviceVector.png",
+                    tags: tags || [],
+                    imagePosition: orderCounter % 2 === 0 ? "right" : "left",
+                    order: orderCounter++,
+                    isActive: true
+                });
+            }
+        };
+
+        addCard('strategy', servicesData.strategyTitle, servicesData.strategyDescription, servicesData.strategyServices, 'strategy');
+        addCard('branding', servicesData.brandingTitle, servicesData.brandingDescription, servicesData.brandingServices, 'branding');
+        addCard('content', servicesData.contentTitle, servicesData.contentDescription, servicesData.contentServices, 'content');
+        addCard('digital', servicesData.digitalTitle, servicesData.digitalDescription, servicesData.digitalServices, 'digital');
+        addCard('agentVUA', servicesData.agentVUATitle, servicesData.agentVUADescription, servicesData.agentVUAFeatures, 'agentVUA');
+        addCard('techSolutions', servicesData.techSolutionsTitle, servicesData.techSolutionsDescription, [servicesData.techSolutionsTagline].filter(Boolean), 'techSolutions');
+        addCard('agentVision', servicesData.agentVisionTitle, servicesData.agentVisionDescription, [], 'agentVision');
+        addCard('agentXR', servicesData.agentXRTitle, servicesData.agentXRDescription, servicesData.agentXRServices, 'agentXR');
+
+        servicesSection.cards = newCards;
+    }
 
     const foundationSection = aboutContent?.foundationSection || {
         title: "Our Foundation",
@@ -945,15 +994,16 @@ export default function About({ aboutContent }: any) {
             </section>
 
             {/* About & Foundation Scroll Section - Pinned with Two-Column Reveal */}
+            {/* About & Foundation Scroll Section - Pinned with Two-Column Reveal */}
             <section
                 ref={aboutScrollSectionRef}
-                className="relative w-full min-h-screen flex items-center justify-center overflow-hidden bg-[#EEF0FF] py-20 md:py-0"
+                className="relative w-full min-h-screen flex items-center justify-center overflow-hidden bg-[#EEF0FF] py-12 md:py-20"
             >
-                <div className="relative w-full max-w-[1400px] mx-auto px-4 md:px-8 flex flex-col md:flex-row items-center justify-center gap-8 md:gap-16 lg:gap-24">
+                <div className="relative w-full max-w-[1250px] mx-auto px-4 md:px-8 flex flex-col md:flex-row  md:items-stretch  gap-8 md:gap-16 lg:gap-24">
                     {/* Left Column: Dark About Card */}
-                    <div className="w-full md:w-1/2 max-w-[600px] lg:max-w-[700px]">
+                    <div className="w-full md:w-1/2 max-w-[700px]  lg:max-w-[900px]">
                         <div
-                            className="bg-gradient-to-br from-[#0a0a1a] to-[#1a1a2e] rounded-[20px] md:rounded-[30px] p-8 md:p-12 lg:p-16 shadow-2xl w-full"
+                            className="bg-gradient-to-br from-[#0a0a1a] to-[#1a1a2e] rounded-[20px] md:rounded-[30px] p-8 md:p-10 lg:p-12 shadow-2xl w-full h-full flex flex-col justify-start"
                             style={{
                                 boxShadow: "0 30px 60px -15px rgba(98, 16, 255, 0.4)",
                             }}
@@ -961,7 +1011,7 @@ export default function About({ aboutContent }: any) {
                             {/* Title */}
                             <h2
                                 ref={aboutHeadingRef}
-                                className="text-4xl md:text-5xl lg:text-6xl font-semibold text-white mb-8 md:mb-12 text-center"
+                                className="font-semibold text-[40px] md:text-[60px] lg:text-[80px] leading-[1.1] text-white mb-8 md:mb-12 text-center md:text-left"
                             >
                                 {aboutContent?.aboutTitle || "About Us"}
                             </h2>
@@ -990,7 +1040,7 @@ export default function About({ aboutContent }: any) {
                             </div>
 
                             {/* Know More Button */}
-                            <div className="flex justify-center md:justify-start">
+                            <div className="flex justify-center md:justify-start mt-auto">
                                 <Link
                                     href="/About"
                                     ref={aboutButtonRef}
@@ -1377,6 +1427,9 @@ export default function About({ aboutContent }: any) {
                     </div>
                 </div>
             </section>
+
+            {/* Instagram Feed Section */}
+            <InstagramFeed />
             {/* Hero pinned wrapper */}
             <section id="heroPin">
                 {/* HeroSection */}

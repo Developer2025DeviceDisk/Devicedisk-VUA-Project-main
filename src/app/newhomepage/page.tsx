@@ -84,11 +84,35 @@ async function fetchAboutContent(): Promise<AboutContent | null> {
     }
 }
 
+async function fetchServicesContent() {
+    try {
+        const API_URL = (process.env.NEXT_PUBLIC_API_URL || 'https://admin.vvworx.com').replace(/\/$/, '');
+        const response = await fetch(`${API_URL}/api/services-content/active`, {
+            cache: 'no-store'
+        });
+
+        if (!response.ok) {
+            return null;
+        }
+
+        const result = await response.json();
+        return result.success ? result.data : null;
+    } catch (error) {
+        console.error('Error fetching services content:', error);
+        return null;
+    }
+}
+
 export default async function NewHomePage() {
     const aboutContent = await fetchAboutContent();
+    const servicesData = await fetchServicesContent();
+
     return (
         <WithGenericLoader>
-            <AboutNew1 aboutContent={aboutContent} />
+            <AboutNew1
+                aboutContent={aboutContent}
+                servicesData={servicesData}
+            />
         </WithGenericLoader>
     );
 }

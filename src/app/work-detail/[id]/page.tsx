@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import WorkGallery from '@/app/components/WorkGallery';
 
 // Helper for image URLs
 const API_URL = (process.env.NEXT_PUBLIC_API_URL || 'https://admin.vvworx.com').replace(/\/$/, '');
@@ -132,42 +133,7 @@ export default async function WorkDetailPage({ params }: { params: Promise<{ id:
             {/* Gallery Grid */}
             <section className="max-w-7xl mx-auto px-6 md:px-12 pb-24">
                 {(item.galleryImages && item.galleryImages.length > 0) ? (
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 auto-rows-[200px] md:auto-rows-[300px]">
-                        {item.galleryImages.map((img, idx) => {
-                            // Custom Layout Logic matching the "Visionstone" design
-                            // 0: Tall Left   | 1: Wide Top Right
-                            //                | 2: Small | 3: Small
-                            // 4: Wide Left   | 5: Tall Right
-                            // 6: Wide Left   | 7: Tall Right
-
-                            let className = "relative rounded-2xl overflow-hidden shadow-sm bg-gray-100 group";
-
-                            // Define grid spans based on index (looping every 8 items or fixed for first few)
-                            const patternIndex = idx % 8;
-
-                            if (patternIndex === 0) {
-                                className += " md:row-span-2"; // Tall Left
-                            } else if (patternIndex === 1) {
-                                className += " md:col-span-2"; // Wide Top Right
-                            } else if (patternIndex === 4 || patternIndex === 6) {
-                                className += " md:col-span-2"; // Wide Lefts
-                            } else {
-                                className += ""; // Default 1x1
-                            }
-
-                            return (
-                                <div key={idx} className={className}>
-                                    <Image
-                                        src={getImageUrl(img)}
-                                        alt={`Gallery image ${idx + 1}`}
-                                        fill
-                                        className="object-cover group-hover:scale-105 transition-transform duration-700"
-                                        unoptimized
-                                    />
-                                </div>
-                            );
-                        })}
-                    </div>
+                    <WorkGallery images={item.galleryImages} />
                 ) : (
                     // Fallback to main image if gallery is empty
                     <div className="relative w-full aspect-video rounded-3xl overflow-hidden shadow-lg max-w-4xl mx-auto">

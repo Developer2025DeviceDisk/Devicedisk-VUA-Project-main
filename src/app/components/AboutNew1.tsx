@@ -164,7 +164,8 @@ export default function About({ aboutContent }: any) {
     const heroRef = useRef(null);
     const [showIntro, setShowIntro] = useState(true);
     const introRef = useRef<HTMLDivElement>(null);
-    const introTextRef = useRef(null);
+    const introTextRef = useRef<HTMLHeadingElement>(null);
+    const introOverlayRef = useRef<HTMLDivElement>(null);
     const introCompleteRef = useRef(false);
 
     // Extract content first to determine number of rotating texts and hero images
@@ -366,29 +367,35 @@ export default function About({ aboutContent }: any) {
 
         const blocks = introRef.current.querySelectorAll(".intro-block");
 
-        // Show all blocks instantly
+        // Initial setup
         gsap.set(blocks, { y: "0%", scaleY: 1, opacity: 1 });
+        if (introTextRef.current) {
+            gsap.set(introTextRef.current, { opacity: 1, color: "black" }); // Ensure text starts black
+        }
+        if (introOverlayRef.current) {
+            gsap.set(introOverlayRef.current, { opacity: 0 }); // Overlay hidden initially
+        }
 
         // Wait for some time before starting disappearance animation
         const tl = gsap.timeline({
-            delay: 4.5, // wait 4.5 seconds before animation starts (increased for visibility)
+            delay: 4.5, // wait 4.5 seconds before animation starts
+            onStart: () => {
+                // Start video when animation starts (so it plays while revealed)
+                if (videoRef.current) {
+                    videoRef.current.play().catch((e) => console.log("Intro autoplay prevented:", e));
+                }
+            },
             onComplete: () => {
                 setShowIntro(false);
                 introCompleteRef.current = true;
-                if (videoRef.current) {
-                    videoRef.current.play().catch((e) => console.log("Post-intro autoplay prevented:", e));
-                }
             },
         });
 
-        // Fade out text first
-        if (introTextRef.current) {
-            tl.to(introTextRef.current, { opacity: 0, duration: 0.5 });
-        }
+        const blockStartDelay = 0; // Starts immediately after the initial delay
 
-        const blockStartDelay = 0.45; // 0.5s text fade - 0.05s overlap (0.1s earlier)
-
+        // 1. Animate blocks away (revealing video + overlay)
         blocks.forEach((block, i) => {
+            // Using same stagger/pattern as before for the blocks
             if (i === 0) {
                 tl.to(block, { y: "100%", duration: 1.6, ease: "power4.inOut" }, blockStartDelay + i * 0.12);
             }
@@ -406,12 +413,29 @@ export default function About({ aboutContent }: any) {
             }
         });
 
-        // Fade out the entire intro wrapper at the end
+        // 2. WHILE blocks are clearing:
+        //    a) Fade in Black Overlay (so text is readable on video)
+        //    b) Change Text Color to White
+        if (introOverlayRef.current) {
+            // Start fading in slightly after blocks start moving to mask the transition
+            tl.to(introOverlayRef.current, { opacity: 0.6, duration: 1.0, ease: "power2.inOut" }, blockStartDelay + 0.5);
+        }
+
+        if (introTextRef.current) {
+            // Change text to white around the same time overlay appears
+            tl.to(introTextRef.current, { color: "white", duration: 1.0, ease: "power2.inOut" }, blockStartDelay + 0.5);
+        }
+
+        // 3. HOLD phase - Text stays visible on Video + Overlay
+        tl.to({}, { duration: 2.0 }); // Wait for 2 seconds
+
+        // 4. Fade everything out (Intro Container = Grid + Overlay, and Text)
+        // We can fade the wrapper and the text together
         tl.to(
-            introRef.current,
-            { opacity: 0, duration: 0.4, ease: "power1.out" },
-            "-=0.6"
+            [introRef.current, introTextRef.current], // Fade out grid/overlay wrapper AND text
+            { opacity: 0, duration: 1.0, ease: "power2.inOut" }
         );
+
     }, []);
 
 
@@ -840,21 +864,32 @@ export default function About({ aboutContent }: any) {
             >
                 <div className="relative w-full h-full">
                     {showIntro && (
-                        <div
-                            ref={introRef}
-                            className="intro-grid absolute inset-0 z-20 grid grid-cols-5"
-                        >
-                            {Array.from({ length: 5 }).map((_, i) => (
-                                <div key={i} className="intro-block bg-white w-full h-full"></div>
-                            ))}
+                        <>
+                            {/* Intro Background Grid & Overlay Wrapper */}
+                            <div
+                                ref={introRef}
+                                className="intro-grid absolute inset-0 z-20 grid grid-cols-5"
+                            >
+                                {/* Black Overlay - Initially hidden, appears when grid clears */}
+                                <div
+                                    ref={introOverlayRef}
+                                    className="absolute inset-0 bg-black z-[-1] pointer-events-none"
+                                    style={{ opacity: 0 }}
+                                />
 
+                                {Array.from({ length: 5 }).map((_, i) => (
+                                    <div key={i} className="intro-block bg-white w-full h-full"></div>
+                                ))}
+                            </div>
+
+                            {/* Text - OUTSIDE the grid so it's independent, but Z-indexed above */}
                             <h1
                                 ref={introTextRef}
-                                className="absolute inset-0 flex items-center justify-center text-3xl md:text-5xl font-semibold text-black"
+                                className="absolute inset-0 z-30 flex items-center justify-center text-3xl md:text-5xl font-semibold text-black pointer-events-none text-center"
                             >
                                 A creative consulting & branding agency <br /> that helps you cut through the noise.
                             </h1>
-                        </div>
+                        </>
                     )}
 
 
@@ -1287,65 +1322,70 @@ export default function About({ aboutContent }: any) {
                     <div className="absolute right-0 top-0 bottom-0 w-32 md:w-48 bg-gradient-to-l from-[#E8E8ED] to-transparent z-10 pointer-events-none" />
 
                     {/* Marquee Track */}
-                    <div className="flex gap-8 md:gap-12 animate-marquee hover:pause-marquee">
+                    <div className="flex animate-marquee hover:pause-marquee">
                         {/* First Set of Logos */}
-                        {(clientContent.clients.length > 0 ? clientContent.clients : [1, 2, 3, 4, 5, 6, 7, 8].map(i => ({ name: `Client Logo ${i}`, logo: "", order: i }))).sort((a: any, b: any) => a.order - b.order).map((client: any, index: number) => (
-                            <div
-                                key={`client-${index}`}
-                                className="flex-shrink-0 bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300 flex items-center justify-center min-w-[280px] md:min-w-[350px] h-[140px] md:h-[180px] overflow-hidden"
-                            >
-                                {client.logo ? (
-                                    <div className="relative w-full h-full">
-                                        <Image
-                                            src={getImageUrl(client.logo)}
-                                            alt={client.name}
-                                            fill
-                                            className="object-cover"
-                                            unoptimized={true}
-                                        />
-                                    </div>
-                                ) : (
-                                    <div className="text-gray-400 text-2xl md:text-3xl font-semibold p-8 md:p-12">
-                                        {client.name}
-                                    </div>
-                                )}
-                            </div>
-                        ))}
+                        <div className="flex gap-8 md:gap-12 pr-8 md:pr-12 flex-shrink-0">
+                            {(clientContent.clients.length > 0 ? clientContent.clients : [1, 2, 3, 4, 5, 6, 7, 8].map(i => ({ name: `Client Logo ${i}`, logo: "", order: i }))).sort((a: any, b: any) => a.order - b.order).map((client: any, index: number) => (
+                                <div
+                                    key={`client-${index}`}
+                                    className="flex-shrink-0 bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300 flex items-center justify-center min-w-[280px] md:min-w-[350px] h-[140px] md:h-[180px] overflow-hidden"
+                                >
+                                    {client.logo ? (
+                                        <div className="relative w-full h-full">
+                                            <Image
+                                                src={getImageUrl(client.logo)}
+                                                alt={client.name}
+                                                fill
+                                                className="object-cover"
+                                                unoptimized={true}
+                                            />
+                                        </div>
+                                    ) : (
+                                        <div className="text-gray-400 text-2xl md:text-3xl font-semibold p-8 md:p-12">
+                                            {client.name}
+                                        </div>
+                                    )}
+                                </div>
+                            ))}
+                        </div>
+
                         {/* Duplicate Set for Seamless Loop */}
-                        {(clientContent.clients.length > 0 ? clientContent.clients : [1, 2, 3, 4, 5, 6, 7, 8].map(i => ({ name: `Client Logo ${i}`, logo: "", order: i }))).sort((a: any, b: any) => a.order - b.order).map((client: any, index: number) => (
-                            <div
-                                key={`client-duplicate-${index}`}
-                                className="flex-shrink-0 bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300 flex items-center justify-center min-w-[280px] md:min-w-[350px] h-[140px] md:h-[180px] overflow-hidden"
-                            >
-                                {client.logo ? (
-                                    <div className="relative w-full h-full">
-                                        <Image
-                                            src={getImageUrl(client.logo)}
-                                            alt={client.name}
-                                            fill
-                                            className="object-cover"
-                                            unoptimized={true}
-                                        />
-                                    </div>
-                                ) : (
-                                    <div className="text-gray-400 text-2xl md:text-3xl font-semibold p-8 md:p-12">
-                                        {client.name}
-                                    </div>
-                                )}
-                            </div>
-                        ))}
+                        <div className="flex gap-8 md:gap-12 pr-8 md:pr-12 flex-shrink-0">
+                            {(clientContent.clients.length > 0 ? clientContent.clients : [1, 2, 3, 4, 5, 6, 7, 8].map(i => ({ name: `Client Logo ${i}`, logo: "", order: i }))).sort((a: any, b: any) => a.order - b.order).map((client: any, index: number) => (
+                                <div
+                                    key={`client-duplicate-${index}`}
+                                    className="flex-shrink-0 bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300 flex items-center justify-center min-w-[280px] md:min-w-[350px] h-[140px] md:h-[180px] overflow-hidden"
+                                >
+                                    {client.logo ? (
+                                        <div className="relative w-full h-full">
+                                            <Image
+                                                src={getImageUrl(client.logo)}
+                                                alt={client.name}
+                                                fill
+                                                className="object-cover"
+                                                unoptimized={true}
+                                            />
+                                        </div>
+                                    ) : (
+                                        <div className="text-gray-400 text-2xl md:text-3xl font-semibold p-8 md:p-12">
+                                            {client.name}
+                                        </div>
+                                    )}
+                                </div>
+                            ))}
+                        </div>
                     </div>
                 </div>
             </section>
             {/* Hero pinned wrapper */}
             <section id="heroPin">
                 {/* HeroSection */}
-                <section ref={heroRef} className="hero-section w-full h-auto min-h-screen relative overflow-hidden bg-black">
+                <section ref={heroRef} className="hero-section w-full h-screen relative overflow-hidden bg-black">
                     <video className="absolute top-0 left-0 w-full h-full object-cover" autoPlay muted loop playsInline>
                         <source src={getVideoUrl(heroSection.backgroundVideo)} type="video/mp4" />
                     </video>
 
-                    <div className="mx-auto h-full flex flex-col lg:flex-row md:items-center justify-center px-0 mt-[4rem] md:mt-0 items-end relative z-10">
+                    <div className="mx-auto h-full flex flex-col lg:flex-row items-center justify-center px-0 relative z-10">
                         <div className="w-full lg:w-6/12 h-auto flex flex-col sm:mt-20 items-center lg:items-start justify-center py-8 md:pl-32 lg:py-0 pl-8">
                             <h2 className="w-full text-[44px] xs:text-6xl sm:text-7xl lg:text-[50px] xl:text-[80px] 2xl:text-[114px] text-white leading-[1.1] font-medium">
                                 {heroSection.mainTitle}

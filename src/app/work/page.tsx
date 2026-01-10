@@ -104,28 +104,16 @@ export default async function WorkPage() {
 
     return (
         <div className="flex flex-col min-h-screen">
-            {/* Header Section - Dark Background */}
-            <section className="relative w-full h-[350px] md:h-[450px] bg-gradient-to-br from-[#6210FF] to-[#3B00D9] overflow-hidden flex items-center justify-center text-center px-4 shrink-0">
-                {/* Abstract Background pattern */}
-                <div className="absolute inset-0 opacity-20 transform scale-110">
+            {/* Header Section */}
+            <section className="relative w-full h-[350px] md:h-[450px] overflow-hidden shrink-0">
+                <div className="absolute inset-0">
                     <Image
                         src={getImageUrl(workPageData.bannerImage)}
-                        alt="Background Pattern"
+                        alt="Banner Image"
                         fill
                         className="object-cover"
                         unoptimized
                     />
-                </div>
-
-                <div className="relative z-10 flex flex-col items-center">
-                    <h1 className="text-5xl md:text-6xl lg:text-7xl font-sans font-medium text-white leading-[1.1] tracking-tight drop-shadow-sm whitespace-pre-line">
-                        {workPageData.mainTitle}
-                    </h1>
-                </div>
-
-                {/* Circular Icon Top Right */}
-                <div className="absolute top-6 right-6 md:top-10 md:right-10 w-10 h-10 md:w-14 md:h-14 rounded-full border border-white/40 flex items-center justify-center">
-                    <div className="w-6 md:w-8 h-0.5 bg-white"></div>
                 </div>
             </section>
 

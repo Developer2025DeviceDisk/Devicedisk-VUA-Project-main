@@ -57,7 +57,10 @@ export default function InstagramFeed() {
     useEffect(() => {
         const fetchPosts = async () => {
             try {
-                const API_URL = (process.env.NEXT_PUBLIC_API_URL || 'https://admin.vvworx.com').replace(/\/$/, '');
+                // Determine API URL: Use env var if set, otherwise default to production backend.
+                // NOTE: This will connect to the LIVE backend. Ensure backend changes are deployed.
+                const baseUrl = process.env.NEXT_PUBLIC_API_URL || 'https://admin.vvworx.com';
+                const API_URL = baseUrl.replace(/\/$/, '');
 
                 const response = await fetch(`${API_URL}/api/instagram/posts`);
                 const result = await response.json();
@@ -83,7 +86,7 @@ export default function InstagramFeed() {
     if (loading) return null;
 
     return (
-        <section className="w-full py-20 bg-[#E8E8ED] flex flex-col items-center">
+        <section className="w-full py-20 bg-[#EEF0FF] flex flex-col items-center">
             {/* Header */}
             <div className="text-center mb-12">
                 <h2 className="text-4xl md:text-6xl font-light text-[#6210FF] mb-2 tracking-tight">

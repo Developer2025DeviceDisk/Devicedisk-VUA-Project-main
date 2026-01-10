@@ -908,7 +908,7 @@ export default function About({ aboutContent, servicesData }: any) {
             {/* Video Section */}
             <section
                 ref={videoSectionRef}
-                className="relative w-full h-auto md:h-screen flex items-center justify-center overflow-hidden p-0 m-0"
+                className="relative w-full h-auto md:h-screen flex items-center justify-center overflow-hidden p-0 m-0 mt-10 md:mt-0"
                 style={{ backgroundColor: videoSection.backgroundColor }}
             >
                 <div className="relative w-full h-full">
@@ -934,9 +934,9 @@ export default function About({ aboutContent, servicesData }: any) {
                             {/* Text - OUTSIDE the grid so it's independent, but Z-indexed above */}
                             <h1
                                 ref={introTextRef}
-                                className="absolute inset-0 z-30 flex items-center justify-center text-3xl md:text-5xl font-semibold text-black pointer-events-none text-center"
+                                className="absolute inset-0 z-30 flex items-center justify-center text-xl md:text-5xl font-medium text-black pointer-events-none text-center px-4 leading-normal"
                             >
-                                A creative consulting & branding agency <br /> that helps you cut through the noise.
+                                A creative consulting & branding agency <br className="hidden md:block" /> that helps you cut through the noise.
                             </h1>
                         </>
                     )}
@@ -997,13 +997,13 @@ export default function About({ aboutContent, servicesData }: any) {
             {/* About & Foundation Scroll Section - Pinned with Two-Column Reveal */}
             <section
                 ref={aboutScrollSectionRef}
-                className="relative w-full min-h-screen flex items-center justify-center overflow-hidden bg-[#EEF0FF] py-12 md:py-20"
+                className="relative w-full min-h-screen flex items-center justify-center overflow-hidden bg-[#EEF0FF] py-12 md:py-20 mt-10 md:mt-0"
             >
                 <div className="relative w-full max-w-[1250px] mx-auto px-4 md:px-8 flex flex-col md:flex-row  md:items-stretch  gap-8 md:gap-16 lg:gap-24">
                     {/* Left Column: Dark About Card */}
                     <div className="w-full md:w-1/2 max-w-[700px]  lg:max-w-[900px]">
                         <div
-                            className="bg-gradient-to-br from-[#0a0a1a] to-[#1a1a2e] rounded-[20px] md:rounded-[30px] p-8 md:p-10 lg:p-12 shadow-2xl w-full h-full flex flex-col justify-start"
+                            className="bg-gradient-to-br from-[#0a0a1a] to-[#1a1a2e] rounded-[20px] md:rounded-[30px] p-6 md:p-10 lg:p-12 shadow-2xl w-full h-full flex flex-col justify-start"
                             style={{
                                 boxShadow: "0 30px 60px -15px rgba(98, 16, 255, 0.4)",
                             }}
@@ -1011,13 +1011,13 @@ export default function About({ aboutContent, servicesData }: any) {
                             {/* Title */}
                             <h2
                                 ref={aboutHeadingRef}
-                                className="font-semibold text-[40px] md:text-[60px] lg:text-[80px] leading-[1.1] text-white mb-8 md:mb-12 text-center md:text-left"
+                                className="font-semibold text-[32px] md:text-[60px] lg:text-[80px] leading-[1.1] text-white mb-6 md:mb-12 text-center md:text-left"
                             >
                                 {aboutContent?.aboutTitle || "About Us"}
                             </h2>
 
                             {/* Text Lines Container */}
-                            <div className="space-y-3 md:space-y-4 mb-10 md:mb-12 text-center md:text-left">
+                            <div className="space-y-3 md:space-y-4 mb-8 md:mb-12 text-center md:text-left">
                                 {(aboutContent?.aboutTextLines || [
                                     "Lorem Ipsum Dolor Sit Amet, Consectetuer Adipiscing Elit, Sed",
                                     "Diam Nonummy Nibh Euismod Tincidunt Ut Laoreet Dolore Magna",
@@ -1030,7 +1030,7 @@ export default function About({ aboutContent, servicesData }: any) {
                                         <p
                                             key={index}
                                             ref={refs[index]}
-                                            className="text-base md:text-lg lg:text-xl text-gray-300 leading-relaxed"
+                                            className="text-sm md:text-lg lg:text-xl text-gray-300 leading-relaxed font-light md:font-normal"
                                         >
                                             {line}
                                         </p>
@@ -1046,12 +1046,12 @@ export default function About({ aboutContent, servicesData }: any) {
                                     ref={aboutButtonRef}
                                     className="flex items-center gap-2 px-6 py-3 md:px-8 md:py-4 bg-transparent text-white border-2 border-white rounded-full hover:bg-white hover:text-black transition-all duration-300"
                                 >
-                                    <span className="text-sm md:text-base font-medium tracking-wider">
+                                    <span className="text-xs md:text-base font-medium tracking-wider">
                                         KNOW MORE
                                     </span>
                                     <svg
-                                        width="20"
-                                        height="20"
+                                        width="16"
+                                        height="16"
                                         viewBox="0 0 24 24"
                                         fill="none"
                                         xmlns="http://www.w3.org/2000/svg"
@@ -1071,15 +1071,15 @@ export default function About({ aboutContent, servicesData }: any) {
                     </div>
 
                     {/* Right Column: Our Foundation */}
-                    <div className="w-full md:w-1/2 flex flex-col gap-8 md:gap-12 pl-4 md:pl-0">
+                    <div className="w-full md:w-1/2 flex flex-col gap-6 md:gap-12 pl-2 md:pl-0">
                         <h2
                             ref={foundationTitleRef}
-                            className="font-semibold text-[40px] md:text-[60px] lg:text-[80px] leading-[1.1] text-[#6210FF]"
+                            className="font-semibold text-[32px] md:text-[60px] lg:text-[80px] leading-[1.1] text-[#6210FF] text-center md:text-left"
                         >
                             {foundationSection.title}
                         </h2>
 
-                        <div className="flex flex-col gap-8 md:gap-10">
+                        <div className="flex flex-col gap-6 md:gap-10">
                             {foundationSection.foundations.slice(0, 4).map((foundation: any, index: number) => {
                                 const refs = [
                                     foundationItem1Ref,
@@ -1093,10 +1093,10 @@ export default function About({ aboutContent, servicesData }: any) {
                                         ref={refs[index]}
                                         className="foundation-item"
                                     >
-                                        <h3 className="text-[28px] md:text-[40px] font-semibold text-gray-500 mb-1">
+                                        <h3 className="text-[20px] md:text-[40px] font-semibold text-gray-500 mb-1 text-center md:text-left">
                                             {foundation.title}
                                         </h3>
-                                        <p className="text-[16px] md:text-[18px] text-gray-400 font-light">
+                                        <p className="text-sm md:text-[18px] text-gray-400 font-light text-center md:text-left">
                                             {foundation.description}
                                         </p>
                                     </div>
@@ -1354,7 +1354,7 @@ export default function About({ aboutContent, servicesData }: any) {
 
 
             {/* Our Client Section */}
-            <section className="w-full py-20 md:py-32 bg-[#E8E8ED] overflow-hidden">
+            <section className="w-full py-20 md:py-32 bg-[#EEF0FF] overflow-hidden">
                 {/* Title & Description */}
                 <div className="text-center mb-16 px-4">
                     <h2 className="text-5xl md:text-7xl font-light text-[#6210FF] mb-6 tracking-tight">

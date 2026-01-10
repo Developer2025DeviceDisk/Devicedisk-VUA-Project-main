@@ -73,14 +73,23 @@ export default async function WorkDetailPage({ params }: { params: Promise<{ id:
             </div> */}
 
             {/* Header / Hero Section */}
-            <section className="relative w-full pt-32 pb-20 px-6 md:px-12 bg-[#050511] text-white overflow-hidden">
-                {/* Background gradient effect */}
-                <div className="absolute top-0 right-0 w-[50vh] h-[50vh] bg-purple-600/30 blur-[120px] rounded-full pointer-events-none" />
-                <div className="absolute bottom-0 left-0 w-[40vh] h-[40vh] bg-blue-600/20 blur-[100px] rounded-full pointer-events-none" />
+            <section className="relative w-full h-[50vh] min-h-[400px] flex items-center justify-center text-center overflow-hidden">
+                {/* Background Image */}
+                <div className="absolute inset-0 z-0">
+                    <Image
+                        src={getImageUrl(item.image)}
+                        alt={item.name}
+                        fill
+                        className="object-cover"
+                        unoptimized
+                    />
+                    {/* Dark Overlay for text readability */}
+                    <div className="absolute inset-0 bg-black/50" />
+                </div>
 
-                <div className="max-w-7xl mx-auto relative z-10 flex flex-col md:items-center text-center">
-                    <span className="text-sm md:text-base tracking-[0.2em] text-gray-400 mb-4 uppercase">Case Study</span>
-                    <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-tight mb-8 max-w-4xl mx-auto">
+                <div className="relative z-10 px-6 max-w-7xl mx-auto flex flex-col md:items-center">
+                    <span className="text-sm md:text-base tracking-[0.2em] text-gray-200 mb-4 uppercase">Case Study</span>
+                    <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white tracking-tight leading-tight mb-8 max-w-4xl mx-auto">
                         {item.detailTitle || item.name}
                     </h1>
 
@@ -88,7 +97,7 @@ export default async function WorkDetailPage({ params }: { params: Promise<{ id:
                     {item.tags && item.tags.length > 0 && (
                         <div className="flex flex-wrap justify-center gap-3 mb-10">
                             {item.tags.map((tag, idx) => (
-                                <span key={idx} className="px-4 py-1.5 rounded-full border border-white/20 text-sm md:text-base font-light font-sans backdrop-blur-sm">
+                                <span key={idx} className="px-4 py-1.5 rounded-full border border-white/30 text-white text-sm md:text-base font-light font-sans backdrop-blur-md bg-white/10">
                                     {tag}
                                 </span>
                             ))}
@@ -98,31 +107,32 @@ export default async function WorkDetailPage({ params }: { params: Promise<{ id:
             </section>
 
             {/* Content & Context Section */}
-            <section className="max-w-7xl mx-auto px-6 md:px-12 py-16 md:py-24">
-                <div className="bg-white rounded-3xl p-8 md:p-12 shadow-sm flex flex-col md:flex-row gap-12 md:gap-24 items-start">
-                    {/* Left: Client Logo */}
-                    <div className="w-full md:w-1/3 flex-shrink-0">
-                        {item.clientLogo ? (
-                            <div className="relative w-full aspect-[3/2] md:aspect-square max-w-[200px] flex items-center justify-center bg-gray-50 rounded-xl p-6">
-                                <Image
-                                    src={getImageUrl(item.clientLogo)}
-                                    alt="Client Logo"
-                                    width={200}
-                                    height={200}
-                                    className="object-contain w-full h-full"
-                                    unoptimized
-                                />
-                            </div>
-                        ) : (
-                            // Fallback if no logo
-                            <div className="text-2xl font-bold text-gray-900">{item.name}</div>
-                        )}
+            <section className="max-w-7xl mx-auto px-6 md:px-12 py-12 md:py-24">
+                <div className="flex flex-col md:flex-row gap-12 md:gap-20 items-center">
+                    {/* Left: Client Logo (Separate White Box) */}
+                    <div className="w-full md:w-5/20 flex-shrink-0">
+                        <div className="bg-white rounded-[40px] p-2 md:p-4 shadow-sm aspect-square flex items-center justify-center">
+                            {item.clientLogo ? (
+                                <div className="relative w-full h-full">
+                                    <Image
+                                        src={getImageUrl(item.clientLogo)}
+                                        alt="Client Logo"
+                                        fill
+                                        className="object-contain"
+                                        unoptimized
+                                    />
+                                </div>
+                            ) : (
+                                // Fallback
+                                <div className="text-3xl font-bold text-gray-900 text-center">{item.name}</div>
+                            )}
+                        </div>
                     </div>
 
-                    {/* Right: Description */}
-                    <div className="w-full md:w-2/3">
-                        <div className="prose prose-lg text-gray-600 leading-relaxed font-light">
-                            <p className="whitespace-pre-line text-lg md:text-xl">
+                    {/* Right: Description (Text on Background) */}
+                    <div className="w-full md:w-7/12">
+                        <div className="prose prose-lg text-[#1A1A1A] leading-relaxed font-normal">
+                            <p className="whitespace-pre-line text-lg md:text-xl md:leading-[1.6]">
                                 {item.detailDescription || "No detailed description available for this project yet."}
                             </p>
                         </div>

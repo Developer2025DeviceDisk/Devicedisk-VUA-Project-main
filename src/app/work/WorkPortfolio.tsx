@@ -132,11 +132,18 @@ export default function WorkPortfolio({ workPageData, portfolioItems, defaultFil
                                 </div>
 
                                 {/* Text Content - Below Image */}
-                                <div className="text-center space-y-2">
-                                    <h3 className="text-[#6210FF] font-bold text-xs md:text-sm tracking-[0.2em] uppercase">
+                                {/* Text Content - Below Image */}
+                                <div className="text-center flex flex-col items-center">
+                                    <h3
+                                        className="text-[#6210FF] font-semibold text-[18.77px] leading-[1.2] tracking-[0.08em] uppercase text-center mb-[23.65px]"
+                                        style={{ fontFamily: "'Outfit', sans-serif" }}
+                                    >
                                         {item.name}
                                     </h3>
-                                    <p className="text-[#6210FF] text-[10px] md:text-xs font-light opacity-70 tracking-wide max-w-md mx-auto">
+                                    <p
+                                        className="text-[#6210FF] font-light text-[18.77px] leading-[1.2] tracking-[0.08em] text-center max-w-md mx-auto opacity-70"
+                                        style={{ fontFamily: "'Outfit', sans-serif" }}
+                                    >
                                         {/* Simulating description using category/year available data */}
                                         Is a New-Age {item.category} Firm That Specializes in Sales & Marketing
                                     </p>

@@ -476,7 +476,7 @@ export default function About({ aboutContent, servicesData }: any) {
         }
 
         // 3. HOLD phase - Text stays visible on Video + Overlay
-        tl.to({}, { duration: 2.0 }); // Wait for 2 seconds
+        tl.to({}, { duration: 0.5 }); // Wait for 2 seconds
 
         // 4. Fade everything out (Intro Container = Grid + Overlay, and Text)
         // We can fade the wrapper and the text together

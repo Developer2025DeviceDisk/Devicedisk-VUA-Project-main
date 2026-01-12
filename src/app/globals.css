@@ -39,7 +39,7 @@
 @font-face {
   font-family: "PetrovSans";
   src: url("/fonts/PetrovSans-Light.ttf") format("truetype");
-  font-weight: 400;
+  font-weight: 300;
   font-style: normal;
   font-display: swap;
 }

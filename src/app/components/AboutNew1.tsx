@@ -1001,75 +1001,91 @@ export default function About({ aboutContent, servicesData }: any) {
             >
                 <div className="relative w-full max-w-[1250px] mx-auto px-4 md:px-8 flex flex-col md:flex-row  md:items-stretch  gap-8 md:gap-16 lg:gap-24">
                     {/* Left Column: Dark About Card */}
-                    <div className="w-full md:w-1/2 max-w-[700px]  lg:max-w-[900px]">
+                    <div className="w-full md:w-1/2 max-w-[700px] lg:max-w-[900px]">
                         <div
-                            className="bg-gradient-to-br from-[#0a0a1a] to-[#1a1a2e] rounded-[20px] md:rounded-[30px] p-6 md:p-10 lg:p-12 shadow-2xl w-full h-full flex flex-col justify-start"
+                            className="relative rounded-[20px] md:rounded-[30px] p-6 md:p-10 lg:p-12 shadow-2xl w-full h-full flex flex-col justify-start overflow-hidden"
                             style={{
                                 boxShadow: "0 30px 60px -15px rgba(98, 16, 255, 0.4)",
                             }}
                         >
-                            {/* Title */}
-                            <h2
-                                ref={aboutHeadingRef}
-                                className="font-semibold text-[26px] md:text-[40px] lg:text-[60px] leading-[1.1] text-white mb-6 md:mb-12 text-center md:text-left"
-                            >
-                                {aboutContent?.aboutTitle || "About Us"}
-                            </h2>
+                            {/* Background Image */}
+                            <div
+                                className="absolute inset-0 z-0"
+                                style={{
+                                    backgroundImage: "url('/about-card-bg.png')",
+                                    backgroundSize: "cover",
+                                    backgroundPosition: "center",
+                                }}
+                            />
 
-                            {/* Text Lines Container */}
-                            <div className="space-y-3 md:space-y-4 mb-8 md:mb-12 text-center md:text-left">
-                                {(aboutContent?.aboutTextLines || [
-                                    "Lorem Ipsum Dolor Sit Amet, Consectetuer Adipiscing Elit, Sed",
-                                    "Diam Nonummy Nibh Euismod Tincidunt Ut Laoreet Dolore Magna",
-                                    "Aliquam Erat Volutpat. Ut Wisi Enim Ad Minim Veniam, Quis Nostrud",
-                                    "Exerci Tation Ullamcorper Suscipit Lobortis Nisl Ut Aliquip Ex Ea",
-                                    "Commodo Consequat."
-                                ]).slice(0, 5).map((line: string, index: number) => {
-                                    const refs = [aboutLine1Ref, aboutLine2Ref, aboutLine3Ref, aboutLine4Ref, aboutLine5Ref];
-                                    return (
-                                        <p
-                                            key={index}
-                                            ref={refs[index]}
-                                            className="text-sm md:text-lg lg:text-xl text-gray-300 leading-relaxed font-light md:font-normal"
-                                        >
-                                            {line}
-                                        </p>
-                                    );
-                                })}
-
-                            </div>
-
-                            {/* Know More Button */}
-                            <div className="flex justify-center md:justify-start mt-auto">
-                                <Link
-                                    href="/About"
-                                    ref={aboutButtonRef}
-                                    className="flex items-center gap-2 px-6 py-3 md:px-8 md:py-4 bg-transparent text-white border-2 border-white rounded-full hover:bg-white hover:text-black transition-all duration-300"
+                            {/* Content Wrapper - relative to sit above background */}
+                            <div className="absolute inset-0 z-[5] bg-black/70" />
+                            <div className="relative z-10 flex flex-col h-full">
+                                {/* Title */}
+                                <h2
+                                    ref={aboutHeadingRef}
+                                    className="font-semibold text-[26px] md:text-[40px] lg:text-[60px] leading-[1.1] text-white mb-6 md:mb-12 text-center md:text-left"
                                 >
-                                    <span className="text-xs md:text-base font-medium tracking-wider">
-                                        KNOW MORE
-                                    </span>
-                                    {/* Smiley Icon */}
-                                    <svg
-                                        width="24"
-                                        height="24"
-                                        viewBox="0 0 24 24"
-                                        fill="none"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        className="w-5 h-5 md:w-6 md:h-6"
+                                    {aboutContent?.aboutTitle || "About Us"}
+                                </h2>
+
+                                {/* Text Lines Container */}
+                                <div className="space-y-3 md:space-y-4 mb-8 md:mb-12 text-center md:text-left">
+                                    {(aboutContent?.aboutTextLines || [
+                                        "Lorem Ipsum Dolor Sit Amet, Consectetuer Adipiscing Elit, Sed",
+                                        "Diam Nonummy Nibh Euismod Tincidunt Ut Laoreet Dolore Magna",
+                                        "Aliquam Erat Volutpat. Ut Wisi Enim Ad Minim Veniam, Quis Nostrud",
+                                        "Exerci Tation Ullamcorper Suscipit Lobortis Nisl Ut Aliquip Ex Ea",
+                                        "Commodo Consequat."
+                                    ]).slice(0, 5).map((line: string, index: number) => {
+                                        const refs = [aboutLine1Ref, aboutLine2Ref, aboutLine3Ref, aboutLine4Ref, aboutLine5Ref];
+                                        return (
+                                            <p
+                                                key={index}
+                                                ref={refs[index]}
+                                                className="text-[20px] md:text-[33px] leading-[30px] md:leading-[55px] text-gray-300 font-light"
+                                                style={{ fontFamily: "PetrovSans", fontWeight: 300 }}
+                                            >
+                                                {line}
+                                            </p>
+                                        );
+                                    })}
+
+                                </div>
+
+                                {/* Know More Button */}
+                                <div className="flex justify-center md:justify-start mt-auto">
+                                    <Link
+                                        href="/About"
+                                        ref={aboutButtonRef}
+                                        className="flex items-center gap-2 px-6 py-3 md:px-8 md:py-4 bg-transparent text-white border-2 border-white rounded-full hover:bg-white hover:text-black transition-all duration-300"
                                     >
-                                        <path
-                                            d="M7 10C7 10 9.5 14 12 14C14.5 14 17 10 17 10"
-                                            stroke="currentColor"
-                                            strokeWidth="2.5"
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                        />
-                                    </svg>
-                                </Link>
+                                        <span className="text-xs md:text-base font-medium tracking-wider">
+                                            KNOW MORE
+                                        </span>
+                                        {/* Smiley Icon */}
+                                        <svg
+                                            width="24"
+                                            height="24"
+                                            viewBox="0 0 24 24"
+                                            fill="none"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            className="w-5 h-5 md:w-6 md:h-6"
+                                        >
+                                            <path
+                                                d="M7 10C7 10 9.5 14 12 14C14.5 14 17 10 17 10"
+                                                stroke="currentColor"
+                                                strokeWidth="2.5"
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                            />
+                                        </svg>
+                                    </Link>
+                                </div>
                             </div>
                         </div>
                     </div>
+
 
                     {/* Right Column: Our Foundation */}
                     <div className="w-full md:w-1/2 flex flex-col gap-6 md:gap-12 pl-2 md:pl-0">
@@ -1109,7 +1125,7 @@ export default function About({ aboutContent, servicesData }: any) {
             </section>
 
             {/* Our Work Header */}
-            <div className="w-full py-20 md:py-32 bg-[#F5F5F7] flex flex-col items-center justify-center text-center px-4">
+            <div className="w-full py-20 md:py-32 bg-[#EEF0FF] flex flex-col items-center justify-center text-center px-4">
                 <div className="relative mb-8">
                     <h2 className="text-5xl md:text-7xl font-light text-[#6210FF] tracking-tight">
                         {ourWorkContent.headerSection.title}
@@ -1124,7 +1140,7 @@ export default function About({ aboutContent, servicesData }: any) {
             {/* Our Work - Responsive Section */}
             <section
                 ref={ourWorkSectionRef}
-                className="relative w-full min-h-screen bg-[#F5F5F7] md:bg-black overflow-hidden"
+                className="relative w-full min-h-screen bg-[#EEF0FF] md:bg-black overflow-hidden"
             >
                 {/* Horizontal Scroll Container (Desktop) */}
                 <div

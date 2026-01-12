@@ -997,7 +997,7 @@ export default function About({ aboutContent, servicesData }: any) {
             {/* About & Foundation Scroll Section - Pinned with Two-Column Reveal */}
             <section
                 ref={aboutScrollSectionRef}
-                className="relative w-full min-h-screen flex items-center justify-center overflow-hidden bg-[#EEF0FF] py-12 md:py-20 mt-10 md:mt-0"
+                className="relative w-full min-h-screen flex items-center justify-center overflow-hidden bg-[#EEF0FF] py-4 md:py-8 "
             >
                 <div className="relative w-full max-w-[1250px] mx-auto px-4 md:px-8 flex flex-col md:flex-row  md:items-stretch  gap-8 md:gap-16 lg:gap-24">
                     {/* Left Column: Dark About Card */}
@@ -1024,13 +1024,13 @@ export default function About({ aboutContent, servicesData }: any) {
                                 {/* Title */}
                                 <h2
                                     ref={aboutHeadingRef}
-                                    className="font-semibold text-[26px] md:text-[40px] lg:text-[60px] leading-[1.1] text-white mb-6 md:mb-12 text-center md:text-left"
+                                    className="font-light text-[26px] md:text-[40px] lg:text-[52px] leading-[1.1] text-white mb-6 md:mb-12 text-center md:text-center"
                                 >
                                     {aboutContent?.aboutTitle || "About Us"}
                                 </h2>
 
                                 {/* Text Lines Container */}
-                                <div className="space-y-3 md:space-y-4 mb-8 md:mb-12 text-center md:text-left">
+                                <div className="space-y-2 md:space-y-2 mb-4 md:mb-8 text-center md:text-left">
                                     {(aboutContent?.aboutTextLines || [
                                         "Lorem Ipsum Dolor Sit Amet, Consectetuer Adipiscing Elit, Sed",
                                         "Diam Nonummy Nibh Euismod Tincidunt Ut Laoreet Dolore Magna",
@@ -1043,7 +1043,7 @@ export default function About({ aboutContent, servicesData }: any) {
                                             <p
                                                 key={index}
                                                 ref={refs[index]}
-                                                className="text-[20px] md:text-[33px] leading-[30px] md:leading-[55px] text-gray-300 font-light"
+                                                className="text-[20px] md:text-[33px] leading-[20px] md:leading-[50px] text-gray-300 font-light"
                                                 style={{ fontFamily: "PetrovSans", fontWeight: 300 }}
                                             >
                                                 {line}
@@ -1054,7 +1054,7 @@ export default function About({ aboutContent, servicesData }: any) {
                                 </div>
 
                                 {/* Know More Button */}
-                                <div className="flex justify-center md:justify-start mt-auto">
+                                <div className="flex justify-center md:justify-center mt-auto">
                                     <Link
                                         href="/About"
                                         ref={aboutButtonRef}
@@ -1091,7 +1091,7 @@ export default function About({ aboutContent, servicesData }: any) {
                     <div className="w-full md:w-1/2 flex flex-col gap-6 md:gap-12 pl-2 md:pl-0">
                         <h2
                             ref={foundationTitleRef}
-                            className="font-semibold text-[26px] md:text-[40px] lg:text-[60px] leading-[1.1] text-[#6210FF] text-center md:text-left"
+                            className="font-light text-[26px] md:text-[40px] lg:text-[60px] leading-[1.1] text-[#6210FF] text-center md:text-left"
                         >
                             {foundationSection.title}
                         </h2>
@@ -1125,13 +1125,13 @@ export default function About({ aboutContent, servicesData }: any) {
             </section>
 
             {/* Our Work Header */}
-            <div className="w-full py-20 md:py-32 bg-[#EEF0FF] flex flex-col items-center justify-center text-center px-4">
+            <div className="w-full py-10 md:py-16 bg-[#EEF0FF] flex flex-col items-center justify-center text-center px-4">
                 <div className="relative mb-8">
                     <h2 className="text-5xl md:text-7xl font-light text-[#6210FF] tracking-tight">
                         {ourWorkContent.headerSection.title}
                     </h2>
                 </div>
-                <p className="text-gray-600 max-w-2xl text-lg md:text-xl leading-relaxed font-light">
+                <p className="text-gray-600 max-w-5xl text-lg md:text-xl leading-relaxed font-light">
                     {ourWorkContent.headerSection.description}
                 </p>
             </div>
@@ -1305,7 +1305,7 @@ export default function About({ aboutContent, servicesData }: any) {
                     </div>
 
                     {/* Text Content */}
-                    <h1 className="text-4xl md:text-9xl pt-[20px] md:pt-[40px] text-center font-[500] text-[#6210FF] animate__animated animate__fadeInUp relative z-10 px-4">
+                    <h1 className="text-4xl md:text-9xl pt-[20px] md:pt-[40px] text-center font-[300] text-white animate__animated animate__fadeInUp relative z-10 px-4">
                         {servicesSection.title}
                     </h1>
                 </div>

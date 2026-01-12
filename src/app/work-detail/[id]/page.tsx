@@ -28,6 +28,7 @@ interface PortfolioItem {
     detailDescription?: string;
     tags?: string[];
     clientLogo?: string;
+    bannerImage?: string;
     galleryImages?: string[];
 }
 
@@ -77,7 +78,7 @@ export default async function WorkDetailPage({ params }: { params: Promise<{ id:
                 {/* Background Image */}
                 <div className="absolute inset-0 z-0">
                     <Image
-                        src={getImageUrl(item.image)}
+                        src={getImageUrl(item.bannerImage || item.image)}
                         alt={item.name}
                         fill
                         className="object-cover"

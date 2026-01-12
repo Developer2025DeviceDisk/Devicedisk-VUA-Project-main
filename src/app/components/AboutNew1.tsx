@@ -1049,18 +1049,19 @@ export default function About({ aboutContent, servicesData }: any) {
                                     <span className="text-xs md:text-base font-medium tracking-wider">
                                         KNOW MORE
                                     </span>
+                                    {/* Smiley Icon */}
                                     <svg
-                                        width="16"
-                                        height="16"
+                                        width="24"
+                                        height="24"
                                         viewBox="0 0 24 24"
                                         fill="none"
                                         xmlns="http://www.w3.org/2000/svg"
-                                        className="w-4 h-4 md:w-5 md:h-5"
+                                        className="w-5 h-5 md:w-6 md:h-6"
                                     >
                                         <path
-                                            d="M13.5 4.5L21 12M21 12L13.5 19.5M21 12H3"
+                                            d="M7 10C7 10 9.5 14 12 14C14.5 14 17 10 17 10"
                                             stroke="currentColor"
-                                            strokeWidth="2"
+                                            strokeWidth="2.5"
                                             strokeLinecap="round"
                                             strokeLinejoin="round"
                                         />
@@ -1212,7 +1213,7 @@ export default function About({ aboutContent, servicesData }: any) {
                                     <div className="flex justify-center items-center w-full mt-4">
                                         <button className="flex items-center gap-1 text-white text-xs opacity-90 border border-white/30 px-3 py-1.5 rounded-full backdrop-blur-sm">
                                             Learn more
-                                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M6 9l6 6 6-6" /></svg>
+                                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M7 10C7 10 9.5 14 12 14C14.5 14 17 10 17 10" /></svg>
                                         </button>
                                     </div>
                                 </div>
@@ -1225,17 +1226,17 @@ export default function About({ aboutContent, servicesData }: any) {
                         <Link href="/work" className="flex items-center gap-2 px-6 py-3 bg-white text-[#6210FF] rounded-full shadow-md border border-[#6210FF]/20 cursor-pointer">
                             <span className="text-sm font-bold uppercase tracking-wide">SEE ALL WORK</span>
                             <svg
-                                width="20"
-                                height="20"
+                                width="24"
+                                height="24"
                                 viewBox="0 0 24 24"
                                 fill="none"
                                 xmlns="http://www.w3.org/2000/svg"
-                                className="transform rotate-90"
+                                className="transform rotate-0"
                             >
                                 <path
-                                    d="M13.5 4.5L21 12M21 12L13.5 19.5M21 12H3"
+                                    d="M7 10C7 10 9.5 14 12 14C14.5 14 17 10 17 10"
                                     stroke="currentColor"
-                                    strokeWidth="2"
+                                    strokeWidth="2.5"
                                     strokeLinecap="round"
                                     strokeLinejoin="round"
                                 />
@@ -1255,12 +1256,12 @@ export default function About({ aboutContent, servicesData }: any) {
                         viewBox="0 0 24 24"
                         fill="none"
                         xmlns="http://www.w3.org/2000/svg"
-                        className="transform group-hover:translate-x-1 transition-transform duration-300"
+                        className="transform group-hover:scale-110 transition-transform duration-300"
                     >
                         <path
-                            d="M13.5 4.5L21 12M21 12L13.5 19.5M21 12H3"
+                            d="M7 10C7 10 9.5 14 12 14C14.5 14 17 10 17 10"
                             stroke="currentColor"
-                            strokeWidth="2"
+                            strokeWidth="2.5"
                             strokeLinecap="round"
                             strokeLinejoin="round"
                         />
@@ -1342,7 +1343,9 @@ export default function About({ aboutContent, servicesData }: any) {
                             <div className="mt-auto pt-4 md:pt-6 w-full flex md:justify-end justify-start opacity-0">
                                 <button className="flex items-center gap-2 px-4 py-2 xl:px-6 xl:py-3 bg-white text-gray-900 border-2 border-[#6210FF] rounded-full hover:bg-gray-50 transition-all duration-200">
                                     <span className="text-xs md:text-sm xl:text-lg font-medium">EXPLORE MORE</span>
-                                    <Image src="/curve.png" alt="Arrow icon" className="w-4 h-4 xl:w-8 xl:h-8 object-contain" width={30} height={40} />
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-5 h-5 xl:w-9 xl:h-9">
+                                        <path d="M7 10C7 10 9.5 14 12 14C14.5 14 17 10 17 10" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+                                    </svg>
                                 </button>
                             </div>
                         </div>

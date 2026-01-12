@@ -114,6 +114,18 @@ export default async function WorkPage() {
                         className="object-cover"
                         unoptimized
                     />
+                    {/* Blue Overlay */}
+                    <div className="absolute inset-0 bg-[#6210FF]/40 mix-blend-multiply" />
+                </div>
+
+                {/* Banner Content */}
+                <div className="relative z-10 w-full h-full flex flex-col items-center justify-center text-center px-4">
+                    <h1 className="text-4xl md:text-6xl font-bold text-white mb-4 drop-shadow-lg">
+                        {workPageData.mainTitle}
+                    </h1>
+                    <p className="text-white/90 text-sm md:text-lg max-w-2xl drop-shadow-md">
+                        {workPageData.description}
+                    </p>
                 </div>
             </section>
 

@@ -81,12 +81,7 @@ export default function WorkPortfolio({ workPageData, portfolioItems, defaultFil
                 ))}
             </section>
 
-            {/* Description Text */}
-            <section className="pb-16 px-4 text-center max-w-4xl mx-auto">
-                <p className="text-[#6210FF] text-[10px] md:text-xs leading-relaxed tracking-widest opacity-70 uppercase font-medium whitespace-pre-line">
-                    {workPageData.description}
-                </p>
-            </section>
+
 
             {/* Portfolio Grid */}
             <section className="px-4 md:px-8 pb-32 max-w-[1200px] mx-auto">
@@ -109,9 +104,12 @@ export default function WorkPortfolio({ workPageData, portfolioItems, defaultFil
                                 className={`flex flex-col items-center ${isFullWidth ? 'md:col-span-2' : 'md:col-span-1'
                                     }`}
                             >
-                                {/* Image Container */}
-                                <div className={`relative w-full overflow-hidden rounded-[20px] md:rounded-[40px] shadow-sm mb-6 group ${isFullWidth ? 'aspect-[2/1] md:aspect-[2.2/1]' : 'aspect-[4/3] md:aspect-[1.5/1]'
-                                    }`}>
+                                {/* Image Container (Clickable) */}
+                                <Link
+                                    href={item._id ? `/work-detail/${item._id}` : "#"}
+                                    className={`relative w-full overflow-hidden rounded-[20px] md:rounded-[40px] shadow-sm mb-6 group block ${isFullWidth ? 'aspect-[2/1] md:aspect-[2.2/1]' : 'aspect-[4/3] md:aspect-[1.5/1]'
+                                        }`}
+                                >
                                     <Image
                                         src={getImageUrl(item.image)}
                                         alt={item.name}
@@ -119,17 +117,7 @@ export default function WorkPortfolio({ workPageData, portfolioItems, defaultFil
                                         className="object-cover transition-transform duration-700 group-hover:scale-105"
                                         unoptimized={true}
                                     />
-
-                                    {/* Hover Overlay with View More Button */}
-                                    <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center z-10">
-                                        <Link
-                                            href={item._id ? `/work-detail/${item._id}` : "#"}
-                                            className="px-6 py-3 bg-white text-[#6210FF] rounded-full font-bold text-sm transform translate-y-4 group-hover:translate-y-0 transition-all duration-300 hover:bg-[#6210FF] hover:text-white"
-                                        >
-                                            VIEW MORE
-                                        </Link>
-                                    </div>
-                                </div>
+                                </Link>
 
                                 {/* Text Content - Below Image */}
                                 {/* Text Content - Below Image */}

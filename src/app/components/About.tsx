@@ -10,21 +10,21 @@ import Lenis from "@studio-freight/lenis";
 // Helper function to resolve image URLs
 const getImageUrl = (imagePath: string): string => {
   if (!imagePath) return '';
-  
+
   // If it's already a full URL from backend, use proxy
   if (imagePath.startsWith('https://admin.vvworx.com/')) {
     return `/api/proxy?url=${encodeURIComponent(imagePath)}`;
   }
-  
+
   // If it's already an HTTPS URL, return as is
   if (imagePath.startsWith('https://')) return imagePath;
-  
+
   // If it's an uploaded image (starts with /uploads), serve from backend via proxy
   if (imagePath.startsWith('/uploads/')) {
     const fullUrl = `https://admin.vvworx.com${imagePath}`;
     return `/api/proxy?url=${encodeURIComponent(fullUrl)}`;
   }
-  
+
   // For default images in public folder, serve from frontend
   return imagePath;
 };
@@ -32,21 +32,21 @@ const getImageUrl = (imagePath: string): string => {
 // Helper function to resolve video URLs
 const getVideoUrl = (videoPath: string): string => {
   if (!videoPath) return '';
-  
+
   // If it's already a full URL from backend, use proxy
   if (videoPath.startsWith('https://admin.vvworx.com/')) {
     return `/api/proxy?url=${encodeURIComponent(videoPath)}`;
   }
-  
+
   // If it's already an HTTPS URL, return as is
   if (videoPath.startsWith('https://')) return videoPath;
-  
+
   // If it's an uploaded video (starts with /uploads), serve from backend via proxy
   if (videoPath.startsWith('/uploads/')) {
     const fullUrl = `https://admin.vvworx.com${videoPath}`;
     return `/api/proxy?url=${encodeURIComponent(fullUrl)}`;
   }
-  
+
   // For default videos in public folder, serve from frontend
   return videoPath;
 };
@@ -128,16 +128,16 @@ const mapProgress = (
 export default function About({ aboutContent }: any) {
   // HeroSection refs
   const heroRef = useRef(null);
-  
+
   // Extract content first to determine number of rotating texts and hero images
   const rawHeroSection = aboutContent?.heroSection || {};
   const rotatingTextsArray = rawHeroSection.rotatingTexts || [
     "Full-Service",
-    "AI Infused", 
+    "AI Infused",
     "Mar-Tech",
     "Creative",
   ];
-  
+
   // Handle backwards compatibility for heroImages (object vs array)
   let heroImagesArray: string[] = [];
   if (rawHeroSection.heroImages) {
@@ -148,19 +148,19 @@ export default function About({ aboutContent }: any) {
       heroImagesArray = [
         oldFormat.fullService || "/fullservice.jpeg",
         oldFormat.ai || "/ai.jpeg",
-        oldFormat.tech || "/tech.jpeg", 
+        oldFormat.tech || "/tech.jpeg",
         oldFormat.creative || "/creative.jpeg"
       ];
     }
   } else {
     heroImagesArray = ["/fullservice.jpeg", "/ai.jpeg", "/tech.jpeg", "/creative.jpeg"];
   }
-  
+
   // Create dynamic refs based on number of rotating texts
   const textRefs = useMemo(() => {
     return rotatingTextsArray.map(() => ({ current: null }));
   }, [rotatingTextsArray.length]);
-  
+
   // Create dynamic refs based on number of hero images
   const imageRefs = useMemo(() => {
     return heroImagesArray.map(() => ({ current: null }));
@@ -221,7 +221,7 @@ export default function About({ aboutContent }: any) {
     ],
   };
 
-    console.log('foundationSection :', foundationSection)
+  console.log('foundationSection :', foundationSection)
 
   const videoSection = aboutContent?.videoSection || {
     videoSrc: "/vua-intro.mp4",
@@ -230,11 +230,11 @@ export default function About({ aboutContent }: any) {
 
   // Get sorted cards and foundations
   const sortedCards = servicesSection.cards
-    .filter((card:any) => card.isActive)
-    .sort((a:any, b:any) => a.order - b.order);
+    .filter((card: any) => card.isActive)
+    .sort((a: any, b: any) => a.order - b.order);
 
   const sortedFoundations = foundationSection.foundations.sort(
-    (a:any, b:any) => a.order - b.order
+    (a: any, b: any) => a.order - b.order
   );
 
   const maskRef = useRef<SVGRectElement>(null);
@@ -311,7 +311,7 @@ export default function About({ aboutContent }: any) {
       });
 
       // Set initial states for all texts except the first one
-      textRefs.forEach((ref:any, index:any) => {
+      textRefs.forEach((ref: any, index: any) => {
         if (index > 0 && ref.current) {
           gsap.set(ref.current, { y: '100%', opacity: 0 });
         }
@@ -319,7 +319,7 @@ export default function About({ aboutContent }: any) {
 
       // Dynamic animation loop - works with any number of rotating texts and images
       const maxAnimations = textRefs.length - 1; // Animate all texts except the first
-      
+
       for (let i = 0; i < maxAnimations; i++) {
         const currentTextRef = textRefs[i];
         const nextTextRef = textRefs[i + 1];
@@ -807,7 +807,7 @@ export default function About({ aboutContent }: any) {
             </h2>
 
             <div className="martech-wrapper w-full relative overflow-hidden h-[72px] xs:h-[84px] sm:h-[102px] md:h-[180px]">
-              {heroSection.rotatingTexts.map((text:any, idx:any) => (
+              {heroSection.rotatingTexts.map((text: any, idx: any) => (
                 <span
                   key={idx}
                   ref={textRefs[idx]}
@@ -914,7 +914,7 @@ export default function About({ aboutContent }: any) {
 
           {/* Content */}
           <h1 className="z-10 relative animate__animated animate__fadeInUp leading-snug text-white text-4xl md:text-8xl font-medium text-center px-4 rounded-lg">
-            {parallaxSection.title.split("\n").map((line:any, index:any) => (
+            {parallaxSection.title.split("\n").map((line: any, index: any) => (
               <span key={index}>
                 {line}
                 {index < parallaxSection.title.split("\n").length - 1 && <br />}
@@ -948,7 +948,7 @@ export default function About({ aboutContent }: any) {
         </div>
 
         {/* Dynamic Service Cards */}
-        {sortedCards.map((card:any, index:any) => (
+        {sortedCards.map((card: any, index: any) => (
           <div
             key={index}
             ref={(el) => {
@@ -982,7 +982,7 @@ export default function About({ aboutContent }: any) {
                   {card.description}
                 </p>
                 <div className="flex flex-wrap gap-2 xl:gap-3 mb-2 xl:mb-6">
-                  {card.tags.map((tag:any, tagIndex:any) => (
+                  {card.tags.map((tag: any, tagIndex: any) => (
                     <span
                       key={tagIndex}
                       className="px-2 py-0 leading-normal xl:leading-relaxed md:px-4 md:py-2 border border-[#6210FF] text-gray-900 rounded-full text-xs xl:text-lg"
@@ -998,13 +998,9 @@ export default function About({ aboutContent }: any) {
                   <span className="text-xs md:text-sm xl:text-lg font-medium">
                     EXPLORE MORE
                   </span>
-                  <Image
-                    src="/curve.png"
-                    alt="Arrow icon"
-                    className="w-4 h-4 xl:w-8 xl:h-8 object-contain"
-                    width={30}
-                    height={40}
-                  />
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-5 h-5 xl:w-9 xl:h-9">
+                    <path d="M7 10C7 10 9.5 14 12 14C14.5 14 17 10 17 10" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
                 </button>
               </div>
             </div>
@@ -1030,7 +1026,7 @@ export default function About({ aboutContent }: any) {
           <RingScene
             modalGroupRef={modalGroupRef}
             modalGroupRe2={modalGroupRe2}
-            foundationSection={foundationSection} 
+            foundationSection={foundationSection}
             torus={torus}
             torus001={torus001}
             torus002={torus002}
@@ -1053,7 +1049,7 @@ export default function About({ aboutContent }: any) {
             }}
           >
             <div ref={foundationMobileTitle}>
-              {foundationSection.title.split(" ").map((word:any, index:any) => (
+              {foundationSection.title.split(" ").map((word: any, index: any) => (
                 <h2
                   key={index}
                   className="text-[50px] text-white font-[400] m-0 leading-[45px] max-[350px]:text-[40px] lg:text-6xl"
@@ -1071,7 +1067,7 @@ export default function About({ aboutContent }: any) {
              lg:w-1/2  lg:gap-[5.5%] lg:bottom-0 lg:justify-center
             "
         >
-          {sortedFoundations.map((foundation:any, index:any) => (
+          {sortedFoundations.map((foundation: any, index: any) => (
             <div
               key={index}
               style={{

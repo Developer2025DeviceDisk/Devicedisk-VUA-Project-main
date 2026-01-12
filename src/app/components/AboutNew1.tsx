@@ -936,7 +936,7 @@ export default function About({ aboutContent, servicesData }: any) {
                                 ref={introTextRef}
                                 className="absolute inset-0 z-30 flex items-center justify-center text-xl md:text-5xl font-medium text-black pointer-events-none text-center px-4 leading-normal"
                             >
-                                A creative consulting & branding agency <br className="hidden md:block" /> that helps you cut through the noise.
+                                Blending human-led creativity <br className="hidden md:block" /> with AI-powered efficiency.
                             </h1>
                         </>
                     )}
@@ -1011,7 +1011,7 @@ export default function About({ aboutContent, servicesData }: any) {
                             {/* Title */}
                             <h2
                                 ref={aboutHeadingRef}
-                                className="font-semibold text-[32px] md:text-[60px] lg:text-[80px] leading-[1.1] text-white mb-6 md:mb-12 text-center md:text-left"
+                                className="font-semibold text-[26px] md:text-[40px] lg:text-[60px] leading-[1.1] text-white mb-6 md:mb-12 text-center md:text-left"
                             >
                                 {aboutContent?.aboutTitle || "About Us"}
                             </h2>
@@ -1075,7 +1075,7 @@ export default function About({ aboutContent, servicesData }: any) {
                     <div className="w-full md:w-1/2 flex flex-col gap-6 md:gap-12 pl-2 md:pl-0">
                         <h2
                             ref={foundationTitleRef}
-                            className="font-semibold text-[32px] md:text-[60px] lg:text-[80px] leading-[1.1] text-[#6210FF] text-center md:text-left"
+                            className="font-semibold text-[26px] md:text-[40px] lg:text-[60px] leading-[1.1] text-[#6210FF] text-center md:text-left"
                         >
                             {foundationSection.title}
                         </h2>

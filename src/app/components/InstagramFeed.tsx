@@ -118,7 +118,7 @@ export default function InstagramFeed() {
                                 </div>
                                 <div>
                                     <h3 className="font-semibold text-gray-900 text-sm">{post.username}</h3>
-                                    <p className="text-xs text-gray-500">273 followers</p>
+                                    <p className="text-xs text-blue-700">Follow us <span className='font-bold'>+</span> </p>
                                 </div>
                             </div>
                             <div className="text-gray-400">

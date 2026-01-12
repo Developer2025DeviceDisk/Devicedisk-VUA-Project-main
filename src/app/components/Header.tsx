@@ -37,7 +37,9 @@ export default function Header() {
 
         return (
           bgClasses.indexOf("bg-[#EEF0FF]") !== -1 ||
-          bgColor === "rgb(238, 240, 255)" // #EEF0FF in RGB
+          bgColor === "rgb(238, 240, 255)" || // #EEF0FF
+          bgClasses.indexOf("bg-[#F8F9FF]") !== -1 ||
+          bgColor === "rgb(248, 249, 255)"    // #F8F9FF
         );
       });
 
@@ -99,19 +101,19 @@ export default function Header() {
 
   // Navigation links array
   const navLinks = [
-       { title: "Home", href: "/" },
-     { title: "Services", href: "/services" },
+    { title: "Home", href: "/" },
+    { title: "Services", href: "/services" },
     // { title: "Product", href: "/product" },
-     { title: "About Us", href: "/About"  },
+    { title: "About Us", href: "/About" },
     // { title: "Work", href: "/work" },
     // { title: "Culture", href: "/culture" },
-     { title: "Contact Us", href: "/contact" },
-      { title: "Privacy Policy", href: "/privacy-policy" },  
+    { title: "Contact Us", href: "/contact" },
+    { title: "Privacy Policy", href: "/privacy-policy" },
   ];
 
   return (
     <>
-     <Script
+      <Script
         src="https://www.googletagmanager.com/gtag/js?id=G-0LW2ES5PCM"
         strategy="afterInteractive"
       />
@@ -124,14 +126,14 @@ export default function Header() {
         `}
       </Script>
       <header
-      ref={headerRef}
-        className={`fixed top-0 left-0 w-full z-50 mx-auto flex justify-between items-center px-4 sm:px-6 py-3 sm:py-4 ${
-          isOnLightBg
+        ref={headerRef}
+        className={`fixed top-0 left-0 w-full z-50 mx-auto flex justify-between items-center px-4 sm:px-6 py-3 sm:py-4 ${isOnLightBg
             ? "text-[#6210FF] bg-[rgba(114,40,255,0.05)] backdrop-blur-md"
             : "text-white backdrop-blur-md"
-        } transition-all duration-300`}
-             style={{ willChange: 'transform',
-              }}
+          } transition-all duration-300`}
+        style={{
+          willChange: 'transform',
+        }}
       >
         <div className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-wide">
           <Link href="/">
@@ -159,22 +161,18 @@ export default function Header() {
 
         <button
           onClick={toggleMenu}
-          className={`w-9 h-9 sm:w-10 sm:h-10 cursor-pointer rounded-full border ${
-            isOnLightBg ? "border-[#6210FF]" : "border-white"
-          } flex items-center justify-center ${
-            isOnLightBg ? "hover:bg-[#6210FF]/10" : "hover:bg-white/10"
-          } transition-colors duration-200`}
+          className={`w-9 h-9 sm:w-10 sm:h-10 cursor-pointer rounded-full border ${isOnLightBg ? "border-[#6210FF]" : "border-white"
+            } flex items-center justify-center ${isOnLightBg ? "hover:bg-[#6210FF]/10" : "hover:bg-white/10"
+            } transition-colors duration-200`}
         >
           <div className="space-y-1">
             <span
-              className={`block w-5 h-0.5 ${
-                isOnLightBg ? "bg-[#6210FF]" : "bg-white"
-              } transition-all duration-300`}
+              className={`block w-5 h-0.5 ${isOnLightBg ? "bg-[#6210FF]" : "bg-white"
+                } transition-all duration-300`}
             ></span>
             <span
-              className={`block w-5 h-0.5 ${
-                isOnLightBg ? "bg-[#6210FF]" : "bg-white"
-              } transition-all duration-300`}
+              className={`block w-5 h-0.5 ${isOnLightBg ? "bg-[#6210FF]" : "bg-white"
+                } transition-all duration-300`}
             ></span>
           </div>
         </button>
@@ -182,11 +180,10 @@ export default function Header() {
 
       {/* Menu Overlay */}
       <div
-        className={`fixed inset-0 z-[60] transition-all duration-500 ease-in-out ${
-          isMenuOpen
+        className={`fixed inset-0 z-[60] transition-all duration-500 ease-in-out ${isMenuOpen
             ? "opacity-100 backdrop-blur-md"
             : "opacity-0 backdrop-blur-0 pointer-events-none"
-        }`}
+          }`}
         style={{
           background: isMenuOpen
             ? "linear-gradient(135deg, rgba(45, 39, 68, 0.95), rgba(33, 28, 48, 0.95))"
@@ -195,9 +192,8 @@ export default function Header() {
       >
         {/* Menu Content */}
         <div
-          className={`absolute inset-0 flex flex-col transition-transform duration-700 ease-out ${
-            isMenuOpen ? "translate-x-0" : "translate-x-full"
-          }`}
+          className={`absolute inset-0 flex flex-col transition-transform duration-700 ease-out ${isMenuOpen ? "translate-x-0" : "translate-x-full"
+            }`}
         >
           {/* Menu Header */}
           <div className="flex justify-between items-center px-4 sm:px-6 py-3 sm:py-4 pt-8">
@@ -230,11 +226,10 @@ export default function Header() {
                 key={item.title}
                 href={item.href}
                 onClick={closeMenu}
-                className={`text-2xl sm:text-4xl md:text-5xl font-light text-white/90 hover:text-white transition-all duration-300 hover:translate-x-[-10px] ${
-                  isMenuOpen
+                className={`text-2xl sm:text-4xl md:text-5xl font-light text-white/90 hover:text-white transition-all duration-300 hover:translate-x-[-10px] ${isMenuOpen
                     ? "opacity-100 translate-y-0"
                     : "opacity-0 translate-y-8"
-                }`}
+                  }`}
                 style={{
                   transitionDelay: isMenuOpen
                     ? `${index * 100 + 200}ms`
@@ -249,9 +244,8 @@ export default function Header() {
           {/* Bottom Accent */}
           <div className="px-6 pb-8">
             <div
-              className={`w-16 sm:w-24 h-0.5 bg-gradient-to-r from-white/50 to-transparent ml-auto transition-all duration-500 ${
-                isMenuOpen ? "opacity-100 scale-x-100" : "opacity-0 scale-x-0"
-              }`}
+              className={`w-16 sm:w-24 h-0.5 bg-gradient-to-r from-white/50 to-transparent ml-auto transition-all duration-500 ${isMenuOpen ? "opacity-100 scale-x-100" : "opacity-0 scale-x-0"
+                }`}
               style={{ transitionDelay: isMenuOpen ? "800ms" : "0ms" }}
             ></div>
           </div>

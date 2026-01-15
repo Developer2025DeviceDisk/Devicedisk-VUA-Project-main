@@ -128,8 +128,8 @@ export default function Header() {
       <header
         ref={headerRef}
         className={`fixed top-0 left-0 w-full z-50 mx-auto flex justify-between items-center px-4 sm:px-6 py-3 sm:py-4 ${isOnLightBg
-            ? "text-[#6210FF] bg-[rgba(114,40,255,0.05)] backdrop-blur-md"
-            : "text-white backdrop-blur-md"
+          ? "text-[#6210FF] bg-[rgba(114,40,255,0.05)] backdrop-blur-md"
+          : "text-white backdrop-blur-md"
           } transition-all duration-300`}
         style={{
           willChange: 'transform',
@@ -181,8 +181,8 @@ export default function Header() {
       {/* Menu Overlay */}
       <div
         className={`fixed inset-0 z-[60] transition-all duration-500 ease-in-out ${isMenuOpen
-            ? "opacity-100 backdrop-blur-md"
-            : "opacity-0 backdrop-blur-0 pointer-events-none"
+          ? "opacity-100 backdrop-blur-md"
+          : "opacity-0 backdrop-blur-0 pointer-events-none"
           }`}
         style={{
           background: isMenuOpen
@@ -227,8 +227,8 @@ export default function Header() {
                 href={item.href}
                 onClick={closeMenu}
                 className={`text-2xl sm:text-4xl md:text-5xl font-light text-white/90 hover:text-white transition-all duration-300 hover:translate-x-[-10px] ${isMenuOpen
-                    ? "opacity-100 translate-y-0"
-                    : "opacity-0 translate-y-8"
+                  ? "opacity-100 translate-y-0"
+                  : "opacity-0 translate-y-8"
                   }`}
                 style={{
                   transitionDelay: isMenuOpen

@@ -62,15 +62,15 @@ async function fetchAboutContent(): Promise<AboutContent | null> {
       cache: 'no-store' // Disable caching for dynamic content
     });
 
-    
+
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
-    
+
     const result = await response.json();
 
-        console.log('response :', result)
-    
+    console.log('response :', result)
+
     if (result.success) {
       return result.data;
     } else {

@@ -675,7 +675,15 @@ export default function About({ aboutContent, servicesData }: any) {
 
     // Services Section Animation
     useEffect(() => {
-        const servicesCtx = gsap.context(() => {
+        const mm = gsap.matchMedia();
+        const ctx = gsap.context(() => { }, sectionRef); // Context for cleanup
+
+        mm.add({
+            isMobile: "(max-width: 767px)",
+            isDesktop: "(min-width: 768px)"
+        }, (context) => {
+            const { isMobile } = context.conditions as any;
+
             const tl = gsap.timeline({
                 scrollTrigger: {
                     trigger: sectionRef.current,
@@ -683,12 +691,11 @@ export default function About({ aboutContent, servicesData }: any) {
                     end: "500%",
                     pin: true,
                     scrub: 1,
-
+                    invalidateOnRefresh: true, // Important for resize
                 },
             });
 
             // IMPORTANT: force recalculation so hero pin (which comes after services) will work
-            // Calling refresh right after creating the pin ensures ScrollTrigger recalculates offsets
             ScrollTrigger.refresh();
 
             // Title out
@@ -708,7 +715,10 @@ export default function About({ aboutContent, servicesData }: any) {
                 if (cardRef) {
                     tl.to(
                         cardRef,
-                        { top: window.innerWidth < 768 ? "10%" : "20%", duration: 1 },
+                        {
+                            top: isMobile ? "10%" : "20%",
+                            duration: 1
+                        },
                         index === 0 ? "-=.9" : "-=.9"
                     );
                     if (index < cardRefs.current.length - 1) {
@@ -719,7 +729,8 @@ export default function About({ aboutContent, servicesData }: any) {
         }, sectionRef);
 
         return () => {
-            servicesCtx.revert();
+            mm.revert();
+            ctx.revert();
         };
     }, [sortedCards]);
 
@@ -908,7 +919,7 @@ export default function About({ aboutContent, servicesData }: any) {
             {/* Video Section */}
             <section
                 ref={videoSectionRef}
-                className="relative w-full h-auto md:h-screen flex items-center justify-center overflow-hidden p-0 m-0 mt-10 md:mt-0"
+                className="relative w-full h-auto md:h-screen flex items-center justify-center overflow-hidden p-0 m-0"
                 style={{ backgroundColor: videoSection.backgroundColor }}
             >
                 <div className="relative w-full h-full">
@@ -944,7 +955,7 @@ export default function About({ aboutContent, servicesData }: any) {
 
                     <video
                         ref={videoRef}
-                        className="w-full h-auto md:absolute md:inset-0 md:w-full md:h-full md:object-cover md:scale-[0.9]"
+                        className="block w-full h-auto md:absolute md:inset-0 md:w-full md:h-full md:object-cover md:scale-[0.9]"
                         playsInline
                         loop
                         muted
@@ -997,9 +1008,9 @@ export default function About({ aboutContent, servicesData }: any) {
             {/* About & Foundation Scroll Section - Pinned with Two-Column Reveal */}
             <section
                 ref={aboutScrollSectionRef}
-                className="relative w-full min-h-screen flex items-center justify-center overflow-hidden bg-[#EEF0FF] py-4 md:py-8 "
+                className="relative w-full min-h-0 md:min-h-screen flex items-start md:items-center justify-center overflow-hidden bg-[#EEF0FF] py-2 md:py-8 "
             >
-                <div className="relative w-full max-w-[1250px] mx-auto px-4 md:px-8 flex flex-col md:flex-row  md:items-stretch  gap-8 md:gap-16 lg:gap-24">
+                <div className="relative w-full max-w-[1250px] mx-auto px-4 md:px-8 flex flex-col md:flex-row  md:items-stretch  gap-4 md:gap-16 lg:gap-24">
                     {/* Left Column: Dark About Card */}
                     <div className="w-full md:w-1/2 max-w-[700px] lg:max-w-[900px]">
                         <div
@@ -1113,7 +1124,7 @@ export default function About({ aboutContent, servicesData }: any) {
                                         <h3 className="text-[20px] md:text-[40px] font-semibold text-gray-500 mb-1 text-center md:text-left">
                                             {foundation.title}
                                         </h3>
-                                        <p className="text-sm md:text-[18px] text-gray-400 font-light text-center md:text-left">
+                                        <p className="text-sm md:text-[24px] text-gray-400 font-medium text-center md:text-left">
                                             {foundation.description}
                                         </p>
                                     </div>
@@ -1159,7 +1170,7 @@ export default function About({ aboutContent, servicesData }: any) {
                                 alt={item.name}
                                 fill
                                 className="object-cover"
-                                unoptimized={true}
+                                sizes="100vw"
                                 priority={index === 0}
                             />
 
@@ -1207,7 +1218,8 @@ export default function About({ aboutContent, servicesData }: any) {
                                 alt={item.name}
                                 fill
                                 className="object-cover"
-                                unoptimized={true}
+                                sizes="(max-width: 768px) 100vw, 50vw"
+                                priority={index === 0}
                             />
                             {/* Gradient Overlay */}
                             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
@@ -1300,7 +1312,6 @@ export default function About({ aboutContent, servicesData }: any) {
                             alt="Decorative background"
                             width={1300}
                             height={600}
-                            unoptimized={true}
                         />
                     </div>
 
@@ -1391,7 +1402,7 @@ export default function About({ aboutContent, servicesData }: any) {
                     <div className="absolute right-0 top-0 bottom-0 w-32 md:w-48 bg-gradient-to-l from-[#E8E8ED] to-transparent z-10 pointer-events-none" />
 
                     {/* Marquee Track */}
-                    <div className="flex animate-marquee hover:pause-marquee">
+                    <div className="flex w-max animate-marquee hover:pause-marquee">
                         {/* First Set of Logos */}
                         <div className="flex gap-8 md:gap-12 pr-8 md:pr-12 flex-shrink-0">
                             {(clientContent.clients.length > 0 ? clientContent.clients : [1, 2, 3, 4, 5, 6, 7, 8].map(i => ({ name: `Client Logo ${i}`, logo: "", order: i }))).sort((a: any, b: any) => a.order - b.order).map((client: any, index: number) => (
@@ -1406,7 +1417,7 @@ export default function About({ aboutContent, servicesData }: any) {
                                                 alt={client.name}
                                                 fill
                                                 className="object-cover"
-                                                unoptimized={true}
+                                                sizes="(max-width: 768px) 50vw, 25vw"
                                             />
                                         </div>
                                     ) : (
@@ -1432,7 +1443,7 @@ export default function About({ aboutContent, servicesData }: any) {
                                                 alt={client.name}
                                                 fill
                                                 className="object-cover"
-                                                unoptimized={true}
+                                                sizes="(max-width: 768px) 50vw, 25vw"
                                             />
                                         </div>
                                     ) : (

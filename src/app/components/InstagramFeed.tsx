@@ -90,20 +90,20 @@ export default function InstagramFeed() {
         <section className="w-full py-20 bg-[#EEF0FF] flex flex-col items-center">
             {/* Header */}
             <div className="text-center mb-12">
-                <h2 className="text-4xl md:text-6xl font-light text-[#6210FF] mb-2 tracking-tight">
+                <h2 className="text-[48px] md:text-[60px] font-light text-[#6210FF] mb-2 tracking-tight"
+                    style={{ fontFamily: "PetrovSans", fontWeight: 300 }}>
                     Latest Updates
                 </h2>
             </div>
 
             {/* Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 px-4 max-w-7xl mx-auto w-full">
+            <div className="flex overflow-x-auto md:grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 px-4 max-w-7xl mx-auto w-full pb-8 md:pb-0 snap-x">
                 {posts.map((post) => (
                     <Link
                         href={post.permalink}
                         target="_blank"
                         key={post.id}
-                        className="bg-white rounded-2xl shadow-xl overflow-hidden flex flex-col transform hover:-translate-y-2 transition-transform duration-300 block"
-                        style={{ minHeight: '400px' }}
+                        className="min-w-[280px] w-[280px] md:w-auto md:min-w-0 h-[500px] md:h-auto md:min-h-[400px] flex-shrink-0 snap-center bg-white rounded-2xl shadow-xl overflow-hidden flex flex-col transform hover:-translate-y-2 transition-transform duration-300 block"
                     >
                         {/* Header */}
                         <div className="p-4 flex items-center justify-between border-b border-gray-100">

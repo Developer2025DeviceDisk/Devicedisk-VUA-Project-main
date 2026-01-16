@@ -74,7 +74,7 @@ export default async function WorkDetailPage({ params }: { params: Promise<{ id:
             </div> */}
 
             {/* Header / Hero Section */}
-            <section className="relative w-full h-[50vh] min-h-[400px] flex items-center justify-center text-center overflow-hidden">
+            <section className="relative w-full h-[40vh] md:h-[50vh] min-h-[300px] md:min-h-[400px] flex items-center justify-center text-center overflow-hidden">
                 {/* Background Image */}
                 <div className="absolute inset-0 z-0">
                     <Image
@@ -89,8 +89,8 @@ export default async function WorkDetailPage({ params }: { params: Promise<{ id:
                 </div>
 
                 <div className="relative z-10 px-6 max-w-7xl mx-auto flex flex-col md:items-center">
-                    <span className="text-sm md:text-base tracking-[0.2em] text-gray-200 mb-4 uppercase">Case Study</span>
-                    <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white tracking-tight leading-tight mb-8 max-w-4xl mx-auto">
+                    {/* <span className="text-sm md:text-base tracking-[0.2em] text-gray-200 mb-4 uppercase">Case Study</span> */}
+                    <h1 className="text-3xl md:text-6xl lg:text-7xl font-bold text-white tracking-tight leading-tight mb-8 max-w-4xl mx-auto">
                         {item.detailTitle || item.name}
                     </h1>
 
@@ -108,10 +108,10 @@ export default async function WorkDetailPage({ params }: { params: Promise<{ id:
             </section>
 
             {/* Content & Context Section */}
-            <section className="max-w-7xl mx-auto px-6 md:px-12 py-12 md:py-24">
-                <div className="flex flex-col md:flex-row gap-12 md:gap-20 items-center">
+            <section className="max-w-7xl mx-auto px-6 md:px-12 py-8 md:py-24">
+                <div className="flex flex-col md:flex-row gap-8 md:gap-20 items-center">
                     {/* Left: Client Logo (Separate White Box) */}
-                    <div className="w-full md:w-5/20 flex-shrink-0">
+                    <div className="w-full md:w-3/12 flex-shrink-0">
                         <div className="bg-white rounded-[40px] p-2 md:p-4 shadow-sm aspect-square flex items-center justify-center">
                             {item.clientLogo ? (
                                 <div className="relative w-full h-full">

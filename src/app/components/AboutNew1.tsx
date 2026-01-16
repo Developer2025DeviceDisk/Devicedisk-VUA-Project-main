@@ -7,6 +7,8 @@ import Lenis from "@studio-freight/lenis";
 import Image from "next/image";
 import Link from "next/link";
 import InstagramFeed from "./InstagramFeed";
+import OurClient from "./OurClient";
+import AboutFoundation from "./AboutFoundation";
 
 // const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
 const API_URL = (process.env.NEXT_PUBLIC_API_URL || 'https://admin.vvworx.com').replace(/\/$/, '');
@@ -32,17 +34,7 @@ interface OurWorkContent {
     };
 }
 
-interface ClientItem {
-    name: string;
-    logo: string;
-    order: number;
-}
 
-interface ClientContent {
-    title: string;
-    description: string;
-    clients: ClientItem[];
-}
 
 // Helper function to resolve image URLs
 const getImageUrl = (imagePath: string): string => {
@@ -218,22 +210,7 @@ export default function About({ aboutContent, servicesData }: any) {
     const videoRef = useRef<HTMLVideoElement>(null);
     const [isVideoMuted, setIsVideoMuted] = useState(true);
 
-    // About scroll section refs
-    const aboutScrollSectionRef = useRef<HTMLDivElement>(null);
-    const aboutLine1Ref = useRef<HTMLParagraphElement>(null);
-    const aboutLine2Ref = useRef<HTMLParagraphElement>(null);
-    const aboutLine3Ref = useRef<HTMLParagraphElement>(null);
-    const aboutLine4Ref = useRef<HTMLParagraphElement>(null);
-    const aboutLine5Ref = useRef<HTMLParagraphElement>(null);
-    const aboutButtonRef = useRef<HTMLAnchorElement>(null);
-    const aboutHeadingRef = useRef<HTMLHeadingElement>(null);
 
-    // Foundation scroll section refs
-    const foundationTitleRef = useRef<HTMLHeadingElement>(null);
-    const foundationItem1Ref = useRef<HTMLDivElement>(null);
-    const foundationItem2Ref = useRef<HTMLDivElement>(null);
-    const foundationItem3Ref = useRef<HTMLDivElement>(null);
-    const foundationItem4Ref = useRef<HTMLDivElement>(null);
 
     // Our Work horizontal scroll section refs
     const ourWorkSectionRef = useRef<HTMLDivElement>(null);
@@ -373,28 +350,7 @@ export default function About({ aboutContent, servicesData }: any) {
 
     }, []);
 
-    // Client Content State
-    const [clientContent, setClientContent] = useState<ClientContent>({
-        title: "Our Client",
-        description: "At VVWorx, we've had the opportunity to collaborate with brands across real estate, technology, and consumer verticals. Here are some of the amazing clients who trust our work.",
-        clients: []
-    });
 
-    // Fetch Client content from API
-    useEffect(() => {
-        const fetchClientContent = async () => {
-            try {
-                const response = await fetch(`${API_URL}/api/client-content/active`);
-                const result = await response.json();
-                if (result.success && result.data) {
-                    setClientContent(result.data);
-                }
-            } catch (error) {
-                console.error('Error fetching Client content:', error);
-            }
-        };
-        fetchClientContent();
-    }, []);
 
 
 
@@ -793,90 +749,7 @@ export default function About({ aboutContent, servicesData }: any) {
         }
     };
 
-    // About Scroll Section Animation
-    useEffect(() => {
-        const mm = gsap.matchMedia();
 
-        // Use matchMedia to ensure correct context handling across breakpoints and orientation changes
-        mm.add("(min-width: 0px)", () => {
-            const lineRefs = [
-                aboutLine1Ref,
-                aboutLine2Ref,
-                aboutLine3Ref,
-                aboutLine4Ref,
-                aboutLine5Ref,
-            ];
-
-            // Foundation refs
-            const foundationRefs = [
-                foundationTitleRef,
-                foundationItem1Ref,
-                foundationItem2Ref,
-                foundationItem3Ref,
-                foundationItem4Ref,
-            ];
-
-            // Set initial states - all lines hidden below
-            lineRefs.forEach((ref) => {
-                if (ref.current) {
-                    gsap.set(ref.current, { y: 100, opacity: 0 });
-                }
-            });
-
-            if (aboutHeadingRef.current) {
-                gsap.set(aboutHeadingRef.current, { y: 100, opacity: 0 });
-            }
-
-            if (aboutButtonRef.current) {
-                gsap.set(aboutButtonRef.current, { y: 100, opacity: 0 });
-            }
-
-            // Set initial states for foundation
-            foundationRefs.forEach((ref) => {
-                if (ref.current) {
-                    gsap.set(ref.current, { y: 50, opacity: 0 });
-                }
-            });
-
-            // Create scroll-triggered timeline
-            const tl = gsap.timeline({
-                scrollTrigger: {
-                    trigger: aboutScrollSectionRef.current,
-                    start: "top 75%",
-                    toggleActions: "play none none reverse",
-                },
-            });
-
-            // 1. Animate Heading First
-            if (aboutHeadingRef.current) {
-                tl.to(aboutHeadingRef.current, {
-                    y: 0,
-                    opacity: 1,
-                    duration: 0.8,
-                    ease: "power2.out",
-                });
-            }
-
-            // 2. Animate Everything Else Together (Lines, Button, Foundation Items)
-            const contentElements = [
-                ...lineRefs.map(r => r.current),
-                aboutButtonRef.current,
-                ...foundationRefs.map(r => r.current)
-            ].filter(Boolean); // Filter out nulls
-
-            tl.to(contentElements, {
-                y: 0,
-                opacity: 1,
-                duration: 0.8,
-                ease: "power2.out",
-                stagger: 0 // Simultaneous as requested
-            }, "-=0.2"); // Start slightly before heading finishes for smoothness, or remove "-=0.2" for strict sequence
-        });
-
-        return () => {
-            mm.revert();
-        };
-    }, []);
 
     // Our Work Horizontal Scroll Animation
     useEffect(() => {
@@ -1004,145 +877,19 @@ export default function About({ aboutContent, servicesData }: any) {
                 </div>
             </section>
 
-            {/* About & Foundation Scroll Section - Pinned with Two-Column Reveal */}
-            {/* About & Foundation Scroll Section - Pinned with Two-Column Reveal */}
-            <section
-                ref={aboutScrollSectionRef}
-                className="relative w-full min-h-0 md:min-h-screen flex items-start md:items-center justify-center overflow-hidden bg-[#EEF0FF] py-2 md:py-8 "
-            >
-                <div className="relative w-full max-w-[1250px] mx-auto px-4 md:px-8 flex flex-col md:flex-row  md:items-stretch  gap-4 md:gap-16 lg:gap-24">
-                    {/* Left Column: Dark About Card */}
-                    <div className="w-full md:w-1/2 max-w-[700px] lg:max-w-[900px]">
-                        <div
-                            className="relative rounded-[20px] md:rounded-[30px] p-6 md:p-10 lg:p-12 shadow-2xl w-full h-full flex flex-col justify-start overflow-hidden"
-                            style={{
-                                boxShadow: "0 30px 60px -15px rgba(98, 16, 255, 0.4)",
-                            }}
-                        >
-                            {/* Background Image */}
-                            <div
-                                className="absolute inset-0 z-0"
-                                style={{
-                                    backgroundImage: "url('/about-card-bg.png')",
-                                    backgroundSize: "cover",
-                                    backgroundPosition: "center",
-                                }}
-                            />
+            {/* About & Foundation Scroll Section */}
+            <AboutFoundation aboutContent={aboutContent} foundationSection={foundationSection} />
 
-                            {/* Content Wrapper - relative to sit above background */}
-                            <div className="absolute inset-0 z-[5] bg-black/70" />
-                            <div className="relative z-10 flex flex-col h-full">
-                                {/* Title */}
-                                <h2
-                                    ref={aboutHeadingRef}
-                                    className="font-light text-[26px] md:text-[40px] lg:text-[52px] leading-[1.1] text-white mb-6 md:mb-12 text-center md:text-center"
-                                >
-                                    {aboutContent?.aboutTitle || "About Us"}
-                                </h2>
-
-                                {/* Text Lines Container */}
-                                <div className="space-y-2 md:space-y-2 mb-4 md:mb-8 text-center md:text-left">
-                                    {(aboutContent?.aboutTextLines || [
-                                        "Lorem Ipsum Dolor Sit Amet, Consectetuer Adipiscing Elit, Sed",
-                                        "Diam Nonummy Nibh Euismod Tincidunt Ut Laoreet Dolore Magna",
-                                        "Aliquam Erat Volutpat. Ut Wisi Enim Ad Minim Veniam, Quis Nostrud",
-                                        "Exerci Tation Ullamcorper Suscipit Lobortis Nisl Ut Aliquip Ex Ea",
-                                        "Commodo Consequat."
-                                    ]).slice(0, 5).map((line: string, index: number) => {
-                                        const refs = [aboutLine1Ref, aboutLine2Ref, aboutLine3Ref, aboutLine4Ref, aboutLine5Ref];
-                                        return (
-                                            <p
-                                                key={index}
-                                                ref={refs[index]}
-                                                className="text-[20px] md:text-[33px] leading-[20px] md:leading-[50px] text-gray-300 font-light"
-                                                style={{ fontFamily: "PetrovSans", fontWeight: 300 }}
-                                            >
-                                                {line}
-                                            </p>
-                                        );
-                                    })}
-
-                                </div>
-
-                                {/* Know More Button */}
-                                <div className="flex justify-center md:justify-center mt-auto">
-                                    <Link
-                                        href="/About"
-                                        ref={aboutButtonRef}
-                                        className="flex items-center gap-2 px-6 py-3 md:px-8 md:py-4 bg-transparent text-white border-2 border-white rounded-full hover:bg-white hover:text-black transition-all duration-300"
-                                    >
-                                        <span className="text-xs md:text-base font-medium tracking-wider">
-                                            KNOW MORE
-                                        </span>
-                                        {/* Smiley Icon */}
-                                        <svg
-                                            width="24"
-                                            height="24"
-                                            viewBox="0 0 24 24"
-                                            fill="none"
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            className="w-5 h-5 md:w-6 md:h-6"
-                                        >
-                                            <path
-                                                d="M7 10C7 10 9.5 14 12 14C14.5 14 17 10 17 10"
-                                                stroke="currentColor"
-                                                strokeWidth="2.5"
-                                                strokeLinecap="round"
-                                                strokeLinejoin="round"
-                                            />
-                                        </svg>
-                                    </Link>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    {/* Right Column: Our Foundation */}
-                    <div className="w-full md:w-1/2 flex flex-col gap-6 md:gap-12 pl-2 md:pl-0">
-                        <h2
-                            ref={foundationTitleRef}
-                            className="font-light text-[26px] md:text-[40px] lg:text-[60px] leading-[1.1] text-[#6210FF] text-center md:text-left"
-                        >
-                            {foundationSection.title}
-                        </h2>
-
-                        <div className="flex flex-col gap-6 md:gap-10">
-                            {foundationSection.foundations.slice(0, 4).map((foundation: any, index: number) => {
-                                const refs = [
-                                    foundationItem1Ref,
-                                    foundationItem2Ref,
-                                    foundationItem3Ref,
-                                    foundationItem4Ref
-                                ];
-                                return (
-                                    <div
-                                        key={index}
-                                        ref={refs[index]}
-                                        className="foundation-item"
-                                    >
-                                        <h3 className="text-[20px] md:text-[40px] font-semibold text-gray-500 mb-1 text-center md:text-left">
-                                            {foundation.title}
-                                        </h3>
-                                        <p className="text-sm md:text-[24px] text-gray-400 font-medium text-center md:text-left">
-                                            {foundation.description}
-                                        </p>
-                                    </div>
-                                );
-                            })}
-                        </div>
-                    </div>
-                </div>
-            </section>
 
             {/* Our Work Header */}
             <div className="w-full py-10 md:py-16 bg-[#EEF0FF] flex flex-col items-center justify-center text-center px-4">
                 <div className="relative mb-8">
-                    <h2 className="text-5xl md:text-7xl font-light text-[#6210FF] tracking-tight">
+                    <h2 className="text-[48px] md:text-[60px] font-light text-[#6210FF] tracking-tight"
+                        style={{ fontFamily: "PetrovSans", fontWeight: 300 }}>
                         {ourWorkContent.headerSection.title}
                     </h2>
                 </div>
-                <p className="text-gray-600 max-w-5xl text-lg md:text-xl leading-relaxed font-light">
+                <p className="text-gray-600 max-w-5xl text-[18px] md:text-[22px] leading-relaxed font-light">
                     {ourWorkContent.headerSection.description}
                 </p>
             </div>
@@ -1212,7 +959,11 @@ export default function About({ aboutContent, servicesData }: any) {
                 {/* Vertical Stack Container (Mobile) */}
                 <div className="flex md:hidden flex-col w-full h-auto px-4 py-8 gap-8 bg-[#EEF0FF]">
                     {sortedPortfolioItems.map((item: PortfolioItem, index: number) => (
-                        <div key={`mobile-${index}`} className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden shadow-lg">
+                        <Link
+                            href={item._id ? `/work-detail/${item._id}` : '#'}
+                            key={`mobile-${index}`}
+                            className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden shadow-lg block"
+                        >
                             <Image
                                 src={getImageUrl(item.image)}
                                 alt={item.name}
@@ -1239,14 +990,14 @@ export default function About({ aboutContent, servicesData }: any) {
                                     {/* <h3 className="text-white text-3xl font-bold text-center drop-shadow-lg">{item.name}</h3> */}
 
                                     <div className="flex justify-center items-center w-full mt-4">
-                                        <button className="flex items-center gap-1 text-white text-xs opacity-90 border border-white/30 px-3 py-1.5 rounded-full backdrop-blur-sm">
+                                        <div className="flex items-center gap-1 text-white text-xs opacity-90 border border-white/30 px-3 py-1.5 rounded-full backdrop-blur-sm">
                                             Learn more
                                             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M7 10C7 10 9.5 14 12 14C14.5 14 17 10 17 10" /></svg>
-                                        </button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </Link>
                     ))}
 
                     {/* Unique "See All Work" Button for Mobile */}
@@ -1305,7 +1056,7 @@ export default function About({ aboutContent, servicesData }: any) {
             >
                 <div className="relative" ref={titleRef}>
                     {/* Background Image */}
-                    <div className="absolute -top-44 -left-56 -right-56 flex items-center justify-center">
+                    {/* <div className="absolute -top-44 -left-56 -right-56 flex items-center justify-center">
                         <Image
                             src={getImageUrl(servicesSection.backgroundImage)}
                             className="max-w-full h-auto"
@@ -1313,10 +1064,11 @@ export default function About({ aboutContent, servicesData }: any) {
                             width={1300}
                             height={600}
                         />
-                    </div>
+                    </div> */}
 
                     {/* Text Content */}
-                    <h1 className="text-4xl md:text-9xl pt-[20px] md:pt-[40px] text-center font-[300] text-white animate__animated animate__fadeInUp relative z-10 px-4">
+                    <h1 className="text-[48px] md:text-[80px] pt-[20px] md:pt-[40px] text-center font-[300] text-white animate__animated animate__fadeInUp relative z-10 px-4"
+                        style={{ fontFamily: "PetrovSans", fontWeight: 300 }}>
                         {servicesSection.title}
                     </h1>
                 </div>
@@ -1384,79 +1136,7 @@ export default function About({ aboutContent, servicesData }: any) {
 
 
             {/* Our Client Section */}
-            <section className="w-full py-20 md:py-32 bg-[#EEF0FF] overflow-hidden">
-                {/* Title & Description */}
-                <div className="text-center mb-16 px-4">
-                    <h2 className="text-5xl md:text-7xl font-light text-[#6210FF] mb-6 tracking-tight">
-                        {clientContent.title}
-                    </h2>
-                    <p className="text-gray-700 max-w-4xl mx-auto text-base md:text-lg leading-relaxed font-light">
-                        {clientContent.description}
-                    </p>
-                </div>
-
-                {/* Marquee Container */}
-                <div className="relative">
-                    {/* Gradient Fade Edges */}
-                    <div className="absolute left-0 top-0 bottom-0 w-32 md:w-48 bg-gradient-to-r from-[#E8E8ED] to-transparent z-10 pointer-events-none" />
-                    <div className="absolute right-0 top-0 bottom-0 w-32 md:w-48 bg-gradient-to-l from-[#E8E8ED] to-transparent z-10 pointer-events-none" />
-
-                    {/* Marquee Track */}
-                    <div className="flex w-max animate-marquee hover:pause-marquee">
-                        {/* First Set of Logos */}
-                        <div className="flex gap-8 md:gap-12 pr-8 md:pr-12 flex-shrink-0">
-                            {(clientContent.clients.length > 0 ? clientContent.clients : [1, 2, 3, 4, 5, 6, 7, 8].map(i => ({ name: `Client Logo ${i}`, logo: "", order: i }))).sort((a: any, b: any) => a.order - b.order).map((client: any, index: number) => (
-                                <div
-                                    key={`client-${index}`}
-                                    className="flex-shrink-0 bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300 flex items-center justify-center min-w-[280px] md:min-w-[350px] h-[140px] md:h-[180px] overflow-hidden"
-                                >
-                                    {client.logo ? (
-                                        <div className="relative w-full h-full">
-                                            <Image
-                                                src={getImageUrl(client.logo)}
-                                                alt={client.name}
-                                                fill
-                                                className="object-cover"
-                                                sizes="(max-width: 768px) 50vw, 25vw"
-                                            />
-                                        </div>
-                                    ) : (
-                                        <div className="text-gray-400 text-2xl md:text-3xl font-semibold p-8 md:p-12">
-                                            {client.name}
-                                        </div>
-                                    )}
-                                </div>
-                            ))}
-                        </div>
-
-                        {/* Duplicate Set for Seamless Loop */}
-                        <div className="flex gap-8 md:gap-12 pr-8 md:pr-12 flex-shrink-0">
-                            {(clientContent.clients.length > 0 ? clientContent.clients : [1, 2, 3, 4, 5, 6, 7, 8].map(i => ({ name: `Client Logo ${i}`, logo: "", order: i }))).sort((a: any, b: any) => a.order - b.order).map((client: any, index: number) => (
-                                <div
-                                    key={`client-duplicate-${index}`}
-                                    className="flex-shrink-0 bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300 flex items-center justify-center min-w-[280px] md:min-w-[350px] h-[140px] md:h-[180px] overflow-hidden"
-                                >
-                                    {client.logo ? (
-                                        <div className="relative w-full h-full">
-                                            <Image
-                                                src={getImageUrl(client.logo)}
-                                                alt={client.name}
-                                                fill
-                                                className="object-cover"
-                                                sizes="(max-width: 768px) 50vw, 25vw"
-                                            />
-                                        </div>
-                                    ) : (
-                                        <div className="text-gray-400 text-2xl md:text-3xl font-semibold p-8 md:p-12">
-                                            {client.name}
-                                        </div>
-                                    )}
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-                </div>
-            </section>
+            <OurClient />
 
             {/* Instagram Feed Section */}
             <InstagramFeed />

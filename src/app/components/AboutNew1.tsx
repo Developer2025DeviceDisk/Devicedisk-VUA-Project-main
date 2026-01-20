@@ -1067,7 +1067,7 @@ export default function About({ aboutContent, servicesData }: any) {
                     </div> */}
 
                     {/* Text Content */}
-                    <h1 className="text-[48px] md:text-[80px] pt-[20px] md:pt-[40px] text-center font-[300] text-white animate__animated animate__fadeInUp relative z-10 px-4"
+                    <h1 className="text-[48px] md:text-[80px] pt-[100px] md:pt-[80px] text-center font-[300] text-white animate__animated animate__fadeInUp relative z-10 px-4"
                         style={{ fontFamily: "PetrovSans", fontWeight: 300 }}>
                         {servicesSection.title}
                     </h1>

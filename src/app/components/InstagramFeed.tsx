@@ -87,7 +87,7 @@ export default function InstagramFeed() {
     if (loading) return null;
 
     return (
-        <section className="w-full py-20 bg-[#EEF0FF] flex flex-col items-center">
+        <section className="w-full py-10 bg-[#EEF0FF] flex flex-col items-center">
             {/* Header */}
             <div className="text-center mb-12">
                 <h2 className="text-[48px] md:text-[60px] font-light text-[#6210FF] mb-2 tracking-tight"
@@ -152,14 +152,14 @@ export default function InstagramFeed() {
                                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent pointer-events-none"></div>
 
                                 {/* Logo Overlay on Image */}
-                                <div className="absolute top-4 left-4 w-10 h-10 relative rounded-lg overflow-hidden shadow-lg">
+                                {/* <div className="absolute top-4 left-4 w-10 h-10 relative rounded-lg overflow-hidden shadow-lg">
                                     <Image
                                         src="/instagram-brand-logo.jpg"
                                         alt="Logo"
                                         fill
                                         className="object-cover"
                                     />
-                                </div>
+                                </div> */}
                             </div>
                         </div>
 

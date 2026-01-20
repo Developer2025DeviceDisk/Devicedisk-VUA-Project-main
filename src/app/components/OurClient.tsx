@@ -52,7 +52,7 @@ export default function OurClient() {
     }, []);
 
     return (
-        <section className="w-full py-20 md:py-32 bg-[#EEF0FF] overflow-hidden">
+        <section className="w-full py-20 md:py-12 bg-[#EEF0FF] overflow-hidden">
             {/* Title & Description */}
             <div className="text-center mb-16 px-4">
                 <h2 className="text-[48px] md:text-[60px] font-light text-[#6210FF] mb-6 tracking-tight"

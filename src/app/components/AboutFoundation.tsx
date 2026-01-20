@@ -124,9 +124,9 @@ export default function AboutFoundation({ aboutContent, foundationSection }: Abo
                 <div className="w-full md:w-1/2 max-w-[700px] lg:max-w-[900px] h-[500px] md:h-[655px]">
                     <div
                         className="relative rounded-[20px] md:rounded-[30px] p-6 md:p-10 lg:p-12 shadow-2xl w-full h-full flex flex-col justify-start overflow-hidden"
-                        style={{
-                            boxShadow: "0 30px 60px -15px rgba(98, 16, 255, 0.4)",
-                        }}
+                    // style={{
+                    //     boxShadow: "0 30px 60px -15px rgba(98, 16, 255, 0.4)",
+                    // }}
                     >
                         {/* Background Image */}
                         <div
@@ -231,13 +231,13 @@ export default function AboutFoundation({ aboutContent, foundationSection }: Abo
                                     ref={refs[index]}
                                     className="foundation-item"
                                 >
-                                    <h3 className="text-[25px] md:text-[40px] font-bold text-[#727272] mb-1 text-center md:text-left"
-                                        style={{ fontFamily: "PetrovSans", fontWeight: 700 }}
+                                    <h3 className="text-[25px] md:text-[40px] font-semibold text-[#727272] mb-1 text-center md:text-left"
+                                        style={{ fontFamily: "PetrovSans", fontWeight: 600 }}
                                     >
                                         {foundation.title}
                                     </h3>
-                                    <p className="text-[17.55] md:text-[24px] text-[#727272] font-medium text-center md:text-left"
-                                        style={{ fontFamily: "PetrovSans", fontWeight: 600 }}>
+                                    <p className="text-[17.55] md:text-[24px] text-[#727272] font-normal text-center md:text-left"
+                                        style={{ fontFamily: "PetrovSans", fontWeight: 400 }}>
                                         {foundation.description}
                                     </p>
                                 </div>

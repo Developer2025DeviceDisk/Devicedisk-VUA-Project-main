@@ -34,6 +34,7 @@ interface PortfolioItem {
     year: string;
     image: string;
     order: number;
+    description?: string;
     _id?: string;
 }
 
@@ -132,8 +133,8 @@ export default function WorkPortfolio({ workPageData, portfolioItems, defaultFil
                                         className="text-[#6210FF] font-light text-[18.77px] leading-[1.2] tracking-[0.08em] text-center max-w-md mx-auto opacity-70"
                                         style={{ fontFamily: "'Outfit', sans-serif" }}
                                     >
-                                        {/* Simulating description using category/year available data */}
-                                        Is a New-Age {item.category} Firm That Specializes in Sales & Marketing
+                                        {/* Display description if available, otherwise fallback or empty */}
+                                        {item.description || `Is a New-Age ${item.category} Firm That Specializes in Sales & Marketing`}
                                     </p>
                                 </div>
                             </div>

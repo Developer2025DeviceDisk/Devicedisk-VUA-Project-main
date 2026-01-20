@@ -37,6 +37,7 @@ interface PortfolioItem {
     year: string;
     image: string;
     order: number;
+    description?: string;
     _id?: string;
 }
 

@@ -117,13 +117,13 @@ export default function AboutFoundation({ aboutContent, foundationSection }: Abo
     return (
         <section
             ref={aboutScrollSectionRef}
-            className="relative w-full min-h-0 md:min-h-screen flex items-start md:items-center justify-center overflow-hidden bg-[#EEF0FF] py-2 md:py-8"
+            className="relative w-full min-h-0 lg:min-h-screen flex items-start lg:items-center justify-center overflow-hidden bg-[#EEF0FF] py-2 lg:py-8"
         >
-            <div className="relative w-full max-w-[1250px] mx-auto px-4 md:px-8 flex flex-col md:flex-row md:items-stretch gap-4 md:gap-16 lg:gap-24">
+            <div className="relative w-full max-w-[1250px] mx-auto px-4 lg:px-8 flex flex-col lg:flex-row lg:items-stretch gap-4 lg:gap-16 xl:gap-24">
                 {/* Left Column: Dark About Card */}
-                <div className="w-full md:w-1/2 max-w-[700px] lg:max-w-[900px] h-[500px] md:h-[655px]">
+                <div className="w-full lg:w-1/2 max-w-[700px] xl:max-w-[900px] h-[500px] lg:h-[675px]">
                     <div
-                        className="relative rounded-[20px] md:rounded-[30px] p-6 md:p-10 lg:p-12 shadow-2xl w-full h-full flex flex-col justify-start overflow-hidden"
+                        className="relative rounded-[20px] lg:rounded-[30px] p-6 lg:p-10 xl:p-12 shadow-2xl w-full h-full flex flex-col justify-start overflow-hidden"
                     // style={{
                     //     boxShadow: "0 30px 60px -15px rgba(98, 16, 255, 0.4)",
                     // }}
@@ -145,13 +145,13 @@ export default function AboutFoundation({ aboutContent, foundationSection }: Abo
                             <h2
                                 ref={aboutHeadingRef}
                                 style={{ fontFamily: "PetrovSans", fontWeight: 300 }}
-                                className="font-light text-[48px] leading-[22.58px] md:text-[80px] md:leading-[111.84px] tracking-[0] capitalize text-center text-white mb-6 md:mb-2"
+                                className="font-light text-[48px] leading-[22.58px] lg:text-[80px] lg:leading-[111.84px] tracking-[0] capitalize text-center text-white mb-6 lg:mb-2"
                             >
                                 {aboutContent?.aboutTitle || "About Us"}
                             </h2>
 
                             {/* Text Lines Container */}
-                            <div className="space-y-20 md:space-y-2 mb-6 mt-6 md:mb-8 text-center md:text-left">
+                            <div className="space-y-20 lg:space-y-2 mb-6 mt-6 lg:mb-8 text-center lg:text-left">
                                 {(aboutContent?.aboutTextLines || [
                                     "Lorem Ipsum Dolor Sit Amet, Consectetuer Adipiscing Elit, Sed",
                                     "Diam Nonummy Nibh Euismod Tincidunt Ut Laoreet Dolore Magna",
@@ -164,7 +164,7 @@ export default function AboutFoundation({ aboutContent, foundationSection }: Abo
                                         <p
                                             key={index}
                                             ref={refs[index]}
-                                            className="text-[19.66px] leading-[35.76px] md:text-[33px] md:leading-[40px] tracking-[0] capitalize text-center text-gray-300 font-light"
+                                            className="text-[19.66px] leading-[35.76px] lg:text-[33px] lg:leading-[40px] tracking-[0] capitalize text-center text-gray-300 font-light"
                                             style={{ fontFamily: "PetrovSans", fontWeight: 300 }}
                                         >
                                             {line}
@@ -179,9 +179,9 @@ export default function AboutFoundation({ aboutContent, foundationSection }: Abo
                                 <Link
                                     href="/About"
                                     ref={aboutButtonRef}
-                                    className="flex items-center gap-2 px-6 py-3 md:px-8 md:py-4 bg-transparent text-white border-2 border-white rounded-full hover:bg-white hover:text-black transition-all duration-300"
+                                    className="flex items-center gap-2 px-6 py-3 lg:px-8 lg:py-4 bg-transparent text-white border-2 border-white rounded-full hover:bg-white hover:text-black transition-all duration-300"
                                 >
-                                    <span className="text-xs md:text-base font-medium tracking-wider">
+                                    <span className="text-xs lg:text-base font-medium tracking-wider">
                                         KNOW MORE
                                     </span>
                                     {/* Smiley Icon */}
@@ -191,7 +191,7 @@ export default function AboutFoundation({ aboutContent, foundationSection }: Abo
                                         viewBox="0 0 24 24"
                                         fill="none"
                                         xmlns="http://www.w3.org/2000/svg"
-                                        className="w-5 h-5 md:w-6 md:h-6"
+                                        className="w-5 h-5 lg:w-6 lg:h-6"
                                     >
                                         <path
                                             d="M7 10C7 10 9.5 14 12 14C14.5 14 17 10 17 10"
@@ -208,16 +208,16 @@ export default function AboutFoundation({ aboutContent, foundationSection }: Abo
                 </div>
 
                 {/* Right Column: Our Foundation */}
-                <div className="w-full md:w-1/2 flex flex-col gap-6 md:gap-12 pl-2 md:pl-0">
+                <div className="w-full lg:w-1/2 flex flex-col gap-6 lg:gap-12 pl-2 lg:pl-0">
                     <h2
                         ref={foundationTitleRef}
                         style={{ fontFamily: "PetrovSans", fontWeight: 300 }}
-                        className=" text-[48px] md:text-[40px] lg:text-[60px] leading-[1.1] text-[#6210FF] text-center md:text-left"
+                        className=" text-[48px] lg:text-[40px] xl:text-[60px] leading-[1.1] text-[#6210FF] text-center lg:text-left"
                     >
                         {foundationSection.title}
                     </h2>
 
-                    <div className="flex flex-col gap-6 md:gap-10">
+                    <div className="flex flex-col gap-6 lg:gap-10">
                         {foundationSection.foundations.slice(0, 4).map((foundation: any, index: number) => {
                             const refs = [
                                 foundationItem1Ref,
@@ -231,12 +231,12 @@ export default function AboutFoundation({ aboutContent, foundationSection }: Abo
                                     ref={refs[index]}
                                     className="foundation-item"
                                 >
-                                    <h3 className="text-[25px] md:text-[40px] font-semibold text-[#727272] mb-1 text-center md:text-left"
+                                    <h3 className="text-[25px] lg:text-[40px] font-semibold text-[#727272] mb-1 text-center lg:text-left"
                                         style={{ fontFamily: "PetrovSans", fontWeight: 600 }}
                                     >
                                         {foundation.title}
                                     </h3>
-                                    <p className="text-[17.55] md:text-[24px] text-[#727272] font-normal text-center md:text-left"
+                                    <p className="text-[17.55] lg:text-[24px] text-[#727272] font-normal text-center lg:text-left"
                                         style={{ fontFamily: "PetrovSans", fontWeight: 400 }}>
                                         {foundation.description}
                                     </p>
@@ -246,6 +246,6 @@ export default function AboutFoundation({ aboutContent, foundationSection }: Abo
                     </div>
                 </div>
             </div>
-        </section>
+        </section >
     );
 }

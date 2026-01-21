@@ -370,77 +370,80 @@ export default function About({ aboutContent, servicesData }: any) {
     useEffect(() => {
         if (!introRef.current) return;
 
-        const blocks = introRef.current.querySelectorAll(".intro-block");
+        const ctx = gsap.context(() => {
+            const blocks = introRef.current!.querySelectorAll(".intro-block");
 
-        // Initial setup
-        gsap.set(blocks, { y: "0%", scaleY: 1, opacity: 1 });
-        if (introTextRef.current) {
-            gsap.set(introTextRef.current, { opacity: 1, color: "black" }); // Ensure text starts black
-        }
-        if (introOverlayRef.current) {
-            gsap.set(introOverlayRef.current, { opacity: 0 }); // Overlay hidden initially
-        }
+            // Initial setup
+            gsap.set(blocks, { y: "0%", scaleY: 1, opacity: 1 });
+            if (introTextRef.current) {
+                gsap.set(introTextRef.current, { opacity: 1, color: "black" }); // Ensure text starts black
+            }
+            if (introOverlayRef.current) {
+                gsap.set(introOverlayRef.current, { opacity: 0 }); // Overlay hidden initially
+            }
 
-        // Wait for some time before starting disappearance animation
-        const tl = gsap.timeline({
-            delay: 4.5, // wait 4.5 seconds before animation starts
-            onStart: () => {
-                // Start video when animation starts (so it plays while revealed)
-                if (videoRef.current) {
-                    videoRef.current.play().catch((e) => console.log("Intro autoplay prevented:", e));
+            // Wait for some time before starting disappearance animation
+            const tl = gsap.timeline({
+                delay: 4.5, // wait 4.5 seconds before animation starts
+                onStart: () => {
+                    // Start video when animation starts (so it plays while revealed)
+                    if (videoRef.current) {
+                        videoRef.current.play().catch((e) => console.log("Intro autoplay prevented:", e));
+                    }
+                },
+                onComplete: () => {
+                    setShowIntro(false);
+                    introCompleteRef.current = true;
+                },
+            });
+
+            const blockStartDelay = 0; // Starts immediately after the initial delay
+
+            // 1. Animate blocks away (revealing video + overlay)
+            blocks.forEach((block, i) => {
+                // Using same stagger/pattern as before for the blocks
+                if (i === 0) {
+                    tl.to(block, { y: "100%", duration: 1.6, ease: "power4.inOut" }, blockStartDelay + i * 0.12);
                 }
-            },
-            onComplete: () => {
-                setShowIntro(false);
-                introCompleteRef.current = true;
-            },
-        });
+                if (i === 1) {
+                    tl.to(block, { scaleY: 0, duration: 1.6, ease: "power4.inOut" }, blockStartDelay + i * 0.12);
+                }
+                if (i === 2) {
+                    tl.to(block, { y: "-100%", duration: 1.6, ease: "power4.inOut" }, blockStartDelay + i * 0.12);
+                }
+                if (i === 3) {
+                    tl.to(block, { scaleY: 0, duration: 1.6, ease: "power4.inOut" }, blockStartDelay + i * 0.12);
+                }
+                if (i === 4) {
+                    tl.to(block, { y: "100%", duration: 1.6, ease: "power4.inOut" }, blockStartDelay + i * 0.12);
+                }
+            });
 
-        const blockStartDelay = 0; // Starts immediately after the initial delay
-
-        // 1. Animate blocks away (revealing video + overlay)
-        blocks.forEach((block, i) => {
-            // Using same stagger/pattern as before for the blocks
-            if (i === 0) {
-                tl.to(block, { y: "100%", duration: 1.6, ease: "power4.inOut" }, blockStartDelay + i * 0.12);
+            // 2. WHILE blocks are clearing:
+            //    a) Fade in Black Overlay (so text is readable on video)
+            //    b) Change Text Color to White
+            if (introOverlayRef.current) {
+                // Start fading in slightly after blocks start moving to mask the transition
+                tl.to(introOverlayRef.current, { opacity: 0.6, duration: 1.0, ease: "power2.inOut" }, blockStartDelay + 0.5);
             }
-            if (i === 1) {
-                tl.to(block, { scaleY: 0, duration: 1.6, ease: "power4.inOut" }, blockStartDelay + i * 0.12);
+
+            if (introTextRef.current) {
+                // Change text to white around the same time overlay appears
+                tl.to(introTextRef.current, { color: "white", duration: 1.0, ease: "power2.inOut" }, blockStartDelay + 0.5);
             }
-            if (i === 2) {
-                tl.to(block, { y: "-100%", duration: 1.6, ease: "power4.inOut" }, blockStartDelay + i * 0.12);
-            }
-            if (i === 3) {
-                tl.to(block, { scaleY: 0, duration: 1.6, ease: "power4.inOut" }, blockStartDelay + i * 0.12);
-            }
-            if (i === 4) {
-                tl.to(block, { y: "100%", duration: 1.6, ease: "power4.inOut" }, blockStartDelay + i * 0.12);
-            }
-        });
 
-        // 2. WHILE blocks are clearing:
-        //    a) Fade in Black Overlay (so text is readable on video)
-        //    b) Change Text Color to White
-        if (introOverlayRef.current) {
-            // Start fading in slightly after blocks start moving to mask the transition
-            tl.to(introOverlayRef.current, { opacity: 0.6, duration: 1.0, ease: "power2.inOut" }, blockStartDelay + 0.5);
-        }
+            // 3. HOLD phase - Text stays visible on Video + Overlay
+            tl.to({}, { duration: 0.5 }); // Wait for 2 seconds
 
-        if (introTextRef.current) {
-            // Change text to white around the same time overlay appears
-            tl.to(introTextRef.current, { color: "white", duration: 1.0, ease: "power2.inOut" }, blockStartDelay + 0.5);
-        }
+            // 4. Fade everything out (Intro Container = Grid + Overlay, and Text)
+            // We can fade the wrapper and the text together
+            tl.to(
+                [introRef.current, introTextRef.current], // Fade out grid/overlay wrapper AND text
+                { opacity: 0, duration: 1.0, ease: "power2.inOut" }
+            );
+        }, introRef);
 
-        // 3. HOLD phase - Text stays visible on Video + Overlay
-        tl.to({}, { duration: 0.5 }); // Wait for 2 seconds
-
-        // 4. Fade everything out (Intro Container = Grid + Overlay, and Text)
-        // We can fade the wrapper and the text together
-        tl.to(
-            [introRef.current, introTextRef.current], // Fade out grid/overlay wrapper AND text
-            { opacity: 0, duration: 1.0, ease: "power2.inOut" }
-        );
-
+        return () => ctx.revert();
     }, []);
 
 
@@ -461,10 +464,12 @@ export default function About({ aboutContent, servicesData }: any) {
         let lenis: any = null;
         lenis = new Lenis();
         lenis.on("scroll", ScrollTrigger.update);
-        gsap.ticker.add((time) => lenis.raf(time * 1000));
+        const raf = (time: any) => lenis.raf(time * 1000);
+        gsap.ticker.add(raf);
         gsap.ticker.lagSmoothing(0);
 
         return () => {
+            gsap.ticker.remove(raf);
             if (lenis) {
                 lenis.destroy();
             }
@@ -473,7 +478,7 @@ export default function About({ aboutContent, servicesData }: any) {
 
     // Hero Section Animation
     useEffect(() => {
-        const isMobile = window.innerWidth < 768;
+        const isMobile = window.innerWidth < 1024;
 
         const heroCtx = gsap.context(() => {
             const heroTl = gsap.timeline({
@@ -613,7 +618,7 @@ export default function About({ aboutContent, servicesData }: any) {
     useEffect(() => {
         const parallaxCtx = gsap.context(() => {
             gsap.to(imageRef.current, {
-                y: () => (window.innerWidth < 768 ? -80 : -150),
+                y: () => (window.innerWidth < 1024 ? -80 : -150),
                 ease: "none",
                 scrollTrigger: {
                     trigger: parallaxContainerRef.current,
@@ -635,8 +640,8 @@ export default function About({ aboutContent, servicesData }: any) {
         const ctx = gsap.context(() => { }, sectionRef); // Context for cleanup
 
         mm.add({
-            isMobile: "(max-width: 767px)",
-            isDesktop: "(min-width: 768px)"
+            isMobile: "(max-width: 1023px)",
+            isDesktop: "(min-width: 1024px)"
         }, (context) => {
             const { isMobile } = context.conditions as any;
 
@@ -759,7 +764,7 @@ export default function About({ aboutContent, servicesData }: any) {
             // Use matchMedia for responsive animation
             const mm = gsap.matchMedia();
 
-            mm.add("(min-width: 768px)", () => {
+            mm.add("(min-width: 1024px)", () => {
                 // Desktop Only Animation
                 const scrollWidth = horizontalScrollRef.current!.scrollWidth;
                 const viewportWidth = window.innerWidth;
@@ -792,7 +797,7 @@ export default function About({ aboutContent, servicesData }: any) {
             {/* Video Section */}
             <section
                 ref={videoSectionRef}
-                className="relative w-full h-auto md:h-screen flex items-center justify-center overflow-hidden p-0 m-0"
+                className="relative w-full h-auto lg:h-screen flex items-center justify-center overflow-hidden p-0 m-0"
                 style={{ backgroundColor: videoSection.backgroundColor }}
             >
                 <div className="relative w-full h-full">
@@ -818,9 +823,9 @@ export default function About({ aboutContent, servicesData }: any) {
                             {/* Text - OUTSIDE the grid so it's independent, but Z-indexed above */}
                             <h1
                                 ref={introTextRef}
-                                className="absolute inset-0 z-30 flex items-center justify-center text-xl md:text-5xl font-medium text-black pointer-events-none text-center px-4 leading-normal"
+                                className="absolute inset-0 z-30 flex items-center justify-center text-xl lg:text-5xl font-medium text-black pointer-events-none text-center px-4 leading-normal"
                             >
-                                Blending human-led creativity <br className="hidden md:block" /> with AI-powered efficiency.
+                                Blending human-led creativity <br className="hidden lg:block" /> with AI-powered efficiency.
                             </h1>
                         </>
                     )}
@@ -828,7 +833,7 @@ export default function About({ aboutContent, servicesData }: any) {
 
                     <video
                         ref={videoRef}
-                        className="block w-full h-auto md:absolute md:inset-0 md:w-full md:h-full md:object-cover md:scale-[0.9]"
+                        className="block w-full h-auto lg:absolute lg:inset-0 lg:w-full lg:h-full lg:object-cover lg:scale-[0.9]"
                         playsInline
                         loop
                         muted
@@ -839,7 +844,7 @@ export default function About({ aboutContent, servicesData }: any) {
                     {/* Sound Toggle Button */}
                     <button
                         onClick={toggleVideoMute}
-                        className="absolute bottom-4 right-4 md:bottom-8 md:right-8 z-10 bg-black bg-opacity-30 hover:bg-opacity-50 rounded-full p-3 md:p-4 transition-all duration-300 backdrop-blur-sm opacity-70 hover:opacity-90"
+                        className="absolute bottom-4 right-4 lg:bottom-8 lg:right-8 z-10 bg-black bg-opacity-30 hover:bg-opacity-50 rounded-full p-3 lg:p-4 transition-all duration-300 backdrop-blur-sm opacity-70 hover:opacity-90"
                         aria-label={isVideoMuted ? "Unmute video" : "Mute video"}
                     >
                         {isVideoMuted ? (
@@ -850,7 +855,7 @@ export default function About({ aboutContent, servicesData }: any) {
                                 viewBox="0 0 24 24"
                                 fill="none"
                                 xmlns="http://www.w3.org/2000/svg"
-                                className="w-5 h-5 md:w-6 md:h-6 text-white"
+                                className="w-5 h-5 lg:w-6 lg:h-6 text-white"
                             >
                                 <path
                                     d="M16.5 12C16.5 10.23 15.5 8.71 14 7.97V9.18L16.45 11.63C16.48 11.86 16.5 12.08 16.5 12ZM19 12C19 12.94 18.8 13.82 18.46 14.64L19.97 16.15C20.63 14.91 21 13.5 21 12C21 7.72 18 4.14 14 3.23V5.29C16.89 6.15 19 8.83 19 12ZM4.27 3L3 4.27L7.73 9H3V15H7L12 20V13.27L16.25 17.53C15.58 18.04 14.83 18.46 14 18.7V20.77C15.38 20.45 16.63 19.82 17.68 18.96L19.73 21L21 19.73L12 10.73L4.27 3ZM12 4L9.91 6.09L12 8.18V4Z"
@@ -865,7 +870,7 @@ export default function About({ aboutContent, servicesData }: any) {
                                 viewBox="0 0 24 24"
                                 fill="none"
                                 xmlns="http://www.w3.org/2000/svg"
-                                className="w-5 h-5 md:w-6 md:h-6 text-white"
+                                className="w-5 h-5 lg:w-6 lg:h-6 text-white"
                             >
                                 <path
                                     d="M3 9V15H7L12 20V4L7 9H3ZM16.5 12C16.5 10.23 15.5 8.71 14 7.97V16.02C15.5 15.29 16.5 13.77 16.5 12ZM14 3.23V5.29C16.89 6.15 19 8.83 19 12S16.89 17.85 14 18.71V20.77C18.01 19.86 21 16.28 21 12S18.01 4.14 14 3.23Z"
@@ -882,14 +887,14 @@ export default function About({ aboutContent, servicesData }: any) {
 
 
             {/* Our Work Header */}
-            <div className="w-full py-10 md:py-16 bg-[#EEF0FF] flex flex-col items-center justify-center text-center px-4">
+            <div className="w-full py-10 lg:py-16 bg-[#EEF0FF] flex flex-col items-center justify-center text-center px-4">
                 <div className="relative mb-8">
-                    <h2 className="text-[48px] md:text-[60px] font-light text-[#6210FF] tracking-tight"
+                    <h2 className="text-[48px] lg:text-[60px] font-light text-[#6210FF] tracking-tight"
                         style={{ fontFamily: "PetrovSans", fontWeight: 300 }}>
                         {ourWorkContent.headerSection.title}
                     </h2>
                 </div>
-                <p className="text-gray-600 max-w-5xl text-[18px] md:text-[22px] leading-relaxed font-light">
+                <p className="text-gray-600 max-w-5xl text-[18px] lg:text-[22px] leading-relaxed font-light">
                     {ourWorkContent.headerSection.description}
                 </p>
             </div>
@@ -898,12 +903,12 @@ export default function About({ aboutContent, servicesData }: any) {
             {/* Our Work - Responsive Section */}
             <section
                 ref={ourWorkSectionRef}
-                className="relative w-full min-h-screen bg-[#EEF0FF] md:bg-black overflow-hidden"
+                className="relative w-full min-h-screen bg-[#EEF0FF] lg:bg-black overflow-hidden"
             >
                 {/* Horizontal Scroll Container (Desktop) */}
                 <div
                     ref={horizontalScrollRef}
-                    className="hidden md:flex h-screen"
+                    className="hidden lg:flex h-screen"
                     style={{ width: `${sortedPortfolioItems.length * 100}vw` }}
                 >
                     {sortedPortfolioItems.map((item: PortfolioItem, index: number) => (
@@ -927,26 +932,26 @@ export default function About({ aboutContent, servicesData }: any) {
                             {/* View More Circle - Centered */}
                             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 group cursor-pointer">
                                 <Link href={item._id ? `/work-detail/${item._id}` : '#'}>
-                                    <div className="w-24 h-24 md:w-32 md:h-32 rounded-full border border-white/30 backdrop-blur-sm flex items-center justify-center transition-all duration-300 group-hover:scale-110 group-hover:bg-white/10">
-                                        <span className="text-white text-sm md:text-base font-medium">View More</span>
+                                    <div className="w-24 h-24 lg:w-32 lg:h-32 rounded-full border border-white/30 backdrop-blur-sm flex items-center justify-center transition-all duration-300 group-hover:scale-110 group-hover:bg-white/10">
+                                        <span className="text-white text-sm lg:text-base font-medium">View More</span>
                                     </div>
                                 </Link>
                             </div>
 
                             {/* Content Overlay */}
-                            <div className="absolute inset-0 p-8 md:p-16 flex flex-col justify-end">
-                                <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
+                            <div className="absolute inset-0 p-8 lg:p-16 flex flex-col justify-end">
+                                <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
                                     {/* Title (Bottom Left) */}
-                                    <h2 className="text-white text-5xl md:text-7xl lg:text-9xl font-bold tracking-tight">
+                                    <h2 className="text-white text-5xl lg:text-7xl xl:text-9xl font-bold tracking-tight">
                                         {item.name}
                                     </h2>
 
                                     {/* Tags (Bottom Right) */}
                                     <div className="flex gap-4">
-                                        <span className="px-6 py-2 rounded-full border border-white/30 backdrop-blur-md text-white text-sm md:text-lg">
+                                        <span className="px-6 py-2 rounded-full border border-white/30 backdrop-blur-md text-white text-sm lg:text-lg">
                                             {item.year}
                                         </span>
-                                        <span className="px-6 py-2 rounded-full border border-white/30 backdrop-blur-md text-white text-sm md:text-lg uppercase tracking-wider">
+                                        <span className="px-6 py-2 rounded-full border border-white/30 backdrop-blur-md text-white text-sm lg:text-lg uppercase tracking-wider">
                                             {item.category}
                                         </span>
                                     </div>
@@ -957,7 +962,7 @@ export default function About({ aboutContent, servicesData }: any) {
                 </div>
 
                 {/* Vertical Stack Container (Mobile) */}
-                <div className="flex md:hidden flex-col w-full h-auto px-4 py-8 gap-8 bg-[#EEF0FF]">
+                <div className="flex lg:hidden flex-col w-full h-auto px-4 py-8 gap-8 bg-[#EEF0FF]">
                     {sortedPortfolioItems.map((item: PortfolioItem, index: number) => (
                         <Link
                             href={item._id ? `/work-detail/${item._id}` : '#'}
@@ -969,7 +974,7 @@ export default function About({ aboutContent, servicesData }: any) {
                                 alt={item.name}
                                 fill
                                 className="object-cover"
-                                sizes="(max-width: 768px) 100vw, 50vw"
+                                sizes="(max-width: 1024px) 100vw, 50vw"
                                 priority={index === 0}
                             />
                             {/* Gradient Overlay */}
@@ -1026,7 +1031,7 @@ export default function About({ aboutContent, servicesData }: any) {
             </section>
 
             {/* See All Work Footer */}
-            <div className="w-full py-20 bg-[#F5F5F7] hidden md:flex justify-center items-center">
+            <div className="w-full py-20 bg-[#F5F5F7] hidden lg:flex justify-center items-center">
                 <Link href="/work" className="group flex items-center gap-3 px-8 py-4 bg-transparent text-[#6210FF] border-2 border-[#6210FF] rounded-full hover:bg-[#6210FF] hover:text-white transition-all duration-300">
                     <span className="text-lg font-medium tracking-wide uppercase">{ourWorkContent.footerSection.buttonText}</span>
                     <svg
@@ -1067,7 +1072,7 @@ export default function About({ aboutContent, servicesData }: any) {
                     </div> */}
 
                     {/* Text Content */}
-                    <h1 className="text-[48px] md:text-[80px] pt-[100px] md:pt-[80px] text-center font-[300] text-white animate__animated animate__fadeInUp relative z-10 px-4"
+                    <h1 className="text-[48px] lg:text-[80px] pt-[100px] lg:pt-[80px] text-center font-[300] text-white animate__animated animate__fadeInUp relative z-10 px-4"
                         style={{ fontFamily: "PetrovSans", fontWeight: 300 }}>
                         {servicesSection.title}
                     </h1>
@@ -1080,38 +1085,38 @@ export default function About({ aboutContent, servicesData }: any) {
                         ref={(el) => {
                             cardRefs.current[index] = el;
                         }}
-                        className={`absolute ${index === 0 ? "top-[40%]" : "top-[100%]"} z-${index * 10} mb-5 bg-white rounded-[10px] md:rounded-[30px] shadow-lg max-w-[90%] lg:max-w-[800px] xl:max-w-[1100px] 2xl:max-w-[70%] flex flex-col md:flex-row overflow-hidden mx-4 md:mx-0 h-[530px] md:h-[500px]`}
+                        className={`absolute ${index === 0 ? "top-[40%]" : "top-[100%]"} z-${index * 10} mb-5 bg-white rounded-[10px] lg:rounded-[30px] shadow-lg max-w-[90%] lg:max-w-[800px] xl:max-w-[1100px] 2xl:max-w-[70%] flex flex-col lg:flex-row overflow-hidden mx-4 lg:mx-0 h-auto lg:h-[500px]`}
                         style={{ boxShadow: "0 20px 50px -10px rgba(190, 47, 244, 0.3)" }}
                     >
                         <div
-                            className={`w-full md:w-1/2 p-4 md:p-10 flex justify-center items-center ${card.imagePosition === "right" ? "order-1" : ""}`}
+                            className={`w-full lg:w-1/2 p-4 lg:p-10 flex justify-center items-center ${card.imagePosition === "right" ? "order-1" : ""}`}
                         >
                             <Image
                                 width={800}
                                 height={600}
                                 src={getImageUrl(card.image)}
                                 alt={card.title}
-                                className="w-full h-full object-cover rounded-[10px] md:rounded-[30px]"
+                                className="w-full h-full object-cover rounded-[10px] lg:rounded-[30px]"
                                 unoptimized={true}
                             />
                         </div>
 
                         <div
-                            className={`w-full md:w-1/2 p-4 pt-0 ${card.imagePosition === "right" ? "md:pr-0 order-2 md:order-first" : "md:pl-0"} md:p-8 flex flex-col h-full`}
+                            className={`w-full lg:w-1/2 p-4 pt-0 ${card.imagePosition === "right" ? "lg:pr-0 order-2 lg:order-first" : "lg:pl-0"} lg:p-8 flex flex-col h-full`}
                             style={{ fontFamily: "'Outfit', sans-serif" }}
                         >
                             <div className="flex-grow">
-                                <h2 className="text-3xl md:text-[50px] font-outfit leading-tight text-gray-900 mb-4">
+                                <h2 className="text-3xl lg:text-[50px] font-outfit leading-tight text-gray-900 mb-4">
                                     {card.title}
                                 </h2>
-                                <p className="text-lg sm:text-xl md:text-xl xl:text-2xl leading-tight text-gray-900 mb-6 md:mb-8">
+                                <p className="text-lg sm:text-xl lg:text-xl xl:text-2xl leading-tight text-gray-900 mb-6 lg:mb-8">
                                     {card.description}
                                 </p>
                                 <div className="flex flex-wrap gap-2 xl:gap-3 mb-2 xl:mb-6">
                                     {card.tags.map((tag: any, tagIndex: any) => (
                                         <span
                                             key={tagIndex}
-                                            className="px-2 py-0 leading-normal xl:leading-relaxed md:px-4 md:py-2 border border-[#6210FF] text-gray-900 rounded-full text-xs xl:text-lg"
+                                            className="px-2 py-0 leading-normal xl:leading-relaxed lg:px-4 lg:py-2 border border-[#6210FF] text-gray-900 rounded-full text-xs xl:text-lg"
                                         >
                                             {tag}
                                         </span>
@@ -1119,9 +1124,9 @@ export default function About({ aboutContent, servicesData }: any) {
                                 </div>
                             </div>
 
-                            <div className="mt-auto pt-4 md:pt-6 w-full flex md:justify-end justify-start opacity-0">
+                            <div className="mt-auto pt-4 lg:pt-6 w-full flex lg:justify-end justify-start opacity-0">
                                 <button className="flex items-center gap-2 px-4 py-2 xl:px-6 xl:py-3 bg-white text-gray-900 border-2 border-[#6210FF] rounded-full hover:bg-gray-50 transition-all duration-200">
-                                    <span className="text-xs md:text-sm xl:text-lg font-medium">EXPLORE MORE</span>
+                                    <span className="text-xs lg:text-sm xl:text-lg font-medium">EXPLORE MORE</span>
                                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-5 h-5 xl:w-9 xl:h-9">
                                         <path d="M7 10C7 10 9.5 14 12 14C14.5 14 17 10 17 10" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
                                     </svg>
@@ -1149,17 +1154,17 @@ export default function About({ aboutContent, servicesData }: any) {
                     </video>
 
                     <div className="mx-auto h-full flex flex-col lg:flex-row items-center justify-center px-0 relative z-10">
-                        <div className="w-full lg:w-6/12 h-auto flex flex-col sm:mt-20 items-center lg:items-start justify-center py-8 md:pl-32 lg:py-0 pl-8">
+                        <div className="w-full lg:w-6/12 h-auto flex flex-col sm:mt-20 items-center lg:items-start justify-center py-8 lg:pl-32 lg:py-0 pl-8">
                             <h2 className="w-full text-[44px] xs:text-6xl sm:text-7xl lg:text-[50px] xl:text-[80px] 2xl:text-[114px] text-white leading-[1.1] font-medium">
                                 {heroSection.mainTitle}
                             </h2>
 
-                            <div className="martech-wrapper w-full relative overflow-hidden h-[72px] xs:h-[84px] sm:h-[102px] md:h-[180px]">
+                            <div className="martech-wrapper w-full relative overflow-hidden h-[72px] xs:h-[84px] sm:h-[102px] lg:h-[180px]">
                                 {heroSection.rotatingTexts.map((text: any, idx: any) => (
                                     <span
                                         key={idx}
                                         ref={textRefs[idx]}
-                                        className="absolute top-0 left-0 w-full font-extrabold bg-gradient-to-r from-[#BE2FF4] to-[#6210FF] text-transparent bg-clip-text text-[50px] xs:text-6xl sm:text-7xl md:text-8xl lg:text-[60px] xl:text-[90px] 2xl:text-[110px] leading-[1.2] inline-block"
+                                        className="absolute top-0 left-0 w-full font-extrabold bg-gradient-to-r from-[#BE2FF4] to-[#6210FF] text-transparent bg-clip-text text-[50px] xs:text-6xl sm:text-7xl lg:text-8xl lg:text-[60px] xl:text-[90px] 2xl:text-[110px] leading-[1.2] inline-block"
                                         style={{
                                             opacity: idx === 0 ? 1 : 0,
                                             transform: idx === 0 ? "translateY(0)" : "translateY(100%)",
@@ -1171,8 +1176,8 @@ export default function About({ aboutContent, servicesData }: any) {
                             </div>
                         </div>
 
-                        <div className="w-full lg:w-6/12 pl-4 sm:pl-0.5 md:pl-0 h-auto lg:h-full flex items-center justify-center relative">
-                            <div className="w-full h-[300px] sm:h-[400px] md:h-[500px] lg:h-full flex justify-center items-center lg:items-end relative">
+                        <div className="w-full lg:w-6/12 pl-4 sm:pl-0.5 lg:pl-0 h-auto lg:h-full flex items-center justify-center relative">
+                            <div className="w-full h-[300px] sm:h-[400px] lg:h-[500px] lg:h-full flex justify-center items-center lg:items-end relative">
                                 <svg
                                     width="100%"
                                     height="100%"

@@ -347,84 +347,52 @@ export function AboutPageClient({ aboutContent }: { aboutContent: AboutPageConte
   }, []);
 
   useEffect(() => {
-    const lenis = new Lenis();
-    lenis.on("scroll", ScrollTrigger.update);
-    gsap.ticker.add((time) => lenis.raf(time * 1000));
-    gsap.ticker.lagSmoothing(0);
+    let lenis: Lenis | null = null;
+    let tickerCallback: ((time: number) => void) | null = null;
+    let resizeTimeout: NodeJS.Timeout;
+    let cleanupResize: () => void = () => { };
 
-    // Navigation animation is now handled in layout.tsx
+    const ctx = gsap.context(() => {
+      lenis = new Lenis();
+      lenis.on("scroll", ScrollTrigger.update);
+      tickerCallback = (time) => lenis?.raf(time * 1000);
+      gsap.ticker.add(tickerCallback);
+      gsap.ticker.lagSmoothing(0);
 
-    // ---------- Initial Section Animation ----------
+      // Navigation animation is now handled in layout.tsx
 
-    ScrollTrigger.create({
-      trigger: headerRef.current,
-      start: "top top",
-      end: `+=${window.innerHeight * 1.2}px`,
+      // ---------- Initial Section Animation ----------
 
-      scrub: false,
-      onUpdate: ({ progress }) => {
-        if (headerTitleOneRef.current && aboutSectionRef.current) {
-          gsap.to(
-            [
-              headerTitleOneRef.current,
-              headerTitleTwoRef.current,
-              headerTitleThreeRef.current,
-            ],
-            {
-              yPercent: -progress * 120, // Start below viewport
-            }
-          );
+      ScrollTrigger.create({
+        trigger: headerRef.current,
+        start: "top top",
+        end: `+=${window.innerHeight * 1.2}px`,
 
-          gsap.to(aboutSectionRef.current, {
-            yPercent: -progress * 12, // Start below viewport
-          });
-        }
-      },
-    });
+        scrub: false,
+        onUpdate: ({ progress }) => {
+          if (headerTitleOneRef.current && aboutSectionRef.current) {
+            gsap.to(
+              [
+                headerTitleOneRef.current,
+                headerTitleTwoRef.current,
+                headerTitleThreeRef.current,
+              ],
+              {
+                yPercent: -progress * 120, // Start below viewport
+              }
+            );
 
-    // ---------- About Section Animation ----------
-
-    // Function to animate the about section elements
-    const animateAboutSection = () => {
-      const allImages = aboutSectionSvgTextBoxRef.current
-        ? gsap.utils.toArray(
-          aboutSectionSvgTextBoxRef.current.querySelectorAll("img")
-        )
-        : [];
-
-      const allImages2 = aboutSectionSvgTextBoxRef2.current
-        ? gsap.utils.toArray(
-          aboutSectionSvgTextBoxRef2.current.querySelectorAll("img")
-        )
-        : [];
-
-      gsap.to(allImages2, {
-        yPercent: 0,
-        duration: 0.5,
-        ease: "power3.out",
-        stagger: 0.085,
+            gsap.to(aboutSectionRef.current, {
+              yPercent: -progress * 12, // Start below viewport
+            });
+          }
+        },
       });
 
-      gsap.to(
-        [
-          allImages,
-          aboutSectionTitleRefOne.current,
-          aboutSectionTitleRefTwo.current,
-        ],
-        {
-          yPercent: 0,
-          duration: 0.5,
-          ease: "power3.out",
-          stagger: 0.085,
-        }
-      );
-    };
+      // ---------- About Section Animation ----------
 
-    const resetAboutSection = () => {
-      if (
-        aboutSectionSvgTextBoxRef.current &&
-        aboutSectionSvgTextBoxRef2.current
-      ) {
+      // Function to animate the about section elements
+      const animateAboutSection = () => {
         const allImages = aboutSectionSvgTextBoxRef.current
           ? gsap.utils.toArray(
             aboutSectionSvgTextBoxRef.current.querySelectorAll("img")
@@ -437,660 +405,710 @@ export function AboutPageClient({ aboutContent }: { aboutContent: AboutPageConte
           )
           : [];
 
-        gsap.set(
+        gsap.to(allImages2, {
+          yPercent: 0,
+          duration: 0.5,
+          ease: "power3.out",
+          stagger: 0.085,
+        });
+
+        gsap.to(
           [
             allImages,
             aboutSectionTitleRefOne.current,
             aboutSectionTitleRefTwo.current,
           ],
           {
-            yPercent: 100,
+            yPercent: 0,
+            duration: 0.5,
+            ease: "power3.out",
+            stagger: 0.085,
           }
         );
+      };
 
-        gsap.set(allImages2, {
-          yPercent: 100,
+      const resetAboutSection = () => {
+        if (
+          aboutSectionSvgTextBoxRef.current &&
+          aboutSectionSvgTextBoxRef2.current
+        ) {
+          const allImages = aboutSectionSvgTextBoxRef.current
+            ? gsap.utils.toArray(
+              aboutSectionSvgTextBoxRef.current.querySelectorAll("img")
+            )
+            : [];
+
+          const allImages2 = aboutSectionSvgTextBoxRef2.current
+            ? gsap.utils.toArray(
+              aboutSectionSvgTextBoxRef2.current.querySelectorAll("img")
+            )
+            : [];
+
+          gsap.set(
+            [
+              allImages,
+              aboutSectionTitleRefOne.current,
+              aboutSectionTitleRefTwo.current,
+            ],
+            {
+              yPercent: 100,
+            }
+          );
+
+          gsap.set(allImages2, {
+            yPercent: 100,
+          });
+        }
+      };
+
+      resetAboutSection();
+
+      setTimeout(() => {
+        ScrollTrigger.create({
+          trigger: aboutSectionRef.current,
+          start: "top 70%",
+          end: "bottom 30%",
+          scrub: false,
+          onEnter: animateAboutSection,
+          onLeave: resetAboutSection,
+          onEnterBack: animateAboutSection,
+          onLeaveBack: resetAboutSection,
+          onRefresh: () => {
+            const trigger = aboutSectionRef.current;
+            if (trigger) {
+              const rect = trigger.getBoundingClientRect();
+              const windowHeight = window.innerHeight;
+              const triggerTop = rect.top;
+              const triggerBottom = rect.bottom;
+
+              if (
+                triggerTop <= windowHeight * 0.7 &&
+                triggerBottom >= windowHeight * 0.3
+              ) {
+                animateAboutSection();
+              } else {
+                resetAboutSection();
+              }
+            }
+          },
+        });
+      }, 100);
+
+      // ---------- About Section Animation ----------
+      ScrollTrigger.create({
+        trigger: antronutSectionRef.current,
+        start: "top bottom",
+        end: `+=${window.innerHeight * 1.2}px`,
+        scrub: false,
+        onUpdate: ({ progress }) => {
+          gsap.to([antronutSectionTextRef.current], {
+            yPercent: -progress * 20, // Start below viewport
+          });
+        },
+      });
+
+      // ---------- Foundation Section Animation ----------
+
+      gsap.set(
+        [
+          foundationContent1Ref.current,
+          foundationContent2Ref.current,
+          foundationContent3Ref.current,
+          foundationContent4Ref.current,
+        ],
+        {
+          yPercent: 50,
+          opacity: 0,
+        }
+      );
+
+      if (foundationMobileTitle.current) {
+        gsap.set(foundationMobileTitle.current, {
+          xPercent: -50,
+          opacity: 0,
         });
       }
-    };
 
-    resetAboutSection();
-
-    setTimeout(() => {
+      // First ScrollTrigger: Handle the pinning and positioning
       ScrollTrigger.create({
-        trigger: aboutSectionRef.current,
-        start: "top 70%",
-        end: "bottom 30%",
-        scrub: false,
-        onEnter: animateAboutSection,
-        onLeave: resetAboutSection,
-        onEnterBack: animateAboutSection,
-        onLeaveBack: resetAboutSection,
-        onRefresh: () => {
-          const trigger = aboutSectionRef.current;
-          if (trigger) {
-            const rect = trigger.getBoundingClientRect();
-            const windowHeight = window.innerHeight;
-            const triggerTop = rect.top;
-            const triggerBottom = rect.bottom;
+        trigger: foundationSectionRef.current,
+        start: "top 50%",
+        end: "top top",
+        scrub: true,
+        onUpdate: ({ progress }) => {
+          const animatedFramesParts = 1;
 
-            if (
-              triggerTop <= windowHeight * 0.7 &&
-              triggerBottom >= windowHeight * 0.3
-            ) {
-              animateAboutSection();
-            } else {
-              resetAboutSection();
+          if (
+            torus001.current &&
+            modalGroupRef.current &&
+            torus002.current &&
+            modalGroupRe2.current
+          ) {
+            // Animated per frames
+            if (foundationTitleRef.current) {
+              const foundationTitlePorgess = mapProgress(
+                progress,
+                animatedFramesParts,
+                6,
+                5.0 // desktop
+              );
+              const foundationTitleOpacityPorgess = mapProgress(
+                progress,
+                animatedFramesParts,
+                0,
+                1
+              );
+
+              gsap.to(foundationTitleRef.current.position, {
+                z: foundationTitlePorgess,
+                duration: 0,
+              });
+
+              gsap.to(foundationTitleTopRef.current, {
+                opacity: foundationTitleOpacityPorgess,
+                duration: 0,
+              });
+              gsap.to(foundationTitleBottomRef.current, {
+                opacity: foundationTitleOpacityPorgess,
+                duration: 0,
+              });
+            }
+
+            if (foundationMobileTitle.current) {
+              const foundationTitleOpacityPorgess = mapProgress(
+                progress,
+                animatedFramesParts,
+                0,
+                1
+              );
+
+              gsap.to(foundationMobileTitle.current, {
+                xPercent: -50 + foundationTitleOpacityPorgess * 50,
+                opacity: foundationTitleOpacityPorgess,
+              });
             }
           }
         },
       });
-    }, 100);
 
-    // ---------- About Section Animation ----------
-    ScrollTrigger.create({
-      trigger: antronutSectionRef.current,
-      start: "top bottom",
-      end: `+=${window.innerHeight * 1.2}px`,
-      scrub: false,
-      onUpdate: ({ progress }) => {
-        gsap.to([antronutSectionTextRef.current], {
-          yPercent: -progress * 20, // Start below viewport
+      ScrollTrigger.create({
+        trigger: foundationSectionRef.current,
+        start: "top top",
+        end: `+=${window.innerHeight * 4}px`,
+        pin: true,
+        pinSpacing: true,
+        scrub: false,
+        onUpdate: ({ progress }) => {
+          const animatedFramesParts = 1 / 5;
+
+          if (
+            torus001.current &&
+            modalGroupRef.current &&
+            torus002.current &&
+            torus003.current &&
+            torus.current &&
+            modalGroupRe2.current
+          ) {
+            const groupRotationProgress = mapProgress(progress, 1, -180, 180);
+
+            gsap.to(modalGroupRef.current.rotation, {
+              y: THREE.MathUtils.degToRad(groupRotationProgress),
+              duration: 0,
+            });
+
+            // -------------------------- Frame 2 --------------------------
+            const foundationContent1Y = mapProgress(
+              progress - animatedFramesParts * 0,
+              animatedFramesParts / 4, // how long you want the animation to last
+              50,
+              0
+            );
+            const foundationContent1Opacity = mapProgress(
+              progress - animatedFramesParts * 0,
+              animatedFramesParts / 4, // how long you want the animation to last
+              0,
+              1
+            );
+            gsap.to(foundationContent1Ref.current, {
+              yPercent: foundationContent1Y,
+              opacity: foundationContent1Opacity,
+              duration: 0,
+            });
+
+            const torus1Progress = mapProgress(
+              progress - animatedFramesParts * 0,
+              animatedFramesParts / 4, // how long you want the animation to last
+              -25,
+              0
+            );
+            gsap.to(torus001.current.position, {
+              y: torus1Progress,
+              duration: 0,
+            });
+
+            // -------------------------- Frame 3 --------------------------
+
+            const foundationContent2Y = mapProgress(
+              progress - animatedFramesParts * 1,
+              animatedFramesParts / 4, // how long you want the animation to last
+              50,
+              0
+            );
+            const foundationContent2pacity = mapProgress(
+              progress - animatedFramesParts * 1,
+              animatedFramesParts / 4, // how long you want the animation to last
+              0,
+              1
+            );
+
+            gsap.to(foundationContent2Ref.current, {
+              yPercent: foundationContent2Y,
+              opacity: foundationContent2pacity,
+              duration: 0,
+            });
+
+            const torus2Progress = mapProgress(
+              progress - animatedFramesParts * 1,
+              animatedFramesParts / 4,
+              -30,
+              0
+            );
+            gsap.to(torus002.current.position, {
+              z: torus2Progress,
+              direction: 0,
+            });
+
+            // -------------------------- Frame 4 --------------------------
+
+            const foundationContent3Y = mapProgress(
+              progress - animatedFramesParts * 2,
+              animatedFramesParts / 4, // how long you want the animation to last
+              50,
+              0
+            );
+            const foundationContent3Opacity = mapProgress(
+              progress - animatedFramesParts * 2,
+              animatedFramesParts / 4, // how long you want the animation to last
+              0,
+              1
+            );
+            gsap.to(foundationContent3Ref.current, {
+              yPercent: foundationContent3Y,
+              opacity: foundationContent3Opacity,
+              duration: 0,
+            });
+            const torus3Progress = mapProgress(
+              progress - animatedFramesParts * 2,
+              animatedFramesParts / 4,
+              30,
+              0
+            );
+            gsap.to(torus003.current.position, {
+              y: torus3Progress,
+              direction: 0,
+            });
+
+            // -------------------------- Frame 5 --------------------------
+
+            const foundationContent4Y = mapProgress(
+              progress - animatedFramesParts * 3,
+              animatedFramesParts / 4, // how long you want the animation to last
+              50,
+              0
+            );
+            const foundationContent4Opacity = mapProgress(
+              progress - animatedFramesParts * 3,
+              animatedFramesParts / 4, // how long you want the animation to last
+              0,
+              1
+            );
+            gsap.to(foundationContent4Ref.current, {
+              yPercent: foundationContent4Y,
+              opacity: foundationContent4Opacity,
+              duration: 0,
+            });
+            const torus4Progress = mapProgress(
+              progress - animatedFramesParts * 3,
+              animatedFramesParts / 4,
+              -30,
+              0
+            );
+
+            gsap.to(torus.current.position, {
+              y: torus4Progress,
+              direction: 0,
+            });
+
+            // -------------------------- Frame 6 --------------------------
+            const torusAllProgress = mapProgress(
+              progress - animatedFramesParts * 4,
+              animatedFramesParts / 4,
+              0,
+              1
+            );
+            gsap.to(torus001.current.position, {
+              x: -1 + torusAllProgress,
+              z: 1 - torusAllProgress,
+              duration: 0,
+            });
+
+            gsap.to(torus002.current.position, {
+              x: -1 + torusAllProgress,
+              duration: 0,
+            });
+
+            gsap.to(torus003.current.position, {
+              x: 1 - torusAllProgress,
+              z: -1 + torusAllProgress,
+              duration: 0,
+            });
+
+            gsap.to(torus.current.position, {
+              x: 1 - torusAllProgress,
+              z: 1 - torusAllProgress,
+              duration: 0,
+            });
+
+            if (progress < 0.8) {
+              modalGroupRef.current.visible = true;
+              modalGroupRe2.current.visible = false;
+            }
+            if (progress > 0.8) {
+              modalGroupRef.current.visible = false;
+              modalGroupRe2.current.visible = true;
+            }
+          }
+        },
+      });
+
+      // ---------- Dynamic Director Section Animation (Stacking Effect) ----------
+      // if (sortedDirectors.length > 0) {
+      //   // Wait for DOM to be ready
+      //   setTimeout(() => {
+      //     const directorElements = directorContainerRef.current?.querySelectorAll('.director-card');
+
+      //     if (directorElements && directorElements.length > 0) {
+      //       // Initialize all directors: first one at y=0%, rest at y=100%
+      //       Array.from(directorElements).forEach((element, index) => {
+      //         gsap.set(element, {
+      //           position: 'absolute',
+      //           left: '50%',
+      //           width: '100%',
+      //           minHeight: '100vh',
+      //           top: index === 0 ? "0%" : "100%",
+      //           transform: 'translateX(-50%)',
+      //           opacity: 1,
+      //           zIndex: directorElements.length - index, // Higher z-index for later cards
+      //         });
+      //       });
+
+      //       // Configuration for director scroll timing
+      //       const directorCount = sortedDirectors.length;
+
+      //       // Copy Dynamic Service Cards animation pattern - use timeline instead of onUpdate
+      //       const tl = gsap.timeline({
+      //         scrollTrigger: {
+      //           trigger: directorContainerRef.current,
+      //           start: "top top",
+      //           end: "500%",
+      //           pin: true,
+      //           scrub: 1,
+      //         },
+      //       });
+
+      //       // Dynamic directors animation - exactly like service cards
+      //       Array.from(directorElements).forEach((directorElement, index) => {
+      //         if (directorElement) {
+      //           tl.to(
+      //             directorElement,
+      //             { top: window.innerWidth < 768 ? "10%" : "20%", duration: 1 },
+      //             index === 0 ? "-=.9" : "-=.9"
+      //           );
+      //           // Scale down and fade all directors except the last one - like service cards
+      //           if (index < directorElements.length - 1) {
+      //             tl.to(directorElement, {
+      //               transform: 'translateX(-50%) scale(0.5)',
+      //               opacity: 0,
+      //               duration: 1
+      //             });
+      //           }
+      //         }
+      //       });
+      //     }
+      //   }, 100);
+      // }
+      // ---------- Team Section Carousal Animation ----------
+      if (
+        teamRefStateOneRef.current &&
+        teamRefStateTwoRef.current &&
+        teamRefStateThreeRef.current &&
+        teamStateFourRef.current
+      ) {
+        gsap.set(teamRefStateOneRef.current, {
+          xPercent: -120,
+          filter: `blur(${10}px)`,
+          scale: 0.8,
         });
-      },
-    });
 
-    // ---------- Foundation Section Animation ----------
-
-    gsap.set(
-      [
-        foundationContent1Ref.current,
-        foundationContent2Ref.current,
-        foundationContent3Ref.current,
-        foundationContent4Ref.current,
-      ],
-      {
-        yPercent: 50,
-        opacity: 0,
-      }
-    );
-
-    if (foundationMobileTitle.current) {
-      gsap.set(foundationMobileTitle.current, {
-        xPercent: -50,
-        opacity: 0,
-      });
-    }
-
-    // First ScrollTrigger: Handle the pinning and positioning
-    ScrollTrigger.create({
-      trigger: foundationSectionRef.current,
-      start: "top 50%",
-      end: "top top",
-      scrub: true,
-      onUpdate: ({ progress }) => {
-        const animatedFramesParts = 1;
-
-        if (
-          torus001.current &&
-          modalGroupRef.current &&
-          torus002.current &&
-          modalGroupRe2.current
-        ) {
-          // Animated per frames
-          if (foundationTitleRef.current) {
-            const foundationTitlePorgess = mapProgress(
-              progress,
-              animatedFramesParts,
-              6,
-              5.0 // desktop
-            );
-            const foundationTitleOpacityPorgess = mapProgress(
-              progress,
-              animatedFramesParts,
-              0,
-              1
-            );
-
-            gsap.to(foundationTitleRef.current.position, {
-              z: foundationTitlePorgess,
-              duration: 0,
-            });
-
-            gsap.to(foundationTitleTopRef.current, {
-              opacity: foundationTitleOpacityPorgess,
-              duration: 0,
-            });
-            gsap.to(foundationTitleBottomRef.current, {
-              opacity: foundationTitleOpacityPorgess,
-              duration: 0,
-            });
-          }
-
-          if (foundationMobileTitle.current) {
-            const foundationTitleOpacityPorgess = mapProgress(
-              progress,
-              animatedFramesParts,
-              0,
-              1
-            );
-
-            gsap.to(foundationMobileTitle.current, {
-              xPercent: -50 + foundationTitleOpacityPorgess * 50,
-              opacity: foundationTitleOpacityPorgess,
-            });
-          }
-        }
-      },
-    });
-
-    ScrollTrigger.create({
-      trigger: foundationSectionRef.current,
-      start: "top top",
-      end: `+=${window.innerHeight * 4}px`,
-      pin: true,
-      pinSpacing: true,
-      scrub: false,
-      onUpdate: ({ progress }) => {
-        const animatedFramesParts = 1 / 5;
-
-        if (
-          torus001.current &&
-          modalGroupRef.current &&
-          torus002.current &&
-          torus003.current &&
-          torus.current &&
-          modalGroupRe2.current
-        ) {
-          const groupRotationProgress = mapProgress(progress, 1, -180, 180);
-
-          gsap.to(modalGroupRef.current.rotation, {
-            y: THREE.MathUtils.degToRad(groupRotationProgress),
-            duration: 0,
-          });
-
-          // -------------------------- Frame 2 --------------------------
-          const foundationContent1Y = mapProgress(
-            progress - animatedFramesParts * 0,
-            animatedFramesParts / 4, // how long you want the animation to last
-            50,
-            0
-          );
-          const foundationContent1Opacity = mapProgress(
-            progress - animatedFramesParts * 0,
-            animatedFramesParts / 4, // how long you want the animation to last
-            0,
-            1
-          );
-          gsap.to(foundationContent1Ref.current, {
-            yPercent: foundationContent1Y,
-            opacity: foundationContent1Opacity,
-            duration: 0,
-          });
-
-          const torus1Progress = mapProgress(
-            progress - animatedFramesParts * 0,
-            animatedFramesParts / 4, // how long you want the animation to last
-            -25,
-            0
-          );
-          gsap.to(torus001.current.position, {
-            y: torus1Progress,
-            duration: 0,
-          });
-
-          // -------------------------- Frame 3 --------------------------
-
-          const foundationContent2Y = mapProgress(
-            progress - animatedFramesParts * 1,
-            animatedFramesParts / 4, // how long you want the animation to last
-            50,
-            0
-          );
-          const foundationContent2pacity = mapProgress(
-            progress - animatedFramesParts * 1,
-            animatedFramesParts / 4, // how long you want the animation to last
-            0,
-            1
-          );
-
-          gsap.to(foundationContent2Ref.current, {
-            yPercent: foundationContent2Y,
-            opacity: foundationContent2pacity,
-            duration: 0,
-          });
-
-          const torus2Progress = mapProgress(
-            progress - animatedFramesParts * 1,
-            animatedFramesParts / 4,
-            -30,
-            0
-          );
-          gsap.to(torus002.current.position, {
-            z: torus2Progress,
-            direction: 0,
-          });
-
-          // -------------------------- Frame 4 --------------------------
-
-          const foundationContent3Y = mapProgress(
-            progress - animatedFramesParts * 2,
-            animatedFramesParts / 4, // how long you want the animation to last
-            50,
-            0
-          );
-          const foundationContent3Opacity = mapProgress(
-            progress - animatedFramesParts * 2,
-            animatedFramesParts / 4, // how long you want the animation to last
-            0,
-            1
-          );
-          gsap.to(foundationContent3Ref.current, {
-            yPercent: foundationContent3Y,
-            opacity: foundationContent3Opacity,
-            duration: 0,
-          });
-          const torus3Progress = mapProgress(
-            progress - animatedFramesParts * 2,
-            animatedFramesParts / 4,
-            30,
-            0
-          );
-          gsap.to(torus003.current.position, {
-            y: torus3Progress,
-            direction: 0,
-          });
-
-          // -------------------------- Frame 5 --------------------------
-
-          const foundationContent4Y = mapProgress(
-            progress - animatedFramesParts * 3,
-            animatedFramesParts / 4, // how long you want the animation to last
-            50,
-            0
-          );
-          const foundationContent4Opacity = mapProgress(
-            progress - animatedFramesParts * 3,
-            animatedFramesParts / 4, // how long you want the animation to last
-            0,
-            1
-          );
-          gsap.to(foundationContent4Ref.current, {
-            yPercent: foundationContent4Y,
-            opacity: foundationContent4Opacity,
-            duration: 0,
-          });
-          const torus4Progress = mapProgress(
-            progress - animatedFramesParts * 3,
-            animatedFramesParts / 4,
-            -30,
-            0
-          );
-
-          gsap.to(torus.current.position, {
-            y: torus4Progress,
-            direction: 0,
-          });
-
-          // -------------------------- Frame 6 --------------------------
-          const torusAllProgress = mapProgress(
-            progress - animatedFramesParts * 4,
-            animatedFramesParts / 4,
-            0,
-            1
-          );
-          gsap.to(torus001.current.position, {
-            x: -1 + torusAllProgress,
-            z: 1 - torusAllProgress,
-            duration: 0,
-          });
-
-          gsap.to(torus002.current.position, {
-            x: -1 + torusAllProgress,
-            duration: 0,
-          });
-
-          gsap.to(torus003.current.position, {
-            x: 1 - torusAllProgress,
-            z: -1 + torusAllProgress,
-            duration: 0,
-          });
-
-          gsap.to(torus.current.position, {
-            x: 1 - torusAllProgress,
-            z: 1 - torusAllProgress,
-            duration: 0,
-          });
-
-          if (progress < 0.8) {
-            modalGroupRef.current.visible = true;
-            modalGroupRe2.current.visible = false;
-          }
-          if (progress > 0.8) {
-            modalGroupRef.current.visible = false;
-            modalGroupRe2.current.visible = true;
-          }
-        }
-      },
-    });
-
-    // ---------- Dynamic Director Section Animation (Stacking Effect) ----------
-    // if (sortedDirectors.length > 0) {
-    //   // Wait for DOM to be ready
-    //   setTimeout(() => {
-    //     const directorElements = directorContainerRef.current?.querySelectorAll('.director-card');
-
-    //     if (directorElements && directorElements.length > 0) {
-    //       // Initialize all directors: first one at y=0%, rest at y=100%
-    //       Array.from(directorElements).forEach((element, index) => {
-    //         gsap.set(element, {
-    //           position: 'absolute',
-    //           left: '50%',
-    //           width: '100%',
-    //           minHeight: '100vh',
-    //           top: index === 0 ? "0%" : "100%",
-    //           transform: 'translateX(-50%)',
-    //           opacity: 1,
-    //           zIndex: directorElements.length - index, // Higher z-index for later cards
-    //         });
-    //       });
-
-    //       // Configuration for director scroll timing
-    //       const directorCount = sortedDirectors.length;
-
-    //       // Copy Dynamic Service Cards animation pattern - use timeline instead of onUpdate
-    //       const tl = gsap.timeline({
-    //         scrollTrigger: {
-    //           trigger: directorContainerRef.current,
-    //           start: "top top",
-    //           end: "500%",
-    //           pin: true,
-    //           scrub: 1,
-    //         },
-    //       });
-
-    //       // Dynamic directors animation - exactly like service cards
-    //       Array.from(directorElements).forEach((directorElement, index) => {
-    //         if (directorElement) {
-    //           tl.to(
-    //             directorElement,
-    //             { top: window.innerWidth < 768 ? "10%" : "20%", duration: 1 },
-    //             index === 0 ? "-=.9" : "-=.9"
-    //           );
-    //           // Scale down and fade all directors except the last one - like service cards
-    //           if (index < directorElements.length - 1) {
-    //             tl.to(directorElement, {
-    //               transform: 'translateX(-50%) scale(0.5)',
-    //               opacity: 0,
-    //               duration: 1
-    //             });
-    //           }
-    //         }
-    //       });
-    //     }
-    //   }, 100);
-    // }
-    // ---------- Team Section Carousal Animation ----------
-    if (
-      teamRefStateOneRef.current &&
-      teamRefStateTwoRef.current &&
-      teamRefStateThreeRef.current &&
-      teamStateFourRef.current
-    ) {
-      gsap.set(teamRefStateOneRef.current, {
-        xPercent: -120,
-        filter: `blur(${10}px)`,
-        scale: 0.8,
-      });
-
-      gsap.set(teamRefStateTwoRef.current, {
-        xPercent: 0,
-        filter: `blur(${0}px)`,
-        scale: 1,
-      });
-
-      gsap.set(teamRefStateThreeRef.current, {
-        xPercent: 120,
-        filter: `blur(${10}px)`,
-        scale: 0.8,
-      });
-
-      gsap.set(teamStateFourRef.current, {
-        xPercent: -120,
-        filter: `blur(${10}px)`,
-        scale: 0.6,
-        opacity: 0,
-      });
-
-      const animatedFrames = [
-        {
+        gsap.set(teamRefStateTwoRef.current, {
           xPercent: 0,
           filter: `blur(${0}px)`,
           scale: 1,
-          duration: 1.5,
-          ease: "power2.inOut",
-          delay: 3,
-        },
+        });
 
-        {
+        gsap.set(teamRefStateThreeRef.current, {
           xPercent: 120,
           filter: `blur(${10}px)`,
           scale: 0.8,
-          duration: 1.5,
-          delay: 3,
-        },
+        });
 
-        {
+        gsap.set(teamStateFourRef.current, {
+          xPercent: -120,
           filter: `blur(${10}px)`,
           scale: 0.6,
           opacity: 0,
-          duration: 1.5,
-          delay: 3,
-        },
-        {
-          filter: `blur(${10}px)`,
-          scale: 0.8,
-          opacity: 1,
-          duration: 1.5,
-          delay: 3,
-        },
-      ];
+        });
 
-      let carousalIndex = 0;
-      const duration = 1.2;
-      const pause = 0;
+        const animatedFrames = [
+          {
+            xPercent: 0,
+            filter: `blur(${0}px)`,
+            scale: 1,
+            duration: 1.5,
+            ease: "power2.inOut",
+            delay: 3,
+          },
 
-      const loop = gsap.timeline({
-        repeat: -1,
-        defaults: { duration, ease: "power2.inOut" },
-      });
+          {
+            xPercent: 120,
+            filter: `blur(${10}px)`,
+            scale: 0.8,
+            duration: 1.5,
+            delay: 3,
+          },
 
-      // Step 1: Focus on member 2 (center)
-      loop
-        .to(teamRefStateOneRef.current, { ...animatedFrames[0] })
-        .to(teamRefStateOneRef.current, { ...animatedFrames[1] })
-        .to(teamRefStateOneRef.current, {
-          ...animatedFrames[2],
-        })
-        .call(() => {
-          if (team.length > 4) {
-            const container = teamRefStateOneRef.current;
-            if (container) {
-              const nameP = container.querySelector(".team-name") as any;
-              const roleP = container.querySelector(".team-role");
+          {
+            filter: `blur(${10}px)`,
+            scale: 0.6,
+            opacity: 0,
+            duration: 1.5,
+            delay: 3,
+          },
+          {
+            filter: `blur(${10}px)`,
+            scale: 0.8,
+            opacity: 1,
+            duration: 1.5,
+            delay: 3,
+          },
+        ];
 
-              let renderIndex =
-                team.length < 4
-                  ? 2
-                  : Math.max(0, (carousalIndex + 3) % team.length);
+        let carousalIndex = 0;
+        const duration = 1.2;
+        const pause = 0;
 
-              if (nameP) nameP.textContent = team[renderIndex].name;
-              if (roleP) roleP.textContent = team[renderIndex].role;
-              // Update image
-              const img = container.querySelector(".team-image") as any;
+        const loop = gsap.timeline({
+          repeat: -1,
+          defaults: { duration, ease: "power2.inOut" },
+        });
 
-              if (img) {
-                img.src = getImageUrl(team[renderIndex].image);
-                img.alt = "New Name";
+        // Step 1: Focus on member 2 (center)
+        loop
+          .to(teamRefStateOneRef.current, { ...animatedFrames[0] })
+          .to(teamRefStateOneRef.current, { ...animatedFrames[1] })
+          .to(teamRefStateOneRef.current, {
+            ...animatedFrames[2],
+          })
+          .call(() => {
+            if (team.length > 4) {
+              const container = teamRefStateOneRef.current;
+              if (container) {
+                const nameP = container.querySelector(".team-name") as any;
+                const roleP = container.querySelector(".team-role");
+
+                let renderIndex =
+                  team.length < 4
+                    ? 2
+                    : Math.max(0, (carousalIndex + 3) % team.length);
+
+                if (nameP) nameP.textContent = team[renderIndex].name;
+                if (roleP) roleP.textContent = team[renderIndex].role;
+                // Update image
+                const img = container.querySelector(".team-image") as any;
+
+                if (img) {
+                  img.src = getImageUrl(team[renderIndex].image);
+                  img.alt = "New Name";
+                }
+
+                carousalIndex++;
               }
-
-              carousalIndex++;
             }
-          }
-        })
-        .to(teamRefStateOneRef.current, { xPercent: -120, duration: 0 })
-        .to(teamRefStateOneRef.current, { ...animatedFrames[3] })
-        .to({}, { duration: pause });
+          })
+          .to(teamRefStateOneRef.current, { xPercent: -120, duration: 0 })
+          .to(teamRefStateOneRef.current, { ...animatedFrames[3] })
+          .to({}, { duration: pause });
 
-      const loop2 = gsap.timeline({
-        repeat: -1,
-        defaults: { duration, ease: "power2.inOut" },
-      });
+        const loop2 = gsap.timeline({
+          repeat: -1,
+          defaults: { duration, ease: "power2.inOut" },
+        });
 
-      // Step 2: Focus on member 3 (center)
-      loop2
-        .to(teamRefStateTwoRef.current, { ...animatedFrames[1] })
-        .to(teamRefStateTwoRef.current, {
-          ...animatedFrames[2],
-        })
-        .call(() => {
-          if (team.length > 4) {
-            const container = teamRefStateTwoRef.current;
-            if (container) {
-              const nameP = container.querySelector(".team-name") as any;
-              const roleP = container.querySelector(".team-role");
+        // Step 2: Focus on member 3 (center)
+        loop2
+          .to(teamRefStateTwoRef.current, { ...animatedFrames[1] })
+          .to(teamRefStateTwoRef.current, {
+            ...animatedFrames[2],
+          })
+          .call(() => {
+            if (team.length > 4) {
+              const container = teamRefStateTwoRef.current;
+              if (container) {
+                const nameP = container.querySelector(".team-name") as any;
+                const roleP = container.querySelector(".team-role");
 
-              let renderIndex =
-                team.length < 4
-                  ? 0
-                  : Math.max(0, (carousalIndex + 3) % team.length);
+                let renderIndex =
+                  team.length < 4
+                    ? 0
+                    : Math.max(0, (carousalIndex + 3) % team.length);
 
-              if (nameP) nameP.textContent = team[renderIndex].name;
-              if (roleP) roleP.textContent = team[renderIndex].role;
-              // Update image
-              const img = container.querySelector(".team-image") as any;
+                if (nameP) nameP.textContent = team[renderIndex].name;
+                if (roleP) roleP.textContent = team[renderIndex].role;
+                // Update image
+                const img = container.querySelector(".team-image") as any;
 
-              if (img) {
-                img.src = getImageUrl(team[renderIndex].image);
-                img.alt = "New Name";
+                if (img) {
+                  img.src = getImageUrl(team[renderIndex].image);
+                  img.alt = "New Name";
+                }
+
+                carousalIndex++;
               }
-
-              carousalIndex++;
             }
-          }
-        })
-        .to(teamRefStateTwoRef.current, { xPercent: -120, duration: 0 })
-        .to(teamRefStateTwoRef.current, { ...animatedFrames[3] })
-        .to(teamRefStateTwoRef.current, { ...animatedFrames[0] })
-        .to({}, { duration: pause });
+          })
+          .to(teamRefStateTwoRef.current, { xPercent: -120, duration: 0 })
+          .to(teamRefStateTwoRef.current, { ...animatedFrames[3] })
+          .to(teamRefStateTwoRef.current, { ...animatedFrames[0] })
+          .to({}, { duration: pause });
 
-      const loop3 = gsap.timeline({
-        repeat: -1,
-        defaults: { duration, ease: "power2.inOut" },
-      });
+        const loop3 = gsap.timeline({
+          repeat: -1,
+          defaults: { duration, ease: "power2.inOut" },
+        });
 
-      // Step 2: Focus on member 3 (center)
-      loop3
-        .to(teamRefStateThreeRef.current, {
-          ...animatedFrames[2],
-        })
-        .call(() => {
-          if (team.length > 4) {
-            const container = teamRefStateThreeRef.current;
-            if (container) {
-              const nameP = container.querySelector(".team-name") as any;
-              const roleP = container.querySelector(".team-role");
+        // Step 2: Focus on member 3 (center)
+        loop3
+          .to(teamRefStateThreeRef.current, {
+            ...animatedFrames[2],
+          })
+          .call(() => {
+            if (team.length > 4) {
+              const container = teamRefStateThreeRef.current;
+              if (container) {
+                const nameP = container.querySelector(".team-name") as any;
+                const roleP = container.querySelector(".team-role");
 
-              let renderIndex =
-                team.length < 4
-                  ? 1
-                  : Math.max(0, (carousalIndex + 3) % team.length);
+                let renderIndex =
+                  team.length < 4
+                    ? 1
+                    : Math.max(0, (carousalIndex + 3) % team.length);
 
-              // if(nameP.textContent === team[renderIndex].name){
-              //   renderIndex = renderIndex - 1
-              // }
+                // if(nameP.textContent === team[renderIndex].name){
+                //   renderIndex = renderIndex - 1
+                // }
 
-              if (nameP) nameP.textContent = team[renderIndex].name;
-              if (roleP) roleP.textContent = team[renderIndex].role;
-              // Update image
-              const img = container.querySelector(".team-image") as any;
+                if (nameP) nameP.textContent = team[renderIndex].name;
+                if (roleP) roleP.textContent = team[renderIndex].role;
+                // Update image
+                const img = container.querySelector(".team-image") as any;
 
-              if (img) {
-                img.src = getImageUrl(team[renderIndex].image);
-                img.alt = "New Name";
+                if (img) {
+                  img.src = getImageUrl(team[renderIndex].image);
+                  img.alt = "New Name";
+                }
+
+                carousalIndex++;
               }
-
-              carousalIndex++;
             }
-          }
-        })
-        .to(teamRefStateThreeRef.current, { xPercent: -120, duration: 0 })
-        .to(teamRefStateThreeRef.current, { ...animatedFrames[3] })
-        .to(teamRefStateThreeRef.current, { ...animatedFrames[0] })
-        .to(teamRefStateThreeRef.current, { ...animatedFrames[1] })
-        .to({}, { duration: pause });
+          })
+          .to(teamRefStateThreeRef.current, { xPercent: -120, duration: 0 })
+          .to(teamRefStateThreeRef.current, { ...animatedFrames[3] })
+          .to(teamRefStateThreeRef.current, { ...animatedFrames[0] })
+          .to(teamRefStateThreeRef.current, { ...animatedFrames[1] })
+          .to({}, { duration: pause });
 
-      const loop4 = gsap.timeline({
-        repeat: -1,
-        defaults: { duration, ease: "power2.inOut" },
-      });
+        const loop4 = gsap.timeline({
+          repeat: -1,
+          defaults: { duration, ease: "power2.inOut" },
+        });
 
-      // Step 2: Focus on member 3 (center)
-      loop4
-        .call(() => {
-          if (team.length > 4) {
-            const container = teamStateFourRef.current;
-            if (container) {
-              const nameP = container.querySelector(".team-name") as any;
-              const roleP = container.querySelector(".team-role");
+        // Step 2: Focus on member 3 (center)
+        loop4
+          .call(() => {
+            if (team.length > 4) {
+              const container = teamStateFourRef.current;
+              if (container) {
+                const nameP = container.querySelector(".team-name") as any;
+                const roleP = container.querySelector(".team-role");
 
-              let renderIndex =
-                team.length < 4
-                  ? 2
-                  : Math.max(0, (carousalIndex + 3) % team.length);
+                let renderIndex =
+                  team.length < 4
+                    ? 2
+                    : Math.max(0, (carousalIndex + 3) % team.length);
 
-              // if(nameP.textContent === team[renderIndex].name){
-              //   renderIndex = renderIndex - 1
-              // }
+                // if(nameP.textContent === team[renderIndex].name){
+                //   renderIndex = renderIndex - 1
+                // }
 
-              if (nameP) nameP.textContent = team[renderIndex].name;
-              if (roleP) roleP.textContent = team[renderIndex].role;
-              // Update image
-              const img = container.querySelector(".team-image") as any;
+                if (nameP) nameP.textContent = team[renderIndex].name;
+                if (roleP) roleP.textContent = team[renderIndex].role;
+                // Update image
+                const img = container.querySelector(".team-image") as any;
 
-              if (img) {
-                img.src = getImageUrl(team[renderIndex].image);
-                img.alt = "New Name";
+                if (img) {
+                  img.src = getImageUrl(team[renderIndex].image);
+                  img.alt = "New Name";
+                }
+
+                carousalIndex++;
               }
-
-              carousalIndex++;
             }
-          }
-        })
-        .to(teamStateFourRef.current, { xPercent: -120, duration: 0 })
-        .to(teamStateFourRef.current, { ...animatedFrames[3] })
-        .to(teamStateFourRef.current, { ...animatedFrames[0] })
-        .to(teamStateFourRef.current, { ...animatedFrames[1] })
-        .to(teamStateFourRef.current, {
-          ...animatedFrames[2],
-        })
-        .to({}, { duration: pause });
-    }
+          })
+          .to(teamStateFourRef.current, { xPercent: -120, duration: 0 })
+          .to(teamStateFourRef.current, { ...animatedFrames[3] })
+          .to(teamStateFourRef.current, { ...animatedFrames[0] })
+          .to(teamStateFourRef.current, { ...animatedFrames[1] })
+          .to(teamStateFourRef.current, {
+            ...animatedFrames[2],
+          })
+          .to({}, { duration: pause });
+      }
 
-    // Handle screen resize to fix timeline issues
-    let resizeTimeout: NodeJS.Timeout;
-    const handleResize = () => {
-      clearTimeout(resizeTimeout);
-      resizeTimeout = setTimeout(() => {
-        ScrollTrigger.refresh();
-      }, 150);
-    };
+      // Handle screen resize to fix timeline issues
+      // Handle screen resize to fix timeline issues
+      const handleResize = () => {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(() => {
+          ScrollTrigger.refresh();
+        }, 150);
+      };
 
-    window.addEventListener("resize", handleResize);
+      window.addEventListener("resize", handleResize);
+
+      cleanupResize = () => {
+        window.removeEventListener("resize", handleResize);
+        clearTimeout(resizeTimeout);
+      };
+
+    }, rootRef);
 
     return () => {
-      window.removeEventListener("resize", handleResize);
-      clearTimeout(resizeTimeout);
+      cleanupResize();
+      if (lenis && tickerCallback) {
+        gsap.ticker.remove(tickerCallback);
+        lenis.destroy();
+      }
+      ctx.revert();
     };
   }, []);
 

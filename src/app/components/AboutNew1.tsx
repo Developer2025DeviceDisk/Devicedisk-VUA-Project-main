@@ -932,8 +932,24 @@ export default function About({ aboutContent, servicesData }: any) {
                             {/* View More Circle - Centered */}
                             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 group cursor-pointer">
                                 <Link href={item._id ? `/work-detail/${item._id}` : '#'}>
-                                    <div className="w-24 h-24 lg:w-32 lg:h-32 rounded-full border border-white/30 backdrop-blur-sm flex items-center justify-center transition-all duration-300 group-hover:scale-110 group-hover:bg-white/10">
-                                        <span className="text-white text-sm lg:text-base font-medium">View More</span>
+                                    <div className="w-24 h-10 lg:w-42 lg:h-10 rounded-full border border-white/30  flex items-center justify-center transition-all duration-300 group-hover:scale-110 group-hover:bg-white/10">
+                                        <span className="text-white text-sm lg:text-base font-medium">Explore More</span>
+                                        <svg
+                                            width="40"
+                                            height="40"
+                                            viewBox="0 0 24 24"
+                                            fill="none"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            className="transform rotate-0"
+                                        >
+                                            <path
+                                                d="M7 10C7 10 9.5 14 12 14C14.5 14 17 10 17 10"
+                                                stroke="currentColor"
+                                                strokeWidth="2.5"
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                            />
+                                        </svg>
                                     </div>
                                 </Link>
                             </div>
@@ -942,7 +958,8 @@ export default function About({ aboutContent, servicesData }: any) {
                             <div className="absolute inset-0 p-8 lg:p-16 flex flex-col justify-end">
                                 <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
                                     {/* Title (Bottom Left) */}
-                                    <h2 className="text-white text-5xl lg:text-7xl xl:text-9xl font-bold tracking-tight">
+                                    <h2 className="text-white text-2xl lg:text-4xl xl:text-6xl font-bold tracking-tight"
+                                        style={{ fontFamily: "PetrovSans", fontWeight: 400 }}>
                                         {item.name}
                                     </h2>
 
@@ -996,7 +1013,7 @@ export default function About({ aboutContent, servicesData }: any) {
 
                                     <div className="flex justify-center items-center w-full mt-4">
                                         <div className="flex items-center gap-1 text-white text-xs opacity-90 border border-white/30 px-3 py-1.5 rounded-full backdrop-blur-sm">
-                                            Learn more
+                                            Explore More
                                             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M7 10C7 10 9.5 14 12 14C14.5 14 17 10 17 10" /></svg>
                                         </div>
                                     </div>

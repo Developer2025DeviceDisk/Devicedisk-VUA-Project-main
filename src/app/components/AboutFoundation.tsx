@@ -117,9 +117,9 @@ export default function AboutFoundation({ aboutContent, foundationSection }: Abo
     return (
         <section
             ref={aboutScrollSectionRef}
-            className="relative w-full min-h-0 lg:min-h-screen flex items-start lg:items-center justify-center overflow-hidden bg-[#EEF0FF] py-2 lg:py-8"
+            className="relative w-full min-h-0 lg:min-h-screen flex items-center lg:items-center lg:justify-center overflow-hidden bg-[#EEF0FF] py-2 lg:py-8"
         >
-            <div className="relative w-full max-w-[1250px] mx-auto px-4 lg:px-8 flex flex-col lg:flex-row lg:items-stretch gap-4 lg:gap-16 xl:gap-24">
+            <div className="relative w-full max-w-[1250px] mx-auto px-4 lg:px-8 flex flex-col lg:flex-row lg:item-center lg:justify-center gap-4 lg:gap-16 xl:gap-24">
                 {/* Left Column: Dark About Card */}
                 <div className="w-full lg:w-1/2 max-w-[700px] xl:max-w-[900px] h-[500px] lg:h-[675px]">
                     <div
@@ -145,13 +145,13 @@ export default function AboutFoundation({ aboutContent, foundationSection }: Abo
                             <h2
                                 ref={aboutHeadingRef}
                                 style={{ fontFamily: "PetrovSans", fontWeight: 300 }}
-                                className="font-light text-[48px] leading-[22.58px] lg:text-[80px] lg:leading-[111.84px] tracking-[0] capitalize text-center text-white mb-6 lg:mb-2"
+                                className="font-light text-[48px] leading-[22.58px] lg:text-[80px] lg:leading-[51.84px] tracking-[0] capitalize text-center text-white mb-6 lg:mb-2"
                             >
                                 {aboutContent?.aboutTitle || "About Us"}
                             </h2>
 
                             {/* Text Lines Container */}
-                            <div className="space-y-20 lg:space-y-2 mb-6 mt-6 lg:mb-8 text-center lg:text-left">
+                            <div className="space-y-20 lg:space-y-2 px-10 mt-6 lg:mb-8 text-center text-white lg:text-left">
                                 {(aboutContent?.aboutTextLines || [
                                     "Lorem Ipsum Dolor Sit Amet, Consectetuer Adipiscing Elit, Sed",
                                     "Diam Nonummy Nibh Euismod Tincidunt Ut Laoreet Dolore Magna",

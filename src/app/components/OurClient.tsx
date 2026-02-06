@@ -56,11 +56,11 @@ export default function OurClient() {
             {/* Title & Description */}
             <div className="text-center mb-16 px-4">
                 <h2 className="text-[48px] md:text-[60px] font-light text-[#6210FF] mb-6 tracking-tight"
-                    style={{ fontFamily: "PetrovSans", fontWeight: 300 }}>
+                    style={{ fontFamily: "PetrovSans", fontWeight: 400 }}>
                     {clientContent.title}
                 </h2>
                 <p className="text-gray-700 max-w-4xl mx-auto text-[18px] md:text-[22px] leading-relaxed font-light"
-                    style={{ fontFamily: "PetrovSans", fontWeight: 300 }}>
+                    style={{ fontFamily: "PetrovSans", fontWeight: 400 }}>
                     {clientContent.description}
                 </p>
             </div>
@@ -68,8 +68,8 @@ export default function OurClient() {
             {/* Marquee Container */}
             <div className="relative">
                 {/* Gradient Fade Edges */}
-                <div className="absolute left-0 top-0 bottom-0 w-32 md:w-48 bg-gradient-to-r from-[#E8E8ED] to-transparent z-10 pointer-events-none" />
-                <div className="absolute right-0 top-0 bottom-0 w-32 md:w-48 bg-gradient-to-l from-[#E8E8ED] to-transparent z-10 pointer-events-none" />
+                <div className="absolute left-0 top-0 bottom-0 w-32 md:w-48 z-10 pointer-events-none" />
+                <div className="absolute right-0 top-0 bottom-0 w-32 md:w-48 z-10 pointer-events-none" />
 
                 {/* Marquee Track */}
                 <div className="flex w-max animate-marquee hover:pause-marquee">

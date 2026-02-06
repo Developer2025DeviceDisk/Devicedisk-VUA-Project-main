@@ -797,7 +797,7 @@ export default function About({ aboutContent, servicesData }: any) {
             {/* Video Section */}
             <section
                 ref={videoSectionRef}
-                className="relative w-full h-auto lg:h-screen flex items-center justify-center overflow-hidden p-0 m-0"
+                className="relative w-full h-screen md:h-auto lg:h-screen flex items-center justify-center overflow-hidden p-0 m-0"
                 style={{ backgroundColor: videoSection.backgroundColor }}
             >
                 <div className="relative w-full h-full">
@@ -833,7 +833,7 @@ export default function About({ aboutContent, servicesData }: any) {
 
                     <video
                         ref={videoRef}
-                        className="block w-full h-auto lg:absolute lg:inset-0 lg:w-full lg:h-full lg:object-cover lg:scale-[0.9]"
+                        className="block w-full h-full object-cover md:h-auto lg:absolute lg:inset-0 lg:w-full lg:h-full lg:object-cover lg:scale-[0.9]"
                         playsInline
                         loop
                         muted
@@ -890,7 +890,7 @@ export default function About({ aboutContent, servicesData }: any) {
             <div className="w-full py-10 lg:py-16 bg-[#EEF0FF] flex flex-col items-center justify-center text-center px-4">
                 <div className="relative mb-8">
                     <h2 className="text-[48px] lg:text-[60px] font-light text-[#6210FF] tracking-tight"
-                        style={{ fontFamily: "PetrovSans", fontWeight: 300 }}>
+                        style={{ fontFamily: "PetrovSans", fontWeight: 400 }}>
                         {ourWorkContent.headerSection.title}
                     </h2>
                 </div>
@@ -990,7 +990,7 @@ export default function About({ aboutContent, servicesData }: any) {
                                 src={getImageUrl(item.image)}
                                 alt={item.name}
                                 fill
-                                className="object-cover"
+                                className="object-cover object-center"
                                 sizes="(max-width: 1024px) 100vw, 50vw"
                                 priority={index === 0}
                             />
@@ -1090,7 +1090,7 @@ export default function About({ aboutContent, servicesData }: any) {
 
                     {/* Text Content */}
                     <h1 className="text-[48px] lg:text-[80px] pt-[100px] lg:pt-[80px] text-center font-[300] text-white animate__animated animate__fadeInUp relative z-10 px-4"
-                        style={{ fontFamily: "PetrovSans", fontWeight: 300 }}>
+                        style={{ fontFamily: "PetrovSans", fontWeight: 400 }}>
                         {servicesSection.title}
                     </h1>
                 </div>

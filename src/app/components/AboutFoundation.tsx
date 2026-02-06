@@ -117,11 +117,11 @@ export default function AboutFoundation({ aboutContent, foundationSection }: Abo
     return (
         <section
             ref={aboutScrollSectionRef}
-            className="relative w-full min-h-0 lg:min-h-screen flex items-center lg:items-center lg:justify-center overflow-hidden bg-[#EEF0FF] py-2 lg:py-8"
+            className="relative w-full min-h-screen flex items-center justify-center overflow-hidden bg-[#EEF0FF] py-8 lg:py-8"
         >
             <div className="relative w-full max-w-[1250px] mx-auto px-4 lg:px-8 flex flex-col lg:flex-row lg:item-center lg:justify-center gap-4 lg:gap-16 xl:gap-24">
                 {/* Left Column: Dark About Card */}
-                <div className="w-full lg:w-1/2 max-w-[700px] xl:max-w-[900px] h-[500px] lg:h-[675px]">
+                <div className="w-full lg:w-1/2 max-w-[700px] xl:max-w-[900px] ">
                     <div
                         className="relative rounded-[20px] lg:rounded-[30px] p-6 lg:p-10 xl:p-12 shadow-2xl w-full h-full flex flex-col justify-start overflow-hidden"
                     // style={{
@@ -144,14 +144,14 @@ export default function AboutFoundation({ aboutContent, foundationSection }: Abo
                             {/* Title */}
                             <h2
                                 ref={aboutHeadingRef}
-                                style={{ fontFamily: "PetrovSans", fontWeight: 300 }}
-                                className="font-light text-[48px] leading-[22.58px] lg:text-[80px] lg:leading-[51.84px] tracking-[0] capitalize text-center text-white mb-6 lg:mb-2"
+                                style={{ fontFamily: "PetrovSans", fontWeight: 400 }}
+                                className="font-light text-[48px] leading-[20.58px] lg:text-[60px] lg:leading-[40.84px] tracking-[0] capitalize text-center text-white mb-6 "
                             >
                                 {aboutContent?.aboutTitle || "About Us"}
                             </h2>
 
                             {/* Text Lines Container */}
-                            <div className="space-y-20 lg:space-y-2 px-10 mt-6 lg:mb-8 text-center text-white lg:text-left">
+                            <div className="space-y-20 lg:space-y-2 mb-4 lg:mt-4 lg:px-6 lg:mb-8 text-center text-white font-medium lg:text-left">
                                 {(aboutContent?.aboutTextLines || [
                                     "Lorem Ipsum Dolor Sit Amet, Consectetuer Adipiscing Elit, Sed",
                                     "Diam Nonummy Nibh Euismod Tincidunt Ut Laoreet Dolore Magna",
@@ -208,16 +208,16 @@ export default function AboutFoundation({ aboutContent, foundationSection }: Abo
                 </div>
 
                 {/* Right Column: Our Foundation */}
-                <div className="w-full lg:w-1/2 flex flex-col gap-6 lg:gap-12 pl-2 lg:pl-0">
+                <div className="w-full  lg:w-1/2 flex flex-col gap-6 lg:gap-2 pl-2 lg:pl-0">
                     <h2
                         ref={foundationTitleRef}
-                        style={{ fontFamily: "PetrovSans", fontWeight: 300 }}
-                        className=" text-[48px] lg:text-[40px] xl:text-[60px] leading-[1.1] text-[#6210FF] text-center lg:text-left"
+                        style={{ fontFamily: "PetrovSans", fontWeight: 400 }}
+                        className=" text-[48px] lg:text-[40px] xl:text-[60px] mt-4 text-[#6210FF] text-center lg:text-left"
                     >
                         {foundationSection.title}
                     </h2>
 
-                    <div className="flex flex-col gap-6 lg:gap-10">
+                    <div className="flex flex-col gap-6 lg:gap-8">
                         {foundationSection.foundations.slice(0, 4).map((foundation: any, index: number) => {
                             const refs = [
                                 foundationItem1Ref,
@@ -229,9 +229,9 @@ export default function AboutFoundation({ aboutContent, foundationSection }: Abo
                                 <div
                                     key={index}
                                     ref={refs[index]}
-                                    className="foundation-item"
+                                    className="foundation-item "
                                 >
-                                    <h3 className="text-[25px] lg:text-[40px] font-semibold text-[#727272] mb-1 text-center lg:text-left"
+                                    <h3 className="text-[25px] lg:text-[40px]  font-semibold text-[#727272] mb-1 text-center lg:text-left"
                                         style={{ fontFamily: "PetrovSans", fontWeight: 600 }}
                                     >
                                         {foundation.title}

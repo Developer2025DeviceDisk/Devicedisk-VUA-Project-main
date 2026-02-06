@@ -91,7 +91,7 @@ export default function InstagramFeed() {
             {/* Header */}
             <div className="text-center mb-12">
                 <h2 className="text-[48px] lg:text-[60px] font-light text-[#6210FF] mb-2 tracking-tight"
-                    style={{ fontFamily: "PetrovSans", fontWeight: 300 }}>
+                    style={{ fontFamily: "PetrovSans", fontWeight: 400 }}>
                     Latest Updates
                 </h2>
             </div>
@@ -141,7 +141,7 @@ export default function InstagramFeed() {
                                         src={post.media_url}
                                         alt={post.caption}
                                         fill
-                                        className="object-cover opacity-90 hover:opacity-100 transition-opacity"
+                                        className="object-cover"
                                         unoptimized={true}
                                     />
                                 ) : (

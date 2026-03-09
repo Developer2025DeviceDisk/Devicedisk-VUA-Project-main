@@ -20,6 +20,18 @@ const getMediaUrl = (path: string): string => {
 const isVideoUrl = (url: string): boolean =>
     /\.(mp4|mov|avi|mkv|webm|ogv|3gp|flv)(\?.*)?$/i.test(url);
 
+/** Returns true if the URL points to a YouTube video */
+const isYoutubeUrl = (url: string): boolean => {
+    const youtubeRegex = /^(https?:\/\/)?(www\.)?(youtube\.com|youtu\.?be)\/.+$/;
+    return youtubeRegex.test(url);
+};
+
+const getYoutubeId = (url: string): string | null => {
+    const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+    const match = url.match(regExp);
+    return (match && match[2].length === 11) ? match[2] : null;
+};
+
 interface WorkGalleryProps {
     images: string[];
 }
@@ -30,6 +42,7 @@ export default function WorkGallery({ images }: WorkGalleryProps) {
     if (!images || images.length === 0) return null;
 
     const selectedIsVideo = selectedMedia ? isVideoUrl(selectedMedia) : false;
+    const selectedIsYoutube = selectedMedia ? isYoutubeUrl(selectedMedia) : false;
 
     return (
         <>
@@ -37,6 +50,7 @@ export default function WorkGallery({ images }: WorkGalleryProps) {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 auto-rows-[200px] md:auto-rows-[300px]">
                 {images.map((url, idx) => {
                     const isVideo = isVideoUrl(url);
+                    const isYoutube = isYoutubeUrl(url);
                     const mediaUrl = getMediaUrl(url);
 
                     // Custom Layout Logic matching the "Visionstone" design
@@ -56,7 +70,36 @@ export default function WorkGallery({ images }: WorkGalleryProps) {
                             className={className}
                             onClick={() => setSelectedMedia(url)}
                         >
-                            {isVideo ? (
+                            {isYoutube ? (
+                                /* ── YOUTUBE THUMBNAIL ── */
+                                <>
+                                    <Image
+                                        src={`https://img.youtube.com/vi/${getYoutubeId(url)}/hqdefault.jpg`}
+                                        alt={`YouTube Video ${idx + 1}`}
+                                        fill
+                                        className="object-cover group-hover:scale-105 transition-transform duration-700"
+                                        unoptimized
+                                    />
+                                    {/* Dark scrim + play-button badge */}
+                                    <div className="absolute inset-0 bg-black/30 group-hover:bg-black/40 transition-colors duration-300 flex items-center justify-center">
+                                        <span className="w-14 h-14 rounded-full bg-red-600 flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
+                                            {/* Play icon */}
+                                            <svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 24 24"
+                                                fill="currentColor"
+                                                className="w-6 h-6 text-white translate-x-0.5"
+                                            >
+                                                <path d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.347a1.125 1.125 0 0 1 0 1.972l-11.54 6.347a1.125 1.125 0 0 1-1.667-.986V5.653Z" />
+                                            </svg>
+                                        </span>
+                                    </div>
+                                    {/* Video badge */}
+                                    <span className="absolute bottom-3 left-3 text-[11px] font-semibold uppercase tracking-widest text-white bg-red-600/90 px-2 py-0.5 rounded-full pointer-events-none">
+                                        YouTube
+                                    </span>
+                                </>
+                            ) : isVideo ? (
                                 /* ── VIDEO THUMBNAIL ── */
                                 <>
                                     <video
@@ -113,7 +156,16 @@ export default function WorkGallery({ images }: WorkGalleryProps) {
                         className="relative w-full h-full max-w-5xl max-h-[90vh] flex items-center justify-center"
                         onClick={(e) => e.stopPropagation()}
                     >
-                        {selectedIsVideo ? (
+                        {selectedIsYoutube ? (
+                            /* ── YOUTUBE LIGHTBOX ── */
+                            <iframe
+                                src={`https://www.youtube.com/embed/${getYoutubeId(selectedMedia!)}?autoplay=1`}
+                                allow="autoplay; encrypted-media"
+                                allowFullScreen
+                                className="w-full max-w-5xl h-[80vh] rounded-xl shadow-2xl outline-none"
+                                style={{ background: "#000" }}
+                            />
+                        ) : selectedIsVideo ? (
                             /* ── VIDEO LIGHTBOX ── */
                             <video
                                 src={getMediaUrl(selectedMedia)}

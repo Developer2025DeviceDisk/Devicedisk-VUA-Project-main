@@ -109,10 +109,10 @@ export default async function WorkDetailPage({ params }: { params: Promise<{ id:
 
             {/* Content & Context Section */}
             <section className="max-w-7xl mx-auto px-6 md:px-12 py-8 md:py-24">
-                <div className="flex flex-col md:flex-row gap-8 md:gap-20 items-center">
+                <div className="flex flex-row gap-4 md:gap-20 items-center">
                     {/* Left: Client Logo (Separate White Box) */}
-                    <div className="w-full md:w-3/12 flex-shrink-0">
-                        <div className="bg-white rounded-[40px] p-2 md:p-4 shadow-sm aspect-square flex items-center justify-center">
+                    <div className="w-24 md:w-3/12 flex-shrink-0">
+                        <div className="bg-white rounded-2xl md:rounded-[40px] p-2 md:p-4 shadow-sm aspect-square flex items-center justify-center">
                             {item.clientLogo ? (
                                 <div className="relative w-full h-full">
                                     <Image
@@ -125,15 +125,15 @@ export default async function WorkDetailPage({ params }: { params: Promise<{ id:
                                 </div>
                             ) : (
                                 // Fallback
-                                <div className="text-3xl font-bold text-gray-900 text-center">{item.name}</div>
+                                <div className="text-sm md:text-3xl font-bold text-gray-900 text-center">{item.name}</div>
                             )}
                         </div>
                     </div>
 
                     {/* Right: Description (Text on Background) */}
-                    <div className="w-full md:w-7/12">
-                        <div className="prose prose-lg text-[#1A1A1A] leading-relaxed font-normal">
-                            <p className="whitespace-pre-line text-lg md:text-xl md:leading-[1.6]">
+                    <div className="flex-1 md:w-7/12">
+                        <div className="prose prose-sm md:prose-lg text-[#1A1A1A] leading-relaxed font-normal">
+                            <p className="whitespace-pre-line text-xs sm:text-base md:text-xl md:leading-[1.6]">
                                 {item.detailDescription || "No detailed description available for this project yet."}
                             </p>
                         </div>

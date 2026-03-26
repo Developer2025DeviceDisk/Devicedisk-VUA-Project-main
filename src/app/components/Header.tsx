@@ -102,11 +102,10 @@ export default function Header() {
   // Navigation links array
   const navLinks = [
     { title: "Home", href: "/" },
-    { title: "Services", href: "/services" },
     // { title: "Product", href: "/product" },
     { title: "About Us", href: "/About" },
-    // { title: "Work", href: "/work" },
-    // { title: "Culture", href: "/culture" },
+    { title: "Work", href: "/work" },
+    { title: "Services", href: "/services" },
     { title: "Contact Us", href: "/contact" },
     { title: "Privacy Policy", href: "/privacy-policy" },
   ];

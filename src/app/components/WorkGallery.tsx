@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 
 // Helper for image URLs (Client Side)
@@ -37,10 +37,38 @@ interface WorkGalleryProps {
 }
 
 export default function WorkGallery({ images }: WorkGalleryProps) {
-    const [selectedMedia, setSelectedMedia] = useState<string | null>(null);
+    const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
+
+    const handleNext = useCallback((e?: React.MouseEvent) => {
+        e?.stopPropagation();
+        if (selectedIndex !== null) {
+            setSelectedIndex((selectedIndex + 1) % images.length);
+        }
+    }, [selectedIndex, images.length]);
+
+    const handlePrev = useCallback((e?: React.MouseEvent) => {
+        e?.stopPropagation();
+        if (selectedIndex !== null) {
+            setSelectedIndex((selectedIndex - 1 + images.length) % images.length);
+        }
+    }, [selectedIndex, images.length]);
+
+    useEffect(() => {
+        if (selectedIndex === null) return;
+
+        const handleKeyDown = (e: KeyboardEvent) => {
+            if (e.key === "ArrowRight") handleNext();
+            if (e.key === "ArrowLeft") handlePrev();
+            if (e.key === "Escape") setSelectedIndex(null);
+        };
+
+        window.addEventListener("keydown", handleKeyDown);
+        return () => window.removeEventListener("keydown", handleKeyDown);
+    }, [selectedIndex, handleNext, handlePrev]);
 
     if (!images || images.length === 0) return null;
 
+    const selectedMedia = selectedIndex !== null ? images[selectedIndex] : null;
     const selectedIsVideo = selectedMedia ? isVideoUrl(selectedMedia) : false;
     const selectedIsYoutube = selectedMedia ? isYoutubeUrl(selectedMedia) : false;
 
@@ -68,7 +96,7 @@ export default function WorkGallery({ images }: WorkGalleryProps) {
                         <div
                             key={idx}
                             className={className}
-                            onClick={() => setSelectedMedia(url)}
+                            onClick={() => setSelectedIndex(idx)}
                         >
                             {isYoutube ? (
                                 /* ── YOUTUBE THUMBNAIL ── */
@@ -147,10 +175,10 @@ export default function WorkGallery({ images }: WorkGalleryProps) {
             </div>
 
             {/* ── LIGHTBOX MODAL ── */}
-            {selectedMedia && (
+            {selectedIndex !== null && selectedMedia && (
                 <div
                     className="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 backdrop-blur-sm p-4"
-                    onClick={() => setSelectedMedia(null)}
+                    onClick={() => setSelectedIndex(null)}
                 >
                     <div
                         className="relative w-full h-full max-w-5xl max-h-[90vh] flex items-center justify-center"
@@ -188,10 +216,51 @@ export default function WorkGallery({ images }: WorkGalleryProps) {
                         )}
                     </div>
 
+                    {/* Navigation Buttons */}
+                    {images.length > 1 && (
+                        <>
+                            {/* Previous Button */}
+                            <button
+                                className="absolute left-4 top-1/2 -translate-y-1/2 text-white hover:text-gray-300 z-50 p-3 bg-black/50 rounded-full transition-all hover:scale-110 active:scale-95 group"
+                                onClick={handlePrev}
+                                aria-label="Previous Image"
+                            >
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    strokeWidth={2}
+                                    stroke="currentColor"
+                                    className="w-8 h-8 group-hover:-translate-x-0.5 transition-transform"
+                                >
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+                                </svg>
+                            </button>
+
+                            {/* Next Button */}
+                            <button
+                                className="absolute right-4 top-1/2 -translate-y-1/2 text-white hover:text-gray-300 z-50 p-3 bg-black/50 rounded-full transition-all hover:scale-110 active:scale-95 group"
+                                onClick={handleNext}
+                                aria-label="Next Image"
+                            >
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    strokeWidth={2}
+                                    stroke="currentColor"
+                                    className="w-8 h-8 group-hover:translate-x-0.5 transition-transform"
+                                >
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                                </svg>
+                            </button>
+                        </>
+                    )}
+
                     {/* Close Button */}
                     <button
                         className="absolute top-4 right-4 text-white hover:text-gray-300 z-50 p-2 bg-black/50 rounded-full"
-                        onClick={() => setSelectedMedia(null)}
+                        onClick={() => setSelectedIndex(null)}
                     >
                         <svg
                             xmlns="http://www.w3.org/2000/svg"

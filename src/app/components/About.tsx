@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import { useEffect, useRef, useState, useMemo } from "react";
+import React, { useEffect, useRef, useState, useMemo } from "react";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import { RingScene } from "../About/Scene";
@@ -49,6 +49,152 @@ const getVideoUrl = (videoPath: string): string => {
 
   // For default videos in public folder, serve from frontend
   return videoPath;
+};
+
+const BrandVideoPlayer = ({ videoSrc = "/vua-intro.mp4", backgroundColor = "#EEF0FF" }: { videoSrc?: string; backgroundColor?: string }) => {
+  const videoSectionRef = useRef<HTMLDivElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [isVideoMuted, setIsVideoMuted] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
+  const [hasError, setHasError] = useState(false);
+
+  useEffect(() => {
+    if (!videoSectionRef.current || !videoRef.current) return;
+
+    const videoCtx = gsap.context(() => {
+      // Scale animation
+      gsap.fromTo(
+        videoRef.current,
+        { scale: 0.9 },
+        {
+          scale: 1.1,
+          scrollTrigger: {
+            trigger: videoSectionRef.current,
+            start: "top bottom",
+            end: "bottom top",
+            scrub: 1,
+            invalidateOnRefresh: true,
+          },
+        }
+      );
+
+      // Auto-play when scrolled into view
+      ScrollTrigger.create({
+        trigger: videoSectionRef.current,
+        start: "top 70%",
+        end: "bottom 30%",
+        onEnter: () => {
+          if (videoRef.current) {
+            videoRef.current.play().catch(e => console.log("Autoplay prevented:", e));
+          }
+        },
+        onEnterBack: () => {
+          if (videoRef.current) {
+            videoRef.current.play().catch(e => console.log("Autoplay prevented:", e));
+          }
+        },
+        onLeave: () => { if (videoRef.current) videoRef.current.pause(); },
+        onLeaveBack: () => { if (videoRef.current) videoRef.current.pause(); },
+      });
+    }, videoSectionRef);
+
+    return () => {
+      videoCtx.revert();
+    };
+  }, [videoSrc]);
+
+  const handleVideoLoad = () => {
+    setIsLoading(false);
+    setHasError(false);
+  };
+
+  const handleVideoError = () => {
+    console.warn("Video failed to load:", videoSrc);
+    setIsLoading(false);
+    setHasError(true);
+  };
+
+  const toggleVideoMute = (e: any) => {
+    if (e && e.stopPropagation) e.stopPropagation();
+    if (videoRef.current) {
+      videoRef.current.muted = !videoRef.current.muted;
+      setIsVideoMuted(videoRef.current.muted);
+      if (!videoRef.current.muted) {
+        videoRef.current.play().catch(e => console.log("Resuming sound failed:", e));
+      }
+    }
+  };
+
+  const finalVideoSrc = hasError ? "/vua-intro.mp4" : getVideoUrl(videoSrc);
+
+  return (
+    <section
+      ref={videoSectionRef}
+      className="relative w-full h-auto md:h-screen flex items-center justify-center overflow-hidden p-0 m-0"
+      style={{ backgroundColor: backgroundColor }}
+    >
+      <div className="relative w-full h-full flex items-center justify-center">
+        {isLoading && (
+          <div className="absolute inset-0 z-20 flex items-center justify-center">
+            <div className="w-12 h-12 border-4 border-[#6210FF] border-t-transparent rounded-full animate-spin"></div>
+          </div>
+        )}
+
+        <video
+          ref={videoRef}
+          key={finalVideoSrc}
+          className={`w-full h-auto md:absolute md:inset-0 md:w-full md:h-full md:object-cover md:scale-[0.9] transition-opacity duration-500 ${isLoading ? 'opacity-0' : 'opacity-100'}`}
+          playsInline
+          loop
+          muted={isVideoMuted}
+          autoPlay
+          preload="auto"
+          onLoadedData={handleVideoLoad}
+          onError={handleVideoError}
+          src={finalVideoSrc}
+        />
+
+        {/* Sound Toggle Button */}
+        {!isLoading && !hasError && (
+          <button
+            onClick={toggleVideoMute}
+            className="absolute top-4 right-4 md:top-8 md:right-8 z-10 bg-black bg-opacity-30 hover:bg-opacity-50 rounded-full p-3 md:p-4 transition-all duration-300 backdrop-blur-sm opacity-70 hover:opacity-90"
+            aria-label={isVideoMuted ? "Unmute video" : "Mute video"}
+          >
+            {isVideoMuted ? (
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                className="w-5 h-5 md:w-6 md:h-6 text-white"
+              >
+                <path
+                  d="M16.5 12C16.5 10.23 15.5 8.71 14 7.97V9.18L16.45 11.63C16.48 11.86 16.5 12.08 16.5 12ZM19 12C19 12.94 18.8 13.82 18.46 14.64L19.97 16.15C20.63 14.91 21 13.5 21 12C21 7.72 18 4.14 14 3.23V5.29C16.89 6.15 19 8.83 19 12ZM4.27 3L3 4.27L7.73 9H3V15H7L12 20V13.27L16.25 17.53C15.58 18.04 14.83 18.46 14 18.7V20.77C15.38 20.45 16.63 19.82 17.68 18.96L19.73 21L21 19.73L12 10.73L4.27 3ZM12 4L9.91 6.09L12 8.18V4Z"
+                  fill="currentColor"
+                />
+              </svg>
+            ) : (
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                className="w-5 h-5 md:w-6 md:h-6 text-white"
+              >
+                <path
+                  d="M3 9V15H7L12 20V4L7 9H3ZM16.5 12C16.5 10.23 15.5 8.71 14 7.97V16.02C15.5 15.29 16.5 13.77 16.5 12ZM14 3.23V5.29C16.89 6.15 19 8.83 19 12S16.89 17.85 14 18.71V20.77C18.01 19.86 21 16.28 21 12S18.01 4.14 14 3.23Z"
+                  fill="currentColor"
+                />
+              </svg>
+            )}
+          </button>
+        )}
+      </div>
+    </section>
+  );
 };
 
 // TypeScript interfaces for About content
@@ -170,10 +316,6 @@ export default function About({ aboutContent }: any) {
   const sectionRef = useRef(null);
   const imageRef = useRef(null);
   const parallaxContainerRef = useRef(null);
-
-  const videoSectionRef = useRef<HTMLDivElement>(null);
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const [isVideoMuted, setIsVideoMuted] = useState(true);
 
   const heroSection = {
     mainTitle: rawHeroSection.mainTitle || "We are",
@@ -720,68 +862,6 @@ export default function About({ aboutContent }: any) {
     };
   }, []);
 
-  // Video Section Animation
-  useEffect(() => {
-    const videoCtx = gsap.context(() => {
-      // Video scroll trigger
-      ScrollTrigger.create({
-        trigger: videoSectionRef.current,
-        start: "top 70%",
-        end: "bottom 30%",
-        onEnter: () => {
-          if (videoRef.current) {
-            videoRef.current.currentTime = 0;
-            videoRef.current
-              .play()
-              .catch((e) => console.log("Autoplay prevented:", e));
-          }
-        },
-        onEnterBack: () => {
-          if (videoRef.current) {
-            videoRef.current
-              .play()
-              .catch((e) => console.log("Autoplay prevented:", e));
-          }
-        },
-        onLeave: () => {
-          if (videoRef.current) {
-            videoRef.current.pause();
-          }
-        },
-        onLeaveBack: () => {
-          if (videoRef.current) {
-            videoRef.current.pause();
-          }
-        },
-      });
-
-      // Video scale animation
-      gsap.fromTo(
-        videoRef.current,
-        { scale: 0.9 },
-        {
-          scale: 1.1,
-          scrollTrigger: {
-            trigger: videoSectionRef.current,
-            start: "top bottom",
-            end: "bottom top",
-            scrub: 1,
-          },
-        }
-      );
-    }, videoSectionRef);
-
-    return () => {
-      videoCtx.revert();
-    };
-  }, []);
-
-  const toggleVideoMute = () => {
-    if (videoRef.current) {
-      videoRef.current.muted = !videoRef.current.muted;
-      setIsVideoMuted(videoRef.current.muted);
-    }
-  };
 
   return (
     <section>
@@ -1096,63 +1176,10 @@ export default function About({ aboutContent }: any) {
       </section>
 
       {/* Video Section */}
-      <section
-        ref={videoSectionRef}
-        className="relative w-full h-auto md:h-screen flex items-center justify-center overflow-hidden p-0 m-0"
-        style={{ backgroundColor: videoSection.backgroundColor }}
-      >
-        <div className="relative w-full h-full">
-          <video
-            ref={videoRef}
-            className="w-full h-auto md:absolute md:inset-0 md:w-full md:h-full md:object-cover md:scale-[0.9]"
-            playsInline
-            loop
-            muted
-            autoPlay
-            preload="auto"
-            src={getVideoUrl(videoSection.videoSrc)}
-          />
-
-          {/* Sound Toggle Button */}
-          <button
-            onClick={toggleVideoMute}
-            className="absolute top-4 right-4 md:top-8 md:right-8 z-10 bg-black bg-opacity-30 hover:bg-opacity-50 rounded-full p-3 md:p-4 transition-all duration-300 backdrop-blur-sm opacity-70 hover:opacity-90"
-            aria-label={isVideoMuted ? "Unmute video" : "Mute video"}
-          >
-            {isVideoMuted ? (
-              // Muted icon
-              <svg
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                className="w-5 h-5 md:w-6 md:h-6 text-white"
-              >
-                <path
-                  d="M16.5 12C16.5 10.23 15.5 8.71 14 7.97V9.18L16.45 11.63C16.48 11.86 16.5 12.08 16.5 12ZM19 12C19 12.94 18.8 13.82 18.46 14.64L19.97 16.15C20.63 14.91 21 13.5 21 12C21 7.72 18 4.14 14 3.23V5.29C16.89 6.15 19 8.83 19 12ZM4.27 3L3 4.27L7.73 9H3V15H7L12 20V13.27L16.25 17.53C15.58 18.04 14.83 18.46 14 18.7V20.77C15.38 20.45 16.63 19.82 17.68 18.96L19.73 21L21 19.73L12 10.73L4.27 3ZM12 4L9.91 6.09L12 8.18V4Z"
-                  fill="currentColor"
-                />
-              </svg>
-            ) : (
-              // Unmuted icon
-              <svg
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                className="w-5 h-5 md:w-6 md:h-6 text-white"
-              >
-                <path
-                  d="M3 9V15H7L12 20V4L7 9H3ZM16.5 12C16.5 10.23 15.5 8.71 14 7.97V16.02C15.5 15.29 16.5 13.77 16.5 12ZM14 3.23V5.29C16.89 6.15 19 8.83 19 12S16.89 17.85 14 18.71V20.77C18.01 19.86 21 16.28 21 12S18.01 4.14 14 3.23Z"
-                  fill="currentColor"
-                />
-              </svg>
-            )}
-          </button>
-        </div>
-      </section>
+      <BrandVideoPlayer
+        videoSrc={videoSection.videoSrc}
+        backgroundColor={videoSection.backgroundColor}
+      />
     </section>
   );
 }

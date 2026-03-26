@@ -835,6 +835,7 @@ export default function About({ aboutContent, servicesData }: any) {
                         ref={videoRef}
                         className="block w-full h-full object-cover md:h-auto lg:absolute lg:inset-0 lg:w-full lg:h-full lg:object-cover lg:scale-[0.9]"
                         playsInline
+                        autoPlay
                         loop
                         muted
                         preload="auto"

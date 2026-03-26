@@ -22,12 +22,21 @@ export async function GET(request: NextRequest) {
     }
 
     const contentType = response.headers.get('content-type') || '';
+
+    // 🔥 Fix only for video files
+    let finalContentType = contentType;
+
+    if (url.endsWith('.mp4')) {
+      finalContentType = 'video/mp4';
+    }
+
     const buffer = await response.arrayBuffer();
 
     return new NextResponse(buffer, {
       headers: {
-        'Content-Type': contentType,
-        'Cache-Control': 'public, max-age=3600', // Cache for 1 hour
+        'Content-Type': finalContentType, // ✅ fixed
+        'Cache-Control': 'public, max-age=3600',
+        'Accept-Ranges': 'bytes', // ✅ important for iOS
       },
     });
   } catch (error) {

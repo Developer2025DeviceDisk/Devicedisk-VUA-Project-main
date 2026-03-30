@@ -829,8 +829,6 @@ export default function About({ aboutContent, servicesData }: any) {
                             </h1>
                         </>
                     )}
-
-
                     <video
                         ref={videoRef}
                         className="block w-full h-full object-cover md:h-auto lg:absolute lg:inset-0 lg:w-full lg:h-full lg:object-cover lg:scale-[0.9]"
@@ -839,8 +837,9 @@ export default function About({ aboutContent, servicesData }: any) {
                         loop
                         muted
                         preload="auto"
-                        src={getVideoUrl(videoSection.videoSrc)}
-                    />
+                    >
+                        <source src={getVideoUrl(videoSection.videoSrc)} type="video/mp4" />
+                    </video>
 
                     {/* Sound Toggle Button */}
                     <button

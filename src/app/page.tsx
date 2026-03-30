@@ -1,4 +1,4 @@
-import About from "./components/About";
+import AboutNew1 from "./components/AboutNew1";
 import { WithGenericLoader } from "./components/Loader";
 export const dynamic = 'force-dynamic';
 // TypeScript interfaces for About content
@@ -89,7 +89,7 @@ export default async function Homepage() {
   return (
     <div>
       <WithGenericLoader>
-        <About aboutContent={aboutContent} />
+        <AboutNew1 aboutContent={aboutContent} />
       </WithGenericLoader>
     </div>
   );

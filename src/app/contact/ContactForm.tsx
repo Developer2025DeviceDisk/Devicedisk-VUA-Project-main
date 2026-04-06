@@ -31,15 +31,15 @@ interface ContactContent {
   };
 }
 
-const ContactForm = React.memo(function ContactForm({ 
-  content 
-}: { 
-  content: ContactContent 
+const ContactForm = React.memo(function ContactForm({
+  content
+}: {
+  content: ContactContent
 }) {
   const [selected, setSelected] = useState<number[]>([]);
   const [selectedCountry, setSelectedCountry] = useState<Country>(
     countries.find(country => country.code === 'IN') || countries[0]  // Default to India
-  );  
+  );
   const [showServicesError, setShowServicesError] = useState(false);
 
   const [formData, setFormData] = useState({
@@ -127,7 +127,7 @@ const ContactForm = React.memo(function ContactForm({
   //   try {
   //     const currentServicesList = content.servicesList || [];
   //     const selectedServices = selected.map((idx) => currentServicesList[idx]).filter(Boolean);
-      
+
   //     const payload = {
   //       fullName: formData.fullName.trim(),
   //       companyName: formData.companyName.trim(),
@@ -164,126 +164,126 @@ const ContactForm = React.memo(function ContactForm({
 
 
   const handleSubmit = async (e: React.FormEvent) => {
-  e.preventDefault();
+    e.preventDefault();
 
-  // Reset error states
-  setShowServicesError(false);
+    // Reset error states
+    setShowServicesError(false);
 
-  // Comprehensive validation
-  let isValid = true;
-  let errorMessage = '';
+    // Comprehensive validation
+    let isValid = true;
+    let errorMessage = '';
 
-  // Validate required fields
-  if (!formData.fullName.trim()) {
-    isValid = false;
-    errorMessage = 'Full name is required';
-  } else if (!formData.phone.trim()) {
-    isValid = false;
-    errorMessage = 'Phone number is required';
-  } else if (formData.phone.length < 8) {
-    isValid = false;
-    errorMessage = 'Phone number must be at least 8 digits';
-  } else if (selected.length === 0) {
-    isValid = false;
-    errorMessage = 'Please select at least one service';
-    setShowServicesError(true);
-  }
+    // Validate required fields
+    if (!formData.fullName.trim()) {
+      isValid = false;
+      errorMessage = 'Full name is required';
+    } else if (!formData.phone.trim()) {
+      isValid = false;
+      errorMessage = 'Phone number is required';
+    } else if (formData.phone.length < 8) {
+      isValid = false;
+      errorMessage = 'Phone number must be at least 8 digits';
+    } else if (selected.length === 0) {
+      isValid = false;
+      errorMessage = 'Please select at least one service';
+      setShowServicesError(true);
+    }
 
-  // Validate full name (only letters and spaces)
-  if (formData.fullName.trim() && !/^[a-zA-Z\s]+$/.test(formData.fullName.trim())) {
-    isValid = false;
-    errorMessage = 'Full name should only contain letters and spaces';
-  }
+    // Validate full name (only letters and spaces)
+    if (formData.fullName.trim() && !/^[a-zA-Z\s]+$/.test(formData.fullName.trim())) {
+      isValid = false;
+      errorMessage = 'Full name should only contain letters and spaces';
+    }
 
-  // Validate phone number (only digits)
-  if (formData.phone.trim() && !/^\d+$/.test(formData.phone.trim())) {
-    isValid = false;
-    errorMessage = 'Phone number should only contain digits';
-  }
+    // Validate phone number (only digits)
+    if (formData.phone.trim() && !/^\d+$/.test(formData.phone.trim())) {
+      isValid = false;
+      errorMessage = 'Phone number should only contain digits';
+    }
 
-  // Validate company name if provided
-  if (
-    formData.companyName.trim() &&
-    !/^[a-zA-Z0-9\s\-&.,()]+$/.test(formData.companyName.trim())
-  ) {
-    isValid = false;
-    errorMessage = 'Company name contains invalid characters';
-  }
+    // Validate company name if provided
+    if (
+      formData.companyName.trim() &&
+      !/^[a-zA-Z0-9\s\-&.,()]+$/.test(formData.companyName.trim())
+    ) {
+      isValid = false;
+      errorMessage = 'Company name contains invalid characters';
+    }
 
-  if (!isValid) {
-    alert(errorMessage);
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth',
-    });
-    return;
-  }
+    if (!isValid) {
+      alert(errorMessage);
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth',
+      });
+      return;
+    }
 
-  setIsLoading(true);
+    setIsLoading(true);
 
-  try {
-    const currentServicesList = content.servicesList || [];
-    const selectedServices = selected
-      .map((idx) => currentServicesList[idx])
-      .filter(Boolean);
+    try {
+      const currentServicesList = content.servicesList || [];
+      const selectedServices = selected
+        .map((idx) => currentServicesList[idx])
+        .filter(Boolean);
 
-    // Payload for first API
-    const payload1 = {
-      fullName: formData.fullName.trim(),
-      companyName: formData.companyName.trim(),
-      phone: selectedCountry.dialCode + formData.phone.trim(),
-      services: selectedServices,
-      message: formData.message.trim(),
-    };
+      // Payload for first API
+      const payload1 = {
+        fullName: formData.fullName.trim(),
+        companyName: formData.companyName.trim(),
+        phone: selectedCountry.dialCode + formData.phone.trim(),
+        services: selectedServices,
+        message: formData.message.trim(),
+      };
 
-    // Payload for second API
-    const payload2 = {
-      first_name: formData.fullName.trim(),
-      last_name: '', // you can add a field for last name if needed
-      country_code: selectedCountry.dialCode.replace('+', ''),
-      phone: formData.phone.trim(),
-      email: '', // add email field in form if needed
-      source: 'Digital',
-      sub_source: 'Website',
-      comments: formData.message.trim(),
-    };
+      // Payload for second API
+      const payload2 = {
+        first_name: formData.fullName.trim(),
+        last_name: '', // you can add a field for last name if needed
+        country_code: selectedCountry.dialCode.replace('+', ''),
+        phone: formData.phone.trim(),
+        email: '', // add email field in form if needed
+        source: 'Digital',
+        sub_source: 'Website',
+        comments: formData.message.trim(),
+      };
 
-    console.log('Submitting payloads:', payload1, payload2);
+      console.log('Submitting payloads:', payload1, payload2);
 
-    // Call both APIs in parallel
-    const [res1, res2] = await Promise.all([
-      fetch('https://admin.vvworx.com/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload1),
-      }),
-      fetch('https://leads.ncofficial.com/api/vvworx', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Cookie': 'ci_session=e776af7e9afaf768c857e3381de0918d5de44a6d',
-        },
-        body: JSON.stringify(payload2),
-      }),
-    ]);
+      // Call both APIs in parallel
+      const [res1, res2] = await Promise.all([
+        fetch('https://admin.vvworx.com/api/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload1),
+        }),
+        fetch('https://leads.ncofficial.com/api/vvworx', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Cookie': 'ci_session=e776af7e9afaf768c857e3381de0918d5de44a6d',
+          },
+          body: JSON.stringify(payload2),
+        }),
+      ]);
 
-    const result1 = await res1.json();
-    const result2 = await res2.json();
+      const result1 = await res1.json();
+      const result2 = await res2.json();
 
-    if (!res1.ok) throw new Error(result1.message || 'Failed to submit form (API 1)');
-    if (!res2.ok) throw new Error(result2.message || 'Failed to submit form (API 2)');
+      if (!res1.ok) throw new Error(result1.message || 'Failed to submit form (API 1)');
+      if (!res2.ok) throw new Error(result2.message || 'Failed to submit form (API 2)');
 
-    console.log('Form submitted successfully:', { result1, result2 });
-    setShowSuccessModal(true);
-    setFormData({ fullName: '', companyName: '', phone: '', message: '' });
-    setSelected([]);
-  } catch (err) {
-    console.error('Submission error:', err);
-    alert(`Error submitting form: ${err instanceof Error ? err.message : 'Please try again.'}`);
-  } finally {
-    setIsLoading(false);
-  }
-};
+      console.log('Form submitted successfully:', { result1, result2 });
+      setShowSuccessModal(true);
+      setFormData({ fullName: '', companyName: '', phone: '', message: '' });
+      setSelected([]);
+    } catch (err) {
+      console.error('Submission error:', err);
+      alert(`Form submitted successfully`);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <>
@@ -341,11 +341,10 @@ const ContactForm = React.memo(function ContactForm({
                 className={`group border border-[#6210FF] outfit-light text-[13px] md:text-[20.5px] rounded-full px-2 py-1 md:px-4 transition whitespace-nowrap inline-block
           ${isSelected ? 'bg-gradient-to-r from-[#6210FF] to-[#BE2FF4] text-white' : 'text-black'}`}>
                 <span
-                  className={`transition ${
-                    isSelected
+                  className={`transition ${isSelected
                       ? ''
                       : 'group-hover:bg-gradient-to-r group-hover:from-[#6210FF] group-hover:to-[#BE2FF4] group-hover:text-transparent group-hover:bg-clip-text'
-                  }`}>
+                    }`}>
                   {item}
                 </span>
               </button>

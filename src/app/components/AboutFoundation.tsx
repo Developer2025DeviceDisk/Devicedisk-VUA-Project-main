@@ -117,9 +117,9 @@ export default function AboutFoundation({ aboutContent, foundationSection }: Abo
     return (
         <section
             ref={aboutScrollSectionRef}
-            className="relative w-full min-h-screen flex items-center justify-center overflow-hidden bg-[#EEF0FF] py-8 lg:py-8"
+            className="relative w-full min-h-screen lg:min-h-0 xl:min-h-screen flex items-center justify-center overflow-hidden bg-[#EEF0FF] py-12 lg:py-16 xl:py-8"
         >
-            <div className="relative w-full max-w-[1250px] mx-auto px-4 lg:px-8 flex flex-col lg:flex-row lg:item-center lg:justify-center gap-4 lg:gap-16 xl:gap-24">
+            <div className="relative w-full max-w-[1250px] mx-auto px-4 lg:px-8 flex flex-col lg:flex-row lg:items-center lg:justify-center gap-4 lg:gap-8 xl:gap-24">
                 {/* Left Column: Dark About Card */}
                 <div className="w-full lg:w-1/2 max-w-[700px] xl:max-w-[900px] ">
                     <div
@@ -217,7 +217,7 @@ export default function AboutFoundation({ aboutContent, foundationSection }: Abo
                         {foundationSection.title}
                     </h2>
 
-                    <div className="flex flex-col gap-6 lg:gap-8">
+                    <div className="flex flex-col gap-6 lg:gap-6 xl:gap-8">
                         {foundationSection.foundations.slice(0, 4).map((foundation: any, index: number) => {
                             const refs = [
                                 foundationItem1Ref,

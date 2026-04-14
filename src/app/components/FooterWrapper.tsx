@@ -128,20 +128,47 @@ async function getFooterContent(): Promise<FooterContent> {
   });
 
   try {
-    const response = await fetch('https://admin.vvworx.com/api/footer-content/active', {
-      next: { revalidate: 60 }, // Revalidate every 60 seconds
-      // cache: 'no-store' // For development, remove in production
-    });
-    const result = await response.json();
+    const [footerResponse, contactResponse] = await Promise.all([
+      fetch('https://admin.vvworx.com/api/footer-content/active', {
+        next: { revalidate: 60 },
+      }),
+      fetch('https://admin.vvworx.com/api/contact-content/active', {
+        next: { revalidate: 60 },
+      })
+    ]);
     
-    if (result.success && result.data) {
-      return result.data;
+    const footerResult = await footerResponse.json();
+    let finalContent = getDefaultFooterContent();
+
+    if (footerResult.success && footerResult.data) {
+      finalContent = { ...finalContent, ...footerResult.data };
     } else {
-      console.log('Using default footer content:', result.message);
-      return getDefaultFooterContent();
+      console.log('Using default footer content:', footerResult.message);
     }
+
+    if (contactResponse.ok) {
+      const contactResult = await contactResponse.json();
+      if (contactResult.success && contactResult.data?.mapSection?.locations) {
+        // Map contact content locations to footer format
+        const mappedLocations: OfficeLocation[] = contactResult.data.mapSection.locations.map((loc: any) => ({
+          city: loc.city,
+          isActive: loc.isActive,
+          phone: loc.phone,
+          order: loc.order,
+          address: {
+            line1: loc.address[0] || '',
+            line2: loc.address[1] || '',
+            line3: loc.address.slice(2).join(', ') || ''
+          }
+        }));
+        
+        finalContent.officeLocations = mappedLocations;
+      }
+    }
+
+    return finalContent;
   } catch (error) {
-    console.error('Error fetching footer content:', error);
+    console.error('Error fetching footer or contact content:', error);
     return getDefaultFooterContent();
   }
 }

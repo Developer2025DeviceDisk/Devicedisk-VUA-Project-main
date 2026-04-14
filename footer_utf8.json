@@ -1,0 +1,135 @@
+{
+  "success": true,
+  "data": {
+    "companyInfo": {
+      "name": "",
+      "logo": "/uploads/about/about-1765478935627-180976120.png",
+      "description": ""
+    },
+    "socialLinks": {
+      "followText": "Follow Us:",
+      "links": [
+        {
+          "platform": "linkedin",
+          "url": "https://www.linkedin.com/company/voix-vision-worx/",
+          "isActive": true,
+          "_id": "696e1ccdef0312bdd0740909"
+        },
+        {
+          "platform": "facebook",
+          "url": "https://www.facebook.com/people/Voix-Vision-Worx/61575858395596/",
+          "isActive": true,
+          "_id": "696e1ccdef0312bdd074090a"
+        },
+        {
+          "platform": "instagram",
+          "url": "http://instagram.com/vvworx/",
+          "isActive": true,
+          "_id": "696e1ccdef0312bdd074090b"
+        },
+        {
+          "platform": "behance",
+          "url": "https://www.behance.net/vvworx",
+          "isActive": true,
+          "_id": "696e1ccdef0312bdd074090c"
+        },
+        {
+          "platform": "youtube",
+          "url": "http://www.youtube.com/@VVWorx",
+          "isActive": true,
+          "_id": "696e1ccdef0312bdd074090d"
+        }
+      ]
+    },
+    "navigationMenu": {
+      "title": "Quick Links",
+      "links": [
+        {
+          "text": "Home",
+          "url": "/",
+          "isActive": true,
+          "order": 1,
+          "_id": "696e1ccdef0312bdd074090e"
+        },
+        {
+          "text": "Services",
+          "url": "/services",
+          "isActive": true,
+          "order": 2,
+          "_id": "696e1ccdef0312bdd074090f"
+        },
+        {
+          "text": "About Us",
+          "url": "/About",
+          "isActive": true,
+          "order": 3,
+          "_id": "696e1ccdef0312bdd0740910"
+        },
+        {
+          "text": "Contact Us",
+          "url": "/contact",
+          "isActive": true,
+          "order": 4,
+          "_id": "696e1ccdef0312bdd0740911"
+        },
+        {
+          "text": "Privacy Policy",
+          "url": "/privacy-policy",
+          "isActive": true,
+          "order": 5,
+          "_id": "696e1ccdef0312bdd0740912"
+        }
+      ]
+    },
+    "styling": {
+      "backgroundColor": "bg-gradient-to-r from-[#5F00F6] to-[#B933FF]",
+      "textColor": "text-white",
+      "fontFamily": "Outfit"
+    },
+    "_id": "696e1ccdef0312bdd0740908",
+    "officeLocations": [
+      {
+        "address": {
+          "line1": "14th Floor, Office No 1402, Burjuman",
+          "line2": "Business Tower, Burjuman, Dubai.",
+          "line3": ""
+        },
+        "city": "Dubai",
+        "isActive": true,
+        "phone": "+971 56 189 9800",
+        "order": 1,
+        "_id": "696e1ccdef0312bdd0740913"
+      },
+      {
+        "address": {
+          "line1": "Unit No 711, A Wing, Centrum Business Square, Road No 16,",
+          "line2": "Wagle Estate, Thane(W) - 400604",
+          "line3": ""
+        },
+        "city": "Mumbai",
+        "isActive": true,
+        "phone": "+91 88502 95464",
+        "order": 2,
+        "_id": "696e1ccdef0312bdd0740914"
+      },
+      {
+        "address": {
+          "line1": "Office 3B, 2nd Floor, Building 3, Cerebrum IT Park,",
+          "line2": "Kalyaninagar, 411032.",
+          "line3": ""
+        },
+        "city": "Pune",
+        "isActive": true,
+        "phone": "+91 87796 32312",
+        "order": 3,
+        "_id": "696e1ccdef0312bdd0740915"
+      }
+    ],
+    "isActive": true,
+    "version": "1.0",
+    "lastUpdatedBy": "Admin",
+    "createdAt": "2026-01-19T12:00:13.368Z",
+    "updatedAt": "2026-01-19T12:00:13.400Z",
+    "__v": 0
+  }
+}

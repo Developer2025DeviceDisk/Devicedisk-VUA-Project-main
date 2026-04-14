@@ -797,7 +797,7 @@ export default function About({ aboutContent, servicesData }: any) {
             {/* Video Section */}
             <section
                 ref={videoSectionRef}
-                className="relative w-full h-screen md:h-auto lg:h-screen flex items-center justify-center overflow-hidden p-0 m-0"
+                className="relative w-full h-screen md:h-auto xl:h-screen flex items-center justify-center overflow-hidden p-0 m-0"
                 style={{ backgroundColor: videoSection.backgroundColor }}
             >
                 <div className="relative w-full h-full">
@@ -831,7 +831,7 @@ export default function About({ aboutContent, servicesData }: any) {
                     )}
                     <video
                         ref={videoRef}
-                        className="block w-full h-full object-cover md:h-auto lg:absolute lg:inset-0 lg:w-full lg:h-full lg:object-cover lg:scale-[0.9]"
+                        className="block w-full h-full object-cover md:h-auto xl:absolute xl:inset-0 xl:w-full xl:h-full xl:object-cover lg:scale-[0.95] xl:scale-[0.9]"
                         playsInline
                         autoPlay
                         loop
@@ -887,7 +887,7 @@ export default function About({ aboutContent, servicesData }: any) {
 
 
             {/* Our Work Header */}
-            <div className="w-full py-10 lg:py-16 bg-[#EEF0FF] flex flex-col items-center justify-center text-center px-4">
+            <div className="w-full py-10 lg:py-12 xl:py-16 bg-[#EEF0FF] flex flex-col items-center justify-center text-center px-4">
                 <div className="relative mb-8">
                     <h2 className="text-[48px] lg:text-[60px] font-light text-[#6210FF] tracking-tight"
                         style={{ fontFamily: "PetrovSans", fontWeight: 400 }}>
@@ -1102,7 +1102,7 @@ export default function About({ aboutContent, servicesData }: any) {
                         ref={(el) => {
                             cardRefs.current[index] = el;
                         }}
-                        className={`absolute ${index === 0 ? "top-[40%]" : "top-[100%]"} z-${index * 10} mb-5 bg-white rounded-[10px] lg:rounded-[30px] shadow-lg max-w-[90%] lg:max-w-[800px] xl:max-w-[1100px] 2xl:max-w-[70%] flex flex-col lg:flex-row overflow-hidden mx-4 lg:mx-0 h-auto lg:h-[500px]`}
+                        className={`absolute ${index === 0 ? "top-[25%] xl:top-[40%]" : "top-[100%]"} z-${index * 10} mb-5 bg-white rounded-[10px] lg:rounded-[30px] shadow-lg max-w-[90%] lg:max-w-[800px] xl:max-w-[1100px] 2xl:max-w-[70%] flex flex-col lg:flex-row overflow-hidden mx-4 lg:mx-0 h-auto lg:h-[450px] xl:h-[500px]`}
                         style={{ boxShadow: "0 20px 50px -10px rgba(190, 47, 244, 0.3)" }}
                     >
                         <div

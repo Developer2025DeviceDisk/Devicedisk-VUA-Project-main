@@ -60,7 +60,8 @@ export default function InstagramFeed() {
             try {
                 // Determine API URL: Use env var if set, otherwise default to production backend.
                 // NOTE: This will connect to the LIVE backend. Ensure backend changes are deployed.
-                const baseUrl = process.env.NEXT_PUBLIC_API_URL || 'https://admin.vvworx.com';
+                // const baseUrl = process.env.NEXT_PUBLIC_API_URL 
+                const baseUrl = 'https://admin.vvworx.com';
                 const API_URL = baseUrl.replace(/\/$/, '');
 
                 const response = await fetch(`${API_URL}/api/instagram/posts`);
